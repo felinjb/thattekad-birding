@@ -1,0 +1,474 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 4rem 0;
+}
+
+/* Header & Nav */
+header {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    color: #2E5A27; 
+    font-weight: 600;
+}
+
+.logo i {
+    margin-right: 8px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 20px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #2E5A27;
+}
+
+/* Hero Section */
+#hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/coverimage.jpg') center/cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn i {
+    margin-right: 6px;
+}
+
+.primary-btn {
+    background: #25D366; 
+    color: #fff;
+}
+
+.primary-btn:hover {
+    background: #128C7E;
+}
+
+.secondary-btn {
+    background: #2E5A27;
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+}
+
+.secondary-btn:hover {
+    background: #1f3d1a;
+}
+
+/* Typography & Layout */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2E5A27;
+    margin-bottom: 3rem;
+}
+
+.bg-light {
+    background: #f4f7f6;
+}
+
+/* Grids for About, Packages & FAQ */
+.about-grid, .package-grid, .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Cards & Hover Animations */
+.about-card, .package-card, .testimonial-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card, .testimonial-card {
+    padding: 30px;
+    text-align: center;
+}
+
+.about-card:hover, .package-card:hover, .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}
+
+.about-card h3 {
+    color: #2E5A27;
+    margin-bottom: 15px;
+}
+
+/* Icon Styling */
+.feature-icon {
+    font-size: 2.5rem;
+    color: #25D366; 
+    margin-bottom: 15px;
+}
+
+/* Package Images */
+.package-card {
+    padding: 0; 
+    overflow: hidden; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.package-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 3px solid #2E5A27;
+}
+
+.package-card h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 0 20px;
+}
+
+.duration {
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding: 0 20px;
+}
+
+.package-card p:not(.duration) {
+    padding: 0 20px;
+    margin-bottom: 15px;
+    flex-grow: 1; 
+}
+
+/* Gallery Slider Styling */
+.gallery-subtitle {
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 40px;
+    color: #666;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+.swiper {
+    width: 100%;
+    padding-bottom: 50px !important; 
+}
+
+.swiper-slide {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover;
+    display: block;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: #2E5A27; 
+    background: rgba(255, 255, 255, 0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 1.2rem;
+}
+
+.swiper-pagination-bullet-active {
+    background: #2E5A27; 
+}
+
+/* Accommodation Banner Styling */
+.stay-banner {
+    background-color: #2E5A27;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.stay-container h2 {
+    color: #fff;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.stay-container p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 25px auto;
+    opacity: 0.9;
+}
+
+.stay-btn {
+    background-color: #fff;
+    color: #2E5A27;
+}
+
+.stay-btn:hover {
+    background-color: #f0f0f0;
+    color: #1f3d1a;
+}
+
+/* Testimonials & FAQ */
+.quote-icon {
+    font-size: 2rem;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.quote-text {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.quote-author {
+    font-weight: 600;
+    color: #2E5A27;
+}
+
+.faq-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.faq-item {
+    background: #fff;
+    padding: 25px;
+    border-left: 4px solid #2E5A27;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.faq-item h3 {
+    color: #2E5A27;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.faq-item p {
+    color: #555;
+}
+
+/* Floating WhatsApp Button */
+.float-whatsapp {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.float-whatsapp:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+/* Footer */
+footer {
+    background: #2E5A27;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+footer h2 {
+    margin-bottom: 15px;
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* MODAL FORM STYLING */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6); 
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-btn {
+    color: #999;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+#bookingForm label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+#bookingForm input, 
+#bookingForm select, 
+#bookingForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+#bookingForm input:focus, 
+#bookingForm select:focus, 
+#bookingForm textarea:focus {
+    outline: none;
+    border-color: #2E5A27;
+}
+
+#bookingForm button {
+    margin-top: 25px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    nav {
+        margin-top: 15px;
+    }
+    nav a {
+        margin: 0 10px;
+    }
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+    .swiper-slide img {
+        height: 220px;
+    }
+    .swiper-button-next, .swiper-button-prev {
+        display: none;
+    }
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+    .float-whatsapp {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+    }
+    .modal-content {
+        margin: 15% auto;
+        padding: 20px;
+    }
+}

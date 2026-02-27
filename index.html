@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thattekad Birding | Expert Local Guides & Tours</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <h1 class="logo"><i class="fas fa-feather-alt"></i> Thattekad Birding</h1>
+            <nav>
+                <a href="#about">Why Us</a>
+                <a href="#packages">Tours</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#accommodation">Stay</a>
+                <a href="#testimonials">Reviews</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h2>Book Thattekad's Best Local Birding Guides</h2>
+            <p>We connect passionate birders and nature lovers with the sharpest indigenous trackers in the sanctuary.</p>
+            <a href="https://wa.me/918921243251" class="btn primary-btn" target="_blank"><i class="fab fa-whatsapp"></i> Message on WhatsApp</a>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">More Than Just a Walk in the Woods</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <i class="fas fa-binoculars feature-icon"></i>
+                <h3>Expert Spotters</h3>
+                <p>We work exclusively with local guides who possess incredible spotting skills and know the calls of deep-forest endemics.</p>
+            </div>
+            <div class="about-card">
+                <i class="fas fa-route feature-icon"></i>
+                <h3>Direct Access</h3>
+                <p>Skip the middleman. You tell us what you want to see, and we assign the specific guide who knows exactly where to find it.</p>
+            </div>
+            <div class="about-card">
+                <i class="fas fa-bed feature-icon"></i>
+                <h3>Local Assistance</h3>
+                <p>From booking your expert guide to helping you find the perfect birding-friendly homestay, we make your trip effortless.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="packages" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">Guide & Tour Packages</h2>
+            <div class="package-grid">
+                
+                <div class="package-card">
+                    <img src="images/Guided Sanctuary Trail.jpg" alt="Guided Sanctuary Trail" class="package-img">
+                    <h3>Guided Sanctuary Trail</h3>
+                    <p class="duration"><i class="fas fa-tree"></i> 3 - 4 Hours</p>
+                    <p>Explore the core Salim Ali Bird Sanctuary with our certified guides.</p>
+                    <button class="btn secondary-btn open-modal-btn" data-plan="Guided Sanctuary Trail">Request Booking</button>
+                </div>
+
+                <div class="package-card">
+                    <img src="images/Early Morning Chorus.jpg" alt="Early Morning Chorus" class="package-img">
+                    <h3>Early Morning Chorus</h3>
+                    <p class="duration"><i class="fas fa-sun"></i> 6:30 AM - 9:00 AM</p>
+                    <p>Hit the trails at peak activity hours for the best birding and photography light.</p>
+                    <button class="btn secondary-btn open-modal-btn" data-plan="Early Morning Chorus">Request Booking</button>
+                </div>
+                
+                <div class="package-card">
+                    <img src="images/Night Birding Expedition.jpg" alt="Night Birding Expedition" class="package-img">
+                    <h3>Night Birding Expedition</h3>
+                    <p class="duration"><i class="fas fa-moon"></i> Post-Sunset Track</p>
+                    <p>Focus entirely on spotting elusive owls, nightjars, and sleeping endemics.</p>
+                    <button class="btn secondary-btn open-modal-btn" data-plan="Night Birding Expedition">Request Booking</button>
+                </div>
+                
+                <div class="package-card">
+                    <img src="images/Target Species Tracking.jpg" alt="Target Species Tracking" class="package-img">
+                    <h3>Target Species Tracking</h3>
+                    <p class="duration"><i class="fas fa-crosshairs"></i> Custom Duration</p>
+                    <p>Looking for a specific bird? We will assign a specialist tracker for your target.</p>
+                    <button class="btn secondary-btn open-modal-btn" data-plan="Target Species Tracking">Request Booking</button>
+                </div>
+
+                <div class="package-card">
+                    <img src="images/Village & Culture Walk.jpg" alt="Village & Culture Walk" class="package-img">
+                    <h3>Village & Culture Walk</h3>
+                    <p class="duration"><i class="fas fa-walking"></i> 3 - 4 Hours</p>
+                    <p>Experience authentic Kerala village life, rubber plantations, and spice farms.</p>
+                    <button class="btn secondary-btn open-modal-btn" data-plan="Village & Culture Walk">Request Booking</button>
+                </div>
+
+                <div class="package-card">
+                    <img src="images/The Photographer's Special.jpg" alt="The Photographer's Special" class="package-img">
+                    <h3>The Photographer's Special</h3>
+                    <p class="duration"><i class="fas fa-camera"></i> Custom Duration</p>
+                    <p>Slow-paced tracking focusing on lighting, angles, and perfect perches.</p>
+                    <button class="btn secondary-btn open-modal-btn" data-plan="The Photographer's Special">Request Booking</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="container">
+        <h2 class="section-title">Birding Gallery</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="images/image 1.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 2.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 3.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 4.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 5.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 6.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 7.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 8.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 9.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 10.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 11.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 12.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 13.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 14.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 15.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 16.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 17.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 18.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 19.jpg"></div>
+                <div class="swiper-slide"><img src="images/image 20.jpg"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <section id="accommodation" class="stay-banner">
+        <div class="container stay-container">
+            <h2>Need a Place to Stay in Thattekad?</h2>
+            <p>Tell us your budget, and we'll help you secure the perfect birding-friendly room.</p>
+            <a href="https://wa.me/918921243251?text=Hi, I am looking for a room in Thattekad. Can you help?" class="btn stay-btn" target="_blank"><i class="fas fa-home"></i> Get Room Recommendations</a>
+        </div>
+    </section>
+
+    <section id="testimonials" class="bg-light">
+        <div class="container">
+            <h2 class="section-title">What Guests Say</h2>
+            <div class="about-grid">
+                <div class="testimonial-card">
+                    <p class="quote-text">"Incredible eye and deep knowledge of the forest."</p>
+                    <p class="quote-author">- John D., UK</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="quote-text">"The village tour was a breath of fresh air. Highlight of our trip!"</p>
+                    <p class="quote-author">- Sarah M., Australia</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="quote-text">"They recommended a beautiful homestay. Perfect weekend."</p>
+                    <p class="quote-author">- Rahul K., Bangalore</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>Email: info@thattekadbirding.com | WhatsApp: +91 8921243251</p>
+            <p class="copyright">&copy; 2026 Thattekad Birding & Tours.</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/918921243251" class="float-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Request a Guide</h2>
+            <form id="bookingForm">
+                <label>Name:</label>
+                <input type="text" id="formName" required>
+                <label>Package:</label>
+                <select id="formPlan">
+                    <option value="Guided Sanctuary Trail">Guided Sanctuary Trail</option>
+                    <option value="Early Morning Chorus">Early Morning Chorus</option>
+                    <option value="Night Birding Expedition">Night Birding Expedition</option>
+                    <option value="Target Species Tracking">Target Species Tracking</option>
+                    <option value="Village & Culture Walk">Village & Culture Walk</option>
+                    <option value="The Photographer's Special">The Photographer's Special</option>
+                </select>
+                <label>Date:</label>
+                <input type="date" id="formDate" required>
+                <label>People:</label>
+                <input type="number" id="formPax" min="1" required>
+                <label>Room Assistance?</label>
+                <select id="formRoom">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+                <label>Notes:</label>
+                <textarea id="formNotes" rows="2"></textarea>
+                <button type="submit" class="btn primary-btn" style="width: 100%;">Send via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1, spaceBetween: 10, loop: true,
+            autoplay: { delay: 3000 },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            breakpoints: { 768: { slidesPerView: 3, spaceBetween: 20 } },
+        });
+
+        const modal = document.getElementById("bookingModal");
+        const closeBtn = document.querySelector(".close-btn");
+        const planSelect = document.getElementById("formPlan");
+
+        document.querySelectorAll('.open-modal-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                planSelect.value = this.getAttribute('data-plan');
+                modal.style.display = "block";
+            });
+        });
+
+        closeBtn.onclick = function() { modal.style.display = "none"; }
+        window.onclick = function(e) { if (e.target == modal) modal.style.display = "none"; }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let name = document.getElementById('formName').value;
+            let plan = document.getElementById('formPlan').value;
+            let date = document.getElementById('formDate').value;
+            let pax = document.getElementById('formPax').value;
+            let room = document.getElementById('formRoom').value;
+            let notes = document.getElementById('formNotes').value;
+            
+            let message = `Hi! Tour Inquiry:%0A*Name:* ${name}%0A*Package:* ${plan}%0A*Date:* ${date}%0A*People:* ${pax}%0A*Room Help:* ${room}%0A*Notes:* ${notes}`;
+            window.open(`https://wa.me/918921243251?text=${message}`, '_blank');
+            modal.style.display = "none";
+        });
+    </script>
+</body>
+</html>
