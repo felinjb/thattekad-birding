@@ -3,239 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thattekkad Birding | Luxury Wildlife Expeditions</title>
     
-    <title>Thattekad Birding | Expert Local Guides & Bird Watching Tours</title>
-    <meta name="description" content="Book expert local birding guides in Thattekad. Specialized tours for Salim Ali Bird Sanctuary, target species tracking, and birding-friendly homestays in Kerala.">
-    <meta name="keywords" content="Thattekad birding, birding guides Thattekad, Salim Ali Bird Sanctuary tours, bird watching Kerala, Frogmouth tracking Thattekad, Kerala bird photography">
-    <link rel="canonical" href="https://thattekadbirding.com/" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <meta name="google-site-verification" content="PASTE_YOUR_CODE_FROM_SEARCH_CONSOLE_HERE" />
+    <style>
+        :root { 
+            --bg-dark: #0a0a0a; 
+            --card-bg: #161616; 
+            --gold: #d4af37; 
+            --text-gray: #a0a0a0; 
+        }
+        
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
+            background: var(--bg-dark); 
+            color: white; 
+            overflow-x: hidden; 
+        }
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        /* Luxury Hero Section */
+        header { 
+            height: 100vh; 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4)), url('images/image1.webp'); 
+            background-size: cover; 
+            background-position: center; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(3rem, 8vw, 5.5rem); 
+            margin: 0; 
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .gold-line {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px 0;
+        }
+
+        .btn-luxury { 
+            padding: 15px 50px; 
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.5s; 
+            margin-top: 30px;
+        }
+
+        .btn-luxury:hover { 
+            background: var(--gold); 
+            color: black; 
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Service Cards - Jesko Style */
+        .section { padding: 120px 20px; max-width: 1300px; margin: auto; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 40px; 
+            margin-top: 60px;
+        }
+
+        .luxury-card { 
+            background: var(--card-bg); 
+            padding: 50px 40px; 
+            border: 1px solid #222;
+            transition: 0.4s; 
+            position: relative;
+        }
+
+        .luxury-card:hover { 
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .luxury-card h3 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem; 
+            color: var(--gold);
+            margin-top: 0;
+        }
+
+        .luxury-card p { color: var(--text-gray); line-height: 1.8; }
+
+        /* Large Image Highlight */
+        .feature-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        .feature-img { 
+            flex: 1; 
+            min-width: 300px; 
+            border: 1px solid var(--gold);
+            padding: 10px;
+        }
+        .feature-img img { width: 100%; display: block; filter: grayscale(30%); transition: 0.5s; }
+        .feature-img img:hover { filter: grayscale(0%); }
+
+        .whatsapp-float { 
+            position: fixed; bottom: 40px; right: 40px; 
+            border: 1px solid var(--gold); background: rgba(0,0,0,0.8);
+            width: 70px; height: 70px; border-radius: 0; 
+            display: flex; justify-content: center; align-items: center; z-index: 1000;
+        }
+
+        footer { 
+            background: #050505; 
+            padding: 80px 20px; 
+            text-align: center; 
+            border-top: 1px solid #222;
+            color: var(--text-gray);
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="container nav-container">
-            <h1 class="logo"><i class="fas fa-feather-alt"></i> Thattekad Birding</h1>
-            <nav>
-                <a href="#about">Why Us</a>
-                <a href="#packages">Tours</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#accommodation">Stay</a>
-                <a href="#testimonials">Reviews</a>
-            </nav>
-        </div>
+        <p style="letter-spacing: 5px; color: var(--gold);" data-aos="fade-down">KERALA, INDIA</p>
+        <h1 data-aos="zoom-in">Thattekkad</h1>
+        <div class="gold-line"></div>
+        <p style="font-weight: 300; font-size: 1.2rem; max-width: 600px;" data-aos="fade-up">Bespoke Birding Expeditions for the Discerning Traveler.</p>
+        <a href="https://wa.me/918921243251" class="btn-luxury" data-aos="fade-up">Request a Private Guide</a>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h2>Book Thattekad's Best Local Birding Guides</h2>
-            <p>Direct access to indigenous trackers in Salim Ali Bird Sanctuary for the ultimate bird watching experience.</p>
-            <a href="https://wa.me/918921243251" class="btn primary-btn" target="_blank"><i class="fab fa-whatsapp"></i> Message on WhatsApp</a>
-        </div>
-    </section>
-
-    <section id="about" class="container">
-        <h2 class="section-title">Expert Bird Watching in Thattekad</h2>
-        <div class="about-grid">
-            <div class="about-card">
-                <i class="fas fa-binoculars feature-icon"></i>
-                <h3>Endemic Specialists</h3>
-                <p>Our local guides specialize in finding the Sri Lanka Frogmouth, Malabar Trogon, and other Western Ghats endemics.</p>
+    <div class="section">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3rem; text-align: center;" data-aos="fade-up">The Collection</h2>
+        <div class="grid">
+            <div class="luxury-card" data-aos="fade-up">
+                <h3>01. Endemic Trails</h3>
+                <p>Curated journeys into the heart of Salim Ali Sanctuary to witness rare species found nowhere else on earth.</p>
             </div>
-            <div class="about-card">
-                <i class="fas fa-route feature-icon"></i>
-                <h3>Tailored Itineraries</h3>
-                <p>Whether you are a casual birder or a hard-core photographer, we plan your trail based on your target list.</p>
+            <div class="luxury-card" data-aos="fade-up" data-aos-delay="100">
+                <h3>02. Macro & Bird Photo</h3>
+                <p>Private sessions designed for photographers. We manage the logistics; you capture the masterpiece.</p>
             </div>
-            <div class="about-card">
-                <i class="fas fa-bed feature-icon"></i>
-                <h3>Jungle Stays</h3>
-                <p>We help you find the best birding-friendly homestays and resorts located right at the edge of the sanctuary.</p>
+            <div class="luxury-card" data-aos="fade-up" data-aos-delay="200">
+                <h3>03. Night Expeditions</h3>
+                <p>Exclusive access to the forest after dark to track the mysterious Oriental Bay Owl and Sri Lanka Frogmouth.</p>
             </div>
-        </div>
-    </section>
-
-    <section id="packages" class="bg-light">
-        <div class="container">
-            <h2 class="section-title">Birding Tour Packages</h2>
-            <div class="package-grid">
-                
-                <div class="package-card">
-                    <img src="images/Guided Sanctuary Trail.webp" alt="Salim Ali Bird Sanctuary Guided Trail" class="package-img">
-                    <h3>Guided Sanctuary Trail</h3>
-                    <p class="duration"><i class="fas fa-tree"></i> 3 - 4 Hours</p>
-                    <p>Expert-led trek through the core forest of Thattekad Bird Sanctuary.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Guided Sanctuary Trail">Request Booking</button>
-                </div>
-
-                <div class="package-card">
-                    <img src="images/Early Morning Chorus.webp" alt="Early morning bird watching Thattekad" class="package-img">
-                    <h3>Early Morning Chorus</h3>
-                    <p class="duration"><i class="fas fa-sun"></i> 6:30 AM - 9:00 AM</p>
-                    <p>Experience the forest awakening at peak bird activity hours.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Early Morning Chorus">Request Booking</button>
-                </div>
-                
-                <div class="package-card">
-                    <img src="images/Night Birding Expedition.webp" alt="Night birding for Owls and Nightjars" class="package-img">
-                    <h3>Night Birding Expedition</h3>
-                    <p class="duration"><i class="fas fa-moon"></i> Post-Sunset</p>
-                    <p>Specific tracking for Owls, Frogmouths, and Nightjars.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Night Birding Expedition">Request Booking</button>
-                </div>
-                
-                <div class="package-card">
-                    <img src="images/Target Species Tracking.webp" alt="Malabar Trogon tracking Thattekad" class="package-img">
-                    <h3>Target Species Tracking</h3>
-                    <p class="duration"><i class="fas fa-crosshairs"></i> Custom</p>
-                    <p>Focused tracking for your specific "Life List" bird targets.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Target Species Tracking">Request Booking</button>
-                </div>
-
-                <div class="package-card">
-                    <img src="images/Village & Culture Walk.webp" alt="Thattekad village and spice plantation walk" class="package-img">
-                    <h3>Village & Culture Walk</h3>
-                    <p class="duration"><i class="fas fa-walking"></i> 3 - 4 Hours</p>
-                    <p>Explore local Kerala culture and spice plantations nearby.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Village & Culture Walk">Request Booking</button>
-                </div>
-
-                <div class="package-card">
-                    <img src="images/The Photographer's Special.webp" alt="Bird photography tour Thattekad" class="package-img">
-                    <h3>The Photographer's Special</h3>
-                    <p class="duration"><i class="fas fa-camera"></i> Full Day</p>
-                    <p>Slow-paced tours designed for bird photographers and long lenses.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="The Photographer's Special">Request Booking</button>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="container">
-        <h2 class="section-title">Thattekad Birding Gallery</h2>
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="images/image 1.webp" alt="Bird species Thattekad 1"></div>
-                <div class="swiper-slide"><img src="images/image 2.webp" alt="Bird species Thattekad 2"></div>
-                <div class="swiper-slide"><img src="images/image 3.webp" alt="Bird species Thattekad 3"></div>
-                <div class="swiper-slide"><img src="images/image 4.webp" alt="Bird species Thattekad 4"></div>
-                <div class="swiper-slide"><img src="images/image 5.webp" alt="Bird species Thattekad 5"></div>
-                <div class="swiper-slide"><img src="images/image 6.webp" alt="Bird species Thattekad 6"></div>
-                <div class="swiper-slide"><img src="images/image 7.webp" alt="Bird species Thattekad 7"></div>
-                <div class="swiper-slide"><img src="images/image 8.webp" alt="Bird species Thattekad 8"></div>
-                <div class="swiper-slide"><img src="images/image 9.webp" alt="Bird species Thattekad 9"></div>
-                <div class="swiper-slide"><img src="images/image 10.webp" alt="Bird species Thattekad 10"></div>
-                <div class="swiper-slide"><img src="images/image 11.webp" alt="Bird species Thattekad 11"></div>
-                <div class="swiper-slide"><img src="images/image 12.webp" alt="Bird species Thattekad 12"></div>
-                <div class="swiper-slide"><img src="images/image 13.webp" alt="Bird species Thattekad 13"></div>
-                <div class="swiper-slide"><img src="images/image 14.webp" alt="Bird species Thattekad 14"></div>
-                <div class="swiper-slide"><img src="images/image 15.webp" alt="Bird species Thattekad 15"></div>
-                <div class="swiper-slide"><img src="images/image 16.webp" alt="Bird species Thattekad 16"></div>
-                <div class="swiper-slide"><img src="images/image 17.webp" alt="Bird species Thattekad 17"></div>
-                <div class="swiper-slide"><img src="images/image 18.webp" alt="Bird species Thattekad 18"></div>
-                <div class="swiper-slide"><img src="images/image 19.webp" alt="Bird species Thattekad 19"></div>
-                <div class="swiper-slide"><img src="images/image 20.webp" alt="Bird species Thattekad 20"></div>
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </section>
-
-    <section id="accommodation" class="stay-banner">
-        <div class="container stay-container">
-            <h2>Find the Best Birding Homestays</h2>
-            <p>Tell us your budget, and we'll help you secure the perfect stay near the forest.</p>
-            <a href="https://wa.me/918921243251?text=Hi, I am looking for a room in Thattekad." class="btn stay-btn" target="_blank"><i class="fas fa-home"></i> Contact for Rooms</a>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container">
-            <p>Email: info@thattekadbirding.com | WhatsApp: +91 8921243251</p>
-            <p class="copyright">&copy; 2026 Thattekad Birding & Tours. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <a href="https://wa.me/918921243251" class="float-whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Book a Tour</h2>
-            <form id="bookingForm">
-                <label>Name:</label>
-                <input type="text" id="formName" required>
-                <label>Package:</label>
-                <select id="formPlan">
-                    <option value="Guided Sanctuary Trail">Guided Sanctuary Trail</option>
-                    <option value="Early Morning Chorus">Early Morning Chorus</option>
-                    <option value="Night Birding Expedition">Night Birding Expedition</option>
-                    <option value="Target Species Tracking">Target Species Tracking</option>
-                    <option value="Village & Culture Walk">Village & Culture Walk</option>
-                    <option value="The Photographer's Special">The Photographer's Special</option>
-                </select>
-                <label>Date:</label>
-                <input type="date" id="formDate" required>
-                <label>People:</label>
-                <input type="number" id="formPax" min="1" required>
-                <label>Need Stay?</label>
-                <select id="formRoom">
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
-                </select>
-                <label>Notes:</label>
-                <textarea id="formNotes" rows="2"></textarea>
-                <button type="submit" class="btn primary-btn" style="width: 100%;">Confirm via WhatsApp</button>
-            </form>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1, spaceBetween: 10, loop: true,
-            autoplay: { delay: 3000 },
-            pagination: { el: ".swiper-pagination", clickable: true },
-            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-            breakpoints: { 768: { slidesPerView: 3, spaceBetween: 20 } },
-        });
+    <div class="section" style="padding-top: 0;">
+        <div class="feature-box">
+            <div class="feature-img" data-aos="reveal-left">
+                <img src="images/image2.webp" alt="Frogmouth">
+            </div>
+            <div style="flex: 1;" data-aos="fade-left">
+                <h2 style="text-align: left; margin-bottom: 20px;">Exceptional Sightings.</h2>
+                <p style="color: var(--text-gray);">Our guides are master spotters with decades of local forest knowledge. We don't just find birds; we create a connection between you and the wild.</p>
+                <a href="https://wa.me/918921243251" style="color: var(--gold); text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--gold);">Discover the Species &rarr;</a>
+            </div>
+        </div>
+    </div>
 
-        const modal = document.getElementById("bookingModal");
-        const closeBtn = document.querySelector(".close-btn");
-        const planSelect = document.getElementById("formPlan");
+    <a href="https://wa.me/918921243251" class="whatsapp-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30" alt="WhatsApp">
+    </a>
 
-        document.querySelectorAll('.open-modal-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                planSelect.value = this.getAttribute('data-plan');
-                modal.style.display = "block";
-            });
-        });
+    <footer>
+        <h2 style="font-size: 1.5rem; color: white;">THATTEKKAD BIRDING</h2>
+        <p>Salim Ali Sanctuary, Kerala | 8921243251</p>
+        <div class="gold-line" style="margin: 30px auto;"></div>
+        <p style="font-size: 0.8rem; opacity: 0.5;">© 2026 PREMIER WILDLIFE SERVICES</p>
+    </footer>
 
-        closeBtn.onclick = function() { modal.style.display = "none"; }
-        window.onclick = function(e) { if (e.target == modal) modal.style.display = "none"; }
-
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let name = document.getElementById('formName').value;
-            let plan = document.getElementById('formPlan').value;
-            let date = document.getElementById('formDate').value;
-            let pax = document.getElementById('formPax').value;
-            let room = document.getElementById('formRoom').value;
-            let notes = document.getElementById('formNotes').value;
-            
-            let message = `Hi! New Tour Booking Request:%0A*Name:* ${name}%0A*Package:* ${plan}%0A*Date:* ${date}%0A*People:* ${pax}%0A*Room Help:* ${room}%0A*Notes:* ${notes}`;
-            window.open(`https://wa.me/918921243251?text=${message}`, '_blank');
-            modal.style.display = "none";
-        });
-    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1500, once: true });</script>
 </body>
 </html>
