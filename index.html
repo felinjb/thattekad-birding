@@ -25,17 +25,16 @@
             line-height: 1.6;
         }
 
-        /* Cinematic Hero with Parallax */
         header { 
             height: 100vh; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
             align-items: center; 
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('images/image1.webp'); 
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.3)), url('images/image%201.webp'); 
             background-size: cover; 
             background-position: center;
-            background-attachment: fixed; /* Parallax Effect */
+            background-attachment: fixed;
             text-align: center;
             padding: 0 20px;
         }
@@ -56,13 +55,11 @@
             font-weight: 700; 
             margin: 0; 
             line-height: 1;
-            letter-spacing: -0.03em;
         }
 
         .btn-gold { 
             display: inline-block;
             padding: 22px 55px; 
-            background: transparent; 
             border: 1px solid var(--gold); 
             color: var(--gold); 
             text-decoration: none; 
@@ -71,8 +68,6 @@
             letter-spacing: 0.3em; 
             transition: var(--transition);
             margin-top: 50px;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-gold:hover { 
@@ -82,13 +77,11 @@
             transform: translateY(-5px);
         }
 
-        /* Section Layout */
-        .section { padding: 150px 20px; max-width: 1400px; margin: auto; }
-        .section-header { margin-bottom: 80px; overflow: hidden; }
+        .section { padding: 120px 20px; max-width: 1400px; margin: auto; }
+        .section-header { margin-bottom: 60px; }
         .section-number { color: var(--gold); font-weight: 600; font-size: 0.8rem; letter-spacing: 4px; display: block; margin-bottom: 15px; }
-        h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; font-weight: 700; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; }
 
-        /* The Packages Grid */
         .luxury-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
@@ -100,19 +93,12 @@
             background: var(--dark-bg); 
             padding: 80px 60px; 
             transition: var(--transition);
-            border: 1px solid transparent;
         }
 
-        .grid-item:hover { 
-            background: #080808;
-            border: 1px solid var(--gold);
-            z-index: 2;
-        }
-
+        .grid-item:hover { background: #080808; z-index: 2; box-shadow: inset 0 0 20px rgba(197, 160, 89, 0.1); }
         .grid-item h3 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 2rem; margin-top: 0; font-style: italic; }
-        .grid-item p { color: #888; font-size: 1rem; line-height: 1.9; }
+        .grid-item p { color: #888; line-height: 1.9; }
 
-        /* Luxury Gallery with Hover Scale */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -122,17 +108,15 @@
         .gallery-item {
             overflow: hidden;
             border: 1px solid var(--border);
-            position: relative;
-            cursor: pointer;
+            aspect-ratio: 1 / 1;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            aspect-ratio: 4 / 5;
             transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: brightness(0.8);
+            filter: brightness(0.7);
         }
 
         .gallery-item:hover img {
@@ -140,26 +124,20 @@
             filter: brightness(1);
         }
 
-        /* Floating Contact (Square Jesko Style) */
         .contact-fixed { position: fixed; bottom: 40px; right: 40px; z-index: 999; }
         .wa-btn {
             background: var(--gold);
             width: 65px; height: 65px;
             display: flex; align-items: center; justify-content: center;
-            transition: var(--transition);
         }
-        .wa-btn:hover { transform: rotate(90deg); background: #ffffff; }
 
         footer { 
-            padding: 120px 20px; 
+            padding: 100px 20px; 
             border-top: 1px solid var(--border); 
             text-align: center;
             background: #030303;
         }
 
-        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 5px; color: #fff; margin-bottom: 10px; }
-
-        /* Responsive */
         @media (max-width: 768px) {
             .grid-item { padding: 50px 30px; }
             h2 { font-size: 2.5rem; }
@@ -169,29 +147,29 @@
 <body>
 
     <header>
-        <span class="pre-title" data-aos="fade-down" data-aos-duration="1500">KERALA • SINCE 2026</span>
-        <h1 data-aos="fade-up" data-aos-duration="2000">Premier <br><i>Birding</i> Expeditions.</h1>
-        <a href="https://wa.me/918921243251" class="btn-gold" data-aos="zoom-in" data-aos-delay="600">Reserve Your Guide</a>
+        <span class="pre-title" data-aos="fade-down">SINCE 2026 • KERALA</span>
+        <h1 data-aos="fade-up">Elite <br><i>Birding</i> Services.</h1>
+        <a href="https://wa.me/918921243251" class="btn-gold" data-aos="zoom-in" data-aos-delay="600">Request Expedition</a>
     </header>
 
     <div class="section">
         <div class="section-header" data-aos="fade-right">
-            <span class="section-number">01 / SERVICES</span>
-            <h2>Tailored Itineraries.</h2>
+            <span class="section-number">01 / TOUR PACKAGES</span>
+            <h2>The Itineraries.</h2>
         </div>
 
         <div class="luxury-grid">
             <div class="grid-item" data-aos="fade-up">
                 <h3>Half-Day Session</h3>
-                <p>06:00 — 11:00<br><br>An intensive morning pursuit. Expertly timed for the Sri Lanka Frogmouth and the high-canopy activity of the Malabar Trogon.</p>
+                <p>06:00 — 11:00<br><br>Focused pursuit in the sanctuary core. Optimized for spotting the Sri Lanka Frogmouth and high-canopy activity.</p>
             </div>
             <div class="grid-item" data-aos="fade-up" data-aos-delay="200">
-                <h3>Full-Day Immersion</h3>
-                <p>Dawn to Dusk<br><br>A comprehensive ecological journey through the sanctuary core and Edamalayar forests for the serious collector.</p>
+                <h3>Full-Day Expedition</h3>
+                <p>Dawn to Dusk<br><br>A comprehensive journey through the Sanctuary, Edamalayar forests, and local wetlands for maximum species count.</p>
             </div>
             <div class="grid-item" data-aos="fade-up" data-aos-delay="400">
-                <h3>Nocturnal Odyssey</h3>
-                <p>The Night Trail<br><br>Exclusive access to the forest understory. Tracking the Oriental Bay Owl and rare nightjars in their natural habitat.</p>
+                <h3>Nocturnal Trail</h3>
+                <p>The Night Odyssey<br><br>Exclusive access to track the Oriental Bay Owl and rare nightjars under the canopy of Thattekkad.</p>
             </div>
         </div>
     </div>
@@ -203,9 +181,12 @@
         </div>
         
         <div class="gallery-grid">
-            <div class="gallery-item" data-aos="reveal-up"><img src="images/image2.webp" alt="Wildlife 1"></div>
-            <div class="gallery-item" data-aos="reveal-up" data-aos-delay="200"><img src="images/image3.webp" alt="Wildlife 2"></div>
-            <div class="gallery-item" data-aos="reveal-up" data-aos-delay="400"><img src="images/image4.webp" alt="Wildlife 3"></div>
+            <div class="gallery-item" data-aos="reveal-up"><img src="images/image%202.webp" alt="Wildlife"></div>
+            <div class="gallery-item" data-aos="reveal-up" data-aos-delay="200"><img src="images/image%203.webp" alt="Wildlife"></div>
+            <div class="gallery-item" data-aos="reveal-up" data-aos-delay="400"><img src="images/image%204.webp" alt="Wildlife"></div>
+            <div class="gallery-item" data-aos="reveal-up"><img src="images/image%205.webp" alt="Wildlife"></div>
+            <div class="gallery-item" data-aos="reveal-up" data-aos-delay="200"><img src="images/image%206.webp" alt="Wildlife"></div>
+            <div class="gallery-item" data-aos="reveal-up" data-aos-delay="400"><img src="images/image%207.webp" alt="Wildlife"></div>
         </div>
     </div>
 
@@ -216,18 +197,14 @@
     </div>
 
     <footer>
-        <div class="footer-logo">THATTEKKAD BIRDING</div>
-        <p style="letter-spacing: 3px; font-size: 0.7rem; color: var(--gold); margin-bottom: 40px;">PRIVATE GUIDING • KERALA • 8921243251</p>
-        <p style="opacity: 0.3; font-size: 0.7rem;">© 2026 PREMIER WILDLIFE SERVICES. ALL RIGHTS RESERVED.</p>
+        <p style="letter-spacing: 5px; font-weight: 600;">THATTEKKAD BIRDING</p>
+        <p style="color: var(--gold); font-size: 0.8rem; margin-top: 10px;">PREMIER GUIDING • 8921243251</p>
+        <p style="opacity: 0.3; font-size: 0.7rem; margin-top: 40px;">© 2026 PREMIER WILDLIFE SERVICES</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ 
-            duration: 1200, 
-            once: true,
-            easing: 'ease-out-quad'
-        });
+        AOS.init({ duration: 1200, once: true });
     </script>
 </body>
 </html>
