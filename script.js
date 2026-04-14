@@ -35,15 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const modalTitle = document.getElementById('modal-title');
         const modalInfo = document.getElementById('modal-info');
         const modalDesc = document.getElementById('modal-desc');
+        const modalItinerary = document.getElementById('modal-itinerary'); // New Itinerary element
         const tourModalClose = document.getElementById('modal-close');
 
         tourBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
                 // Pull data from the button attributes
                 modalTitle.textContent = btn.getAttribute('data-title');
                 modalImg.src = btn.getAttribute('data-img');
                 modalDesc.textContent = btn.getAttribute('data-desc');
-                modalInfo.innerHTML = btn.getAttribute('data-info'); // Adds the new package highlights
+                modalInfo.innerHTML = btn.getAttribute('data-info'); 
+                
+                // Load the detailed itinerary list
+                if (modalItinerary) {
+                    modalItinerary.innerHTML = btn.getAttribute('data-itinerary');
+                }
                 
                 // Show modal
                 tourModal.classList.remove('hidden');
@@ -109,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
             
             form.style.display = 'none';
 
-            // Notice that it now says "Tour:" instead of "Expedition:" below!
             if (submitter.id === 'btn-whatsapp') {
                 const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to book a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n\nPlease let me know the availability.`;
                 const encodedMessage = encodeURIComponent(whatsappMessage);
