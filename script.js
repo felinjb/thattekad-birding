@@ -26,13 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
         appearOnScroll.observe(el);
     });
 
-    // 3. Tour Details Modal (For the Expeditions Page)
+    // 3. Tour Details Modal (For the Tours Page)
     const tourBtns = document.querySelectorAll('.view-details-btn');
     const tourModal = document.getElementById('tour-modal');
     
     if (tourModal) {
         const modalImg = document.getElementById('modal-img');
         const modalTitle = document.getElementById('modal-title');
+        const modalInfo = document.getElementById('modal-info');
         const modalDesc = document.getElementById('modal-desc');
         const tourModalClose = document.getElementById('modal-close');
 
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalTitle.textContent = btn.getAttribute('data-title');
                 modalImg.src = btn.getAttribute('data-img');
                 modalDesc.textContent = btn.getAttribute('data-desc');
+                modalInfo.innerHTML = btn.getAttribute('data-info'); // Adds the new package highlights
                 
                 // Show modal
                 tourModal.classList.remove('hidden');
@@ -107,8 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
             
             form.style.display = 'none';
 
+            // Notice that it now says "Tour:" instead of "Expedition:" below!
             if (submitter.id === 'btn-whatsapp') {
-                const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to book an expedition:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Expedition:* ${tourName}\n\nPlease let me know the availability.`;
+                const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to book a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n\nPlease let me know the availability.`;
                 const encodedMessage = encodeURIComponent(whatsappMessage);
                 const whatsappNumber = "918921243251";
                 
@@ -121,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } 
             else if (submitter.id === 'btn-email') {
                 const emailSubject = `New Booking Request: ${tourName} - ${name}`;
-                const emailBody = `Hello Thattekad Birding,\n\nI would like to book an expedition:\n\nName: ${name}\nEmail: ${email}\nDate: ${date}\nExpedition: ${tourName}\n\nPlease let me know the availability and pricing details.\n\nThank you,\n${name}`;
+                const emailBody = `Hello Thattekad Birding,\n\nI would like to book a tour:\n\nName: ${name}\nEmail: ${email}\nDate: ${date}\nTour: ${tourName}\n\nPlease let me know the availability and pricing details.\n\nThank you,\n${name}`;
                 
                 const encodedSubject = encodeURIComponent(emailSubject);
                 const encodedBody = encodeURIComponent(emailBody);
