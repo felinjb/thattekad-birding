@@ -9,35 +9,32 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* This ensures the popup works even if your main CSS file hasn't loaded yet */
         #tour-modal {
-            display: none !important; /* Hidden by default */
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            background: rgba(0,0,0,0.85) !important;
-            z-index: 999999 !important; /* Ensure it is above the navbar */
-            align-items: center !important;
-            justify-content: center !important;
-            padding: 20px !important;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.85);
+            z-index: 999999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-        
-        /* When we add the 'show-modal' class, it forces display: flex */
         #tour-modal.show-modal {
-            display: flex !important;
+            display: flex;
         }
-
         .modal-inner-box {
-            background: white !important;
-            max-width: 600px !important;
-            width: 100% !important;
-            border-radius: 12px !important;
-            padding: 30px !important;
-            position: relative !important;
-            max-height: 90vh !important;
-            overflow-y: auto !important;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5) !important;
+            background: white;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -74,7 +71,7 @@
                             data-img="images/Early Morning Chorus.webp" 
                             data-info="<i class='fa-regular fa-clock'></i> 4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM"
                             data-desc="This 4-hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in."
-                            data-itinerary="<li><strong>05:45 AM:</strong> Meet your expert guide at the sanctuary entrance.</li><li><strong>06:00 AM:</strong> Enter the forest and track the active morning canopy.</li><li><strong>08:30 AM:</strong> Photography and observation break near the riverbed.</li><li><strong>10:00 AM:</strong> Tour concludes with a review of species spotted.</li>">
+                            data-itinerary="<li><strong>05:45 AM:</strong> Meet your expert guide at the sanctuary entrance.</li><li><strong>06:00 AM:</strong> Enter the forest and track the active morning canopy.</li><li><strong>08:30 AM:</strong> Photography and observation break near the riverbed.</li><li><strong>10:00 AM:</strong> Tour concludes.</li>">
                             Explore
                         </button>
                     </div>
@@ -93,7 +90,7 @@
                             data-img="images/Guided Sanctuary Trail.webp" 
                             data-info="<i class='fa-regular fa-clock'></i> 8 Hours &nbsp; | &nbsp; <i class='fa-solid fa-burger'></i> Lunch Included"
                             data-desc="An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics."
-                            data-itinerary="<li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li><li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li><li><strong>01:00 PM:</strong> Packed lunch break in the heart of the forest.</li><li><strong>03:00 PM:</strong> Return trek via a different route to maximize sightings.</li>">
+                            data-itinerary="<li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li><li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li><li><strong>01:00 PM:</strong> Packed lunch break in the heart of the forest.</li><li><strong>03:00 PM:</strong> Return trek via a different route.</li>">
                             Explore
                         </button>
                     </div>
@@ -112,7 +109,7 @@
                             data-img="images/Night Birding Expedition.webp" 
                             data-info="<i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-moon'></i> Starts at 7:00 PM"
                             data-desc="Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars."
-                            data-itinerary="<li><strong>06:45 PM:</strong> Gather for safety briefing and flashlight protocols.</li><li><strong>07:00 PM:</strong> Silent walk begins into known frogmouth territories.</li><li><strong>08:00 PM:</strong> Tracking owl calls and nightjars along the forest edge.</li><li><strong>09:00 PM:</strong> Safe return to the starting point.</li>">
+                            data-itinerary="<li><strong>06:45 PM:</strong> Gather for safety briefing and flashlight protocols.</li><li><strong>07:00 PM:</strong> Silent walk begins into known frogmouth territories.</li><li><strong>08:00 PM:</strong> Tracking owl calls and nightjars.</li><li><strong>09:00 PM:</strong> Safe return to the starting point.</li>">
                             Explore
                         </button>
                     </div>
@@ -131,7 +128,7 @@
                             data-img="images/Target Species Tracking.webp" 
                             data-info="<i class='fa-solid fa-bullseye'></i> Custom Route &nbsp; | &nbsp; <i class='fa-solid fa-map'></i> Flexible Timing"
                             data-desc="Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species."
-                            data-itinerary="<li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li><li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li><li><strong>The Hunt:</strong> We proceed directly to known territories and nesting sites.</li><li><strong>Observation:</strong> Extended time allocated for watching or photographing the target.</li>">
+                            data-itinerary="<li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li><li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li><li><strong>The Hunt:</strong> We proceed directly to known territories and nesting sites.</li><li><strong>Observation:</strong> Extended time allocated for watching or photographing.</li>">
                             Explore
                         </button>
                     </div>
@@ -215,25 +212,19 @@
     </footer>
 
     <script>
-        // Open Modal Function
-        function openModal(buttonElement) {
-            // Read data directly from the button that was clicked
-            document.getElementById('m-title').innerHTML = buttonElement.getAttribute('data-title');
-            document.getElementById('m-img').src = buttonElement.getAttribute('data-img');
-            document.getElementById('m-info').innerHTML = buttonElement.getAttribute('data-info');
-            document.getElementById('m-desc').innerHTML = buttonElement.getAttribute('data-desc');
-            document.getElementById('m-itinerary').innerHTML = buttonElement.getAttribute('data-itinerary');
-            
-            // Show the modal
+        function openModal(btn) {
+            document.getElementById('m-title').innerHTML = btn.getAttribute('data-title');
+            document.getElementById('m-img').src = btn.getAttribute('data-img');
+            document.getElementById('m-info').innerHTML = btn.getAttribute('data-info');
+            document.getElementById('m-desc').innerHTML = btn.getAttribute('data-desc');
+            document.getElementById('m-itinerary').innerHTML = btn.getAttribute('data-itinerary');
             document.getElementById('tour-modal').classList.add('show-modal');
         }
 
-        // Close Modal Function
         function closeModal() {
             document.getElementById('tour-modal').classList.remove('show-modal');
         }
 
-        // Close when clicking outside the box
         window.onclick = function(event) {
             var modal = document.getElementById('tour-modal');
             if (event.target == modal) {
