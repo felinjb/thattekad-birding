@@ -3,237 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thattekad Birding | Expert Local Guides & Birding Tours</title>
     
-    <title>Thattekad Birding | Expert Local Guides & Bird Watching Tours</title>
-    <meta name="description" content="Book expert local birding guides in Thattekad. Specialized tours for Salim Ali Bird Sanctuary, target species tracking, and birding-friendly homestays in Kerala.">
-    <meta name="keywords" content="Thattekad birding, birding guides Thattekad, Salim Ali Bird Sanctuary tours, bird watching Kerala, Frogmouth tracking Thattekad, Kerala bird photography">
-    <link rel="canonical" href="https://thattekadbirding.com/" />
-
-    <meta name="google-site-verification" content="PASTE_YOUR_CODE_FROM_SEARCH_CONSOLE_HERE" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <header>
-        <div class="container nav-container">
-            <h1 class="logo"><i class="fas fa-feather-alt"></i> Thattekad Birding</h1>
-            <nav>
-                <a href="#about">Why Us</a>
-                <a href="#packages">Tours</a>
-                <a href="#gallery">Gallery</a>
-                <a href="#accommodation">Stay</a>
-                <a href="#testimonials">Reviews</a>
-            </nav>
+    <nav class="navbar navbar-expand-lg fixed-top nav-transparent">
+        <div class="container">
+            <a class="navbar-brand" href="#">THATTEKAD<span>BIRDING</span></a>
+            <a href="https://wa.me/918921243251" class="btn-whatsapp-top">WhatsApp Expert</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Experience the <span>Wild Heart</span> of Thattekad</h1>
+            <p>Guided expeditions by indigenous trackers to find the Western Ghats' rarest endemics.</p>
+            <div class="hero-btns">
+                <a href="#tours" class="btn-gold">View Expeditions</a>
+                <a href="#about" class="btn-outline">Our Story</a>
+            </div>
         </div>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h2>Book Thattekad's Best Local Birding Guides</h2>
-            <p>Direct access to indigenous trackers in Salim Ali Bird Sanctuary for the ultimate bird watching experience.</p>
-            <a href="https://wa.me/918921243251" class="btn primary-btn" target="_blank"><i class="fab fa-whatsapp"></i> Message on WhatsApp</a>
-        </div>
-    </section>
-
-    <section id="about" class="container">
-        <h2 class="section-title">Expert Bird Watching in Thattekad</h2>
-        <div class="about-grid">
-            <div class="about-card">
-                <i class="fas fa-binoculars feature-icon"></i>
-                <h3>Endemic Specialists</h3>
-                <p>Our local guides specialize in finding the Sri Lanka Frogmouth, Malabar Trogon, and other Western Ghats endemics.</p>
-            </div>
-            <div class="about-card">
-                <i class="fas fa-route feature-icon"></i>
-                <h3>Tailored Itineraries</h3>
-                <p>Whether you are a casual birder or a hard-core photographer, we plan your trail based on your target list.</p>
-            </div>
-            <div class="about-card">
-                <i class="fas fa-bed feature-icon"></i>
-                <h3>Jungle Stays</h3>
-                <p>We help you find the best birding-friendly homestays and resorts located right at the edge of the sanctuary.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="packages" class="bg-light">
+    <section id="about" class="py-5">
         <div class="container">
-            <h2 class="section-title">Birding Tour Packages</h2>
-            <div class="package-grid">
-                
-                <div class="package-card">
-                    <img src="images/Guided Sanctuary Trail.webp" alt="Salim Ali Bird Sanctuary Guided Trail" class="package-img">
-                    <h3>Guided Sanctuary Trail</h3>
-                    <p class="duration"><i class="fas fa-tree"></i> 3 - 4 Hours</p>
-                    <p>Expert-led trek through the core forest of Thattekad Bird Sanctuary.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Guided Sanctuary Trail">Request Booking</button>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="section-title">Why Bird with Us?</h2>
+                    <p>Thattekad Birding is more than just a tour. We are a team of local experts born and raised at the edge of the Salim Ali Bird Sanctuary. We don't just find birds; we understand their behavior, calls, and seasonal patterns.</p>
+                    <ul class="feature-list">
+                        <li>Expertise in Sri Lanka Frogmouth & Malabar Trogon</li>
+                        <li>Customized trails for hardcore Photographers</li>
+                        <li>Support for indigenous local trackers</li>
+                    </ul>
                 </div>
-
-                <div class="package-card">
-                    <img src="images/Early Morning Chorus.webp" alt="Early morning bird watching Thattekad" class="package-img">
-                    <h3>Early Morning Chorus</h3>
-                    <p class="duration"><i class="fas fa-sun"></i> 6:30 AM - 9:00 AM</p>
-                    <p>Experience the forest awakening at peak bird activity hours.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Early Morning Chorus">Request Booking</button>
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1552084117-56a987666449?auto=format&fit=crop&w=800&q=80" alt="Bird Watching Thattekad" class="img-fluid rounded shadow">
                 </div>
-                
-                <div class="package-card">
-                    <img src="images/Night Birding Expedition.webp" alt="Night birding for Owls and Nightjars" class="package-img">
-                    <h3>Night Birding Expedition</h3>
-                    <p class="duration"><i class="fas fa-moon"></i> Post-Sunset</p>
-                    <p>Specific tracking for Owls, Frogmouths, and Nightjars.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Night Birding Expedition">Request Booking</button>
-                </div>
-                
-                <div class="package-card">
-                    <img src="images/Target Species Tracking.webp" alt="Malabar Trogon tracking Thattekad" class="package-img">
-                    <h3>Target Species Tracking</h3>
-                    <p class="duration"><i class="fas fa-crosshairs"></i> Custom</p>
-                    <p>Focused tracking for your specific "Life List" bird targets.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Target Species Tracking">Request Booking</button>
-                </div>
-
-                <div class="package-card">
-                    <img src="images/Village & Culture Walk.webp" alt="Thattekad village and spice plantation walk" class="package-img">
-                    <h3>Village & Culture Walk</h3>
-                    <p class="duration"><i class="fas fa-walking"></i> 3 - 4 Hours</p>
-                    <p>Explore local Kerala culture and spice plantations nearby.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="Village & Culture Walk">Request Booking</button>
-                </div>
-
-                <div class="package-card">
-                    <img src="images/The Photographer's Special.webp" alt="Bird photography tour Thattekad" class="package-img">
-                    <h3>The Photographer's Special</h3>
-                    <p class="duration"><i class="fas fa-camera"></i> Full Day</p>
-                    <p>Slow-paced tours designed for bird photographers and long lenses.</p>
-                    <button class="btn secondary-btn open-modal-btn" data-plan="The Photographer's Special">Request Booking</button>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <section id="gallery" class="container">
-        <h2 class="section-title">Thattekad Birding Gallery</h2>
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="images/image 1.webp" alt="Bird species Thattekad 1"></div>
-                <div class="swiper-slide"><img src="images/image 2.webp" alt="Bird species Thattekad 2"></div>
-                <div class="swiper-slide"><img src="images/image 3.webp" alt="Bird species Thattekad 3"></div>
-                <div class="swiper-slide"><img src="images/image 4.webp" alt="Bird species Thattekad 4"></div>
-                <div class="swiper-slide"><img src="images/image 5.webp" alt="Bird species Thattekad 5"></div>
-                <div class="swiper-slide"><img src="images/image 6.webp" alt="Bird species Thattekad 6"></div>
-                <div class="swiper-slide"><img src="images/image 7.webp" alt="Bird species Thattekad 7"></div>
-                <div class="swiper-slide"><img src="images/image 8.webp" alt="Bird species Thattekad 8"></div>
-                <div class="swiper-slide"><img src="images/image 9.webp" alt="Bird species Thattekad 9"></div>
-                <div class="swiper-slide"><img src="images/image 10.webp" alt="Bird species Thattekad 10"></div>
-                <div class="swiper-slide"><img src="images/image 11.webp" alt="Bird species Thattekad 11"></div>
-                <div class="swiper-slide"><img src="images/image 12.webp" alt="Bird species Thattekad 12"></div>
-                <div class="swiper-slide"><img src="images/image 13.webp" alt="Bird species Thattekad 13"></div>
-                <div class="swiper-slide"><img src="images/image 14.webp" alt="Bird species Thattekad 14"></div>
-                <div class="swiper-slide"><img src="images/image 15.webp" alt="Bird species Thattekad 15"></div>
-                <div class="swiper-slide"><img src="images/image 16.webp" alt="Bird species Thattekad 16"></div>
-                <div class="swiper-slide"><img src="images/image 17.webp" alt="Bird species Thattekad 17"></div>
-                <div class="swiper-slide"><img src="images/image 18.webp" alt="Bird species Thattekad 18"></div>
-                <div class="swiper-slide"><img src="images/image 19.webp" alt="Bird species Thattekad 19"></div>
-                <div class="swiper-slide"><img src="images/image 20.webp" alt="Bird species Thattekad 20"></div>
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-    </section>
-
-    <section id="accommodation" class="stay-banner">
-        <div class="container stay-container">
-            <h2>Find the Best Birding Homestays</h2>
-            <p>Tell us your budget, and we'll help you secure the perfect stay near the forest.</p>
-            <a href="https://wa.me/918921243251?text=Hi, I am looking for a room in Thattekad." class="btn stay-btn" target="_blank"><i class="fas fa-home"></i> Contact for Rooms</a>
-        </div>
-    </section>
-
-    <footer id="contact">
+    <section id="tours" class="bg-light py-5">
         <div class="container">
-            <p>Email: info@thattekadbirding.com | WhatsApp: +91 8921243251</p>
-            <p class="copyright">&copy; 2026 Thattekad Birding & Tours. All Rights Reserved.</p>
+            <h2 class="text-center mb-5 section-title">Guided Expeditions</h2>
+            <div class="row g-4">
+                
+                <div class="col-md-4">
+                    <div class="tour-card">
+                        <div class="tour-img" style="background-image: url('https://images.unsplash.com/photo-1444464666168-49d633b867ad?auto=format&fit=crop&w=600&q=80');"></div>
+                        <div class="tour-info">
+                            <h3>The Endemic Trail</h3>
+                            <p>Focus on Western Ghats specialties: Malabar Trogon, Grey Hornbill, and more.</p>
+                            <a href="#" class="read-more">View Itinerary →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="tour-card">
+                        <div class="tour-img" style="background-image: url('https://images.unsplash.com/photo-1520114878144-6123749968dd?auto=format&fit=crop&w=600&q=80');"></div>
+                        <div class="tour-info">
+                            <h3>Nocturnal Quest</h3>
+                            <p>Special tracking for Sri Lanka Frogmouth, Owls, and Nightjars.</p>
+                            <a href="#" class="read-more">View Itinerary →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="tour-card">
+                        <div class="tour-img" style="background-image: url('https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=600&q=80');"></div>
+                        <div class="tour-info">
+                            <h3>Photography Special</h3>
+                            <p>Slow-paced tours designed for bird photographers and long lenses.</p>
+                            <a href="#" class="read-more">View Itinerary →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </section>
+
+    <footer class="text-center py-4 bg-dark text-white">
+        <p>© 2026 Thattekad Birding | Salim Ali Bird Sanctuary, Kerala</p>
     </footer>
 
-    <a href="https://wa.me/918921243251" class="float-whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>Book a Tour</h2>
-            <form id="bookingForm">
-                <label>Name:</label>
-                <input type="text" id="formName" required>
-                <label>Package:</label>
-                <select id="formPlan">
-                    <option value="Guided Sanctuary Trail">Guided Sanctuary Trail</option>
-                    <option value="Early Morning Chorus">Early Morning Chorus</option>
-                    <option value="Night Birding Expedition">Night Birding Expedition</option>
-                    <option value="Target Species Tracking">Target Species Tracking</option>
-                    <option value="Village & Culture Walk">Village & Culture Walk</option>
-                    <option value="The Photographer's Special">The Photographer's Special</option>
-                </select>
-                <label>Date:</label>
-                <input type="date" id="formDate" required>
-                <label>People:</label>
-                <input type="number" id="formPax" min="1" required>
-                <label>Need Stay?</label>
-                <select id="formRoom">
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
-                </select>
-                <label>Notes:</label>
-                <textarea id="formNotes" rows="2"></textarea>
-                <button type="submit" class="btn primary-btn" style="width: 100%;">Confirm via WhatsApp</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper(".mySwiper", {
-            slidesPerView: 1, spaceBetween: 10, loop: true,
-            autoplay: { delay: 3000 },
-            pagination: { el: ".swiper-pagination", clickable: true },
-            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-            breakpoints: { 768: { slidesPerView: 3, spaceBetween: 20 } },
-        });
-
-        const modal = document.getElementById("bookingModal");
-        const closeBtn = document.querySelector(".close-btn");
-        const planSelect = document.getElementById("formPlan");
-
-        document.querySelectorAll('.open-modal-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                planSelect.value = this.getAttribute('data-plan');
-                modal.style.display = "block";
-            });
-        });
-
-        closeBtn.onclick = function() { modal.style.display = "none"; }
-        window.onclick = function(e) { if (e.target == modal) modal.style.display = "none"; }
-
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let name = document.getElementById('formName').value;
-            let plan = document.getElementById('formPlan').value;
-            let date = document.getElementById('formDate').value;
-            let pax = document.getElementById('formPax').value;
-            let room = document.getElementById('formRoom').value;
-            let notes = document.getElementById('formNotes').value;
-            
-            let message = `Hi! New Tour Booking Request:%0A*Name:* ${name}%0A*Package:* ${plan}%0A*Date:* ${date}%0A*People:* ${pax}%0A*Room Help:* ${room}%0A*Notes:* ${notes}`;
-            window.open(`https://wa.me/918921243251?text=${message}`, '_blank');
+</body>
+</html>
             modal.style.display = "none";
         });
     </script>
