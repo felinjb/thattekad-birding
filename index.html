@@ -3,159 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thattekad Birding | Expert Local Guides</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Thattekad Birding | Expert Guided Tours</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 </head>
 <body>
+    <nav class="navbar">
+        <div class="logo">Thattekad Birding</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tours">Our Tours</a></li>
+            <li><a href="#book">Book Now</a></li>
+        </ul>
+    </nav>
 
-    <!-- Minimalist Bird Preloader -->
-    <div class="page-opener">
-        <svg viewBox="0 0 150 150" class="bird-loader" width="100" height="100">
-            <path d="M 20 70 C 40 30, 60 50, 75 60 C 90 50, 110 30, 130 70 C 110 90, 80 60, 75 60 C 70 60, 40 90, 20 70 Z" fill="none" stroke="#C09F5A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
-
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <div class="header-container">
-            <a class="logo" href="index.html">
-                <img src="images/logo.png" alt="Thattekad Birding Logo" style="max-height: 60px;">
-            </a>
-            
-            <nav class="main-nav">
-                <a href="index.html" class="active">HOME</a>
-                <a href="tours.html">BIRDING TOURS</a>
-                <a href="gallery.html">GALLERY</a>
-                <a href="about.html">ABOUT US</a>
-                <a href="contact.html">CONTACT US</a>
-            </nav>
-            
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-            
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Discover the Avian Wonders of Thattekad</h1>
+            <p>Join expert guides to spot the Malabar Trogon, Ceylon Frogmouth, and hundreds of endemic species in Kerala's premier bird sanctuary.</p>
+            <a href="#book" class="btn">Plan Your Expedition</a>
         </div>
     </header>
 
-    <!-- Refined Hero Section -->
-    <section id="hero" class="hero-slider">
-        <div class="slide active" style="background-image: url('images/coverimage.webp');">
-            <div class="slide-content" style="max-width: 800px; padding-left: 5%;">
-                <h2 class="slide-subtitle" style="color: #C09F5A; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 10px;">Western Ghats Kerala</h2>
-                <h1 class="slide-title" style="font-size: 5rem; letter-spacing: -2px; color: #fff; text-shadow: none;">WILD THATTEKAD</h1>
-                <p style="font-size: 1.1rem; color: #DDD; margin-bottom: 40px; margin-top: 10px; max-width: 500px; font-weight: 400;">Join indigenous trackers on an immersive expedition into the heart of the Salim Ali Bird Sanctuary to find the rarest endemics.</p>
-                <a href="tours.html" class="btn-primary" style="padding: 16px 40px; border-radius: 4px;">EXPLORE EXPEDITIONS</a>
+    <section id="tours" class="tours-section">
+        <h2>Guided Birding Trails</h2>
+        <div class="tour-grid">
+            <div class="tour-card">
+                <h3>Early Morning Call</h3>
+                <p>A 4-hour dawn trek focusing on active songbirds and raptors. Perfect for photography.</p>
+                <strong>₹1,500 / person</strong>
+            </div>
+            <div class="tour-card">
+                <h3>Deep Forest Expedition</h3>
+                <p>A full-day immersive trek deep into the Salim Ali Bird Sanctuary to spot rare endemics.</p>
+                <strong>₹3,000 / person</strong>
+            </div>
+            <div class="tour-card">
+                <h3>Night Owling</h3>
+                <p>A specialized 2-hour evening walk to spot the elusive Ceylon Frogmouth and local owls.</p>
+                <strong>₹1,200 / person</strong>
             </div>
         </div>
     </section>
 
-    <!-- Parallax Banner -->
-    <section class="banner-promo parallax-banner" style="background-image: url('images/image%2012.webp'); padding: 8rem 2rem;">
-        <div class="promo-content animate-item" style="max-width: 700px;">
-            <p style="color: #C09F5A; font-weight: bold; letter-spacing: 2px;">THE EXPERIENCE</p>
-            <h2 style="font-size: 2.8rem; margin: 20px 0;">INTO THE DEEP CANOPY</h2>
-            <p>Our guided trails move away from the crowded paths and deep into the undisturbed territories where the true beauty of Thattekad's birdlife thrives.</p>
-        </div>
+    <section id="book" class="booking-section">
+        <h2>Book Your Tour</h2>
+        <form id="booking-form">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="date" id="date" required>
+            <select id="tour-type" required>
+                <option value="" disabled selected>Select a Tour...</option>
+                <option value="morning">Early Morning Call</option>
+                <option value="full-day">Deep Forest Expedition</option>
+                <option value="night">Night Owling</option>
+            </select>
+            <button type="submit" class="btn">Request Booking</button>
+        </form>
+        <div id="form-message" class="hidden"></div>
     </section>
 
-    <!-- Elegant Staggered Featured Tours -->
-    <section class="elegant-section">
-        <div style="text-align: center; margin-bottom: 5rem;">
-            <p style="color: #C09F5A; font-weight: bold; letter-spacing: 2px;">CURATED TRAILS</p>
-            <h2 style="font-size: 2.5rem; color: #1C3A27; margin-top: 10px;">FEATURED EXPERIENCES</h2>
-        </div>
-
-        <div class="elegant-staggered animate-item">
-            <div class="elegant-img">
-                <img src="images/Guided Sanctuary Trail.webp" alt="Sanctuary Trail">
-            </div>
-            <div class="elegant-text">
-                <h3>GUIDED SANCTUARY TRAIL</h3>
-                <p>An immersive hike focusing on Western Ghats specialties including the magnificent Malabar Trogon, Grey Hornbill, and diverse woodpecker species. Let our local trackers navigate the dense foliage.</p>
-                <a href="#" class="btn-primary modal-trigger" style="border-radius: 4px;">REQUEST ITINERARY</a>
-            </div>
-        </div>
-
-        <div class="elegant-staggered animate-item">
-            <div class="elegant-img">
-                <img src="images/Night Birding Expedition.webp" alt="Night Expedition">
-            </div>
-            <div class="elegant-text">
-                <h3>NOCTURNAL QUEST</h3>
-                <p>Venture into the darkness for a chance to spot the elusive Sri Lanka Frogmouth and multiple owl species. Our guides use safe, non-invasive techniques to ensure an unforgettable ethical encounter.</p>
-                <a href="#" class="btn-primary modal-trigger" style="border-radius: 4px;">REQUEST ITINERARY</a>
-            </div>
-        </div>
-
-        <div class="elegant-staggered animate-item">
-            <div class="elegant-img">
-                <img src="images/The Photographer's Special.webp" alt="Photographer Special">
-            </div>
-            <div class="elegant-text">
-                <h3>THE PHOTOGRAPHER'S SPECIAL</h3>
-                <p>Designed specifically for wildlife photographers. We take a much slower pace, focusing on optimal lighting, extended observation times, and positioning for those with heavy telephoto setups.</p>
-                <a href="#" class="btn-primary modal-trigger" style="border-radius: 4px;">REQUEST ITINERARY</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Elegant Testimonials Slider -->
-    <section class="testimonials-section" style="background-color: #FAFAFA;">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <p style="color: #C09F5A; font-weight: bold; letter-spacing: 2px;">REVIEWS</p>
-            <h2 style="font-size: 2.5rem; color: #1C3A27; margin-top: 10px;">GUEST EXPERIENCES</h2>
-        </div>
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="testimonial-card" style="border-top: 4px solid #C09F5A;">
-                        <i class="fas fa-quote-left" style="color: #C09F5A;"></i>
-                        <p>"Absolutely breathtaking experience. The local trackers know exactly where to find the elusive Frogmouth. Highly professional!"</p>
-                        <h4>James T.</h4>
-                        <span>Wildlife Photographer, UK</span>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="testimonial-card" style="border-top: 4px solid #C09F5A;">
-                        <i class="fas fa-quote-left" style="color: #C09F5A;"></i>
-                        <p>"The best birding tour in Southern India. Their knowledge of endemic species and the deep canopy trails is unmatched."</p>
-                        <h4>Sarah &amp; Mark</h4>
-                        <span>Nature Enthusiasts, Australia</span>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="testimonial-card" style="border-top: 4px solid #C09F5A;">
-                        <i class="fas fa-quote-left" style="color: #C09F5A;"></i>
-                        <p>"The Night Expedition was flawless. Safe, respectful of nature, and we spotted three different owl species in one night."</p>
-                        <h4>Arjun K.</h4>
-                        <span>Birder, India</span>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
-
-    <!-- Globally Updated Footer -->
-    <footer class="main-footer" id="contact" style="background-color: #1a1a1a;">
-        <div class="footer-bottom" style="padding: 3rem 2rem;">
-            <a href="index.html"><img src="images/logo.png" alt="Logo" style="max-height: 40px; margin-bottom: 20px; opacity: 0.8;"></a>
-            <p style="margin-bottom: 10px; font-size: 1.1rem; letter-spacing: 1px;"><i class="fas fa-envelope" style="color:#C09F5A;"></i> info@thattekadbirding.com &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fas fa-phone" style="color:#C09F5A;"></i> +91 8921243251</p>
-            <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 20px;">&copy; 2026 Thattekad Birding | Salim Ali Bird Sanctuary, Kerala</p>
-        </div>
+    <footer>
+        <p>&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
