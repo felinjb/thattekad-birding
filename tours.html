@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expeditions | Thattekad Birding</title>
+    <title>Tours | Thattekad Birding</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -12,77 +12,140 @@
     <nav class="navbar" id="navbar">
         <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
         <ul class="nav-links">
-            <li><a href="index.html">History</a></li>
-            <li><a href="tours.html">Expeditions</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tours.html">Tours</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="book.html" class="nav-btn">Book Now</a></li>
         </ul>
     </nav>
 
     <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/Guided Sanctuary Trail.webp');">
-        <div class="hero-content fade-in">
-            <h1>Signature Expeditions</h1>
+        <div class="hero-content fade-in-up">
+            <h1>Signature Tours</h1>
             <p>Expertly guided treks tailored for photography and rare species tracking.</p>
         </div>
     </header>
 
     <section class="tours-section">
         <div class="tour-grid">
-            <div class="tour-card fade-in">
+            
+            <div class="tour-card fade-in-up">
                 <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
                 <div class="card-content">
                     <h3>Early Morning Chorus</h3>
-                    <p>Experience the forest waking up. Best for active songbirds, hornbills, and raptors in optimal morning light.</p>
-                    <div class="card-footer"><a href="book.html" class="btn btn-outline btn-full-width">Select Expedition</a></div>
+                    <p>Experience the forest waking up in optimal morning light.</p>
+                    <div class="card-footer">
+                        <button class="btn btn-outline btn-full-width view-details-btn" 
+                            data-title="Early Morning Chorus" 
+                            data-img="images/Early Morning Chorus.webp" 
+                            data-info="<i class='fa-regular fa-clock'></i> 4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM"
+                            data-desc="This 4-hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in.">
+                            View Details
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in">
+            <div class="tour-card fade-in-up">
                 <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
                 <div class="card-content">
                     <h3>Guided Sanctuary Trail</h3>
-                    <p>An immersive full-day trek deep into the dense evergreen forest of the Salim Ali Bird Sanctuary.</p>
-                    <div class="card-footer"><a href="book.html" class="btn btn-outline btn-full-width">Select Expedition</a></div>
+                    <p>An immersive full-day trek deep into the dense evergreen forest.</p>
+                    <div class="card-footer">
+                        <button class="btn btn-outline btn-full-width view-details-btn" 
+                            data-title="Guided Sanctuary Trail" 
+                            data-img="images/Guided Sanctuary Trail.webp" 
+                            data-info="<i class='fa-regular fa-clock'></i> 8 Hours &nbsp; | &nbsp; <i class='fa-solid fa-burger'></i> Lunch Included"
+                            data-desc="An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics.">
+                            View Details
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in">
+            <div class="tour-card fade-in-up">
                 <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
                 <div class="card-content">
-                    <h3>Night Birding Expedition</h3>
-                    <p>A specialized evening walk for nocturnal species, focusing on the Ceylon Frogmouth and local owls.</p>
-                    <div class="card-footer"><a href="book.html" class="btn btn-outline btn-full-width">Select Expedition</a></div>
+                    <h3>Night Birding Tour</h3>
+                    <p>A specialized evening walk focused on nocturnal species.</p>
+                    <div class="card-footer">
+                        <button class="btn btn-outline btn-full-width view-details-btn" 
+                            data-title="Night Birding Tour" 
+                            data-img="images/Night Birding Expedition.webp" 
+                            data-info="<i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-moon'></i> Starts at 7:00 PM"
+                            data-desc="Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars.">
+                            View Details
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in">
+            <div class="tour-card fade-in-up">
                 <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
                 <div class="card-content">
                     <h3>Target Species Tracking</h3>
-                    <p>Have a specific bird in mind? Our expert trackers will customize a route to find rare endemics.</p>
-                    <div class="card-footer"><a href="book.html" class="btn btn-outline btn-full-width">Select Expedition</a></div>
+                    <p>A highly customized route designed to find specific rare endemics.</p>
+                    <div class="card-footer">
+                        <button class="btn btn-outline btn-full-width view-details-btn" 
+                            data-title="Target Species Tracking" 
+                            data-img="images/Target Species Tracking.webp" 
+                            data-info="<i class='fa-solid fa-bullseye'></i> Custom Route &nbsp; | &nbsp; <i class='fa-solid fa-map'></i> Flexible Timing"
+                            data-desc="Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species.">
+                            View Details
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in">
+            <div class="tour-card fade-in-up">
                 <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
                 <div class="card-content">
                     <h3>The Photographer's Special</h3>
-                    <p>Designed around golden-hour lighting and extended observation times for the perfect wildlife shot.</p>
-                    <div class="card-footer"><a href="book.html" class="btn btn-outline btn-full-width">Select Expedition</a></div>
+                    <p>Designed around golden-hour lighting for the perfect shot.</p>
+                    <div class="card-footer">
+                        <button class="btn btn-outline btn-full-width view-details-btn" 
+                            data-title="The Photographer's Special" 
+                            data-img="images/The Photographer\'s Special.webp" 
+                            data-info="<i class='fa-solid fa-camera'></i> Extended Stops &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Golden Hour Focus"
+                            data-desc="Photography requires patience. Unlike standard walking tours, this package moves slowly, allowing for extended observation times. Guides position you optimally for background isolation to ensure professional-grade wildlife shots.">
+                            View Details
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in">
+            <div class="tour-card fade-in-up">
                 <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
                 <div class="card-content">
                     <h3>Village & Culture Walk</h3>
-                    <p>Take a break from the deep forest to explore local Kerala village life and agricultural birding borders.</p>
-                    <div class="card-footer"><a href="book.html" class="btn btn-outline btn-full-width">Select Expedition</a></div>
+                    <p>Explore local Kerala village life and agricultural birding borders.</p>
+                    <div class="card-footer">
+                        <button class="btn btn-outline btn-full-width view-details-btn" 
+                            data-title="Village & Culture Walk" 
+                            data-img="images/Village & Culture Walk.webp" 
+                            data-info="<i class='fa-regular fa-clock'></i> 3 Hours &nbsp; | &nbsp; <i class='fa-solid fa-house'></i> Edge Habitat"
+                            data-desc="Take a break from the dense jungle. The agricultural borders of Thattekad support an entirely different group of edge-habitat birds. This walk combines gentle birding with an authentic look at rural Kerala village life and spice farming.">
+                            View Details
+                        </button>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
+
+    <div id="tour-modal" class="modal hidden">
+        <div class="modal-content">
+            <span id="modal-close"><i class="fa-solid fa-xmark"></i></span>
+            <img id="modal-img" src="" alt="Tour Image">
+            <h2 id="modal-title" style="margin: 1.5rem 0 0.5rem; color: var(--dark); font-family: 'Playfair Display', serif;"></h2>
+            
+            <div id="modal-info" style="color: var(--primary); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: var(--light-bg); padding: 10px; border-radius: 5px; display: inline-block;"></div>
+            
+            <p id="modal-desc" style="color: #555; line-height: 1.8; margin-bottom: 2rem;"></p>
+            <a href="book.html" class="btn btn-primary btn-full pulse-animation" style="text-align: center;">Book This Tour</a>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-content">
