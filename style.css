@@ -729,7 +729,75 @@ footer h2 {
     cursor: pointer;
 }
 
-/* --- Parallax Scroll Sections --- */
+/* --- Tour Container Layout --- */
+.tours-section {
+    padding: 5rem 2rem;
+    background: #fdfdfd;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.tours-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 40px;
+}
+
+.tour-item {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.tour-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.tour-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.tour-info {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.tour-info h3 {
+    color: #1C3A27;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tour-info p {
+    color: #666;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    line-height: 1.7;
+}
+
+/* --- Gallery Grid Layout --- */
+.gallery-section {
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
 .parallax-banner {
     background-attachment: fixed;
     background-position: center;
