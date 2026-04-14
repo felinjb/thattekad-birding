@@ -3,15 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Opener fade out
     const opener = document.querySelector('.page-opener');
     if (opener) {
-        // Reduced to 400ms for a snappy premium feel
+        // Delayed to 2.2 seconds to allow the minimalist line bird to finish drawing
         setTimeout(() => {
             opener.classList.add('fade-out');
-        }, 400); 
+        }, 2200); 
     }
 
     // Auto-add animation classes to elements that need it
     const elementsToAnimate = document.querySelectorAll(
-        '.tour-item, .gallery-grid img, .about-text, .about-image, .banner-promo h2, .slide-content, .subpage-banner h1'
+        '.tour-item, .gallery-grid img, .about-text, .about-image, .banner-promo h2, .slide-content, .subpage-banner h1, .elegant-staggered'
     );
     
     elementsToAnimate.forEach(el => {
@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Add a slight delay for grid items to create a waterfall effect
                 entry.target.classList.add('is-visible');
                 observer.unobserve(entry.target);
             }
@@ -53,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <input type="email" placeholder="Email Address" required>
                 <textarea rows="3" placeholder="Which birds are on your checklist? (e.g., Sri Lanka Frogmouth)"></textarea>
                 <button type="submit" class="btn-primary" style="margin-bottom: 15px;">REQUEST ITINERARY</button>
-                <a href="https://wa.me/918921243251" class="btn-secondary" style="width:100%; display:block; text-align:center; background:#25D366; color:#fff; border: none;">OR WHATSAPP US</a>
+                <a href="https://wa.me/918921243251" class="btn-secondary" style="width:100%; display:block; text-align:center; background:#1C3A27; color:#fff; border: none;">OR WHATSAPP US</a>
             </form>
         </div>
     </div>
@@ -76,14 +75,13 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.classList.remove('active');
     });
 
-    // Close when clicking outside the modal box
     modal.addEventListener('click', (e) => {
         if(e.target === modal) {
             modal.classList.remove('active');
         }
     });
 
-    // Initialize Swiper (if swiper div exists on page)
+    // Initialize Swiper
     if(document.querySelector('.swiper')) {
         new Swiper('.swiper', {
             slidesPerView: 1,
@@ -98,14 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 clickable: true,
             },
             breakpoints: {
-                768: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                }
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
             }
         });
     }
-
 });
