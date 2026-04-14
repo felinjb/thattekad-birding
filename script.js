@@ -40,4 +40,72 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         observer.observe(el);
     });
+
+    // Inject Glassmorphism Modal globally
+    const modalHTML = `
+    <div class="glass-modal-overlay" id="bookingModal">
+        <div class="glass-modal">
+            <i class="fas fa-times modal-close"></i>
+            <h3>PLAN YOUR EXPEDITION</h3>
+            <p style="margin-bottom: 20px; color: #666;">Leave your details and target species, and our experts will contact you directly.</p>
+            <form class="glass-form" action="javascript:void(0);">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <textarea rows="3" placeholder="Which birds are on your checklist? (e.g., Sri Lanka Frogmouth)"></textarea>
+                <button type="submit" class="btn-primary" style="margin-bottom: 15px;">REQUEST ITINERARY</button>
+                <a href="https://wa.me/918921243251" class="btn-secondary" style="width:100%; display:block; text-align:center; background:#25D366; color:#fff; border: none;">OR WHATSAPP US</a>
+            </form>
+        </div>
+    </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Modal Interaction Logic
+    const modal = document.getElementById('bookingModal');
+    const closeBtn = document.querySelector('.modal-close');
+    
+    // Bind all buttons with modal-trigger class
+    document.querySelectorAll('.modal-trigger').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('active');
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+
+    // Close when clicking outside the modal box
+    modal.addEventListener('click', (e) => {
+        if(e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Initialize Swiper (if swiper div exists on page)
+    if(document.querySelector('.swiper')) {
+        new Swiper('.swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+    }
+
 });
