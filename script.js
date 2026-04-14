@@ -9,8 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 2. Smooth Fade-In Animations on Scroll
-    const faders = document.querySelectorAll('.fade-in');
+    // 2. Advanced Scroll Animations
+    // Selects all elements with our animation classes
+    const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right');
     const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
 
     const appearOnScroll = new IntersectionObserver(function(entries, observer) {
@@ -22,11 +23,40 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, appearOptions);
 
-    faders.forEach(fader => {
-        appearOnScroll.observe(fader);
+    animatedElements.forEach(el => {
+        appearOnScroll.observe(el);
     });
 
-    // 3. WhatsApp Form Routing (Only runs if the form is actually on the page)
+    // 3. Gallery Lightbox Functionality
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    if (lightbox) {
+        // Open lightbox when an image is clicked
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const imgTag = item.querySelector('img');
+                lightboxImg.src = imgTag.src;
+                lightbox.classList.remove('hidden');
+            });
+        });
+
+        // Close lightbox when X is clicked
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.add('hidden');
+        });
+
+        // Close lightbox when clicking anywhere outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.add('hidden');
+            }
+        });
+    }
+
+    // 4. WhatsApp Form Routing 
     const form = document.getElementById('booking-form');
     const messageDiv = document.getElementById('form-message');
 
