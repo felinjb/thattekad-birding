@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 2. Smooth Fade-In Animations on Scroll
+    // 2. Smooth Fade-In Animations on Scroll (Includes Gallery Images)
     const faders = document.querySelectorAll('.fade-in');
     const appearOptions = {
         threshold: 0.15,
@@ -31,19 +31,39 @@ document.addEventListener("DOMContentLoaded", () => {
         appearOnScroll.observe(fader);
     });
 
-    // 3. Form Submission Handling
+    // 3. WhatsApp Form Routing
     const form = document.getElementById('booking-form');
     const messageDiv = document.getElementById('form-message');
 
     if(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault(); // Stop page reload
-            const name = document.getElementById('name').value;
             
-            // Hide form, show styled success message
+            // Gather the data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const date = document.getElementById('date').value;
+            
+            // Get the actual text name of the tour
+            const tourSelect = document.getElementById('tour-type');
+            const tourName = tourSelect.options[tourSelect.selectedIndex].text;
+            
+            // Format the message for WhatsApp
+            const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to book an expedition:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Expedition:* ${tourName}\n\nPlease let me know the availability and pricing details.`;
+            
+            // Encode the text so it safely passes through the URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // Your WhatsApp Number
+            const whatsappNumber = "918921243251";
+            
+            // Open WhatsApp
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+            
+            // Hide form and show success message on the website
             form.style.display = 'none';
             messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem; display:block;"></i> 
-            Thank you, ${name}! <br> Your expedition request has been received. Our guides will contact you shortly.`;
+            Thank you, ${name}! <br> Your request has been formatted and opened in WhatsApp.`;
             messageDiv.className = 'success-msg';
             messageDiv.classList.remove('hidden');
         });
