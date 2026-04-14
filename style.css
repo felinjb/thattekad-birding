@@ -410,3 +410,51 @@ a {
     filter: brightness(1.05);
 }
 
+/* --- Page Opener Preloader --- */
+.page-opener {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.page-opener img {
+    max-height: 80px;
+    animation: pulseLogo 1.5s infinite;
+}
+
+.page-opener.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@keyframes pulseLogo {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+/* --- Scroll Animations --- */
+.animate-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.03);
+    filter: brightness(1.05);
+}
+
