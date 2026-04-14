@@ -174,6 +174,55 @@
         <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tourBtns = document.querySelectorAll('.view-details-btn');
+            const tourModal = document.getElementById('tour-modal');
+            
+            if (tourModal) {
+                const modalImg = document.getElementById('modal-img');
+                const modalTitle = document.getElementById('modal-title');
+                const modalInfo = document.getElementById('modal-info');
+                const modalDesc = document.getElementById('modal-desc');
+                const modalItinerary = document.getElementById('modal-itinerary');
+                const tourModalClose = document.getElementById('modal-close');
+
+                // Add Click Event to all Explore Buttons
+                for (let i = 0; i < tourBtns.length; i++) {
+                    tourBtns[i].addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Pull data from the clicked button
+                        modalTitle.textContent = this.getAttribute('data-title');
+                        modalImg.src = this.getAttribute('data-img');
+                        modalDesc.textContent = this.getAttribute('data-desc');
+                        modalInfo.innerHTML = this.getAttribute('data-info'); 
+                        modalItinerary.innerHTML = this.getAttribute('data-itinerary');
+                        
+                        // Show modal by removing 'hidden' and making sure display is flex
+                        tourModal.classList.remove('hidden');
+                        tourModal.style.display = 'flex';
+                    });
+                }
+
+                // Close on X click
+                if(tourModalClose) {
+                    tourModalClose.addEventListener('click', function() {
+                        tourModal.classList.add('hidden');
+                        tourModal.style.display = 'none';
+                    });
+                }
+
+                // Close on outside click
+                tourModal.addEventListener('click', function(e) {
+                    if (e.target === tourModal) {
+                        tourModal.classList.add('hidden');
+                        tourModal.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
