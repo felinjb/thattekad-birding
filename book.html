@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now | Thattekad Birding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background: var(--dark);">
+    <nav class="navbar" id="navbar">
+        <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+        <ul class="nav-links">
+            <li><a href="index.html">History</a></li>
+            <li><a href="tours.html">Expeditions</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+        </ul>
+    </nav>
+
+    <section class="booking-section" style="padding-top: 150px;">
+        <div class="booking-container fade-in">
+            <h2>Secure Your Spot</h2>
+            <p>Availability is strictly limited. Connect with our guides directly on WhatsApp.</p>
+            <form id="booking-form">
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="date" id="date" required>
+                    <select id="tour-type" required>
+                        <option value="" disabled selected>Select Expedition...</option>
+                        <option value="early-morning">Early Morning Chorus</option>
+                        <option value="guided-trail">Guided Sanctuary Trail</option>
+                        <option value="night-birding">Night Birding Expedition</option>
+                        <option value="target-species">Target Species Tracking</option>
+                        <option value="photographers-special">The Photographer's Special</option>
+                        <option value="culture-walk">Village & Culture Walk</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full pulse-animation"><i class="fa-brands fa-whatsapp"></i> Request Booking on WhatsApp</button>
+            </form>
+            <div id="form-message" class="hidden"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+            <p>Ernakulam, Kerala, India</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
