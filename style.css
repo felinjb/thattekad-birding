@@ -600,7 +600,6 @@ footer h2 {
 }
 
 /* --- Interactive Hover Overlays for Gallery --- */
-.gallery-grid img { display: none; } /* hide old images */
 .gallery-item {
     position: relative;
     overflow: hidden;
