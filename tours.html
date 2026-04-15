@@ -9,55 +9,48 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* 1. The modal is completely hidden by default */
-        .css-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.85);
-            z-index: 999999;
-            align-items: center; justify-content: center;
-            padding: 20px;
-        }
-        
-        /* 2. When the URL matches the modal's ID (e.g., #tour1), it instantly appears! */
-        .css-modal:target {
-            display: flex;
+        /* Accordion specific styles to guarantee they work */
+        .tour-details {
+            display: none; /* Hidden by default */
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            animation: slideDown 0.3s ease-out forwards;
         }
 
-        /* 3. The white box inside the modal */
-        .modal-inner-box {
-            background: white;
-            max-width: 600px; width: 100%;
-            border-radius: 12px; padding: 30px;
+        .tour-details.active {
+            display: block; /* Shown when active */
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .itinerary-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .itinerary-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
             position: relative;
-            max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        /* 4. The Close 'X' Button */
-        .modal-close {
-            position: absolute; top: 15px; right: 20px;
-            font-size: 2rem; color: #aaa; text-decoration: none;
-            transition: color 0.3s;
-        }
-        .modal-close:hover { color: #d4a373; }
-
-        /* 5. Explore Button Styling */
-        .explore-btn {
-            display: block; width: 100%; text-align: center;
-            padding: 12px; background-color: transparent;
-            color: #2d6a4f; border: 2px solid #2d6a4f; border-radius: 6px;
-            font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600;
-            text-decoration: none; transition: all 0.3s ease;
-        }
-        .explore-btn:hover {
-            background-color: #2d6a4f; color: white; transform: translateY(-2px);
+        .itinerary-list li::before {
+            content: '•';
+            color: #d4a373;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
         }
     </style>
 </head>
-<body id="tours-top"> <nav class="navbar" id="navbar">
+<body>
+    <nav class="navbar" id="navbar">
         <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -82,8 +75,25 @@
                 <div class="card-content">
                     <h3>Early Morning Chorus</h3>
                     <p>Experience the forest waking up in optimal morning light.</p>
+                    
+                    <div id="details-1" class="tour-details">
+                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                            <i class='fa-regular fa-clock'></i> 4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM
+                        </div>
+                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">This 4-hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in.</p>
+                        
+                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <ul class="itinerary-list">
+                            <li><strong>05:45 AM:</strong> Meet your expert guide at the sanctuary entrance.</li>
+                            <li><strong>06:00 AM:</strong> Enter the forest and track the active morning canopy.</li>
+                            <li><strong>08:30 AM:</strong> Photography and observation break near the riverbed.</li>
+                            <li><strong>10:00 AM:</strong> Tour concludes with a review of species spotted.</li>
+                        </ul>
+                        <a href="book.html" class="btn btn-primary btn-full"><i class="fa-solid fa-calendar-check"></i> Book This Tour</a>
+                    </div>
+
                     <div class="card-footer">
-                        <a href="#modal-1" class="explore-btn">Explore</a>
+                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-1', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -93,8 +103,25 @@
                 <div class="card-content">
                     <h3>Guided Sanctuary Trail</h3>
                     <p>An immersive full-day trek deep into the dense evergreen forest.</p>
+                    
+                    <div id="details-2" class="tour-details">
+                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                            <i class='fa-regular fa-clock'></i> 8 Hours &nbsp; | &nbsp; <i class='fa-solid fa-burger'></i> Lunch Included
+                        </div>
+                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics.</p>
+                        
+                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <ul class="itinerary-list">
+                            <li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li>
+                            <li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li>
+                            <li><strong>01:00 PM:</strong> Packed lunch break in the heart of the forest.</li>
+                            <li><strong>03:00 PM:</strong> Return trek via a different route to maximize sightings.</li>
+                        </ul>
+                        <a href="book.html" class="btn btn-primary btn-full"><i class="fa-solid fa-calendar-check"></i> Book This Tour</a>
+                    </div>
+
                     <div class="card-footer">
-                        <a href="#modal-2" class="explore-btn">Explore</a>
+                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-2', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -104,8 +131,25 @@
                 <div class="card-content">
                     <h3>Night Birding Tour</h3>
                     <p>A specialized evening walk focused on nocturnal species.</p>
+                    
+                    <div id="details-3" class="tour-details">
+                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                            <i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-moon'></i> Starts at 7:00 PM
+                        </div>
+                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars.</p>
+                        
+                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <ul class="itinerary-list">
+                            <li><strong>06:45 PM:</strong> Gather for safety briefing and flashlight protocols.</li>
+                            <li><strong>07:00 PM:</strong> Silent walk begins into known frogmouth territories.</li>
+                            <li><strong>08:00 PM:</strong> Tracking owl calls and nightjars along the forest edge.</li>
+                            <li><strong>09:00 PM:</strong> Safe return to the starting point.</li>
+                        </ul>
+                        <a href="book.html" class="btn btn-primary btn-full"><i class="fa-solid fa-calendar-check"></i> Book This Tour</a>
+                    </div>
+
                     <div class="card-footer">
-                        <a href="#modal-3" class="explore-btn">Explore</a>
+                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-3', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -115,8 +159,25 @@
                 <div class="card-content">
                     <h3>Target Species Tracking</h3>
                     <p>A highly customized route designed to find specific rare endemics.</p>
+                    
+                    <div id="details-4" class="tour-details">
+                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                            <i class='fa-solid fa-bullseye'></i> Custom Route &nbsp; | &nbsp; <i class='fa-solid fa-map'></i> Flexible Timing
+                        </div>
+                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species.</p>
+                        
+                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <ul class="itinerary-list">
+                            <li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li>
+                            <li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li>
+                            <li><strong>The Hunt:</strong> We proceed directly to known territories and nesting sites.</li>
+                            <li><strong>Observation:</strong> Extended time allocated for watching or photographing the target.</li>
+                        </ul>
+                        <a href="book.html" class="btn btn-primary btn-full"><i class="fa-solid fa-calendar-check"></i> Book This Tour</a>
+                    </div>
+
                     <div class="card-footer">
-                        <a href="#modal-4" class="explore-btn">Explore</a>
+                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-4', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -126,8 +187,25 @@
                 <div class="card-content">
                     <h3>The Photographer's Special</h3>
                     <p>Designed around golden-hour lighting for the perfect shot.</p>
+                    
+                    <div id="details-5" class="tour-details">
+                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                            <i class='fa-solid fa-camera'></i> Extended Stops &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Golden Hour Focus
+                        </div>
+                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Photography requires patience. Unlike standard walking tours, this package moves slowly, allowing for extended observation times. Guides position you optimally for background isolation to ensure professional-grade wildlife shots.</p>
+                        
+                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <ul class="itinerary-list">
+                            <li><strong>05:30 AM:</strong> Early entry to set up equipment before sunrise.</li>
+                            <li><strong>06:30 AM:</strong> Golden hour photography session.</li>
+                            <li><strong>09:00 AM:</strong> Relocating to shaded areas for mid-canopy shots.</li>
+                            <li><strong>11:00 AM:</strong> Conclusion of the morning session.</li>
+                        </ul>
+                        <a href="book.html" class="btn btn-primary btn-full"><i class="fa-solid fa-calendar-check"></i> Book This Tour</a>
+                    </div>
+
                     <div class="card-footer">
-                        <a href="#modal-5" class="explore-btn">Explore</a>
+                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-5', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -137,134 +215,31 @@
                 <div class="card-content">
                     <h3>Village & Culture Walk</h3>
                     <p>Explore local Kerala village life and agricultural birding borders.</p>
+                    
+                    <div id="details-6" class="tour-details">
+                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                            <i class='fa-regular fa-clock'></i> 3 Hours &nbsp; | &nbsp; <i class='fa-solid fa-house'></i> Edge Habitat
+                        </div>
+                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Take a break from the dense jungle. The agricultural borders of Thattekad support an entirely different group of edge-habitat birds. This walk combines gentle birding with an authentic look at rural Kerala village life and spice farming.</p>
+                        
+                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <ul class="itinerary-list">
+                            <li><strong>08:00 AM:</strong> Walk through the agricultural borders of the sanctuary.</li>
+                            <li><strong>09:00 AM:</strong> Spotting edge-habitat species and visiting spice farms.</li>
+                            <li><strong>10:00 AM:</strong> Interaction with local Kerala village culture.</li>
+                            <li><strong>11:00 AM:</strong> Return to the main road/base.</li>
+                        </ul>
+                        <a href="book.html" class="btn btn-primary btn-full"><i class="fa-solid fa-calendar-check"></i> Book This Tour</a>
+                    </div>
+
                     <div class="card-footer">
-                        <a href="#modal-6" class="explore-btn">Explore</a>
+                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-6', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
 
         </div>
     </section>
-
-    <div id="modal-1" class="css-modal">
-        <div class="modal-inner-box">
-            <a href="#tours-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Early Morning Chorus.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Early Morning Chorus</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">This 4-hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8;">
-                    <li><strong>05:45 AM:</strong> Meet your expert guide at the sanctuary entrance.</li>
-                    <li><strong>06:00 AM:</strong> Enter the forest and track the active morning canopy.</li>
-                    <li><strong>08:30 AM:</strong> Photography and observation break near the riverbed.</li>
-                    <li><strong>10:00 AM:</strong> Tour concludes with a review of species spotted.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
-
-    <div id="modal-2" class="css-modal">
-        <div class="modal-inner-box">
-            <a href="#tours-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Guided Sanctuary Trail.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Guided Sanctuary Trail</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 8 Hours &nbsp; | &nbsp; <i class='fa-solid fa-burger'></i> Lunch Included</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8;">
-                    <li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li>
-                    <li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li>
-                    <li><strong>01:00 PM:</strong> Packed lunch break in the heart of the forest.</li>
-                    <li><strong>03:00 PM:</strong> Return trek via a different route to maximize sightings.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
-
-    <div id="modal-3" class="css-modal">
-        <div class="modal-inner-box">
-            <a href="#tours-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Night Birding Expedition.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Night Birding Tour</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-moon'></i> Starts at 7:00 PM</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8;">
-                    <li><strong>06:45 PM:</strong> Gather for safety briefing and flashlight protocols.</li>
-                    <li><strong>07:00 PM:</strong> Silent walk begins into known frogmouth territories.</li>
-                    <li><strong>08:00 PM:</strong> Tracking owl calls and nightjars along the forest edge.</li>
-                    <li><strong>09:00 PM:</strong> Safe return to the starting point.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
-
-    <div id="modal-4" class="css-modal">
-        <div class="modal-inner-box">
-            <a href="#tours-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Target Species Tracking.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Target Species Tracking</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-solid fa-bullseye'></i> Custom Route &nbsp; | &nbsp; <i class='fa-solid fa-map'></i> Flexible Timing</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8;">
-                    <li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li>
-                    <li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li>
-                    <li><strong>The Hunt:</strong> We proceed directly to known territories and nesting sites.</li>
-                    <li><strong>Observation:</strong> Extended time allocated for watching or photographing the target.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
-
-    <div id="modal-5" class="css-modal">
-        <div class="modal-inner-box">
-            <a href="#tours-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/The Photographer\'s Special.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">The Photographer's Special</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-solid fa-camera'></i> Extended Stops &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Golden Hour Focus</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Photography requires patience. Unlike standard walking tours, this package moves slowly, allowing for extended observation times. Guides position you optimally for background isolation to ensure professional-grade wildlife shots.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8;">
-                    <li><strong>05:30 AM:</strong> Early entry to set up equipment before sunrise.</li>
-                    <li><strong>06:30 AM:</strong> Golden hour photography session.</li>
-                    <li><strong>09:00 AM:</strong> Relocating to shaded areas for mid-canopy shots.</li>
-                    <li><strong>11:00 AM:</strong> Conclusion of the morning session.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
-
-    <div id="modal-6" class="css-modal">
-        <div class="modal-inner-box">
-            <a href="#tours-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Village & Culture Walk.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Village & Culture Walk</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 3 Hours &nbsp; | &nbsp; <i class='fa-solid fa-house'></i> Edge Habitat</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Take a break from the dense jungle. The agricultural borders of Thattekad support an entirely different group of edge-habitat birds. This walk combines gentle birding with an authentic look at rural Kerala village life and spice farming.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8;">
-                    <li><strong>08:00 AM:</strong> Walk through the agricultural borders of the sanctuary.</li>
-                    <li><strong>09:00 AM:</strong> Spotting edge-habitat species and visiting spice farms.</li>
-                    <li><strong>10:00 AM:</strong> Interaction with local Kerala village culture.</li>
-                    <li><strong>11:00 AM:</strong> Return to the main road/base.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
 
     <footer>
         <div class="footer-content">
@@ -282,6 +257,26 @@
     </footer>
 
     <script>
+        function toggleDetails(detailsId, btnElement) {
+            var detailsDiv = document.getElementById(detailsId);
+            
+            // If it's currently hidden, show it
+            if (!detailsDiv.classList.contains('active')) {
+                detailsDiv.classList.add('active');
+                btnElement.innerHTML = 'Hide Details <i class="fa-solid fa-chevron-up"></i>';
+                btnElement.style.backgroundColor = '#2d6a4f';
+                btnElement.style.color = 'white';
+            } 
+            // If it's currently shown, hide it
+            else {
+                detailsDiv.classList.remove('active');
+                btnElement.innerHTML = 'Explore Details <i class="fa-solid fa-chevron-down"></i>';
+                btnElement.style.backgroundColor = 'transparent';
+                btnElement.style.color = '#2d6a4f';
+            }
+        }
+        
+        // Keeps the navbar styling active
         window.addEventListener('scroll', function() {
             var navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
