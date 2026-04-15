@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formData = new FormData();
             
             // ⚠️ IMPORTANT: PASTE YOUR ACCESS KEY HERE ⚠️
-            formData.append("access_key", "PASTE_YOUR_ACCESS_KEY_HERE"); 
+            formData.append("access_key", "0f708846-4d24-4ff1-bff5-e038dd1a925c"); 
             
             formData.append("subject", `Quick Enquiry from ${name}`);
             formData.append("from_name", "Thattekad Birding Popup");
