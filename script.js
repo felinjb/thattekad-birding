@@ -206,8 +206,57 @@ document.addEventListener("DOMContentLoaded", () => {
                     console.log(error);
                     messageDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: red; margin-bottom: 1rem; display:block;"></i> 
                     Oops! Something went wrong. Please check your internet connection and try again.`;
+                    
                 });
             }
+            // 7. Quick Email Popup Routing (Silent Background Email)
+    const quickForm = document.getElementById('quick-email-form');
+    const quickMessageDiv = document.getElementById('quick-form-message');
+
+    if(quickForm) {
+        quickForm.addEventListener('submit', (e) => {
+            e.preventDefault(); 
+            
+            // Collect the data from the popup
+            const name = document.getElementById('quick-name').value;
+            const email = document.getElementById('quick-email').value;
+            const message = document.getElementById('quick-message').value;
+            
+            // Hide the form and show loading
+            quickForm.style.display = 'none'; 
+            quickMessageDiv.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; display:block;"></i> Sending message...`;
+            quickMessageDiv.classList.remove('hidden');
+
+            // Package the data for Web3Forms
+            const formData = new FormData();
+            
+            // ⚠️ IMPORTANT: PASTE YOUR ACCESS KEY HERE ⚠️
+            formData.append("access_key", "PASTE_YOUR_ACCESS_KEY_HERE"); 
+            
+            formData.append("subject", `Quick Enquiry from ${name}`);
+            formData.append("from_name", "Thattekad Birding Popup");
+            formData.append("Name", name);
+            formData.append("Email", email);
+            formData.append("Message", message);
+
+            // Send silently
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    quickMessageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; display:block;"></i> 
+                    <strong>Sent Successfully!</strong><br>We will reply to ${email} shortly.`;
+                } else {
+                    quickMessageDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="font-size: 2.5rem; color: red; margin-bottom: 0.5rem; display:block;"></i> Error sending. Please try WhatsApp.`;
+                }
+            })
+            .catch(error => {
+                quickMessageDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="font-size: 2.5rem; color: red; margin-bottom: 0.5rem; display:block;"></i> Connection error. Please try WhatsApp.`;
+            });
+        });
+    }
         });
     }
 });
