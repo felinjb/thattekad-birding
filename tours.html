@@ -3,7 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tours | Thattekad Birding</title>
+    <title>Tours | Thattekad Birding 
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now | Thattekad Birding
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thattekadbirding.com/">
+    <meta property="og:title" content="Thattekad Birding | Expert Guided Tours">
+    <meta property="og:description" content="Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography.">
+    <meta property="og:image" content="https://thattekadbirding.com/images/coverimage.webp"> </title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background: var(--dark);">
+    
+    <nav class="navbar" id="navbar">
+        <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+        
+        <div class="menu-icon" id="menu-icon">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tours.html">Tours</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+        </ul>
+    </nav>
+
+    <section class="booking-section" style="padding-top: 150px;">
+        <div class="booking-container">
+            <h2>Secure Your Spot</h2>
+            <p>Availability is strictly limited. Submit your details below to request a guide.</p>
+            
+            <form id="booking-form">
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="date" placeholder="Select Date" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" required>
+                    
+                    <select id="tour-type" required>
+                        <option value="" disabled selected>Select Tour...</option>
+                        <option value="early-morning">Early Morning Chorus</option>
+                        <option value="guided-trail">Guided Sanctuary Trail</option>
+                        <option value="night-birding">Night Birding Tour</option>
+                        <option value="target-species">Target Species Tracking</option>
+                        <option value="photographers-special">The Photographer's Special</option>
+                        <option value="culture-walk">Village & Culture Walk</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <textarea id="additional-details" placeholder="Additional Details / Special Requests (Optional)" rows="4" style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" id="btn-whatsapp" class="btn pulse-animation" style="background-color: #25D366; color: white; width: 100%; border: none; font-size: 1.1rem; cursor: pointer;">
+                        <i class="fa-brands fa-whatsapp"></i> Send Enquiry through WhatsApp
+                    </button>
+                    
+                    <button type="submit" id="btn-email" class="btn" style="background-color: var(--accent); color: white; width: 100%; border: none; font-size: 1.1rem; cursor: pointer;">
+                        <i class="fa-solid fa-envelope"></i> Send Enquiry through Email
+                    </button>
+                </div>
+            </form>
+            
+            <div id="form-message" class="hidden"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+            <p>Ernakulam, Kerala, India</p>
+            <p style="margin-top: 10px;">
+                <a href="#email-modal" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
+            </p>
+            <p style="margin-top: 15px;">
+                <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
+            </p>
+            <div class="socials">
+                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#email-modal" style="color: inherit;"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
+    </footer>
+
+    <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <div id="email-modal" class="css-modal">
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        
+        <div class="modal-inner-box">
+            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
+            
+            <form id="quick-email-form">
+                <input type="text" id="quick-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <input type="email" id="quick-email" placeholder="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <textarea id="quick-message" placeholder="How can we help you?" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+            </form>
+            
+            <div id="quick-form-message" class="hidden" style="text-align: center; margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <div id="policies-modal" class="css-modal">
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <div class="modal-inner-box" style="max-width: 650px; max-height: 85vh; overflow-y: auto;">
+            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 1.5rem;">Know Before You Go</h3>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Cancellations & Weather</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Birding relies on nature. We operate rain or shine. Full refunds are provided for cancellations made 48 hours in advance. If severe weather (e.g., heavy monsoon flooding) forces us to cancel, you will be fully refunded or rescheduled.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">What to Wear</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Please wear dull-colored, breathable clothing (greens, browns, greys) to blend into the forest. Bright colors startle the birds. Closed-toe trekking shoes and long trousers are mandatory.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Leech Protection</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">During damp months, leeches are a natural part of the ecosystem. We provide organic salt/tobacco powder repellents, but leech socks are highly recommended if you are visiting right after the monsoon.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear & Ethics</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6;">Bring your own binoculars and camera gear. We practice strict ethical birding: no playback calls to stress the birds, and no flash photography for nocturnal species.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
