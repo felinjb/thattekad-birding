@@ -7,88 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        .gallery-filters {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        .filter-btn {
-            padding: 8px 24px;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            border-radius: 30px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 10px rgba(45, 106, 79, 0.3);
-        }
-        .gallery-item {
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.05);
-        }
-        .gallery-item.hide {
-            display: none;
-        }
-        .gallery-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-        
-        /* Lightbox Container */
-        #lightbox {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.92);
-            z-index: 9999999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        #lightbox-close {
-            position: absolute;
-            top: 25px; right: 35px;
-            color: white;
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        #lightbox-close:hover { color: var(--accent); }
-        #lightbox-img {
-            max-width: 90%;
-            max-height: 85vh;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            animation: zoomIn 0.3s ease-out;
-        }
-        @keyframes zoomIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-    </style>
 </head>
 <body>
     
@@ -102,12 +20,12 @@
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="tours.html">Tours</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="gallery.html" style="color: var(--accent);">Gallery</a></li>
             <li><a href="book.html" class="nav-btn">Book Now</a></li>
         </ul>
     </nav>
 
-    <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/The Photographer\'s Special.webp');">
+    <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/image 1.webp');">
         <div class="hero-content">
             <h1>Our Gallery</h1>
             <p>Glimpses of the rare endemics, lush forests, and unforgettable treks at Thattekad.</p>
@@ -115,42 +33,35 @@
     </header>
 
     <section class="gallery-section">
-        
-        <div class="gallery-filters">
-            <button class="filter-btn active" data-filter="all">All Photos</button>
-            <button class="filter-btn" data-filter="birds">Rare Birds</button>
-            <button class="filter-btn" data-filter="treks">The Treks</button>
-        </div>
-
-        <div class="gallery-grid">
+        <div class="slideshow-container">
             
-            <div class="gallery-item" data-category="birds">
-                <img src="images/Target Species Tracking.webp" alt="Rare Bird Sighting" class="gallery-img">
-            </div>
-            <div class="gallery-item" data-category="birds">
-                <img src="images/Early Morning Chorus.webp" alt="Morning Bird" class="gallery-img">
-            </div>
-            <div class="gallery-item" data-category="birds">
-                <img src="images/Night Birding Expedition.webp" alt="Nocturnal Bird" class="gallery-img">
+            <div class="main-slide-wrapper">
+                <img id="main-slide" src="images/image 1.webp" alt="Featured Birding Image">
             </div>
 
-            <div class="gallery-item" data-category="treks">
-                <img src="images/Guided Sanctuary Trail.webp" alt="Deep Forest Trek" class="gallery-img">
-            </div>
-            <div class="gallery-item" data-category="treks">
-                <img src="images/The Photographer\'s Special.webp" alt="Photography Setup" class="gallery-img">
-            </div>
-            <div class="gallery-item" data-category="treks">
-                <img src="images/Village & Culture Walk.webp" alt="Village Walk" class="gallery-img">
+            <div class="thumbnail-track">
+                <img src="images/image 1.webp" class="thumb active" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 2.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 3.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 4.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 5.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 6.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 7.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 8.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 9.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 10.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 11.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 12.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 13.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 14.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 15.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 18.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 19.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+                <img src="images/image 20.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
             </div>
 
         </div>
     </section>
-
-    <div id="lightbox" class="hidden">
-        <i id="lightbox-close" class="fa-solid fa-xmark"></i>
-        <img id="lightbox-img" src="" alt="Enlarged Image">
-    </div>
 
     <footer>
         <div class="footer-content">
@@ -194,30 +105,21 @@
     <script src="script.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const galleryItems = document.querySelectorAll('.gallery-item');
+        function changeSlide(element) {
+            const mainSlide = document.getElementById('main-slide');
+            
+            mainSlide.style.opacity = '0';
+            
+            setTimeout(() => {
+                mainSlide.src = element.src;
+                mainSlide.style.opacity = '1';
+            }, 300);
 
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    // Add active class to clicked button
-                    btn.classList.add('active');
-                    
-                    const filterValue = btn.getAttribute('data-filter');
-                    
-                    // Show or hide items based on category
-                    galleryItems.forEach(item => {
-                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                            item.classList.remove('hide');
-                        } else {
-                            item.classList.add('hide');
-                        }
-                    });
-                });
+            document.querySelectorAll('.thumb').forEach(thumb => {
+                thumb.classList.remove('active');
             });
-        });
+            element.classList.add('active');
+        }
     </script>
 </body>
 </html>
