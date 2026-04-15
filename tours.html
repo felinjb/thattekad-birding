@@ -7,52 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        /* Accordion specific styles to guarantee they work */
-        .tour-details {
-            display: none; /* Hidden by default */
-            padding-top: 20px;
-            margin-top: 20px;
-            border-top: 1px solid #eee;
-            animation: slideDown 0.3s ease-out forwards;
-        }
-
-        .tour-details.active {
-            display: block; /* Shown when active */
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .itinerary-list {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 20px;
-        }
-
-        .itinerary-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .itinerary-list li::before {
-            content: '•';
-            color: #d4a373;
-            font-size: 1.5rem;
-            position: absolute;
-            left: 0;
-            top: -5px;
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar" id="navbar">
         <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
-        <ul class="nav-links">
+        
+        <div class="menu-icon" id="menu-icon">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="tours.html">Tours</a></li>
             <li><a href="gallery.html">Gallery</a></li>
@@ -77,12 +41,12 @@
                     <p>Experience the forest waking up in optimal morning light.</p>
                     
                     <div id="details-1" class="tour-details">
-                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                        <div class="tour-highlights">
                             <i class='fa-regular fa-clock'></i> 4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM
                         </div>
-                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">This 4-hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in.</p>
+                        <p class="tour-desc">This 4-hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in.</p>
                         
-                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <h4>Expected Itinerary:</h4>
                         <ul class="itinerary-list">
                             <li><strong>05:45 AM:</strong> Meet your expert guide at the sanctuary entrance.</li>
                             <li><strong>06:00 AM:</strong> Enter the forest and track the active morning canopy.</li>
@@ -93,7 +57,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-1', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="btn btn-outline btn-full" onclick="toggleDetails('details-1', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -105,12 +69,12 @@
                     <p>An immersive full-day trek deep into the dense evergreen forest.</p>
                     
                     <div id="details-2" class="tour-details">
-                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                        <div class="tour-highlights">
                             <i class='fa-regular fa-clock'></i> 8 Hours &nbsp; | &nbsp; <i class='fa-solid fa-burger'></i> Lunch Included
                         </div>
-                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics.</p>
+                        <p class="tour-desc">An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics.</p>
                         
-                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <h4>Expected Itinerary:</h4>
                         <ul class="itinerary-list">
                             <li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li>
                             <li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li>
@@ -121,7 +85,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-2', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="btn btn-outline btn-full" onclick="toggleDetails('details-2', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -133,12 +97,12 @@
                     <p>A specialized evening walk focused on nocturnal species.</p>
                     
                     <div id="details-3" class="tour-details">
-                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                        <div class="tour-highlights">
                             <i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-moon'></i> Starts at 7:00 PM
                         </div>
-                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars.</p>
+                        <p class="tour-desc">Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars.</p>
                         
-                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <h4>Expected Itinerary:</h4>
                         <ul class="itinerary-list">
                             <li><strong>06:45 PM:</strong> Gather for safety briefing and flashlight protocols.</li>
                             <li><strong>07:00 PM:</strong> Silent walk begins into known frogmouth territories.</li>
@@ -149,7 +113,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-3', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="btn btn-outline btn-full" onclick="toggleDetails('details-3', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -161,12 +125,12 @@
                     <p>A highly customized route designed to find specific rare endemics.</p>
                     
                     <div id="details-4" class="tour-details">
-                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                        <div class="tour-highlights">
                             <i class='fa-solid fa-bullseye'></i> Custom Route &nbsp; | &nbsp; <i class='fa-solid fa-map'></i> Flexible Timing
                         </div>
-                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species.</p>
+                        <p class="tour-desc">Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species.</p>
                         
-                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <h4>Expected Itinerary:</h4>
                         <ul class="itinerary-list">
                             <li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li>
                             <li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li>
@@ -177,7 +141,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-4', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="btn btn-outline btn-full" onclick="toggleDetails('details-4', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -189,12 +153,12 @@
                     <p>Designed around golden-hour lighting for the perfect shot.</p>
                     
                     <div id="details-5" class="tour-details">
-                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                        <div class="tour-highlights">
                             <i class='fa-solid fa-camera'></i> Extended Stops &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Golden Hour Focus
                         </div>
-                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Photography requires patience. Unlike standard walking tours, this package moves slowly, allowing for extended observation times. Guides position you optimally for background isolation to ensure professional-grade wildlife shots.</p>
+                        <p class="tour-desc">Photography requires patience. Unlike standard walking tours, this package moves slowly, allowing for extended observation times. Guides position you optimally for background isolation to ensure professional-grade wildlife shots.</p>
                         
-                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <h4>Expected Itinerary:</h4>
                         <ul class="itinerary-list">
                             <li><strong>05:30 AM:</strong> Early entry to set up equipment before sunrise.</li>
                             <li><strong>06:30 AM:</strong> Golden hour photography session.</li>
@@ -205,7 +169,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-5', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="btn btn-outline btn-full" onclick="toggleDetails('details-5', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -217,12 +181,12 @@
                     <p>Explore local Kerala village life and agricultural birding borders.</p>
                     
                     <div id="details-6" class="tour-details">
-                        <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px;">
+                        <div class="tour-highlights">
                             <i class='fa-regular fa-clock'></i> 3 Hours &nbsp; | &nbsp; <i class='fa-solid fa-house'></i> Edge Habitat
                         </div>
-                        <p style="font-size: 0.95rem; color: #555; margin-bottom: 15px;">Take a break from the dense jungle. The agricultural borders of Thattekad support an entirely different group of edge-habitat birds. This walk combines gentle birding with an authentic look at rural Kerala village life and spice farming.</p>
+                        <p class="tour-desc">Take a break from the dense jungle. The agricultural borders of Thattekad support an entirely different group of edge-habitat birds. This walk combines gentle birding with an authentic look at rural Kerala village life and spice farming.</p>
                         
-                        <h4 style="color: #1b4332; margin-bottom: 10px;">Expected Itinerary:</h4>
+                        <h4>Expected Itinerary:</h4>
                         <ul class="itinerary-list">
                             <li><strong>08:00 AM:</strong> Walk through the agricultural borders of the sanctuary.</li>
                             <li><strong>09:00 AM:</strong> Spotting edge-habitat species and visiting spice farms.</li>
@@ -233,7 +197,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <button class="btn btn-outline btn-full-width toggle-btn" onclick="toggleDetails('details-6', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="btn btn-outline btn-full" onclick="toggleDetails('details-6', this)">Explore Details <i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
             </div>
@@ -246,7 +210,7 @@
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Ernakulam, Kerala, India</p>
             <p style="margin-top: 10px;">
-                <a href="mailto:info@thattekadbirding.com" style="color: #d4a373; text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
+                <a href="mailto:info@thattekadbirding.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
             </p>
             <div class="socials">
                 <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;"><i class="fa-brands fa-whatsapp"></i></a>
@@ -256,35 +220,6 @@
         <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
 
-    <script>
-        function toggleDetails(detailsId, btnElement) {
-            var detailsDiv = document.getElementById(detailsId);
-            
-            // If it's currently hidden, show it
-            if (!detailsDiv.classList.contains('active')) {
-                detailsDiv.classList.add('active');
-                btnElement.innerHTML = 'Hide Details <i class="fa-solid fa-chevron-up"></i>';
-                btnElement.style.backgroundColor = '#2d6a4f';
-                btnElement.style.color = 'white';
-            } 
-            // If it's currently shown, hide it
-            else {
-                detailsDiv.classList.remove('active');
-                btnElement.innerHTML = 'Explore Details <i class="fa-solid fa-chevron-down"></i>';
-                btnElement.style.backgroundColor = 'transparent';
-                btnElement.style.color = '#2d6a4f';
-            }
-        }
-        
-        // Keeps the navbar styling active
-        window.addEventListener('scroll', function() {
-            var navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
