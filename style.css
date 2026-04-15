@@ -305,6 +305,19 @@ footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; 
 }
 .modal-close:hover { color: var(--accent); }
 
+/* --- Testimonials Section --- */
+.testimonials-section { padding: 5rem 5%; background: var(--dark); color: var(--white); }
+.testimonials-section .section-title { color: var(--white); }
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+.testimonial-card { 
+    background: rgba(255,255,255,0.05); padding: 2.5rem 2rem; border-radius: 12px; 
+    border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease; 
+}
+.testimonial-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.08); }
+.stars { color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; }
+.testimonial-card p { font-style: italic; line-height: 1.8; margin-bottom: 1.5rem; font-size: 0.95rem; color: rgba(255,255,255,0.9); }
+.testimonial-card h4 { color: var(--accent); font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; }
+
 /* ========================================= */
 /* --- MOBILE RESPONSIVE FIXES -- */
 /* ========================================= */
