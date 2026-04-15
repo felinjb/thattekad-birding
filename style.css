@@ -169,12 +169,32 @@ footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; 
     .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
     .gallery-img { height: 140px; }
     
-    /* Mobile Form Fixes */
-    form { padding: 1.5rem; }
+    /* Mobile Form Fixes - iOS Safari Overrides */
+    form { 
+        padding: 1.5rem; 
+        width: 100%; /* Force form to stay inside bounds */
+        box-sizing: border-box;
+    }
     .input-group { 
-        flex-direction: column; /* Stacks inputs vertically */
-        gap: 1rem; 
+        display: block; /* Switch from flex to block to prevent iOS bleeding */
         width: 100%;
-        margin-bottom: 1rem;
+        margin-bottom: 0; /* Remove group margin since items will stack */
+    }
+    
+    .input-group input, 
+    .input-group select, 
+    .input-group textarea {
+        width: 100%; /* Force 100% of parent */
+        max-width: 100%; 
+        display: block;
+        margin-bottom: 1rem; /* Add spacing between stacked items */
+        box-sizing: border-box;
+        -webkit-appearance: none; /* Strip aggressive iOS default styling */
+        appearance: none;
+    }
+
+    /* Specific fix for the date input placeholder issue on mobile */
+    input[type="date"] {
+        min-height: 50px; /* Ensure it matches the height of text inputs */
     }
 }
