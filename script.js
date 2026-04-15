@@ -1,6 +1,25 @@
+// Global function for the Tour Accordion Cards
+function toggleDetails(detailsId, btnElement) {
+    const detailsDiv = document.getElementById(detailsId);
+    
+    if (!detailsDiv.classList.contains('active')) {
+        // Open it
+        detailsDiv.classList.add('active');
+        btnElement.innerHTML = 'Hide Details <i class="fa-solid fa-chevron-up"></i>';
+        btnElement.style.backgroundColor = '#2d6a4f';
+        btnElement.style.color = 'white';
+    } else {
+        // Close it
+        detailsDiv.classList.remove('active');
+        btnElement.innerHTML = 'Explore Details <i class="fa-solid fa-chevron-down"></i>';
+        btnElement.style.backgroundColor = 'transparent';
+        btnElement.style.color = '#2d6a4f';
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Navbar Scroll Effect (Darkens background when scrolling down)
+    // 1. Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -16,10 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (menuIcon && navLinks) {
         menuIcon.addEventListener('click', () => {
-            // Show/Hide the menu
             navLinks.classList.toggle('nav-active');
             
-            // Change icon to 'X' when open
             const icon = menuIcon.querySelector('i');
             if (navLinks.classList.contains('nav-active')) {
                 icon.classList.remove('fa-bars');
@@ -30,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Close menu automatically if they click a link
         const links = navLinks.querySelectorAll('a');
         links.forEach(link => {
             link.addEventListener('click', () => {
@@ -41,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. Gallery Lightbox Functionality (For the Gallery Page)
+    // 3. Gallery Lightbox Functionality
     const galleryItems = document.querySelectorAll('.gallery-item');
     const lightbox = document.getElementById('lightbox');
     
@@ -68,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 4. Booking Form WhatsApp/Email Routing (For the Booking Page)
+    // 4. Booking Form Routing (WhatsApp & Automated Email)
     const form = document.getElementById('booking-form');
     const messageDiv = document.getElementById('form-message');
 
@@ -87,19 +103,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const tourSelect = document.getElementById('tour-type');
             const tourName = tourSelect.options[tourSelect.selectedIndex].text;
             
+            // Capture the new Additional Details box
+            let detailsText = document.getElementById('additional-details').value;
+            if (!detailsText) {
+                detailsText = "None provided.";
+            }
+            
             // Hide the form to show a clean success message
             form.style.display = 'none'; 
 
             // ROUTE 1: WHATSAPP
             if (submitter.id === 'btn-whatsapp') {
-                const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to send an enquiry for a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n\nPlease let me know the availability and pricing.`;
+                const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to send an enquiry for a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n*Additional Details:* ${detailsText}\n\nPlease let me know the availability and pricing.`;
                 const encodedMessage = encodeURIComponent(whatsappMessage);
-                const whatsappNumber = "918921243251"; // Your registered WhatsApp number
+                const whatsappNumber = "918921243251"; 
                 
-                // Open WhatsApp app or web browser
                 window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
                 
-                // Show Success Message
                 messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #25D366; margin-bottom: 1rem; display:block;"></i> 
                 Thank you, ${name}! <br> Your enquiry has been opened in WhatsApp.`;
                 messageDiv.className = 'success-msg';
@@ -108,15 +128,20 @@ document.addEventListener("DOMContentLoaded", () => {
             
             // ROUTE 2: EMAIL
             else if (submitter.id === 'btn-email') {
-                const emailSubject = `New Tour Enquiry: ${tourName} - ${name}`;
-                const emailBody = `Hello Thattekad Birding,\n\nI would like to send an enquiry for a tour:\n\nName: ${name}\nEmail: ${email}\nDate: ${date}\nTour: ${tourName}\n\nPlease let me know the availability and pricing details.\n\nThank you,\n${name}`;
+                // Ensure spaces are safely encoded using %20 for email links
+                const emailSubject = encodeURIComponent(`New Tour Enquiry: ${tourName} - ${name}`);
                 
-                const encodedSubject = encodeURIComponent(emailSubject);
-                const encodedBody = encodeURIComponent(emailBody);
-                const emailAddress = "info@thattekadbirding.com"; // Your official email address
+                // Build the email body text
+                const rawBody = `Hello Thattekad Birding,\n\nI would like to send an enquiry for a tour:\n\nName: ${name}\nEmail: ${email}\nDate: ${date}\nTour: ${tourName}\nAdditional Details: ${detailsText}\n\nPlease let me know the availability and pricing details.\n\nThank you,\n${name}`;
                 
-                // Trigger the device's default mail app (Gmail, Outlook, Apple Mail)
-                window.location.href = `mailto:${emailAddress}?subject=${encodedSubject}&body=${encodedBody}`;
+                // Use encodeURIComponent to safely package the body for the mailto link
+                const encodedBody = encodeURIComponent(rawBody);
+                
+                // The destination email address
+                const emailAddress = "info@thattekadbirding.com";
+                
+                // Trigger the device's default mail app 
+                window.location.href = `mailto:${emailAddress}?subject=${emailSubject}&body=${encodedBody}`;
                 
                 // Show Success Message
                 messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> 
