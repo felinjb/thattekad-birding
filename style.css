@@ -126,6 +126,94 @@ footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; 
 .socials i { margin: 0 10px; color: white;}
 .socials a:hover i { color: var(--accent); }
 
+/* --- Floating WhatsApp Button --- */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 35px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    color: #FFF;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.4);
+}
+
+/* --- Interactive FAQ Section --- */
+.faq-section {
+    padding: 5rem 5%;
+    background: var(--white);
+}
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.faq-item {
+    border-bottom: 1px solid #eee;
+    padding: 1.5rem 0;
+}
+.faq-item details {
+    cursor: pointer;
+}
+.faq-item summary {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark);
+    list-style: none; /* Hides the default ugly triangle */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+}
+/* Hide default arrow in Safari/Chrome */
+.faq-item summary::-webkit-details-marker { display: none; }
+
+/* Add our own custom animated arrow */
+.faq-item summary::after {
+    content: '\f078'; /* FontAwesome chevron-down */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+    font-size: 1rem;
+}
+.faq-item details[open] summary::after {
+    transform: rotate(180deg);
+}
+.faq-content {
+    padding-top: 1rem;
+    color: #555;
+    line-height: 1.6;
+    animation: fadeInDown 0.3s ease-in-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 28px;
+    }
+}
 /* ========================================= */
 /* --- MOBILE RESPONSIVE FIXES -- */
 /* ========================================= */
