@@ -216,4 +216,28 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+    // 8. SCROLL REVEAL ANIMATIONS (The "Wow" Factor)
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    if(revealElements.length > 0) {
+        const revealOptions = {
+            threshold: 0.15, // Triggers when 15% of the element is visible
+            rootMargin: "0px 0px -50px 0px" // Triggers slightly before it hits the bottom of the screen
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once per visit
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+    }
+
 });
