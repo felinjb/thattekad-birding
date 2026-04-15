@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body style="background: var(--dark);">
+    
     <nav class="navbar" id="navbar">
         <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
         
@@ -25,9 +26,10 @@
     </nav>
 
     <section class="booking-section" style="padding-top: 150px;">
-        <div class="booking-container fade-in">
+        <div class="booking-container">
             <h2>Secure Your Spot</h2>
-            <p>Availability is strictly limited. Connect with our guides directly on WhatsApp.</p>
+            <p>Availability is strictly limited. Submit your details below to request a guide.</p>
+            
             <form id="booking-form">
                 <div class="input-group">
                     <input type="text" id="name" placeholder="Full Name" required>
@@ -36,17 +38,27 @@
                 <div class="input-group">
                     <input type="date" id="date" required>
                     <select id="tour-type" required>
-                        <option value="" disabled selected>Select Expedition...</option>
+                        <option value="" disabled selected>Select Tour...</option>
                         <option value="early-morning">Early Morning Chorus</option>
                         <option value="guided-trail">Guided Sanctuary Trail</option>
-                        <option value="night-birding">Night Birding Expedition</option>
+                        <option value="night-birding">Night Birding Tour</option>
                         <option value="target-species">Target Species Tracking</option>
                         <option value="photographers-special">The Photographer's Special</option>
                         <option value="culture-walk">Village & Culture Walk</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-full pulse-animation"><i class="fa-brands fa-whatsapp"></i> Request Booking on WhatsApp</button>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" id="btn-whatsapp" class="btn pulse-animation" style="background-color: #25D366; color: white; width: 100%; border: none; font-size: 1.1rem; cursor: pointer;">
+                        <i class="fa-brands fa-whatsapp"></i> Send Enquiry through WhatsApp
+                    </button>
+                    
+                    <button type="submit" id="btn-email" class="btn" style="background-color: var(--accent); color: white; width: 100%; border: none; font-size: 1.1rem; cursor: pointer;">
+                        <i class="fa-solid fa-envelope"></i> Send Enquiry through Email
+                    </button>
+                </div>
             </form>
+            
             <div id="form-message" class="hidden"></div>
         </div>
     </section>
@@ -55,8 +67,17 @@
         <div class="footer-content">
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Ernakulam, Kerala, India</p>
+            <p style="margin-top: 10px;">
+                <a href="mailto:info@thattekadbirding.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
+            </p>
+            <div class="socials">
+                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="mailto:info@thattekadbirding.com" style="color: inherit;"><i class="fa-solid fa-envelope"></i></a>
+            </div>
         </div>
+        <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
