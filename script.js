@@ -1,4 +1,4 @@
-// Global function for the Tour Accordion Cards
+// 1. Global function for the Tour Accordion Cards
 function toggleDetails(detailsId, btnElement) {
     const detailsDiv = document.getElementById(detailsId);
     
@@ -19,7 +19,7 @@ function toggleDetails(detailsId, btnElement) {
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Navbar Scroll Effect
+    // 2. Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 2. Mobile Hamburger Menu Toggle
+    // 3. Mobile Hamburger Menu Toggle
     const menuIcon = document.getElementById('menu-icon');
     const navLinks = document.getElementById('nav-links');
     
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. Gallery Lightbox Functionality
+    // 4. Gallery Lightbox Functionality
     const galleryItems = document.querySelectorAll('.gallery-item');
     const lightbox = document.getElementById('lightbox');
     
@@ -84,35 +84,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 4. Booking Form Routing (WhatsApp & Automated Email)
+    // 5. Booking Form Routing (WhatsApp & Silent Email)
     const form = document.getElementById('booking-form');
     const messageDiv = document.getElementById('form-message');
 
     if(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault(); 
-            
-            // Find out which button the user clicked
             const submitter = e.submitter; 
             
             // Collect the data from the form
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const date = document.getElementById('date').value;
-            
             const tourSelect = document.getElementById('tour-type');
             const tourName = tourSelect.options[tourSelect.selectedIndex].text;
             
-            // Capture the new Additional Details box
             let detailsText = document.getElementById('additional-details').value;
-            if (!detailsText) {
-                detailsText = "None provided.";
-            }
+            if (!detailsText) { detailsText = "None provided."; }
             
-            // Hide the form to show a clean success message
+            // Hide the form to show loading/success message
             form.style.display = 'none'; 
 
-            // ROUTE 1: WHATSAPP
+            // ==========================================
+            // ROUTE 1: WHATSAPP (Opens App)
+            // ==========================================
             if (submitter.id === 'btn-whatsapp') {
                 const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to send an enquiry for a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n*Additional Details:* ${detailsText}\n\nPlease let me know the availability and pricing.`;
                 const encodedMessage = encodeURIComponent(whatsappMessage);
@@ -126,28 +122,54 @@ document.addEventListener("DOMContentLoaded", () => {
                 messageDiv.classList.remove('hidden');
             } 
             
-            // ROUTE 2: EMAIL
+            // ==========================================
+            // ROUTE 2: SILENT BACKGROUND EMAIL API
+            // ==========================================
             else if (submitter.id === 'btn-email') {
-                // Ensure spaces are safely encoded using %20 for email links
-                const emailSubject = encodeURIComponent(`New Tour Enquiry: ${tourName} - ${name}`);
                 
-                // Build the email body text
-                const rawBody = `Hello Thattekad Birding,\n\nI would like to send an enquiry for a tour:\n\nName: ${name}\nEmail: ${email}\nDate: ${date}\nTour: ${tourName}\nAdditional Details: ${detailsText}\n\nPlease let me know the availability and pricing details.\n\nThank you,\n${name}`;
-                
-                // Use encodeURIComponent to safely package the body for the mailto link
-                const encodedBody = encodeURIComponent(rawBody);
-                
-                // The destination email address
-                const emailAddress = "info@thattekadbirding.com";
-                
-                // Trigger the device's default mail app 
-                window.location.href = `mailto:${emailAddress}?subject=${emailSubject}&body=${encodedBody}`;
-                
-                // Show Success Message
-                messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> 
-                Thank you, ${name}! <br> Your email application has been opened to send the enquiry.`;
+                // Show a loading message so the user knows it is working
+                messageDiv.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> Sending your enquiry...`;
                 messageDiv.className = 'success-msg';
                 messageDiv.classList.remove('hidden');
+
+                // Package the data for Web3Forms
+                const formData = new FormData();
+                
+                // ⚠️ IMPORTANT: PASTE YOUR ACCESS KEY IN THE QUOTES BELOW ⚠️
+                formData.append("access_key", "0f708846-4d24-4ff1-bff5-e038dd1a925c"); 
+                
+                formData.append("subject", `New Tour Enquiry: ${tourName} - ${name}`);
+                formData.append("from_name", "Thattekad Birding Website");
+                formData.append("Name", name);
+                formData.append("Email_Address", email);
+                formData.append("Preferred_Date", date);
+                formData.append("Requested_Tour", tourName);
+                formData.append("Additional_Details", detailsText);
+
+                // Send the data silently in the background
+                fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(async (response) => {
+                    let json = await response.json();
+                    if (response.status == 200) {
+                        // Success! Update the message on the screen
+                        messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> 
+                        Success, ${name}! <br> Your enquiry has been sent directly to our team. We will email you back shortly.`;
+                    } else {
+                        // API Error
+                        console.log(response);
+                        messageDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: red; margin-bottom: 1rem; display:block;"></i> 
+                        Oops! Something went wrong. Please try contacting us via WhatsApp instead.`;
+                    }
+                })
+                .catch(error => {
+                    // Network Error
+                    console.log(error);
+                    messageDiv.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: red; margin-bottom: 1rem; display:block;"></i> 
+                    Oops! Something went wrong. Please check your internet connection and try again.`;
+                });
             }
         });
     }
