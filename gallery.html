@@ -101,7 +101,7 @@
         let slideInterval;
 
         function startSlideshow() {
-            // Change slide every 4 seconds (4000 milliseconds)
+            // Change slide every 2 seconds (2000 milliseconds)
             slideInterval = setInterval(() => {
                 let activeThumb = document.querySelector('.thumb.active');
                 let nextThumb = activeThumb.nextElementSibling;
@@ -112,7 +112,7 @@
                 }
                 
                 changeSlide(nextThumb, true);
-            }, 4000); 
+            }, 2000); 
         }
 
         function changeSlide(element, isAuto = false) {
