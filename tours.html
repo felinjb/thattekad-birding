@@ -88,7 +88,9 @@
         .toggle-btn { display: none !important; }
     </style>
 </head>
-<body id="page-top"> <nav class="navbar" id="navbar">
+<body id="page-top"> 
+    
+    <nav class="navbar" id="navbar">
         <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
         
         <div class="menu-icon" id="menu-icon">
@@ -97,14 +99,14 @@
 
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="tours.html">Tours</a></li>
+            <li><a href="tours.html" style="color: var(--accent);">Tours</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="book.html" class="nav-btn">Book Now</a></li>
         </ul>
     </nav>
 
     <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/Guided Sanctuary Trail.webp');">
-        <div class="hero-content">
+        <div class="hero-content reveal">
             <h1>Signature Tours</h1>
             <p>Expertly guided treks tailored for photography and rare species tracking.</p>
         </div>
@@ -113,7 +115,7 @@
     <section class="tours-section">
         <div class="tour-grid">
             
-            <div class="tour-card">
+            <div class="tour-card reveal delay-1">
                 <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
                 <div class="card-content">
                     <h3>Early Morning Chorus</h3>
@@ -124,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="tour-card">
+            <div class="tour-card reveal delay-2">
                 <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
                 <div class="card-content">
                     <h3>Guided Sanctuary Trail</h3>
@@ -135,7 +137,7 @@
                 </div>
             </div>
 
-            <div class="tour-card">
+            <div class="tour-card reveal delay-3">
                 <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
                 <div class="card-content">
                     <h3>Night Birding Tour</h3>
@@ -146,7 +148,7 @@
                 </div>
             </div>
 
-            <div class="tour-card">
+            <div class="tour-card reveal delay-1">
                 <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
                 <div class="card-content">
                     <h3>Target Species Tracking</h3>
@@ -157,7 +159,7 @@
                 </div>
             </div>
 
-            <div class="tour-card">
+            <div class="tour-card reveal delay-2">
                 <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
                 <div class="card-content">
                     <h3>The Photographer's Special</h3>
@@ -168,7 +170,7 @@
                 </div>
             </div>
 
-            <div class="tour-card">
+            <div class="tour-card reveal delay-3">
                 <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
                 <div class="card-content">
                     <h3>Village & Culture Walk</h3>
@@ -186,16 +188,12 @@
         <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
         <div class="modal-inner-box">
             <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            
             <img src="images/Early Morning Chorus.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
             <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Early Morning Chorus</h2>
-            
             <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;">
                 <i class='fa-regular fa-clock'></i> 3-4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM
             </div>
-            
             <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">This 3-4 hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in.</p>
-            
             <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                 <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
                 <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
@@ -205,7 +203,6 @@
                     <li><strong>09:30 AM:</strong> Tour concludes with a review of species spotted.</li>
                 </ul>
             </div>
-
             <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
         </div>
     </div>
@@ -320,19 +317,27 @@
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Ernakulam, Kerala, India</p>
             <p style="margin-top: 10px;">
-                <a href="mailto:info@thattekadbirding.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
+                <a href="#email-modal" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
+            </p>
+            <p style="margin-top: 15px;">
+                <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
             </p>
             <div class="socials">
                 <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;"><i class="fa-brands fa-whatsapp"></i></a>
                 <a href="#email-modal" style="color: inherit;"><i class="fa-solid fa-envelope"></i></a>
+            </div>
         </div>
         <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
-        <div id="email-modal" class="css-modal">
+    </footer>
+
+    <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <div id="email-modal" class="css-modal">
         <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        
         <div class="modal-inner-box">
             <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            
             <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
             
@@ -340,17 +345,32 @@
                 <input type="text" id="quick-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
                 <input type="email" id="quick-email" placeholder="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
                 <textarea id="quick-message" placeholder="How can we help you?" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
-                
                 <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
             </form>
             
             <div id="quick-form-message" class="hidden" style="text-align: center; margin-top: 1rem;"></div>
         </div>
     </div>
-    </footer>
-    <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
+
+    <div id="policies-modal" class="css-modal">
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <div class="modal-inner-box" style="max-width: 650px; max-height: 85vh; overflow-y: auto;">
+            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 1.5rem;">Know Before You Go</h3>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Cancellations & Weather</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Birding relies on nature. We operate rain or shine. Full refunds are provided for cancellations made 48 hours in advance. If severe weather (e.g., heavy monsoon flooding) forces us to cancel, you will be fully refunded or rescheduled.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">What to Wear</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Please wear dull-colored, breathable clothing (greens, browns, greys) to blend into the forest. Bright colors startle the birds. Closed-toe trekking shoes and long trousers are mandatory.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Leech Protection</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">During damp months, leeches are a natural part of the ecosystem. We provide organic salt/tobacco powder repellents, but leech socks are highly recommended if you are visiting right after the monsoon.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear & Ethics</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6;">Bring your own binoculars and camera gear. We practice strict ethical birding: no playback calls to stress the birds, and no flash photography for nocturnal species.</p>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
