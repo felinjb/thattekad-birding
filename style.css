@@ -151,68 +151,66 @@ footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; 
     color: #FFF;
     box-shadow: 0px 6px 20px rgba(0,0,0,0.4);
 }
-
-/* --- Interactive FAQ Section --- */
+/* --- Premium FAQ Cards --- */
 .faq-section {
     padding: 5rem 5%;
-    background: var(--white);
+    background-color: var(--light-bg);
 }
 .faq-container {
     max-width: 800px;
     margin: 0 auto;
 }
-.faq-item {
-    border-bottom: 1px solid #eee;
-    padding: 1.5rem 0;
+.faq-card {
+    background: var(--white);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid #eee;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
-.faq-item details {
-    cursor: pointer;
+.faq-card:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
-.faq-item summary {
-    font-size: 1.2rem;
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 1.5rem;
+    background: transparent;
+    border: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--dark);
-    list-style: none; /* Hides the default ugly triangle */
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Playfair Display', serif;
+    transition: color 0.3s;
 }
-/* Hide default arrow in Safari/Chrome */
-.faq-item summary::-webkit-details-marker { display: none; }
-
-/* Add our own custom animated arrow */
-.faq-item summary::after {
-    content: '\f078'; /* FontAwesome chevron-down */
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
+.faq-question:hover {
+    color: var(--primary);
+}
+.faq-question i {
     color: var(--accent);
-    transition: transform 0.3s ease;
     font-size: 1rem;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.faq-item details[open] summary::after {
+/* Rotates the arrow when open */
+.faq-question.active i {
     transform: rotate(180deg);
 }
-.faq-content {
-    padding-top: 1rem;
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem;
     color: #555;
-    line-height: 1.6;
-    animation: fadeInDown 0.3s ease-in-out;
-}
-
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 768px) {
-    .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
-        font-size: 28px;
-    }
+    line-height: 1.8;
+    margin: 0;
+    font-size: 0.95rem;
 }
 /* ========================================= */
 /* --- MOBILE RESPONSIVE FIXES -- */
