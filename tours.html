@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* This ensures the popup works even if your main CSS file hasn't loaded yet */
+        /* Forces the popup to work flawlessly */
         #tour-modal {
             display: none;
             position: fixed;
@@ -50,7 +50,7 @@
     </nav>
 
     <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/Guided Sanctuary Trail.webp');">
-        <div class="hero-content fade-in-up">
+        <div class="hero-content">
             <h1>Signature Tours</h1>
             <p>Expertly guided treks tailored for photography and rare species tracking.</p>
         </div>
@@ -59,7 +59,7 @@
     <section class="tours-section">
         <div class="tour-grid">
             
-            <div class="tour-card fade-in-up">
+            <div class="tour-card">
                 <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
                 <div class="card-content">
                     <h3>Early Morning Chorus</h3>
@@ -71,14 +71,14 @@
                             data-img="images/Early Morning Chorus.webp" 
                             data-info="<i class='fa-regular fa-clock'></i> 4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM"
                             data-desc="This 4-hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in."
-                            data-itinerary="<li><strong>05:45 AM:</strong> Meet your expert guide at the sanctuary entrance.</li><li><strong>06:00 AM:</strong> Enter the forest and track the active morning canopy.</li><li><strong>08:30 AM:</strong> Photography and observation break near the riverbed.</li><li><strong>10:00 AM:</strong> Tour concludes.</li>">
+                            data-itinerary="<li><strong>05:45 AM:</strong> Meet your expert guide at the sanctuary entrance.</li><li><strong>06:00 AM:</strong> Enter the forest and track the active morning canopy.</li><li><strong>08:30 AM:</strong> Photography and observation break near the riverbed.</li><li><strong>10:00 AM:</strong> Tour concludes with a review of species spotted.</li>">
                             Explore
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in-up">
+            <div class="tour-card">
                 <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
                 <div class="card-content">
                     <h3>Guided Sanctuary Trail</h3>
@@ -90,14 +90,14 @@
                             data-img="images/Guided Sanctuary Trail.webp" 
                             data-info="<i class='fa-regular fa-clock'></i> 8 Hours &nbsp; | &nbsp; <i class='fa-solid fa-burger'></i> Lunch Included"
                             data-desc="An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics."
-                            data-itinerary="<li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li><li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li><li><strong>01:00 PM:</strong> Packed lunch break in the heart of the forest.</li><li><strong>03:00 PM:</strong> Return trek via a different route.</li>">
+                            data-itinerary="<li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li><li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li><li><strong>01:00 PM:</strong> Packed lunch break in the heart of the forest.</li><li><strong>03:00 PM:</strong> Return trek via a different route to maximize sightings.</li>">
                             Explore
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in-up">
+            <div class="tour-card">
                 <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
                 <div class="card-content">
                     <h3>Night Birding Tour</h3>
@@ -109,14 +109,14 @@
                             data-img="images/Night Birding Expedition.webp" 
                             data-info="<i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-moon'></i> Starts at 7:00 PM"
                             data-desc="Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars."
-                            data-itinerary="<li><strong>06:45 PM:</strong> Gather for safety briefing and flashlight protocols.</li><li><strong>07:00 PM:</strong> Silent walk begins into known frogmouth territories.</li><li><strong>08:00 PM:</strong> Tracking owl calls and nightjars.</li><li><strong>09:00 PM:</strong> Safe return to the starting point.</li>">
+                            data-itinerary="<li><strong>06:45 PM:</strong> Gather for safety briefing and flashlight protocols.</li><li><strong>07:00 PM:</strong> Silent walk begins into known frogmouth territories.</li><li><strong>08:00 PM:</strong> Tracking owl calls and nightjars along the forest edge.</li><li><strong>09:00 PM:</strong> Safe return to the starting point.</li>">
                             Explore
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in-up">
+            <div class="tour-card">
                 <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
                 <div class="card-content">
                     <h3>Target Species Tracking</h3>
@@ -128,14 +128,14 @@
                             data-img="images/Target Species Tracking.webp" 
                             data-info="<i class='fa-solid fa-bullseye'></i> Custom Route &nbsp; | &nbsp; <i class='fa-solid fa-map'></i> Flexible Timing"
                             data-desc="Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species."
-                            data-itinerary="<li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li><li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li><li><strong>The Hunt:</strong> We proceed directly to known territories and nesting sites.</li><li><strong>Observation:</strong> Extended time allocated for watching or photographing.</li>">
+                            data-itinerary="<li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li><li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li><li><strong>The Hunt:</strong> We proceed directly to known territories and nesting sites.</li><li><strong>Observation:</strong> Extended time allocated for watching or photographing the target.</li>">
                             Explore
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div class="tour-card fade-in-up">
+            <div class="tour-card">
                 <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
                 <div class="card-content">
                     <h3>The Photographer's Special</h3>
@@ -154,7 +154,7 @@
                 </div>
             </div>
 
-            <div class="tour-card fade-in-up">
+            <div class="tour-card">
                 <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
                 <div class="card-content">
                     <h3>Village & Culture Walk</h3>
@@ -231,6 +231,16 @@
                 closeModal();
             }
         }
+        
+        // Keeps the navbar styling active
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
 </html>
