@@ -1,5 +1,25 @@
+// 1. Global function for the Tour Accordion Cards
+function toggleDetails(detailsId, btnElement) {
+    const detailsDiv = document.getElementById(detailsId);
+    
+    if (!detailsDiv.classList.contains('active')) {
+        // Open it
+        detailsDiv.classList.add('active');
+        btnElement.innerHTML = 'Hide Details <i class="fa-solid fa-chevron-up"></i>';
+        btnElement.style.backgroundColor = '#2d6a4f';
+        btnElement.style.color = 'white';
+    } else {
+        // Close it
+        detailsDiv.classList.remove('active');
+        btnElement.innerHTML = 'Explore Details <i class="fa-solid fa-chevron-down"></i>';
+        btnElement.style.backgroundColor = 'transparent';
+        btnElement.style.color = '#2d6a4f';
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Navbar Scroll Effect
+    
+    // 2. Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -9,103 +29,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 2. Advanced Scroll Animations
-    const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right');
-    const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
-
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('appear');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, appearOptions);
-
-    animatedElements.forEach(el => {
-        appearOnScroll.observe(el);
-    });
-
-    // 3. Tour Details Modal (For the Tours Page)
-    const tourBtns = document.querySelectorAll('.view-details-btn');
-    const tourModal = document.getElementById('tour-modal');
+    // 3. Mobile Hamburger Menu Toggle
+    const menuIcon = document.getElementById('menu-icon');
+    const navLinks = document.getElementById('nav-links');
     
-    if (tourModal) {
-        const modalImg = document.getElementById('modal-img');
-        const modalTitle = document.getElementById('modal-title');
-        const modalInfo = document.getElementById('modal-info');
-        const modalDesc = document.getElementById('modal-desc');
-        const modalItinerary = document.getElementById('modal-itinerary'); // New Itinerary element
-        const tourModalClose = document.getElementById('modal-close');
-
-        tourBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Pull data from the button attributes
-                modalTitle.textContent = btn.getAttribute('data-title');
-                modalImg.src = btn.getAttribute('data-img');
-                modalDesc.textContent = btn.getAttribute('data-desc');
-                modalInfo.innerHTML = btn.getAttribute('data-info'); 
-                
-                // Load the detailed itinerary list
-                if (modalItinerary) {
-                    modalItinerary.innerHTML = btn.getAttribute('data-itinerary');
-                }
-                
-                // Show modal
-                tourModal.classList.remove('hidden');
-            });
-        });
-
-        // Close on X click
-        tourModalClose.addEventListener('click', () => {
-            tourModal.classList.add('hidden');
-        });
-
-        // Close on outside click
-        tourModal.addEventListener('click', (e) => {
-            if (e.target === tourModal) {
-                tourModal.classList.add('hidden');
+    if (menuIcon && navLinks) {
+        menuIcon.addEventListener('click', () => {
+            // Show/Hide the menu
+            navLinks.classList.toggle('nav-active');
+            
+            // Change icon to 'X' when open
+            const icon = menuIcon.querySelector('i');
+            if (navLinks.classList.contains('nav-active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
             }
+        });
+
+        // Close menu automatically if they click a link
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('nav-active');
+                menuIcon.querySelector('i').classList.remove('fa-xmark');
+                menuIcon.querySelector('i').classList.add('fa-bars');
+            });
         });
     }
 
-    // 4. Gallery Lightbox Functionality
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const lightbox = document.getElementById('lightbox');
-    
-    if (lightbox) {
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxClose = document.getElementById('lightbox-close');
-
-        galleryItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const imgTag = item.querySelector('img');
-                lightboxImg.src = imgTag.src;
-                lightbox.classList.remove('hidden');
-            });
-        });
-
-        lightboxClose.addEventListener('click', () => {
-            lightbox.classList.add('hidden');
-        });
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                lightbox.classList.add('hidden');
-            }
-        });
-    }
-
-    // 5. Dual Form Routing (WhatsApp or Email on Booking Page)
+    // 4. Booking Form WhatsApp/Email Routing
     const form = document.getElementById('booking-form');
     const messageDiv = document.getElementById('form-message');
 
     if(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault(); 
-            
             const submitter = e.submitter; 
             
             const name = document.getElementById('name').value;
@@ -115,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const tourSelect = document.getElementById('tour-type');
             const tourName = tourSelect.options[tourSelect.selectedIndex].text;
             
-            form.style.display = 'none';
+            form.style.display = 'none'; // Hide form
 
             if (submitter.id === 'btn-whatsapp') {
                 const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to book a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n\nPlease let me know the availability.`;
@@ -124,8 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
                 
-                messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #25D366; margin-bottom: 1rem; display:block;"></i> 
-                Thank you, ${name}! <br> Your request has been opened in WhatsApp.`;
+                messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: #25D366; margin-bottom: 1rem; display:block;"></i> Thank you, ${name}! <br> Your request has been opened in WhatsApp.`;
                 messageDiv.className = 'success-msg';
                 messageDiv.classList.remove('hidden');
             } 
@@ -139,8 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 window.location.href = `mailto:${emailAddress}?subject=${encodedSubject}&body=${encodedBody}`;
                 
-                messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> 
-                Thank you, ${name}! <br> Your email app has been opened to send the request.`;
+                messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> Thank you, ${name}! <br> Your email app has been opened to send the request.`;
                 messageDiv.className = 'success-msg';
                 messageDiv.classList.remove('hidden');
             }
