@@ -173,4 +173,31 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+    // 6. Smooth Interactive FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            
+            // Close all other FAQs so only one stays open at a time
+            faqQuestions.forEach(q => {
+                if (q !== question) {
+                    q.classList.remove('active');
+                    q.nextElementSibling.style.maxHeight = null;
+                }
+            });
+
+            // Toggle the clicked FAQ
+            question.classList.toggle('active');
+            
+            if (question.classList.contains('active')) {
+                // Open it (scrollHeight calculates the exact height of the text inside)
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                // Close it
+                answer.style.maxHeight = null;
+            }
+        });
+    });
 });
