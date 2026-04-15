@@ -1,15 +1,13 @@
-// 1. Global function for the Tour Accordion Cards
+// 1. Global function for Tour Accordion Cards (Used if you ever switch back from Modals)
 function toggleDetails(detailsId, btnElement) {
     const detailsDiv = document.getElementById(detailsId);
     
     if (!detailsDiv.classList.contains('active')) {
-        // Open it
         detailsDiv.classList.add('active');
         btnElement.innerHTML = 'Hide Details <i class="fa-solid fa-chevron-up"></i>';
         btnElement.style.backgroundColor = '#2d6a4f';
         btnElement.style.color = 'white';
     } else {
-        // Close it
         detailsDiv.classList.remove('active');
         btnElement.innerHTML = 'Explore Details <i class="fa-solid fa-chevron-down"></i>';
         btnElement.style.backgroundColor = 'transparent';
@@ -19,15 +17,17 @@ function toggleDetails(detailsId, btnElement) {
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 2. Navbar Scroll Effect
+    // 2. Navbar Scroll Effect (Darkens background when scrolling down)
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
 
     // 3. Mobile Hamburger Menu Toggle
     const menuIcon = document.getElementById('menu-icon');
@@ -35,8 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (menuIcon && navLinks) {
         menuIcon.addEventListener('click', () => {
+            // Show/Hide the menu
             navLinks.classList.toggle('nav-active');
             
+            // Change icon to 'X' when open
             const icon = menuIcon.querySelector('i');
             if (navLinks.classList.contains('nav-active')) {
                 icon.classList.remove('fa-bars');
@@ -47,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // Close menu automatically if they click a link
         const links = navLinks.querySelectorAll('a');
         links.forEach(link => {
             link.addEventListener('click', () => {
@@ -68,8 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
         galleryItems.forEach(item => {
             item.addEventListener('click', () => {
                 const imgTag = item.querySelector('img');
-                lightboxImg.src = imgTag.src;
-                lightbox.classList.remove('hidden');
+                if(imgTag) {
+                    lightboxImg.src = imgTag.src;
+                    lightbox.classList.remove('hidden');
+                }
             });
         });
 
@@ -84,7 +89,39 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 5. Booking Form Routing (WhatsApp & Silent Email)
+    // 5. Smooth Interactive FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    if (faqQuestions.length > 0) {
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                
+                // Close all other FAQs so only one stays open at a time
+                faqQuestions.forEach(q => {
+                    if (q !== question) {
+                        q.classList.remove('active');
+                        if (q.nextElementSibling) {
+                            q.nextElementSibling.style.maxHeight = null;
+                        }
+                    }
+                });
+
+                // Toggle the clicked FAQ
+                question.classList.toggle('active');
+                
+                if (question.classList.contains('active')) {
+                    // Open it (scrollHeight calculates the exact height of the text inside)
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                } else {
+                    // Close it
+                    answer.style.maxHeight = null;
+                }
+            });
+        });
+    }
+
+    // 6. Booking Form Routing (WhatsApp & Silent Email)
     const form = document.getElementById('booking-form');
     const messageDiv = document.getElementById('form-message');
 
@@ -100,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const tourSelect = document.getElementById('tour-type');
             const tourName = tourSelect.options[tourSelect.selectedIndex].text;
             
-            let detailsText = document.getElementById('additional-details').value;
+            let detailsText = document.getElementById('additional-details')?.value;
             if (!detailsText) { detailsText = "None provided."; }
             
             // Hide the form to show loading/success message
@@ -173,31 +210,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-    // 6. Smooth Interactive FAQ Accordion
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const answer = question.nextElementSibling;
-            
-            // Close all other FAQs so only one stays open at a time
-            faqQuestions.forEach(q => {
-                if (q !== question) {
-                    q.classList.remove('active');
-                    q.nextElementSibling.style.maxHeight = null;
-                }
-            });
-
-            // Toggle the clicked FAQ
-            question.classList.toggle('active');
-            
-            if (question.classList.contains('active')) {
-                // Open it (scrollHeight calculates the exact height of the text inside)
-                answer.style.maxHeight = answer.scrollHeight + "px";
-            } else {
-                // Close it
-                answer.style.maxHeight = null;
-            }
-        });
-    });
 });
