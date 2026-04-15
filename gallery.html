@@ -12,11 +12,7 @@
     
     <nav class="navbar" id="navbar">
         <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
-        
-        <div class="menu-icon" id="menu-icon">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-
+        <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="tours.html">Tours</a></li>
@@ -37,27 +33,28 @@
             
             <div class="main-slide-wrapper">
                 <img id="main-slide" src="images/image 1.webp" alt="Featured Birding Image">
+                <div id="slide-caption" class="slide-caption"></div>
             </div>
 
-            <div class="thumbnail-track">
-                <img src="images/image 1.webp" class="thumb active" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 2.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 3.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 4.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 5.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 6.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 7.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 8.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 9.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 10.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 11.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 12.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 13.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 14.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 15.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 18.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 19.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
-                <img src="images/image 20.webp" class="thumb" onclick="changeSlide(this)" alt="Gallery Image">
+            <div class="thumbnail-track" id="thumbnail-track">
+                <img src="images/image 1.webp" class="thumb active" onclick="changeSlide(this)" alt="Guided birding tour in Thattekad Bird Sanctuary">
+                <img src="images/image 2.webp" class="thumb" onclick="changeSlide(this)" alt="Ceylon Frogmouth resting on a dry branch">
+                <img src="images/image 3.webp" class="thumb" onclick="changeSlide(this)" alt="Malabar Grey Hornbill in the dense forest canopy">
+                <img src="images/image 4.webp" class="thumb" onclick="changeSlide(this)" alt="Early morning photography setup on the forest trail">
+                <img src="images/image 5.webp" class="thumb" onclick="changeSlide(this)" alt="Sri Lanka Bay Owl spotted during a night trek">
+                <img src="images/image 6.webp" class="thumb" onclick="changeSlide(this)" alt="Beautiful Malabar Trogon perched in the shade">
+                <img src="images/image 7.webp" class="thumb" onclick="changeSlide(this)" alt="Lush green evergreen forest of Salim Ali Bird Sanctuary">
+                <img src="images/image 8.webp" class="thumb" onclick="changeSlide(this)" alt="Expert indigenous guide tracking bird calls">
+                <img src="images/image 9.webp" class="thumb" onclick="changeSlide(this)" alt="Indian Pitta foraging on the forest floor">
+                <img src="images/image 10.webp" class="thumb" onclick="changeSlide(this)" alt="Birdwatchers observing from the riverbank">
+                <img src="images/image 11.webp" class="thumb" onclick="changeSlide(this)" alt="Flame-throated Bulbul feeding in the canopy">
+                <img src="images/image 12.webp" class="thumb" onclick="changeSlide(this)" alt="Peaceful Kerala village border near the sanctuary">
+                <img src="images/image 13.webp" class="thumb" onclick="changeSlide(this)" alt="White-bellied Treepie hiding in the foliage">
+                <img src="images/image 14.webp" class="thumb" onclick="changeSlide(this)" alt="Guests capturing the perfect golden-hour photo">
+                <img src="images/image 15.webp" class="thumb" onclick="changeSlide(this)" alt="Mottled Wood Owl camouflaged against tree bark">
+                <img src="images/image 18.webp" class="thumb" onclick="changeSlide(this)" alt="Crossing the Periyar River near Thattekad">
+                <img src="images/image 19.webp" class="thumb" onclick="changeSlide(this)" alt="Endemic butterflies found along the trekking route">
+                <img src="images/image 20.webp" class="thumb" onclick="changeSlide(this)" alt="Sunset views over the sanctuary wetlands">
             </div>
 
         </div>
@@ -84,20 +81,16 @@
 
     <div id="email-modal" class="css-modal">
         <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        
         <div class="modal-inner-box">
             <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
             <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
-            
             <form id="quick-email-form">
                 <input type="text" id="quick-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
                 <input type="email" id="quick-email" placeholder="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
                 <textarea id="quick-message" placeholder="How can we help you?" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
-                
                 <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
             </form>
-            
             <div id="quick-form-message" class="hidden" style="text-align: center; margin-top: 1rem;"></div>
         </div>
     </div>
@@ -105,21 +98,70 @@
     <script src="script.js"></script>
 
     <script>
-        function changeSlide(element) {
+        let slideInterval;
+
+        function startSlideshow() {
+            // Change slide every 4 seconds (4000 milliseconds)
+            slideInterval = setInterval(() => {
+                let activeThumb = document.querySelector('.thumb.active');
+                let nextThumb = activeThumb.nextElementSibling;
+                
+                // If we reach the end, loop back to the first image
+                if (!nextThumb || !nextThumb.classList.contains('thumb')) {
+                    nextThumb = document.querySelector('.thumbnail-track .thumb:first-child');
+                }
+                
+                changeSlide(nextThumb, true);
+            }, 4000); 
+        }
+
+        function changeSlide(element, isAuto = false) {
             const mainSlide = document.getElementById('main-slide');
+            const caption = document.getElementById('slide-caption');
             
+            // If the user clicks manually, pause the auto-slider so they can look
+            if (!isAuto) {
+                clearInterval(slideInterval);
+                // Restart the slideshow automatically after 10 seconds of no clicking
+                setTimeout(startSlideshow, 10000);
+            }
+            
+            // Fade out
             mainSlide.style.opacity = '0';
+            if(caption) caption.style.opacity = '0';
             
             setTimeout(() => {
+                // Swap image and text
                 mainSlide.src = element.src;
+                if(caption) caption.innerText = element.getAttribute('alt');
+                
+                // Fade back in
                 mainSlide.style.opacity = '1';
+                if(caption) caption.style.opacity = '1';
             }, 300);
 
+            // Update border highlight
             document.querySelectorAll('.thumb').forEach(thumb => {
                 thumb.classList.remove('active');
             });
             element.classList.add('active');
+
+            // Auto-scroll the thumbnail row so the active image is always visible
+            element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
+
+        // Run this when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set the first caption immediately
+            const firstThumb = document.querySelector('.thumb.active');
+            const caption = document.getElementById('slide-caption');
+            if(caption && firstThumb) {
+                caption.innerText = firstThumb.getAttribute('alt');
+            }
+            
+            // Start the timer
+            startSlideshow();
+        });
     </script>
 </body>
 </html>
