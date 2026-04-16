@@ -148,20 +148,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 messageDiv.className = 'success-msg';
                 messageDiv.classList.remove('hidden');
 
-                const formData = new FormData();
-                
-                // ⚠️ PASTE YOUR KEY HERE for the Booking Page ⚠️
-                formData.append("access_key", "0f708846-4d24-4ff1-bff5-e038dd1a925c"); 
-                
-                formData.append("subject", `New Tour Enquiry: ${tourName} - ${name}`);
-                formData.append("from_name", "Thattekad Birding Website");
-                formData.append("Name", name);
-                formData.append("Email_Address", email);
-                formData.append("Preferred_Date", date);
-                formData.append("Requested_Tour", tourName);
-                formData.append("Additional_Details", detailsText);
+                // Package data as JSON for Web3Forms
+                const payload = {
+                    access_key: "0f708846-4d24-4ff1-bff5-e038dd1a925c",
+                    subject: `New Tour Enquiry: ${tourName} - ${name}`,
+                    from_name: "Thattekad Birding Website",
+                    Name: name,
+                    Email: email,
+                    Date: date,
+                    Requested_Tour: tourName,
+                    Additional_Details: detailsText
+                };
 
-                fetch("https://api.web3forms.com/submit", { method: "POST", body: formData })
+                fetch("https://api.web3forms.com/submit", { 
+                    method: "POST", 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload) 
+                })
                 .then(async (response) => {
                     if (response.status == 200) {
                         messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> Success, ${name}! <br> Your enquiry has been sent directly to our team. We will email you back shortly.`;
@@ -182,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(quickForm) {
         quickForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // This stops the page from refreshing!
+            e.preventDefault(); 
             
             const name = document.getElementById('quick-name').value;
             const email = document.getElementById('quick-email').value;
@@ -192,18 +198,24 @@ document.addEventListener("DOMContentLoaded", () => {
             quickMessageDiv.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; display:block;"></i> Sending message...`;
             quickMessageDiv.classList.remove('hidden');
 
-            const formData = new FormData();
-            
-            // ⚠️ PASTE YOUR KEY HERE for the Popup form ⚠️
-            formData.append("access_key", "0f708846-4d24-4ff1-bff5-e038dd1a925c"); 
-            
-            formData.append("subject", `Quick Enquiry from ${name}`);
-            formData.append("from_name", "Thattekad Birding Popup");
-            formData.append("Name", name);
-            formData.append("Email", email);
-            formData.append("Message", message);
+            // Package data as JSON for Web3Forms
+            const payload = {
+                access_key: "0f708846-4d24-4ff1-bff5-e038dd1a925c",
+                subject: `Quick Enquiry from ${name}`,
+                from_name: "Thattekad Birding Popup",
+                Name: name,
+                Email: email,
+                Message: message
+            };
 
-            fetch("https://api.web3forms.com/submit", { method: "POST", body: formData })
+            fetch("https://api.web3forms.com/submit", { 
+                method: "POST", 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload) 
+            })
             .then(async (response) => {
                 if (response.status == 200) {
                     quickMessageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; display:block;"></i> <strong>Sent Successfully!</strong><br>We will reply to ${email} shortly.`;
@@ -217,20 +229,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 8. SCROLL REVEAL ANIMATIONS (The "Wow" Factor)
+    // 8. SCROLL REVEAL ANIMATIONS
     const revealElements = document.querySelectorAll('.reveal');
     
     if(revealElements.length > 0) {
         const revealOptions = {
-            threshold: 0.15, // Triggers when 15% of the element is visible
-            rootMargin: "0px 0px -50px 0px" // Triggers slightly before it hits the bottom of the screen
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
         };
 
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Only animate once per visit
+                    observer.unobserve(entry.target); 
                 }
             });
         }, revealOptions);
@@ -239,5 +251,4 @@ document.addEventListener("DOMContentLoaded", () => {
             revealObserver.observe(el);
         });
     }
-
 });
