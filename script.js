@@ -135,12 +135,9 @@ document.addEventListener("DOMContentLoaded", () => {
             form.style.display = 'none'; 
 
             if (submitter.id === 'btn-whatsapp') {
-                // Send Clean GA4 Event
+                // Fire Google Ads Conversion
                 if (typeof gtag === 'function') {
-                    gtag('event', 'generate_lead', {
-                        'method': 'WhatsApp',
-                        'tour_type': tourName
-                    });
+                    gtag('event', 'conversion_event_contact_3');
                 }
 
                 const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to send an enquiry for a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n*Additional Details:* ${detailsText}\n\nPlease let me know the availability and pricing.`;
@@ -177,12 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(async (response) => {
                     if (response.status == 200) {
-                        // Send Clean GA4 Event
+                        // Fire Google Ads Conversion
                         if (typeof gtag === 'function') {
-                            gtag('event', 'generate_lead', {
-                                'method': 'Email Form',
-                                'tour_type': tourName
-                            });
+                            gtag('event', 'conversion_event_contact_3');
                         }
 
                         messageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem; display:block;"></i> Success, ${name}! <br> Your enquiry has been sent directly to our team. We will email you back shortly.`;
@@ -232,11 +226,9 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(async (response) => {
                 if (response.status == 200) {
-                    // Send Clean GA4 Event
+                    // Fire Google Ads Conversion
                     if (typeof gtag === 'function') {
-                        gtag('event', 'generate_lead', {
-                            'method': 'Quick Popup Form'
-                        });
+                        gtag('event', 'conversion_event_contact_3');
                     }
 
                     quickMessageDiv.innerHTML = `<i class="fa-solid fa-circle-check" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; display:block;"></i> <strong>Sent Successfully!</strong><br>We will reply to ${email} shortly.`;
