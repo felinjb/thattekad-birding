@@ -53,15 +53,14 @@
   </url>
 
   <!-- Individual Blog Posts -->
-  <url>
-    <loc>https://thattekadbirding.com/blog/sri-lanka-frogmouth-guide.html</loc>
-    <lastmod>2026-04-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <image:image>
-      <image:loc>https://thattekadbirding.com/images/image%202.webp</image:loc>
-      <image:title>The Sri Lanka Frogmouth of Thattekad</image:title>
-    </image:image>
-  </url>
+<url>
+  <loc>https://thattekadbirding.com/blog/sri-lanka-frogmouth-guide.html</loc>
+  <lastmod>2026-04-30</lastmod>
+  <priority>0.7</priority>
+  <image:image>
+    <image:loc>https://thattekadbirding.com/images/Sri_Lanka_Frogmouth_02.webp</image:loc> 
+    <image:title>Sri Lanka Frogmouth at Thattekad Bird Sanctuary</image:title>
+  </image:image>
+</url>
 
 </urlset>
