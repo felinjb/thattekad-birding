@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
+
+  <!-- Home Page: Maximum Priority -->
   <url>
     <loc>https://thattekadbirding.com/</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%201.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%202.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%203.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%204.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%205.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%206.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%207.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%208.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%209.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2010.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2011.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2012.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2013.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2014.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2015.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2016.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2017.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2018.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2019.webp</image:loc></image:image>
-    <image:image><image:loc>https://thattekadbirding.com/images/image%2020.webp</image:loc></image:image>
+    <!-- Featured Images for Search Result Snippets -->
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/image%201.webp</image:loc>
+      <image:title>Birding in Thattekad Bird Sanctuary</image:title>
+      <image:caption>Guided bird watching tours in Kerala's premier sanctuary.</image:caption>
+    </image:image>
   </url>
 
+  <!-- Tours Page: High Priority for Conversions -->
   <url>
     <loc>https://thattekadbirding.com/tours.html</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <url>
-    <loc>https://thattekadbirding.com/gallery.html</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
+  <!-- Booking Page: High Priority -->
   <url>
     <loc>https://thattekadbirding.com/book.html</loc>
-    <lastmod>2026-04-16</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Gallery: Priority for Image Search Ranking -->
+  <url>
+    <loc>https://thattekadbirding.com/gallery.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <!-- Map your most important bird species images here -->
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/image%202.webp</image:loc>
+      <image:title>Sri Lanka Frogmouth - Thattekad</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/image%203.webp</image:loc>
+      <image:title>Malabar Trogon Sightings</image:title>
+    </image:image>
+    <!-- Add remaining images here... -->
   </url>
 
 </urlset>
