@@ -2,13 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Home Page: Maximum Priority -->
+  <!-- Main Pages -->
   <url>
     <loc>https://thattekadbirding.com/</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <!-- Featured Images for Search Result Snippets -->
     <image:image>
       <image:loc>https://thattekadbirding.com/images/image%201.webp</image:loc>
       <image:title>Birding in Thattekad Bird Sanctuary</image:title>
@@ -16,7 +15,6 @@
     </image:image>
   </url>
 
-  <!-- Tours Page: High Priority for Conversions -->
   <url>
     <loc>https://thattekadbirding.com/tours.html</loc>
     <lastmod>2026-04-30</lastmod>
@@ -24,7 +22,6 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Booking Page: High Priority -->
   <url>
     <loc>https://thattekadbirding.com/book.html</loc>
     <lastmod>2026-04-30</lastmod>
@@ -32,13 +29,11 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Gallery: Priority for Image Search Ranking -->
   <url>
     <loc>https://thattekadbirding.com/gallery.html</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <!-- Map your most important bird species images here -->
     <image:image>
       <image:loc>https://thattekadbirding.com/images/image%202.webp</image:loc>
       <image:title>Sri Lanka Frogmouth - Thattekad</image:title>
@@ -47,7 +42,26 @@
       <image:loc>https://thattekadbirding.com/images/image%203.webp</image:loc>
       <image:title>Malabar Trogon Sightings</image:title>
     </image:image>
-    <!-- Add remaining images here... -->
+  </url>
+
+  <!-- Blog Section -->
+  <url>
+    <loc>https://thattekadbirding.com/blog/index.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Individual Blog Posts -->
+  <url>
+    <loc>https://thattekadbirding.com/blog/sri-lanka-frogmouth-guide.html</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/image%202.webp</image:loc>
+      <image:title>The Sri Lanka Frogmouth of Thattekad</image:title>
+    </image:image>
   </url>
 
 </urlset>
