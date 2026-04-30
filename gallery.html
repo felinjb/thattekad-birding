@@ -1,358 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Tours | Thattekad Birding</title>
-    
-    <meta name="description" content="Explore custom birding tours in Thattekad, Kerala. Choose from Early Morning Chorus, Target Species Tracking, Night Expeditions, and Photography Specials.">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://thattekadbirding.com/tours.html">
-    <meta property="og:title" content="Thattekad Birding | Expert Guided Tours">
-    <meta property="og:description" content="Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography.">
-    <meta property="og:image" content="https://thattekadbirding.com/images/coverimage.webp">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Gallery | Thattekad Birding</title>
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thattekadbirding.com/">
+    <meta property="og:title" content="Gallery | Thattekad Birding">
+    <meta property="og:description" content="Glimpses of the rare endemics, lush forests, and unforgettable treks at Thattekad.">
+    <meta property="og:image" content="https://thattekadbirding.com/images/coverimage.webp"> 
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    <link rel="icon" type="image/png" href="favicon.png">
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      // Analytics ID
-      gtag('config', 'G-WXGEJ9RLRT');
-      // Google Ads ID
-      gtag('config', 'AW-17993783369');
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-        .css-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.85);
-            z-index: 999999;
-            align-items: center; justify-content: center;
-            padding: 20px;
-        }
-        .css-modal:target { display: flex; }
-        .modal-inner-box {
-            background: white; max-width: 600px; width: 100%;
-            border-radius: 12px; padding: 30px; position: relative;
-            max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            animation: popIn 0.3s ease-out;
-        }
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        .modal-close {
-            position: absolute; top: 15px; right: 20px; font-size: 2rem;
-            color: #aaa; text-decoration: none; transition: color 0.3s; z-index: 10;
-        }
-        .modal-close:hover { color: #d4a373; }
-        .explore-btn {
-            display: block; width: 100%; text-align: center; padding: 12px;
-            background-color: transparent; color: #2d6a4f; border: 2px solid #2d6a4f;
-            border-radius: 6px; font-family: 'Poppins', sans-serif; font-size: 1rem;
-            font-weight: 600; text-decoration: none; transition: all 0.3s ease;
-        }
-        .explore-btn:hover { background-color: #2d6a4f; color: white; transform: translateY(-2px); }
-        .tour-details { display: none !important; }
-        .toggle-btn { display: none !important; }
-    </style>
+  gtag('config', 'G-WXGEJ9RLRT');
+</script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body id="page-top">
-    
-    <nav class="navbar" id="navbar">
-        <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
-        <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
-        <ul class="nav-links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="tours.html" style="color: var(--accent);">Tours</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="book.html" class="nav-btn">Book Now</a></li>
-        </ul>
-    </nav>
+<body>
+    
+    <nav class="navbar" id="navbar">
+        <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+        <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tours.html">Tours</a></li>
+            <li><a href="gallery.html" style="color: var(--accent);">Gallery</a></li>
+            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+        </ul>
+    </nav>
 
-    <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/Guided Sanctuary Trail.webp');">
-        <div class="hero-content reveal">
-            <h1>Signature Tours</h1>
-            <p>Expertly guided treks tailored for photography and rare species tracking.</p>
-        </div>
-    </header>
+    <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/coverimage.webp');">
+        <div class="hero-content reveal">
+            <h1>Our Gallery</h1>
+            <p>Glimpses of the rare endemics, lush forests, and unforgettable treks at Thattekad.</p>
+        </div>
+    </header>
 
-    <section class="tours-section">
-        <div class="reveal" style="text-align: center; margin-bottom: 3rem;">
-            <a href="#policies-modal" class="btn btn-outline" style="display: inline-block; padding: 10px 25px; border-radius: 30px;"><i class="fa-solid fa-circle-info"></i> Know Before You Go (Policies & Gear)</a>
-        </div>
+    <section class="gallery-section">
+        <div class="slideshow-container reveal delay-1">
+            
+            <div class="main-slide-wrapper">
+                <img id="main-slide" src="images/image 1.webp" alt="Featured Birding Image">
+                <div id="slide-caption" class="slide-caption"></div>
+            </div>
 
-        <div class="tour-grid">
-            <div class="tour-card reveal delay-1">
-                <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
-                <div class="card-content">
-                    <h3>Early Morning Chorus</h3>
-                    <p>Experience the forest waking up in optimal morning light.</p>
-                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
-                        <a href="#modal-1" class="explore-btn">Explore Details</a>
-                    </div>
-                </div>
-            </div>
+            <div class="thumbnail-track" id="thumbnail-track">
+                <img src="images/image 1.webp" class="thumb active" onclick="changeSlide(this)" alt="Malabar Giant Squirrel Thattekad Bird Sanctuary">
+                <img src="images/image 2.webp" class="thumb" onclick="changeSlide(this)" alt="Malabar trogon in Thattekad Bird Sanctuary">
+                <img src="images/image 3.webp" class="thumb" onclick="changeSlide(this)" alt="Brown Shrike in Thattekad Bird Sanctuary">
+                <img src="images/image 4.webp" class="thumb" onclick="changeSlide(this)" alt="Plum Headed Parakeet in Thattekad Bird Sanctuary">
+                <img src="images/image 5.webp" class="thumb" onclick="changeSlide(this)" alt="Dark sided flycatcher in Thattekad Bird Sanctuary">
+                <img src="images/image 6.webp" class="thumb" onclick="changeSlide(this)" alt="Blue Tailed Bee Eater in Thattekad Bird Sanctuary">
+                <img src="images/image 7.webp" class="thumb" onclick="changeSlide(this)" alt="Greay Headed Fish Eagle in Salim Ali Bird Sanctuary">
+                <img src="images/image 8.webp" class="thumb" onclick="changeSlide(this)" alt="White Throated Kingfisher in Salim Ali Bird Sanctuary">
+                <img src="images/image 9.webp" class="thumb" onclick="changeSlide(this)" alt="Spangled Drongo in Salim Ali Bird Sanctuary">
+                <img src="images/image 10.webp" class="thumb" onclick="changeSlide(this)" alt="White Browed Wagtail in Salim Ali Bird Sanctuary">
+                <img src="images/image 11.webp" class="thumb" onclick="changeSlide(this)" alt="Frogmouth in Salim Ali Bird Sanctuary">
+                <img src="images/image 12.webp" class="thumb" onclick="changeSlide(this)" alt="Indian Dhole in Thattekad Bird Sanctuary">
+                <img src="images/image 13.webp" class="thumb" onclick="changeSlide(this)" alt="Grey Jungle Fowl in Thattekad Bird Sanctuary">
+                <img src="images/image 14.webp" class="thumb" onclick="changeSlide(this)" alt="Flycatcher in Thattekad Bird Sanctuary">
+                <img src="images/image 15.webp" class="thumb" onclick="changeSlide(this)" alt="Yellow Browed Bulbul in Thattekad Bird Sanctuary">
+                <img src="images/image 18.webp" class="thumb" onclick="changeSlide(this)" alt="Malabar Parakeet in Thattekad Bird Sanctuary">
+                <img src="images/image 19.webp" class="thumb" onclick="changeSlide(this)" alt="Plum Headed Parakeet in Thattekad Bird Sanctuary">
+                <img src="images/image 20.webp" class="thumb" onclick="changeSlide(this)" alt="Flycather in Salim Ali Bird Sanctuary">
+            </div>
 
-            <div class="tour-card reveal delay-2">
-                <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
-                <div class="card-content">
-                    <h3>Guided Sanctuary Trail</h3>
-                    <p>An immersive full-day trek deep into the dense evergreen forest.</p>
-                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
-                        <a href="#modal-2" class="explore-btn">Explore Details</a>
-                    </div>
-                </div>
-            </div>
+        </div>
+    </section>
 
-            <div class="tour-card reveal delay-3">
-                <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
-                <div class="card-content">
-                    <h3>Night Birding Tour</h3>
-                    <p>A specialized evening walk focused on nocturnal species.</p>
-                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
-                        <a href="#modal-3" class="explore-btn">Explore Details</a>
-                    </div>
-                </div>
-            </div>
+    <footer>
+        <div class="footer-content">
+            <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+            <p>Ernakulam, Kerala, India</p>
+            <p style="margin-top: 10px;">
+                <a href="#email-modal" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
+            </p>
+            <p style="margin-top: 15px;">
+                <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
+            </p>
+            <div class="socials">
+                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#email-modal" style="color: inherit;"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
+    </footer>
 
-            <div class="tour-card reveal delay-1">
-                <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
-                <div class="card-content">
-                    <h3>Target Species Tracking</h3>
-                    <p>A highly customized route designed to find specific rare endemics.</p>
-                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
-                        <a href="#modal-4" class="explore-btn">Explore Details</a>
-                    </div>
-                </div>
-            </div>
+    <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
-            <div class="tour-card reveal delay-2">
-                <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
-                <div class="card-content">
-                    <h3>The Photographer's Special</h3>
-                    <p>Designed around golden-hour lighting for the perfect shot.</p>
-                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
-                        <a href="#modal-5" class="explore-btn">Explore Details</a>
-                    </div>
-                </div>
-            </div>
+    <div id="email-modal" class="css-modal">
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <div class="modal-inner-box">
+            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
+            
+            <form id="quick-email-form">
+                <input type="text" id="quick-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <input type="email" id="quick-email" placeholder="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <textarea id="quick-message" placeholder="How can we help you?" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
+                <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+            </form>
+            
+            <div id="quick-form-message" class="hidden" style="text-align: center; margin-top: 1rem;"></div>
+        </div>
+    </div>
 
-            <div class="tour-card reveal delay-3">
-                <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
-                <div class="card-content">
-                    <h3>Village & Culture Walk</h3>
-                    <p>Explore local Kerala village life and agricultural birding borders.</p>
-                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
-                        <a href="#modal-6" class="explore-btn">Explore Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="policies-modal" class="css-modal">
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <div class="modal-inner-box" style="max-width: 650px; max-height: 85vh; overflow-y: auto;">
+            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 1.5rem;">Know Before You Go</h3>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Cancellations & Weather</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Birding relies on nature. We operate rain or shine. Full refunds are provided for cancellations made 48 hours in advance. If severe weather (e.g., heavy monsoon flooding) forces us to cancel, you will be fully refunded or rescheduled.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">What to Wear</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Please wear dull-colored, breathable clothing (greens, browns, greys) to blend into the forest. Bright colors startle the birds. Closed-toe trekking shoes and long trousers are mandatory.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Leech Protection</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">During damp months, leeches are a natural part of the ecosystem. We provide organic salt/tobacco powder repellents, but leech socks are highly recommended if you are visiting right after the monsoon.</p>
+            
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear & Ethics</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6;">Bring your own binoculars and camera gear. We practice strict ethical birding: no playback calls to stress the birds, and no flash photography for nocturnal species.</p>
+        </div>
+    </div>
 
-    <div id="modal-1" class="css-modal">
-        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box">
-            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Early Morning Chorus.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Early Morning Chorus</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;">
-                <i class='fa-regular fa-clock'></i> 3-4 Hours &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Starts at 6:00 AM
-            </div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">This 3-4 hour trek starts right at dawn. It is the absolute best time for spotting active songbirds, hornbills, and raptors. The forest canopy comes alive during these hours, offering unparalleled bird activity before the heat of the day sets in.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
-                    <li><strong>06:00 AM:</strong> Meet your expert guide at the sanctuary entrance.</li>
-                    <li><strong>06:15 AM:</strong> Enter the forest and track the active morning canopy.</li>
-                    <li><strong>08:30 AM:</strong> Photography and observation break near the riverbed.</li>
-                    <li><strong>09:30 AM:</strong> Tour concludes with a review of species spotted.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
+    <script src="script.js"></script>
 
-    <div id="modal-2" class="css-modal">
-        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box">
-            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Guided Sanctuary Trail.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Guided Sanctuary Trail</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 8 Hours &nbsp; | &nbsp; <i class='fa-solid fa-burger'></i> Lunch Included</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">An 8-hour deep immersion into the Salim Ali Bird Sanctuary. We travel far beyond the standard trails to explore the undisturbed tropical evergreen ecosystem, increasing your chances of spotting deep-forest endemics.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
-                    <li><strong>07:00 AM:</strong> Briefing and entry into the deep sanctuary trails.</li>
-                    <li><strong>10:00 AM:</strong> Tracking specific mid-canopy endemic species.</li>
-                    <li><strong>01:00 PM:</strong> Packed lunch break in the heart of the forest.</li>
-                    <li><strong>03:00 PM:</strong> Return trek via a different route to maximize sightings.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
+    <script>
+        let slideInterval;
 
-    <div id="modal-3" class="css-modal">
-        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box">
-            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Night Birding Expedition.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Night Birding Tour</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-moon'></i> Starts at 7:00 PM</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Using specialized low-light techniques, we safely track nocturnal life without disturbing them. This is your best opportunity to see the legendary Ceylon Frogmouth, Sri Lanka Bay Owl, and various nightjars.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
-                    <li><strong>06:00 PM:</strong> Gather for safety briefing and flashlight protocols.</li>
-                    <li><strong>06:15 PM:</strong> Silent walk begins into known frogmouth territories.</li>
-                    <li><strong>07:00 PM:</strong> Tracking owl calls and nightjars along the forest edge.</li>
-                    <li><strong>08:00 PM:</strong> Safe return to the starting point.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
+        function startSlideshow() {
+            slideInterval = setInterval(() => {
+                let activeThumb = document.querySelector('.thumb.active');
+                let nextThumb = activeThumb.nextElementSibling;
+                
+                if (!nextThumb || !nextThumb.classList.contains('thumb')) {
+                    nextThumb = document.querySelector('.thumbnail-track .thumb:first-child');
+                }
+                
+                changeSlide(nextThumb, true);
+            }, 2000); 
+        }
 
-    <div id="modal-4" class="css-modal">
-        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box">
-            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Target Species Tracking.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Target Species Tracking</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-solid fa-bullseye'></i> Custom Route &nbsp; | &nbsp; <i class='fa-solid fa-map'></i> Flexible Timing</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Do you have a specific bird on your life list? Tell us beforehand. Our expert indigenous trackers will utilize their lifelong knowledge of seasonal nesting and feeding grounds to design a custom route specifically for your target species.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
-                    <li><strong>Pre-Tour:</strong> Consultation to identify your target species.</li>
-                    <li><strong>Custom Start:</strong> Time is decided based on the bird's habits.</li>
-                    <li><strong>The Hunt:</strong> We proceed directly to known territories and nesting sites.</li>
-                    <li><strong>Observation:</strong> Extended time allocated for watching or photographing the target.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
+        function changeSlide(element, isAuto = false) {
+            const mainSlide = document.getElementById('main-slide');
+            const caption = document.getElementById('slide-caption');
+            
+            if (!isAuto) {
+                clearInterval(slideInterval);
+                setTimeout(startSlideshow, 10000);
+            }
+            
+            mainSlide.style.opacity = '0';
+            if(caption) caption.style.opacity = '0';
+            
+            setTimeout(() => {
+                mainSlide.src = element.src;
+                if(caption) caption.innerText = element.getAttribute('alt');
+                
+                mainSlide.style.opacity = '1';
+                if(caption) caption.style.opacity = '1';
+            }, 300);
 
-    <div id="modal-5" class="css-modal">
-        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box">
-            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/The Photographer\'s Special.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">The Photographer's Special</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-solid fa-camera'></i> Extended Stops &nbsp; | &nbsp; <i class='fa-solid fa-sun'></i> Golden Hour Focus</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Photography requires patience. Unlike standard walking tours, this package moves slowly, allowing for extended observation times. Guides position you optimally for background isolation to ensure professional-grade wildlife shots.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
-                    <li><strong>07:00 AM:</strong> Early entry to set up equipment before sunrise.</li>
-                    <li><strong>07:15 AM:</strong> Golden hour photography session.</li>
-                    <li><strong>09:00 AM:</strong> Relocating to shaded areas for mid-canopy shots.</li>
-                    <li><strong>10:00 AM:</strong> Conclusion of the morning session.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
+            document.querySelectorAll('.thumb').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            element.classList.add('active');
 
-    <div id="modal-6" class="css-modal">
-        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box">
-            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <img src="images/Village & Culture Walk.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
-            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Village & Culture Walk</h2>
-            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 3 Hours &nbsp; | &nbsp; <i class='fa-solid fa-house'></i> Edge Habitat</div>
-            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">Take a break from the dense jungle. The agricultural borders of Thattekad support an entirely different group of edge-habitat birds. This walk combines gentle birding with an authentic look at rural Kerala village life and spice farming.</p>
-            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
-                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
-                    <li><strong>08:00 AM:</strong> Walk through the agricultural borders of the sanctuary.</li>
-                    <li><strong>09:00 AM:</strong> Spotting edge-habitat species and visiting spice farms.</li>
-                    <li><strong>10:00 AM:</strong> Interaction with local Kerala village culture.</li>
-                    <li><strong>11:00 AM:</strong> Return to the main road/base.</li>
-                </ul>
-            </div>
-            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
-        </div>
-    </div>
+            element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
 
-    <footer>
-        <div class="footer-content">
-            <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
-            <p>Ernakulam, Kerala, India</p>
-            <p style="margin-top: 10px;">
-                <a href="#email-modal" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
-            </p>
-            <p style="margin-top: 15px;">
-                <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
-            </p>
-            <div class="socials">
-                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#email-modal" style="color: inherit;"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-        </div>
-        <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
-    </footer>
-
-    <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <div id="email-modal" class="css-modal">
-        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box">
-            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
-            
-            <form id="quick-email-form">
-                <input type="text" id="quick-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
-                <input type="email" id="quick-email" placeholder="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
-                <textarea id="quick-message" placeholder="How can we help you?" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
-                <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
-            </form>
-            
-            <div id="quick-form-message" class="hidden" style="text-align: center; margin-top: 1rem;"></div>
-        </div>
-    </div>
-
-    <div id="policies-modal" class="css-modal">
-        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
-        <div class="modal-inner-box" style="max-width: 650px; max-height: 85vh; overflow-y: auto;">
-            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
-            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 1.5rem;">Know Before You Go</h3>
-            
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Cancellations & Weather</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Birding relies on nature. We operate rain or shine. Full refunds are provided for cancellations made 48 hours in advance. If severe weather (e.g., heavy monsoon flooding) forces us to cancel, you will be fully refunded or rescheduled.</p>
-            
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">What to Wear</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Please wear dull-colored, breathable clothing (greens, browns, greys) to blend into the forest. Bright colors startle the birds. Closed-toe trekking shoes and long trousers are mandatory.</p>
-            
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Leech Protection</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">During damp months, leeches are a natural part of the ecosystem. We provide organic salt/tobacco powder repellents, but leech socks are highly recommended if you are visiting right after the monsoon.</p>
-            
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear & Ethics</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6;">Bring your own binoculars and camera gear. We practice strict ethical birding: no playback calls to stress the birds, and no flash photography for nocturnal species.</p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstThumb = document.querySelector('.thumb.active');
+            const caption = document.getElementById('slide-caption');
+            if(caption && firstThumb) {
+                caption.innerText = firstThumb.getAttribute('alt');
+            }
+            startSlideshow();
+        });
+    </script>
 </body>
 </html>
