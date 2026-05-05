@@ -6,7 +6,12 @@
     <title>Blog | Thattekad Birding</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css"> <!-- Looks for style.css in the main folder -->
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* Ensures the logo remains clean without underlines */
+        .navbar .logo { text-decoration: none !important; border-bottom: none !important; }
+        .navbar .logo:hover { text-decoration: none !important; }
+    </style>
 </head>
 <body>
     <nav class="navbar scrolled" id="navbar">
@@ -30,27 +35,47 @@
 
     <section class="tours-section">
         <div class="tour-grid">
-            <!-- This card links to your actual post inside the blog folder -->
+            
+            <!-- Blog Post 2 Card (NEW) -->
+            <div class="blog-post-card">
+                <div class="blog-card-img" style="background-image: url('images/arialviewthattekad.webp');"></div>
+                <div class="card-content">
+                    <h3>Best Time to Visit Thattekad for Bird Watching</h3>
+                    <p class="tour-highlights">Travel Tips • 2026 Guide</p>
+                    <p class="blog-post-excerpt">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
+                    <div class="blog-card-footer">
+                        <a href="blog/post-2.html" class="btn btn-outline">Read Full Story</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 1 Card -->
             <div class="blog-post-card">
                 <div class="blog-card-img" style="background-image: url('images/thattekadforest.webp');"></div>
                 <div class="card-content">
                     <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
                     <p class="tour-highlights">Travel Guide • Honest Verdict</p>
-                    <p class="blog-post-excerpt">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India...</p>
+                    <p class="blog-post-excerpt">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
                     <div class="blog-card-footer">
                         <a href="blog/post-1.html" class="btn btn-outline">Read Full Story</a>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
     <footer>
         <div class="footer-content">
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
-            <p>&copy; 2026 Thattekad Birding. All rights reserved.</p>
+            <p>Kerala, India • info@thattekadbirding.com</p>
+            <div class="socials">
+                <a href="https://wa.me/918921243251" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
         </div>
+        <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
+    
     <script src="script.js"></script>
 </body>
 </html>
