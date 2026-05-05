@@ -2,36 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Main Pages -->
+  <!-- Main Home Page -->
   <url>
     <loc>https://thattekadbirding.com/</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://thattekadbirding.com/images/image%201.webp</image:loc>
+      <image:loc>https://thattekadbirding.com/images/coverimage.webp</image:loc>
       <image:title>Birding in Thattekad Bird Sanctuary</image:title>
       <image:caption>Guided bird watching tours in Kerala's premier sanctuary.</image:caption>
     </image:image>
   </url>
 
+  <!-- Tours Page -->
   <url>
     <loc>https://thattekadbirding.com/tours.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Booking Page -->
   <url>
     <loc>https://thattekadbirding.com/book.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
+  <!-- Gallery Page -->
   <url>
     <loc>https://thattekadbirding.com/gallery.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -44,33 +47,58 @@
     </image:image>
   </url>
 
-  <!-- Blog Section -->
+  <!-- Main Blog Listing Page -->
   <url>
-    <loc>https://thattekadbirding.com/blog/index.html</loc>
-    <lastmod>2026-04-30</lastmod>
+    <loc>https://thattekadbirding.com/blog.html</loc>
+    <lastmod>2026-05-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Individual Blog Posts -->
-<url>
-  <loc>https://thattekadbirding.com/blog/sri-lanka-frogmouth-guide.html</loc>
-  <lastmod>2026-04-30</lastmod>
-  <priority>0.7</priority>
-  <image:image>
-    <image:loc>https://thattekadbirding.com/images/Sri_Lanka_Frogmouth_02.webp</image:loc> 
-    <image:title>Sri Lanka Frogmouth at Thattekad Bird Sanctuary</image:title>
-  </image:image>
-</url>
+  <!-- Blog Post 1: Is it worth it? -->
+  <url>
+    <loc>https://thattekadbirding.com/blog/post-1.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/thattekadforest.webp</image:loc>
+      <image:title>Thattekad Bird Sanctuary Forest</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/thattekadwild.webp</image:loc>
+      <image:title>Wildlife in Thattekad</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/thattekaddeepforest.webp</image:loc>
+      <image:title>Deep Evergreen Forest Kerala</image:title>
+    </image:image>
+  </url>
 
-<url>
-  <loc>https://thattekadbirding.com/blog/malabar-trogon-guide.html</loc>
-  <lastmod>2026-04-30</lastmod>
-  <priority>0.7</priority>
-  <image:image>
-    <image:loc>https://thattekadbirding.com/images/MALABAR%20TROGON.webp</image:loc>
-    <image:title>Malabar Trogon Guide Thattekad</image:title>
-  </image:image>
-</url>
+  <!-- Blog Post 2: Best Time to Visit -->
+  <url>
+    <loc>https://thattekadbirding.com/blog/post-2.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/arialviewthattekad.webp</image:loc>
+      <image:title>Aerial View of Thattekad Bird Sanctuary</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/flamethroatedbulbul.webp</image:loc>
+      <image:title>Flame-throated Bulbul</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/waterviewthattekad.webp</image:loc>
+      <image:title>Periyar River Birding</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/minivet.webp</image:loc>
+      <image:title>Minivet Bird Kerala</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://thattekadbirding.com/images/wilddogthatt.webp</image:loc>
+      <image:title>Wild Dogs in Thattekad</image:title>
+    </image:image>
+  </url>
 
 </urlset>
