@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Thattekad Birding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> <!-- Looks for style.css in the main folder -->
+</head>
+<body>
+    <nav class="navbar scrolled" id="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</a>
+        <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tours.html">Tours</a></li>
+            <li><a href="blog.html" style="color: var(--accent);">Blog</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+        </ul>
+    </nav>
 
+    <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/thattekadforest.webp');">
+        <div class="hero-content">
+            <h1>Our Blog</h1>
+            <p>Insights and stories from the heart of Kerala's evergreen forests.</p>
+        </div>
+    </header>
+
+    <section class="tours-section">
+        <div class="tour-grid">
+            <!-- This card links to your actual post inside the blog folder -->
+            <div class="blog-post-card">
+                <div class="blog-card-img" style="background-image: url('images/thattekadforest.webp');"></div>
+                <div class="card-content">
+                    <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
+                    <p class="tour-highlights">Travel Guide • Honest Verdict</p>
+                    <p class="blog-post-excerpt">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India...</p>
+                    <div class="blog-card-footer">
+                        <a href="blog/post-1.html" class="btn btn-outline">Read Full Story</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+            <p>&copy; 2026 Thattekad Birding. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
