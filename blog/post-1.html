@@ -7,6 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../style.css"> 
+    <style>
+        /* This removes the line under the logo */
+        .navbar .logo { text-decoration: none !important; border-bottom: none !important; }
+        .navbar .logo:hover { text-decoration: none !important; }
+    </style>
 </head>
 <body>
     
@@ -23,11 +28,6 @@
     </nav>
 
     <header class="blog-post-header">
-        <div style="margin-bottom: 2rem;">
-            <a href="../blog.html" class="btn btn-outline" style="display: inline-block; padding: 8px 20px; font-size: 0.9rem;">
-                <i class="fa-solid fa-arrow-left"></i> Back to Blog
-            </a>
-        </div>
         <p class="blog-post-meta">Guide Diary • May 2026</p>
         <h1 class="section-title" style="max-width: 900px; margin: 0 auto;">Is Thattekad Bird Sanctuary Really Worth the Visit?</h1>
     </header>
@@ -69,9 +69,15 @@
             <h2>The Verdict</h2>
             <p><strong>So, is it worth it?</strong> If you want to escape the tourist crowds, breathe in the scent of wild spices, and witness some of the rarest creatures in Asia, the answer is a resounding <strong>YES</strong>. Just bring your sense of adventure (and some dull-colored clothes)!</p>
 
-            <div style="text-align: center; margin-top: 4rem;">
-                <a href="../book.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;">
-                    Ready to Explore? Book a Guided Trek
+            <hr style="margin: 3rem 0; border: 0; border-top: 1px solid #eee;">
+
+            <!-- Relocated Navigation Buttons -->
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="../blog.html" class="btn btn-outline" style="padding: 12px 30px;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Blog
+                </a>
+                <a href="../book.html" class="btn btn-primary" style="padding: 12px 30px;">
+                    Book a Guided Trek <i class="fa-solid fa-calendar-check" style="margin-left: 8px;"></i>
                 </a>
             </div>
         </div>
@@ -91,4 +97,3 @@
     <script src="../script.js"></script>
 </body>
 </html>
-```[cite: 1, 2]
