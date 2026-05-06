@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Thattekad Birding</title>
+    
+    <!-- PageSpeed Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Non-blocking FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
     <link rel="stylesheet" href="style.css"> 
     <style>
         /* Ensures the logo remains clean without underlines */
@@ -36,7 +45,20 @@
     <section class="tours-section">
         <div class="tour-grid">
             
-            <!-- Blog Post 2 Card (NEW) -->
+            <!-- Blog Post 3 Card (NEWEST) -->
+            <div class="blog-post-card">
+                <div class="blog-card-img" style="background-image: url('images/srilankanfrogmouth.webp');"></div>
+                <div class="card-content">
+                    <h3>What Birds Can I See at Thattekad?</h3>
+                    <p class="tour-highlights">Species Guide • 2026</p>
+                    <p class="blog-post-excerpt">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist for the "Big Three" and more...</p>
+                    <div class="blog-card-footer">
+                        <a href="blog/post-3.html" class="btn btn-outline">Read Full Story</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blog Post 2 Card -->
             <div class="blog-post-card">
                 <div class="blog-card-img" style="background-image: url('images/arialviewthattekad.webp');"></div>
                 <div class="card-content">
@@ -76,6 +98,6 @@
         <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
     
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
