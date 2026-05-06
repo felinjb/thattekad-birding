@@ -7,7 +7,7 @@
     <title>Thattekad Birding Tours | Local Guides in Kerala</title>
     <meta name="description" content="Experience expert-guided birding tours in Kerala's Salim Ali Bird Sanctuary. Track rare endemics like the Ceylon Frogmouth with Thattekad's top local guides.">
     
-    <!-- 1. PRELOAD HERO IMAGE (Fixes LCP) -->
+    <!-- 1. PRELOAD HERO IMAGE (Fixes the 8.6s LCP) -->
     <link rel="preload" as="image" href="images/coverimage.webp">
 
     <!-- 2. PRECONNECT TO FONTS (Speeds up text rendering) -->
@@ -22,21 +22,9 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      // Analytics ID
-      gtag('config', 'G-WXGEJ9RLRT');
-      // Google Ads ID
-      gtag('config', 'AW-17993783369');
-    </script>
-    
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <!-- 3. NON-BLOCKING FONTAWESOME (Fixes Render Blocking) -->
+    <!-- 3. NON-BLOCKING FONTAWESOME (Fixes Render Blocking and Unused CSS) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
@@ -197,6 +185,43 @@
         </div>
     </section>
 
+    <!-- =================================================== -->
+    <!-- BLOG QUICK ACCESS SECTION -->
+    <!-- =================================================== -->
+    <section class="blog-preview-section reveal">
+        <h2 class="section-title" style="text-align: center;">From The Field</h2>
+        
+        <div class="blog-slideshow-container">
+            
+            <!-- Slide 1 -->
+            <div class="blog-slide fade" style="background-image: url('images/thattekadforest.webp'); display: block;">
+                <div class="blog-slide-text">
+                    <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
+                    <p>Travel Guide • Honest Verdict</p>
+                    <p style="font-size: 1.1rem; color: #ddd;">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
+                    <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="blog-slide fade" style="background-image: url('images/arialviewthattekad.webp');">
+                <div class="blog-slide-text">
+                    <h3>Best Time to Visit Thattekad for Bird Watching</h3>
+                    <p>Travel Tips • 2026 Guide</p>
+                    <p style="font-size: 1.1rem; color: #ddd;">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
+                    <a href="blog/post-2.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                </div>
+            </div>
+
+            <!-- Slideshow Dot Indicators -->
+            <div class="blog-dots-container">
+                <span class="blog-dot active"></span>
+                <span class="blog-dot"></span>
+            </div>
+
+        </div>
+    </section>
+
     <footer>
         <div class="footer-content">
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
@@ -260,7 +285,17 @@
         </div>
     </div>
 
-    <!-- 4. DEFER SCRIPT (Fixes render-blocking scripts) -->
+    <!-- 4. GOOGLE ANALYTICS MOVED TO THE BOTTOM (Fixes Forced Reflow / JS blocking) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WXGEJ9RLRT');
+      gtag('config', 'AW-17993783369');
+    </script>
+    
+    <!-- 5. DEFER MAIN SCRIPT -->
     <script src="script.js" defer></script>
 </body>
 </html>
