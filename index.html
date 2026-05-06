@@ -7,7 +7,7 @@
     <title>Thattekad Birding Tours | Local Guides in Kerala</title>
     <meta name="description" content="Experience expert-guided birding tours in Kerala's Salim Ali Bird Sanctuary. Track rare endemics like the Ceylon Frogmouth with Thattekad's top local guides.">
     
-    <!-- 1. PRELOAD HERO IMAGE (Fixes the 8.6s LCP) -->
+    <!-- 1. PRELOAD HERO IMAGE (Fixes LCP) -->
     <link rel="preload" as="image" href="images/coverimage.webp">
 
     <!-- 2. PRECONNECT TO FONTS (Speeds up text rendering) -->
@@ -193,29 +193,43 @@
         
         <div class="blog-slideshow-container">
             
-            <!-- Slide 1 -->
-            <div class="blog-slide fade" style="background-image: url('images/thattekadforest.webp'); display: block;">
+            <!-- Slide 1 (Newest) -->
+            <div class="blog-slide fade">
                 <div class="blog-slide-text">
-                    <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
-                    <p>Travel Guide • Honest Verdict</p>
-                    <p style="font-size: 1.1rem; color: #ddd;">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
-                    <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                    <h3>What Birds Can I See at Thattekad?</h3>
+                    <p>Species Guide • 2026</p>
+                    <p style="font-size: 1.1rem; color: #ddd;">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist...</p>
+                    <a href="blog/post-3.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
                 </div>
+                <div class="slide-bg" style="background-image: url('images/srilankanfrogmouth.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
             </div>
 
             <!-- Slide 2 -->
-            <div class="blog-slide fade" style="background-image: url('images/arialviewthattekad.webp');">
+            <div class="blog-slide fade">
                 <div class="blog-slide-text">
                     <h3>Best Time to Visit Thattekad for Bird Watching</h3>
                     <p>Travel Tips • 2026 Guide</p>
                     <p style="font-size: 1.1rem; color: #ddd;">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
                     <a href="blog/post-2.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
                 </div>
+                <div class="slide-bg" style="background-image: url('images/arialviewthattekad.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="blog-slide fade">
+                <div class="blog-slide-text">
+                    <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
+                    <p>Travel Guide • Honest Verdict</p>
+                    <p style="font-size: 1.1rem; color: #ddd;">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
+                    <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                </div>
+                <div class="slide-bg" style="background-image: url('images/thattekadforest.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
             </div>
 
             <!-- Slideshow Dot Indicators -->
             <div class="blog-dots-container">
                 <span class="blog-dot active"></span>
+                <span class="blog-dot"></span>
                 <span class="blog-dot"></span>
             </div>
 
