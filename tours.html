@@ -69,6 +69,21 @@
         .explore-btn:hover { background-color: #2d6a4f; color: white; transform: translateY(-2px); }
         .tour-details { display: none !important; }
         .toggle-btn { display: none !important; }
+        
+        /* 3-3-2 Centered Grid Layout override */
+        .tour-grid {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 30px;
+        }
+        .tour-card {
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 300px;
+        }
     </style>
 </head>
 <body id="page-top">
@@ -77,12 +92,12 @@
         <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
         <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
         <ul class="nav-links" id="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="tours.html" style="color: var(--accent);">Tours</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="book.html" class="nav-btn">Book Now</a></li>
-</ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tours.html" style="color: var(--accent);">Tours</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+        </ul>
     </nav>
 
     <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/Guided Sanctuary Trail.webp');">
@@ -154,12 +169,34 @@
             </div>
 
             <div class="tour-card reveal delay-3">
+                <div class="card-img" style="background-image: url('images/pitviper.webp');"></div>
+                <div class="card-content">
+                    <h3>Monsoon Herping Expedition</h3>
+                    <p>Track rare Western Ghats endemic reptiles and amphibians on this specialized night trek.</p>
+                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
+                        <a href="#modal-7" class="explore-btn">Explore Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tour-card reveal delay-1">
                 <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
                 <div class="card-content">
                     <h3>Village & Culture Walk</h3>
                     <p>Explore local Kerala village life and agricultural birding borders.</p>
                     <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
                         <a href="#modal-6" class="explore-btn">Explore Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tour-card reveal delay-2">
+                <div class="card-img" style="background-image: url('images/spices-kerala-2.webp');"></div>
+                <div class="card-content">
+                    <h3>Spice Plantation Birding</h3>
+                    <p>Enjoy flat paths, zero heavy trekking, and sightings of Woodpeckers and Parakeets.</p>
+                    <div class="card-footer" style="margin-top: auto; padding-top: 1.5rem;">
+                        <a href="#modal-8" class="explore-btn">Explore Details</a>
                     </div>
                 </div>
             </div>
@@ -294,6 +331,48 @@
         </div>
     </div>
 
+    <div id="modal-7" class="css-modal">
+        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <div class="modal-inner-box">
+            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <img src="images/pitviper.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
+            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Monsoon Herping Expedition</h2>
+            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 2 Hours &nbsp; | &nbsp; <i class='fa-solid fa-frog'></i> Night Trek</div>
+            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">When the rains arrive, the forest floor comes alive. Track rare Western Ghats endemic reptiles and amphibians, including various tree frogs and the Malabar Pit Viper, on this specialized night trek.</p>
+            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
+                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
+                    <li><strong>06:00 PM:</strong> Safety briefing and leech protection application.</li>
+                    <li><strong>06:30 PM:</strong> Track frogs and pit vipers near water sources and low branches.</li>
+                    <li><strong>07:00 PM:</strong> Photography session with macro-friendly subjects.</li>
+                    <li><strong>08:00 PM:</strong> Safe return to the starting point.</li>
+                </ul>
+            </div>
+            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
+        </div>
+    </div>
+
+    <div id="modal-8" class="css-modal">
+        <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <div class="modal-inner-box">
+            <a href="#page-top" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <img src="images/spices-kerala-2.webp" alt="Tour Image" style="width: 100%; height: 250px; object-fit: cover; border-radius: 8px;">
+            <h2 style="margin: 1.5rem 0 0.5rem; color: #1b4332; font-family: 'Playfair Display', serif;">Spice Plantation Birding</h2>
+            <div style="color: #2d6a4f; font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; display: inline-block;"><i class='fa-regular fa-clock'></i> 2-3 Hours &nbsp; | &nbsp; <i class='fa-solid fa-seedling'></i> Flat Terrain</div>
+            <p style="color: #555; line-height: 1.6; margin-bottom: 1.5rem;">A leisurely walk through local, shaded spice farms. Enjoy perfectly flat paths, zero heavy trekking, and fantastic sightings of Woodpeckers, Bulbuls, and Parakeets that are drawn to the fruit and spice trees.</p>
+            <div style="background: #fdfdfd; border-left: 4px solid #d4a373; padding: 15px; margin-bottom: 2rem; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <h4 style="color: #1b4332; margin-bottom: 10px; font-family: 'Poppins', sans-serif;">Expected Itinerary:</h4>
+                <ul style="text-align: left; padding-left: 20px; color: #444; line-height: 1.8; font-size: 0.95rem;">
+                    <li><strong>08:00 AM:</strong> Arrival at the local partner plantation.</li>
+                    <li><strong>08:15 AM:</strong> Walk through shaded trails spotting edge-habitat birds.</li>
+                    <li><strong>09:30 AM:</strong> Learn about the cultivation of black pepper, nutmeg etc.</li>
+                    <li><strong>10:30 AM:</strong> Conclude the walk with traditional Kerala snacks.</li>
+                </ul>
+            </div>
+            <a href="book.html" style="display: block; text-align: center; font-size: 1.1rem; background-color: #d4a373; color: white; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: 600;"><i class="fa-solid fa-calendar-check"></i> Book This Package</a>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
@@ -355,8 +434,7 @@
     </div>
 
     <script src="script.js"></script>
-    <!-- BEGIN PLERDY CODE -->
-<script type="text/javascript" defer data-plerdy_code='1'>
+    <script type="text/javascript" defer data-plerdy_code='1'>
     var _protocol="https:"==document.location.protocol?"https://":"http://";
     _site_hash_code = "e67f7ebc5c109baddac8810504c6e449",_suid=76336, plerdyScript=document.createElement("script");
     plerdyScript.setAttribute("defer",""),plerdyScript.dataset.plerdymainscript="plerdymainscript",
@@ -365,6 +443,5 @@
     plerdymainscript&&plerdymainscript.parentNode.removeChild(plerdymainscript);
     try{document.head.appendChild(plerdyScript)}catch(t){console.log(t,"unable add script tag")}
 </script>
-<!-- END PLERDY CODE -->
 </body>
 </html>
