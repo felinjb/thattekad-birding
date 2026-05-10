@@ -31,8 +31,23 @@
         /* Modern 3-Card Carousel for Tours */
         .tour-carousel-wrapper { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 50px; }
         .tour-carousel-container { overflow: hidden; width: 100%; padding: 15px 0; }
-        .tour-carousel-track { display: flex; gap: 20px; transition: transform 0.5s ease-in-out; }
-        .tour-carousel-track .tour-card { flex: 0 0 calc(33.333% - 13.5px); min-width: 0; box-sizing: border-box; }
+        .tour-carousel-track { display: flex; gap: 20px; }
+        
+        /* Card Alignment Fixes */
+        .tour-carousel-track .tour-card { 
+            flex: 0 0 calc(33.333% - 13.5px); 
+            min-width: 0; 
+            box-sizing: border-box; 
+            display: flex; 
+            flex-direction: column; 
+            height: auto;
+        }
+        .tour-carousel-track .card-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* This pushes the button to the bottom */
+            padding: 20px;
+        }
         
         /* Carousel Arrows */
         .carousel-arrow { position: absolute; top: 45%; transform: translateY(-50%); cursor: pointer; color: white; background-color: var(--dark); font-size: 20px; z-index: 10; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s; user-select: none;}
@@ -48,7 +63,7 @@
             .tour-carousel-track .tour-card { flex: 0 0 100%; }
             .tour-carousel-track { gap: 0; }
             .tour-carousel-wrapper { padding: 0 20px; }
-            .carousel-arrow { display: none; /* Hide arrows on mobile, users can swipe if we add touch logic, but for now buttons are clean */ }
+            .carousel-arrow { display: none; }
         }
 
         /* Modals */
@@ -122,7 +137,7 @@
         <h2 class="section-title reveal" style="text-align: center; margin-bottom: 3rem;">Popular Experiences</h2>
         
         <div class="tour-carousel-wrapper reveal">
-            <a class="carousel-arrow prev-arrow" onclick="moveCarousel(-1)">&#10094;</a>
+            <a class="carousel-arrow prev-arrow" onclick="moveInfiniteCarousel(-1)">&#10094;</a>
             
             <div class="tour-carousel-container">
                 <div class="tour-carousel-track" id="tourTrack">
@@ -130,79 +145,79 @@
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
                         <div class="card-content">
-                            <h3>Early Morning Chorus</h3>
+                            <h3 style="margin-bottom: 10px;">Early Morning Chorus</h3>
                             <p class="tour-desc">Experience the forest waking up in optimal morning light. Perfect for songbirds and hornbills.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
                         <div class="card-content">
-                            <h3>Target Species Tracking</h3>
+                            <h3 style="margin-bottom: 10px;">Target Species Tracking</h3>
                             <p class="tour-desc">A highly specialized trek focused entirely on locating specific rare endemics on your checklist.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
                         <div class="card-content">
-                            <h3>The Photographer's Special</h3>
+                            <h3 style="margin-bottom: 10px;">The Photographer's Special</h3>
                             <p class="tour-desc">Paced for patience. We prioritize perfect lighting, strategic positioning, and long observation periods.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
                         <div class="card-content">
-                            <h3>Night Birding Expedition</h3>
+                            <h3 style="margin-bottom: 10px;">Night Birding Tour</h3>
                             <p class="tour-desc">Venture into the forest edges after dusk to spot elusive nocturnal species like the Sri Lanka Bay Owl.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
                         <div class="card-content">
-                            <h3>Guided Sanctuary Trail</h3>
+                            <h3 style="margin-bottom: 10px;">Guided Sanctuary Trail</h3>
                             <p class="tour-desc">An immersive full-day trek deep into the dense tropical evergreen ecosystem.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/pitviper.webp');"></div>
                         <div class="card-content">
-                            <h3>Monsoon Herping Expedition</h3>
+                            <h3 style="margin-bottom: 10px;">Monsoon Herping Expedition</h3>
                             <p class="tour-desc">Track rare Western Ghats endemic reptiles and amphibians on this specialized night trek.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/spices-kerala-2.webp');"></div>
                         <div class="card-content">
-                            <h3>Spice Plantation Birding</h3>
+                            <h3 style="margin-bottom: 10px;">Spice Plantation Birding</h3>
                             <p class="tour-desc">A leisurely walk through local spice farms with flat paths and zero heavy trekking.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                     <div class="tour-card">
                         <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
                         <div class="card-content">
-                            <h3>Village & Culture Walk</h3>
+                            <h3 style="margin-bottom: 10px;">Village & Culture Walk</h3>
                             <p class="tour-desc">Take a break from the jungle and explore local Kerala village life and agricultural borders.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: 15px;">Explore Details</a>
+                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
                         </div>
                     </div>
 
                 </div>
             </div>
             
-            <a class="carousel-arrow next-arrow" onclick="moveCarousel(1)">&#10095;</a>
+            <a class="carousel-arrow next-arrow" onclick="moveInfiniteCarousel(1)">&#10095;</a>
         </div>
         
         <div class="reveal" style="text-align: center; margin-top: 2rem;">
@@ -399,38 +414,57 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
-            // --- NEW 3-CARD TOUR CAROUSEL LOGIC ---
-            let carouselIndex = 0;
-            
-            window.moveCarousel = function(direction) {
-                const track = document.getElementById("tourTrack");
+            // --- NEW TRUE INFINITE TOUR CAROUSEL LOGIC ---
+            const track = document.getElementById("tourTrack");
+            let isTransitioning = false;
+
+            window.moveInfiniteCarousel = function(direction) {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
                 const cards = track.getElementsByClassName("tour-card");
-                if(cards.length === 0) return;
+                if (cards.length === 0) {
+                    isTransitioning = false;
+                    return;
+                }
 
-                // Figure out how many cards are visible based on screen size
-                let cardsVisible = window.innerWidth > 900 ? 3 : window.innerWidth > 600 ? 2 : 1;
-                const maxIndex = cards.length - cardsVisible;
-
-                carouselIndex += direction;
-
-                // Stop at the edges
-                if (carouselIndex < 0) carouselIndex = 0;
-                if (carouselIndex > maxIndex) carouselIndex = maxIndex;
-
-                // Calculate the width to move (card width + gap)
+                // Calculate the width of one card plus its gap
                 const cardWidth = cards[0].offsetWidth;
                 const gap = window.innerWidth > 600 ? 20 : 0; 
-                const moveAmount = carouselIndex * (cardWidth + gap);
+                const moveAmount = cardWidth + gap;
 
-                track.style.transform = `translateX(-${moveAmount}px)`;
+                if (direction === 1) { // Slide Right (Next)
+                    track.style.transition = "transform 0.5s ease-in-out";
+                    track.style.transform = `translateX(-${moveAmount}px)`;
+                    
+                    // Wait for transition to finish, then move the first element to the back
+                    setTimeout(() => {
+                        track.style.transition = "none";
+                        track.appendChild(track.firstElementChild);
+                        track.style.transform = "translateX(0)";
+                        isTransitioning = false;
+                    }, 500);
+                    
+                } else if (direction === -1) { // Slide Left (Previous)
+                    // Move the last element to the front instantly
+                    track.style.transition = "none";
+                    track.insertBefore(track.lastElementChild, track.firstElementChild);
+                    
+                    // Instantly offset the track so it looks like nothing changed yet
+                    track.style.transform = `translateX(-${moveAmount}px)`;
+                    
+                    // Force a browser reflow so the instant change applies before the animation
+                    void track.offsetWidth;
+                    
+                    // Animate the track back to position 0
+                    track.style.transition = "transform 0.5s ease-in-out";
+                    track.style.transform = "translateX(0)";
+                    
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 500);
+                }
             };
-
-            // Fix alignment if the user resizes their browser window
-            window.addEventListener('resize', () => {
-                carouselIndex = 0;
-                moveCarousel(0);
-            });
-
 
             // --- BLOG SLIDER LOGIC ---
             let blogIndex = 0;
@@ -456,8 +490,8 @@
                 slides[blogIndex-1].style.display = "block";
                 dots[blogIndex-1].className += " active";
                 
-                // SPEED INCREASED: Changed from 5000ms to 3000ms (3 seconds)
-                blogTimer = setTimeout(showBlogSlides, 3000); 
+                // SPEED INCREASED: Changed to 2000ms (2 seconds) as requested
+                blogTimer = setTimeout(showBlogSlides, 2000); 
             }
 
             let bDots = document.getElementsByClassName("blog-dot");
