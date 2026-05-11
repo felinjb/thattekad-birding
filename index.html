@@ -28,9 +28,6 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
     <style>
-        /* ========================================================= */
-        /* --- 1. MAIN GLOBAL STYLES (Formerly style.css) --- */
-        /* ========================================================= */
         :root {
             --primary: #2d6a4f; 
             --primary-light: #40916c;
@@ -295,13 +292,7 @@
             .blog-post-header { padding: 8rem 5% 3rem; }
         }
 
-        /* ========================================================= */
-        /* --- 2. INDEX.HTML SPECIFIC OVERRIDES & CAROUSEL --- */
-        /* ========================================================= */
-        .btn-primary, .nav-btn {
-            color: #0b1c15 !important;
-            font-weight: 700 !important;
-        }
+        .btn-primary, .nav-btn { color: #0b1c15 !important; font-weight: 700 !important; }
 
         .tour-carousel-wrapper { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 50px; }
         .tour-carousel-container { overflow: hidden; width: 100%; padding: 15px 0; }
@@ -315,21 +306,14 @@
             flex-direction: column; 
             height: auto;
         }
-        .tour-carousel-track .card-content {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1; 
-            padding: 20px;
-        }
+        .tour-carousel-track .card-content { display: flex; flex-direction: column; flex-grow: 1; padding: 20px; }
         
         .carousel-arrow { position: absolute; top: 45%; transform: translateY(-50%); cursor: pointer; color: white; background-color: var(--dark); font-size: 20px; z-index: 10; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s; user-select: none;}
         .carousel-arrow.prev-arrow { left: 0; }
         .carousel-arrow.next-arrow { right: 0; }
         .carousel-arrow:hover { background-color: var(--accent); }
 
-        @media (max-width: 900px) {
-            .tour-carousel-track .tour-card { flex: 0 0 calc(50% - 10px); }
-        }
+        @media (max-width: 900px) { .tour-carousel-track .tour-card { flex: 0 0 calc(50% - 10px); } }
         @media (max-width: 600px) {
             .tour-carousel-track .tour-card { flex: 0 0 100%; }
             .tour-carousel-track { gap: 0; }
@@ -382,7 +366,7 @@
                     <p>Our indigenous guides have spent their lives navigating these trails. Whether you are a professional photographer looking for the perfect golden-hour shot, or a nature lover wanting to see the legendary Ceylon Frogmouth, we tailor our treks to your exact needs.</p>
                     <a href="book.html" class="btn btn-primary" style="margin-top: 1rem;">Check Availability</a>
                 </div>
-                <div class="welcome-image reveal delay-2" style="background-image: url('images/image-2.webp');"></div>
+                <div class="welcome-image reveal delay-2" style="background-image: url('images/image%202.webp');"></div>
             </div>
         </section>
 
@@ -414,7 +398,7 @@
                     <div class="tour-carousel-track" id="tourTrack">
                         
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/early-morning-chorus.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/Early%20Morning%20Chorus.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Early Morning Chorus</h3>
                                 <p class="tour-desc">Experience the forest waking up in optimal morning light. Perfect for songbirds and hornbills.</p>
@@ -423,7 +407,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/target-species-tracking.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/Target%20Species%20Tracking.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Target Species Tracking</h3>
                                 <p class="tour-desc">A highly specialized trek focused entirely on locating specific rare endemics on your checklist.</p>
@@ -432,7 +416,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/photographers-special.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/The%20Photographer\'s%20Special.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">The Photographer's Special</h3>
                                 <p class="tour-desc">Paced for patience. We prioritize perfect lighting, strategic positioning, and long observation periods.</p>
@@ -441,7 +425,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/night-birding.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/Night%20Birding%20Expedition.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Night Birding Tour</h3>
                                 <p class="tour-desc">Venture into the forest edges after dusk to spot elusive nocturnal species like the Sri Lanka Bay Owl.</p>
@@ -450,7 +434,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/guided-trail.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/Guided%20Sanctuary%20Trail.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Guided Sanctuary Trail</h3>
                                 <p class="tour-desc">An immersive full-day trek deep into the dense tropical evergreen ecosystem.</p>
@@ -477,7 +461,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/village-walk.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/Village%20&%20Culture%20Walk.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Village & Culture Walk</h3>
                                 <p class="tour-desc">Take a break from the jungle and explore local Kerala village life and agricultural borders.</p>
