@@ -6,7 +6,7 @@
     
     <title>Blog | Thattekad Birding</title>
     
-    <meta name="description" content="Read the latest insights, species guides, and travel stories from Thattekad Birding. Your ultimate resource for birding in Kerala's evergreen forests.">
+    <meta name="description" content="Read the latest insights, species guides, and travel stories from Thattekad Birding. Your ultimate resource for birding and herping in Kerala's evergreen forests.">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thattekadbirding.com/blog.html">
@@ -28,7 +28,6 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
     <style>
-        /* INLINED MASTER CSS */
         :root {
             --primary: #2d6a4f; 
             --primary-light: #40916c;
@@ -59,7 +58,13 @@
             background: rgba(27, 67, 50, 0.98); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             padding: 1rem 5%;
         }
-        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center; text-decoration: none !important;}
+        
+        /* LOGO FIX: REMOVES UNDERLINE */
+        .logo { 
+            font-size: 1.8rem; color: var(--white); font-weight: 700; 
+            display: flex; align-items: center; text-decoration: none !important;
+        }
+        .logo:hover { text-decoration: none !important; }
         
         .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; margin: 0;}
         .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
@@ -147,6 +152,18 @@
             <h2 class="sr-only">Latest Articles</h2>
             
             <div class="tour-grid">
+                
+                <div class="blog-post-card">
+                    <div class="blog-card-img" style="background-image: url('images/pitviper.webp');"></div>
+                    <div class="card-content">
+                        <h2>Monsoon Herping Expedition in Thattekad</h2>
+                        <p class="tour-highlights">Rainforest Adventure • 2026</p>
+                        <p class="blog-post-excerpt">Discover the hidden world of reptiles and amphibians. From the Malabar Pit Viper to endemic frogs, explore Thattekad's monsoon magic...</p>
+                        <div class="blog-card-footer">
+                            <a href="blog/post-4.html" class="btn btn-outline" aria-label="Read full story: Monsoon Herping Expedition in Thattekad">Read Full Story</a>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="blog-post-card">
                     <div class="blog-card-img" style="background-image: url('images/srilankanfrogmouth.webp');"></div>
