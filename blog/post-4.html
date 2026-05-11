@@ -6,12 +6,12 @@
     
     <title>Monsoon Herping Expedition in Thattekad | Kerala Rainforest Wildlife Tours</title>
     
-    <meta name="description" content="Join a Monsoon Herping Expedition in Thattekad, Kerala. Explore the rare reptiles and amphibians of the Western Ghats with expert-guided rainforest tours by Thattekad Birding.">
+    <meta name="description" content="Join a Monsoon Herping Expedition in Thattekad, Kerala. Explore rare Western Ghats reptiles and amphibians with expert-guided rainforest tours by Thattekad Birding.">
     
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://thattekadbirding.com/blog/post-4.html">
     <meta property="og:title" content="Monsoon Herping Expedition in Thattekad | Rainforest Adventure">
-    <meta property="og:description" content="Discover the hidden world of rainforest reptiles and amphibians during the Kerala monsoon.">
+    <meta property="og:description" content="Discover the hidden world of Kerala's reptiles and amphibians during the monsoon season.">
     <meta property="og:image" content="https://thattekadbirding.com/images/pitviper.webp">
 
     <link rel="icon" type="image/png" href="../favicon.png">
@@ -20,45 +20,112 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap&display=swap" media="print" onload="this.media='all'">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 
-    <link rel="stylesheet" href="../style.css">
-    
     <style>
-        .species-highlight-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 3rem 0;
+        :root {
+            --primary: #2d6a4f; 
+            --primary-light: #40916c;
+            --dark: #1b4332;
+            --accent: #d4a373; 
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text: #333333;
         }
-        .species-card {
-            background: #fdfdfd; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease; border: 1px solid #eee;
-        }
-        .species-card:hover { transform: translateY(-5px); }
-        .species-card img { width: 100%; height: 220px; object-fit: cover; }
-        .species-card-content { padding: 1.5rem; }
-        .species-card-content h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 0.5rem; }
-        .species-card-content p { font-size: 0.9rem; line-height: 1.5; color: #666; margin: 0; }
 
-        .keyword-box {
-            background: var(--light-bg); padding: 2rem; border-radius: 12px; margin: 3rem 0; border-left: 5px solid var(--accent);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--white);
+            overflow-x: hidden; 
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
+
+        /* NAVBAR LOGO FIX: REMOVES UNDERLINE */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; left: 0;
+            z-index: 1000; background: rgba(27, 67, 50, 0.98); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo { 
+            font-size: 1.8rem; color: var(--white); font-weight: 700; 
+            display: flex; align-items: center; text-decoration: none !important; 
+        }
+        .logo:hover { text-decoration: none !important; }
+        
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; margin: 0;}
+        .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-btn { background: var(--accent); padding: 8px 20px; border-radius: 30px; font-weight: 600 !important; color: #0b1c15 !important;}
+
+        /* BLOG LAYOUT */
+        .blog-post-container { max-width: 850px; margin: 120px auto 60px; padding: 0 5%; }
+        .blog-post-header { text-align: center; margin-bottom: 3rem; }
+        .blog-post-meta { color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+        .blog-post-cover-img { 
+            width: 100%; height: 500px; background-size: cover; background-position: center; 
+            border-radius: 15px; margin-bottom: 4rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
         
+        .blog-post-content h2 { color: var(--dark); margin: 3rem 0 1.5rem; font-size: 2.2rem; }
+        .blog-post-content p { margin-bottom: 1.5rem; font-size: 1.1rem; color: #444; }
+        .blog-post-content blockquote { 
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic;
+            color: var(--primary); border-left: 5px solid var(--accent); padding-left: 25px; margin: 3rem 0;
+        }
+
+        /* SPECIES GRID */
+        .species-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 3.5rem 0; }
+        .species-card { 
+            background: var(--light-bg); border-radius: 12px; overflow: hidden; 
+            border: 1px solid #eee; transition: transform 0.3s ease;
+        }
+        .species-card:hover { transform: translateY(-5px); }
+        .species-card img { width: 100%; height: 250px; object-fit: cover; }
+        .species-info { padding: 1.5rem; }
+        .species-info h3 { font-size: 1.3rem; color: var(--dark); margin-bottom: 0.5rem; }
+        .species-info p { font-size: 0.95rem; line-height: 1.5; color: #666; margin: 0; }
+
+        .gear-list { background: #f0f4f1; padding: 2.5rem; border-radius: 12px; margin: 3rem 0; }
+        .gear-list h3 { color: var(--dark); margin-bottom: 1rem; }
+        .gear-list ul { padding-left: 20px; }
+        .gear-list li { margin-bottom: 0.8rem; font-weight: 500; }
+
+        .btn-primary { 
+            display: inline-block; background: var(--accent); color: #0b1c15 !important; 
+            padding: 15px 40px; border-radius: 5px; text-decoration: none; font-weight: 700; 
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .btn-primary:hover { background: #bc8a5f; transform: scale(1.02); }
+
+        footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 4rem 5% 2rem; }
+        .socials { font-size: 1.5rem; margin-bottom: 1.5rem; }
+        .socials a { color: white; margin: 0 15px; text-decoration: none; }
+
         @media (max-width: 768px) {
-            .species-highlight-grid { grid-template-columns: 1fr; }
+            .species-grid { grid-template-columns: 1fr; }
+            .blog-post-cover-img { height: 300px; }
+            .blog-post-header h1 { font-size: 2.2rem; }
+            .nav-links { display: none; } /* Simplified for code clarity */
         }
     </style>
 </head>
 <body>
-    <nav class="navbar scrolled" id="navbar">
+    
+    <nav class="navbar" id="navbar">
         <a href="../index.html" class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</a>
-        <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
-        <ul class="nav-links" id="nav-links">
+        <ul class="nav-links">
             <li><a href="../index.html">Home</a></li>
             <li><a href="../tours.html">Tours</a></li>
             <li><a href="../blog.html" style="color: var(--accent);">Blog</a></li>
             <li><a href="../gallery.html">Gallery</a></li>
-            <li><a href="../book.html" class="nav-btn" style="color: #0b1c15 !important;">Book Now</a></li>
+            <li><a href="../book.html" class="nav-btn">Book Now</a></li>
         </ul>
     </nav>
 
@@ -66,70 +133,59 @@
         <article class="blog-post-container">
             <header class="blog-post-header">
                 <p class="blog-post-meta">Wildlife Adventure • Monsoon 2026</p>
-                <h1 style="font-size: 3rem; color: var(--dark); line-height: 1.2;">Monsoon Herping Expedition in Thattekad: A Rainforest Adventure in Kerala</h1>
+                <h1>Monsoon Herping Expedition in Thattekad: A Rainforest Adventure in Kerala</h1>
             </header>
 
             <div class="blog-post-cover-img" style="background-image: url('../images/pitviper.webp');"></div>
 
             <div class="blog-post-content">
-                <p>When the monsoon clouds roll over the Western Ghats, the forests of Thattekad transform into one of the most exciting wildlife destinations in India. While many visit for our famous avian residents, a <strong>Monsoon Herping Expedition in Thattekad</strong> offers an entirely different, high-adrenaline perspective on the rainforest.</p>
+                <p>When the heavy monsoon clouds roll over the Western Ghats, the forests of Thattekad transform into a glowing emerald paradise. While we are world-famous for our avian diversity, a <strong>Monsoon herping expedition in Thattekad</strong> offers an entirely different, high-adrenaline perspective on the rainforest.</p>
 
-                <p>Hidden beneath wet leaves, along forest streams, and inside the dense evergreen canopy, a spectacular world of <strong>Kerala rainforest reptiles</strong> and amphibians emerges in incredible diversity. For wildlife enthusiasts, photographers, and adventure seekers, this is the ultimate time to explore the Western Ghats.</p>
+                <p>As the rains "awaken" the landscape, the forest floor and canopy come alive with an incredible variety of <strong>Kerala rainforest reptiles</strong> and amphibians. For wildlife enthusiasts, macro photographers, and researchers, this is the ultimate season for <strong>herping in Kerala</strong>.</p>
 
-                <h2>What is Herping?</h2>
-                <p>Herping is the dedicated search and observation of reptiles and amphibians in their natural habitats. During the monsoon season in Kerala (June to September), the high humidity and consistent rainfall trigger peak activity in frogs, snakes, and lizards. This makes it the absolute best time for <strong>herping in Kerala</strong>.</p>
-                
-                <p>The Salim Ali Bird Sanctuary and its surrounding buffers are part of the Western Ghats—a UNESCO World Heritage site and a global biodiversity hotspot. Our <strong>Thattekad wildlife tours</strong> focus on locating endemic species that are found nowhere else on the planet.</p>
+                <h2>What exactly is Herping?</h2>
+                <p>Herping is the dedicated search and observation of reptiles and amphibians in their natural habitats. During the monsoon (June to September), high humidity and consistent rainfall trigger peak breeding and hunting activity. This is the prime window for <strong>snake and frog watching in Kerala</strong>, as species that remain dormant for most of the year finally emerge.</p>
 
-                <div class="species-highlight-grid">
+                <blockquote>"The forests surrounding the Salim Ali Bird Sanctuary are a global biodiversity hotspot, home to endemic species found nowhere else on Earth."</blockquote>
+
+                <h2>Why Thattekad is a Premier Herping Destination</h2>
+                <p>While Thattekad is the birding capital of India, it is also a gateway to the Western Ghats' rich herpetofauna. Our <strong>Thattekad wildlife tours</strong> provide rare opportunities to see specialized species that thrive in the dense tropical evergreen ecosystem. The humid climate makes it a haven for <strong>Western Ghats herping</strong>.</p>
+
+                <div class="species-grid">
                     <div class="species-card">
                         <img src="../images/malabarglidingfrog.webp" alt="Malabar Gliding Frog Thattekad" loading="lazy">
-                        <div class="species-card-content">
+                        <div class="species-info">
                             <h3>Malabar Gliding Frog</h3>
-                            <p>An arboreal icon of the Western Ghats, known for its vibrant green body and ability to glide between trees using its webbed feet.</p>
+                            <p>An arboreal icon known for its vibrant green color and large webbed feet that allow it to glide through the rainforest canopy.</p>
                         </div>
                     </div>
                     <div class="species-card">
                         <img src="../images/BronzeFrog.webp" alt="Bronze Frog Thattekad" loading="lazy">
-                        <div class="species-card-content">
-                            <h3>Bronze Frog</h3>
-                            <p>Typically found near forest streams, these amphibians are a favorite subject for macro photography due to their striking metallic sheen.</p>
+                        <div class="species-info">
+                            <h3>Endemic Bronze Frog</h3>
+                            <p>Found near forest streams, these metallic-skinned amphibians are the perfect subject for macro photography enthusiasts.</p>
                         </div>
                     </div>
                 </div>
 
-                <h2>Why Thattekad is Perfect for Western Ghats Herping</h2>
-                <p>While Thattekad is synonymous with birdwatching, few realize it is also one of the premier locations for <strong>snake and frog watching in Kerala</strong>. The monsoon rains "awaken" the forest floor. Species like the <strong>Malabar Pit Viper</strong>—an emerald-green jewel—become easier to spot as they wait patiently on low branches for prey.</p>
+                <h2>What to Expect on a Night Herping Session</h2>
+                <p>The real magic happens after dark. <strong>Night herping in Thattekad</strong> involves slow, silent treks through known biodiversity corridors. With the help of our expert indigenous trackers, you will learn to spot "eye-shine" and identify species by their unique calls.</p>
+                
+                <p>Our <strong>Thattekad eco tours</strong> prioritize ethics over everything else. We ensure low-impact trail usage and follow a strict "no-handling" policy to protect the delicate skin of amphibians and the safety of our guests.</p>
 
-                <h3>Species Spotlight</h3>
-                <ul>
-                    <li><strong>Malabar Pit Viper:</strong> A venomous but docile endemic viper with stunning color variations.</li>
-                    <li><strong>Tree Frogs:</strong> Including the large, charismatic Malabar Gliding Frog.</li>
-                    <li><strong>Shieldtail Snakes:</strong> Rare, burrowing reptiles that are only visible when the soil is moist.</li>
-                    <li><strong>Forest Calotes & Geckos:</strong> Masters of rainforest camouflage that come alive at night.</li>
-                </ul>
-
-                <h2>What to Expect on Our Night Herping in Thattekad</h2>
-                <p>Our guided <strong>Thattekad eco tours</strong> are carefully designed for both human safety and wildlife ethics. <strong>Night herping in Thattekad</strong> involves silent, slow-paced walks through known biodiversity corridors.</p>
-
-                <blockquote>"We focus on immersive, small-group wildlife experiences rather than commercial mass tourism. Our indigenous guides use their lifelong knowledge of calls and micro-habitats to find elusive species."</blockquote>
-
-                <div class="keyword-box">
-                    <h3 style="margin-top:0;">Ethical Wildlife Tourism</h3>
-                    <p>Responsible tourism is critical in sensitive ecosystems. At Thattekad Birding, we follow strict <strong>amphibian tours in India</strong> guidelines: no handling of wildlife, no disturbance of breeding sites, and low-impact trail usage. Our goal is conservation through education.</p>
+                <div class="gear-list">
+                    <h3>Essential Gear for Herping</h3>
+                    <p>To ensure a safe and successful <strong>amphibian tour in India</strong>, we recommend bringing:</p>
+                    <ul>
+                        <li><strong>Waterproof Trekking Shoes:</strong> Forest trails can be extremely slippery.</li>
+                        <li><strong>High-Lumen Headlamp:</strong> Essential for spotting camouflaged reptiles at night.</li>
+                        <li><strong>Rain Poncho:</strong> To protect yourself and your camera gear.</li>
+                        <li><strong>Macro Lens:</strong> For capturing the incredible details of vipers and frogs.</li>
+                    </ul>
                 </div>
 
-                <h2>Essential Gear for Your Adventure</h2>
-                <p>If you are joining our <strong>Western Ghats herping</strong> expeditions, please bring:</p>
-                <ul>
-                    <li><strong>Waterproof Trekking Shoes:</strong> Essential for slippery forest trails.</li>
-                    <li><strong>Headlamp or Flashlight:</strong> High-lumen lights are best for spotting eye-shine.</li>
-                    <li><strong>Macro Lens:</strong> For those capturing professional wildlife photographs.</li>
-                    <li><strong>Lightweight Quick-Dry Clothing:</strong> To stay comfortable in the humid rainforest.</li>
-                </ul>
-
                 <div style="text-align: center; margin-top: 4rem;">
-                    <a href="../book.html" class="btn btn-primary" style="padding: 15px 40px; font-size: 1.2rem; color: #0b1c15 !important;">Book Your Herping Expedition</a>
+                    <a href="../book.html" class="btn-primary">Request a Guided Expedition</a>
                 </div>
             </div>
         </article>
@@ -140,7 +196,7 @@
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Ernakulam, Kerala, India • info@thattekadbirding.com</p>
             <div class="socials">
-                <a href="https://wa.me/918921243251" target="_blank" aria-label="Chat with us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://wa.me/918921243251" target="_blank" aria-label="WhatsApp Contact"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
         <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
