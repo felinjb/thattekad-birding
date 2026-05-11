@@ -30,7 +30,7 @@
     <style>
         /* Accessibility Contrast Fixes */
         .btn-primary, .nav-btn {
-            color: #0b1c15 !important; /* Dark text for high contrast on light buttons */
+            color: #0b1c15 !important;
             font-weight: 700 !important;
         }
 
@@ -144,7 +144,7 @@
             <h2 class="section-title reveal" style="text-align: center; margin-bottom: 3rem;">Popular Experiences</h2>
             
             <div class="tour-carousel-wrapper reveal">
-                <a class="carousel-arrow prev-arrow" onclick="moveInfiniteCarousel(-1)" aria-label="Previous Tours">&#10094;</a>
+                <a class="carousel-arrow prev-arrow" onclick="moveInfiniteCarousel(-1)" aria-label="Previous Tours" role="button" tabindex="0">&#10094;</a>
                 
                 <div class="tour-carousel-container">
                     <div class="tour-carousel-track" id="tourTrack">
@@ -224,7 +224,7 @@
                     </div>
                 </div>
                 
-                <a class="carousel-arrow next-arrow" onclick="moveInfiniteCarousel(1)" aria-label="Next Tours">&#10095;</a>
+                <a class="carousel-arrow next-arrow" onclick="moveInfiniteCarousel(1)" aria-label="Next Tours" role="button" tabindex="0">&#10095;</a>
             </div>
             
             <div class="reveal" style="text-align: center; margin-top: 2rem;">
@@ -293,9 +293,9 @@
                 </div>
 
                 <div class="blog-dots-container">
-                    <span class="blog-dot" aria-label="Blog Slide 1"></span>
-                    <span class="blog-dot" aria-label="Blog Slide 2"></span>
-                    <span class="blog-dot" aria-label="Blog Slide 3"></span>
+                    <span class="blog-dot" role="button" tabindex="0" aria-label="View Blog Slide 1"></span>
+                    <span class="blog-dot" role="button" tabindex="0" aria-label="View Blog Slide 2"></span>
+                    <span class="blog-dot" role="button" tabindex="0" aria-label="View Blog Slide 3"></span>
                 </div>
 
             </div>
