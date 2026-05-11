@@ -20,7 +20,9 @@
     
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap"></noscript>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -390,8 +392,7 @@
             
             <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear & Ethics</h4>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6;">Bring your own binoculars and camera gear. We practice strict ethical birding: no playback calls to stress the birds, and no flash photography for nocturnal species.</p>
-            
-            </div>
+        </div>
     </div>
 
     <script src="script.js" defer></script>
@@ -404,7 +405,6 @@
                 if (trackingLoaded) return;
                 trackingLoaded = true;
 
-                // 1. Inject Google Tag Manager
                 let gtagScript = document.createElement('script');
                 gtagScript.async = true;
                 gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT";
@@ -416,7 +416,6 @@
                 gtag('config', 'G-WXGEJ9RLRT');
                 gtag('config', 'AW-17993783369');
 
-                // 2. Inject Plerdy Heatmaps
                 let plerdyScript = document.createElement("script");
                 plerdyScript.setAttribute("defer", "");
                 plerdyScript.dataset.plerdymainscript = "plerdymainscript";
@@ -424,16 +423,12 @@
                 document.head.appendChild(plerdyScript);
             }
 
-            // Wait for user to interact (scroll, tap, mouse move) BEFORE loading heavy tracking scripts
             ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(event) {
                 window.addEventListener(event, loadTrackingScripts, { once: true, passive: true });
             });
 
-            // Fallback: If they do nothing for 4 seconds, load it anyway
             setTimeout(loadTrackingScripts, 4000);
-
             
-            // --- NEW TRUE INFINITE TOUR CAROUSEL LOGIC ---
             const track = document.getElementById("tourTrack");
             let isTransitioning = false;
 
@@ -479,7 +474,6 @@
                 }
             };
 
-            // --- BLOG SLIDER LOGIC ---
             let blogIndex = 0;
             let blogTimer;
             showBlogSlides();
