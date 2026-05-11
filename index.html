@@ -28,6 +28,12 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+        /* Accessibility Contrast Fixes */
+        .btn-primary, .nav-btn {
+            color: #0b1c15 !important; /* Dark text for high contrast on light buttons */
+            font-weight: 700 !important;
+        }
+
         /* Modern 3-Card Carousel for Tours */
         .tour-carousel-wrapper { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 50px; }
         .tour-carousel-container { overflow: hidden; width: 100%; padding: 15px 0; }
@@ -45,7 +51,7 @@
         .tour-carousel-track .card-content {
             display: flex;
             flex-direction: column;
-            flex-grow: 1; /* This pushes the button to the bottom */
+            flex-grow: 1; 
             padding: 20px;
         }
         
@@ -92,241 +98,243 @@
         </ul>
     </nav>
 
-    <header class="hero" style="background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('images/coverimage.webp');">
-        <div class="hero-content">
-            <h1>Discover the Magic of Thattekad</h1>
-            <p>Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography opportunities.</p>
-            <div class="hero-buttons">
-                <a href="tours.html" class="btn btn-primary">Explore Our Tours</a>
-                <a href="#email-modal" class="btn btn-outline" style="color: white; border-color: white;">Email Us Directly</a>
+    <main>
+        <header class="hero" style="background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('images/coverimage.webp');">
+            <div class="hero-content">
+                <h1>Discover the Magic of Thattekad</h1>
+                <p>Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography opportunities.</p>
+                <div class="hero-buttons">
+                    <a href="tours.html" class="btn btn-primary">Explore Our Tours</a>
+                    <a href="#email-modal" class="btn btn-outline" style="color: white; border-color: white;">Email Us Directly</a>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <section class="welcome-section">
-        <div class="welcome-grid">
-            <div class="welcome-text reveal delay-1">
-                <h2 class="section-title">Welcome to the Jungle</h2>
-                <p>The Salim Ali Bird Sanctuary at Thattekad is one of the richest bird habitats in peninsular India. Characterized by dense tropical evergreen and deciduous forests, it is a haven for both migratory and endemic bird species.</p>
-                <p>Our indigenous guides have spent their lives navigating these trails. Whether you are a professional photographer looking for the perfect golden-hour shot, or a nature lover wanting to see the legendary Ceylon Frogmouth, we tailor our treks to your exact needs.</p>
-                <a href="book.html" class="btn btn-primary" style="margin-top: 1rem;">Check Availability</a>
+        <section class="welcome-section">
+            <div class="welcome-grid">
+                <div class="welcome-text reveal delay-1">
+                    <h2 class="section-title">Welcome to the Jungle</h2>
+                    <p>The Salim Ali Bird Sanctuary at Thattekad is one of the richest bird habitats in peninsular India. Characterized by dense tropical evergreen and deciduous forests, it is a haven for both migratory and endemic bird species.</p>
+                    <p>Our indigenous guides have spent their lives navigating these trails. Whether you are a professional photographer looking for the perfect golden-hour shot, or a nature lover wanting to see the legendary Ceylon Frogmouth, we tailor our treks to your exact needs.</p>
+                    <a href="book.html" class="btn btn-primary" style="margin-top: 1rem;">Check Availability</a>
+                </div>
+                <div class="welcome-image reveal delay-2" style="background-image: url('images/image 2.webp');"></div>
             </div>
-            <div class="welcome-image reveal delay-2" style="background-image: url('images/image 2.webp');"></div>
-        </div>
-    </section>
+        </section>
 
-    <section class="features">
-        <div class="feature-box reveal delay-1">
-            <i class="fa-solid fa-binoculars"></i>
-            <h3 style="margin-bottom: 15px; color: var(--dark);">Expert Guides</h3>
-            <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">Decades of generational experience navigating the deep trails of Thattekad to locate the most elusive endemics.</p>
-        </div>
-        <div class="feature-box reveal delay-2">
-            <i class="fa-solid fa-camera"></i>
-            <h3 style="margin-bottom: 15px; color: var(--dark);">For Photographers</h3>
-            <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">We know exactly how to position you for the perfect golden-hour shot with minimal disturbance to the wildlife.</p>
-        </div>
-        <div class="feature-box reveal delay-3">
-            <i class="fa-solid fa-leaf"></i>
-            <h3 style="margin-bottom: 15px; color: var(--dark);">Eco-Conscious</h3>
-            <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">Committed to strict zero-trace policies to protect the delicate ecosystem of the Salim Ali Bird Sanctuary.</p>
-        </div>
-    </section>
+        <section class="features">
+            <div class="feature-box reveal delay-1">
+                <i class="fa-solid fa-binoculars"></i>
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Expert Guides</h3>
+                <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">Decades of generational experience navigating the deep trails of Thattekad to locate the most elusive endemics.</p>
+            </div>
+            <div class="feature-box reveal delay-2">
+                <i class="fa-solid fa-camera"></i>
+                <h3 style="margin-bottom: 15px; color: var(--dark);">For Photographers</h3>
+                <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">We know exactly how to position you for the perfect golden-hour shot with minimal disturbance to the wildlife.</p>
+            </div>
+            <div class="feature-box reveal delay-3">
+                <i class="fa-solid fa-leaf"></i>
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Eco-Conscious</h3>
+                <p style="color: #555; font-size: 0.95rem; line-height: 1.6;">Committed to strict zero-trace policies to protect the delicate ecosystem of the Salim Ali Bird Sanctuary.</p>
+            </div>
+        </section>
 
-    <section class="tours-section" style="background: var(--white);">
-        <h2 class="section-title reveal" style="text-align: center; margin-bottom: 3rem;">Popular Experiences</h2>
-        
-        <div class="tour-carousel-wrapper reveal">
-            <a class="carousel-arrow prev-arrow" onclick="moveInfiniteCarousel(-1)">&#10094;</a>
+        <section class="tours-section" style="background: var(--white);">
+            <h2 class="section-title reveal" style="text-align: center; margin-bottom: 3rem;">Popular Experiences</h2>
             
-            <div class="tour-carousel-container">
-                <div class="tour-carousel-track" id="tourTrack">
-                    
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">Early Morning Chorus</h3>
-                            <p class="tour-desc">Experience the forest waking up in optimal morning light. Perfect for songbirds and hornbills.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+            <div class="tour-carousel-wrapper reveal">
+                <a class="carousel-arrow prev-arrow" onclick="moveInfiniteCarousel(-1)" aria-label="Previous Tours">&#10094;</a>
+                
+                <div class="tour-carousel-container">
+                    <div class="tour-carousel-track" id="tourTrack">
+                        
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">Early Morning Chorus</h3>
+                                <p class="tour-desc">Experience the forest waking up in optimal morning light. Perfect for songbirds and hornbills.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">Target Species Tracking</h3>
-                            <p class="tour-desc">A highly specialized trek focused entirely on locating specific rare endemics on your checklist.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">Target Species Tracking</h3>
+                                <p class="tour-desc">A highly specialized trek focused entirely on locating specific rare endemics on your checklist.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">The Photographer's Special</h3>
-                            <p class="tour-desc">Paced for patience. We prioritize perfect lighting, strategic positioning, and long observation periods.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">The Photographer's Special</h3>
+                                <p class="tour-desc">Paced for patience. We prioritize perfect lighting, strategic positioning, and long observation periods.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">Night Birding Tour</h3>
-                            <p class="tour-desc">Venture into the forest edges after dusk to spot elusive nocturnal species like the Sri Lanka Bay Owl.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">Night Birding Tour</h3>
+                                <p class="tour-desc">Venture into the forest edges after dusk to spot elusive nocturnal species like the Sri Lanka Bay Owl.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">Guided Sanctuary Trail</h3>
-                            <p class="tour-desc">An immersive full-day trek deep into the dense tropical evergreen ecosystem.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">Guided Sanctuary Trail</h3>
+                                <p class="tour-desc">An immersive full-day trek deep into the dense tropical evergreen ecosystem.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/pitviper.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">Monsoon Herping Expedition</h3>
-                            <p class="tour-desc">Track rare Western Ghats endemic reptiles and amphibians on this specialized night trek.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/pitviper.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">Monsoon Herping Expedition</h3>
+                                <p class="tour-desc">Track rare Western Ghats endemic reptiles and amphibians on this specialized night trek.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/spices-kerala-2.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">Spice Plantation Birding</h3>
-                            <p class="tour-desc">A leisurely walk through local spice farms with flat paths and zero heavy trekking.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/spices-kerala-2.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">Spice Plantation Birding</h3>
+                                <p class="tour-desc">A leisurely walk through local spice farms with flat paths and zero heavy trekking.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="tour-card">
-                        <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
-                        <div class="card-content">
-                            <h3 style="margin-bottom: 10px;">Village & Culture Walk</h3>
-                            <p class="tour-desc">Take a break from the jungle and explore local Kerala village life and agricultural borders.</p>
-                            <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                        <div class="tour-card">
+                            <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
+                            <div class="card-content">
+                                <h3 style="margin-bottom: 10px;">Village & Culture Walk</h3>
+                                <p class="tour-desc">Take a break from the jungle and explore local Kerala village life and agricultural borders.</p>
+                                <a href="tours.html" class="btn btn-outline" style="display: block; text-align: center; margin-top: auto;">Explore Details</a>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
+                
+                <a class="carousel-arrow next-arrow" onclick="moveInfiniteCarousel(1)" aria-label="Next Tours">&#10095;</a>
             </div>
             
-            <a class="carousel-arrow next-arrow" onclick="moveInfiniteCarousel(1)">&#10095;</a>
-        </div>
-        
-        <div class="reveal" style="text-align: center; margin-top: 2rem;">
-            <a href="tours.html" class="btn btn-primary" style="display: inline-block; padding: 12px 40px; font-size: 1.1rem;">View Full Tour Catalog</a>
-        </div>
-    </section>
+            <div class="reveal" style="text-align: center; margin-top: 2rem;">
+                <a href="tours.html" class="btn btn-primary" style="display: inline-block; padding: 12px 40px; font-size: 1.1rem;">View Full Tour Catalog</a>
+            </div>
+        </section>
 
-    <section class="testimonials-section">
-        <h2 class="section-title reveal" style="text-align: center; margin-bottom: 3rem;">What Our Guests Say</h2>
-        <div class="testimonial-grid">
+        <section class="testimonials-section">
+            <h2 class="section-title reveal" style="text-align: center; margin-bottom: 3rem;">What Our Guests Say</h2>
+            <div class="testimonial-grid">
+                
+                <div class="testimonial-card reveal delay-1">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"Absolutely incredible experience. Our guide spotted the Ceylon Frogmouth within the first hour of our trek. A must-do for any serious birder visiting Kerala!"</p>
+                    <p style="font-weight: 600; font-size: 1.1rem; color: var(--dark); margin-top: 15px;">— Sarah T., United Kingdom</p>
+                </div>
+
+                <div class="testimonial-card reveal delay-2">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"The Photographer's Special tour was perfectly paced. They understood lighting and positioning perfectly. I got the best shots of my entire trip right here."</p>
+                    <p style="font-weight: 600; font-size: 1.1rem; color: var(--dark); margin-top: 15px;">— Mark D., Australia</p>
+                </div>
+
+                <div class="testimonial-card reveal delay-3">
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p>"We did the village walk and light birding. It was serene, deeply educational, and completely respectful of the local wildlife. Highly recommended."</p>
+                    <p style="font-weight: 600; font-size: 1.1rem; color: var(--dark); margin-top: 15px;">— Anil & Priya, India</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="blog-preview-section reveal">
+            <h2 class="section-title" style="text-align: center;">From The Field</h2>
             
-            <div class="testimonial-card reveal delay-1">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Absolutely incredible experience. Our guide spotted the Ceylon Frogmouth within the first hour of our trek. A must-do for any serious birder visiting Kerala!"</p>
-                <h4>— Sarah T., United Kingdom</h4>
-            </div>
-
-            <div class="testimonial-card reveal delay-2">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"The Photographer's Special tour was perfectly paced. They understood lighting and positioning perfectly. I got the best shots of my entire trip right here."</p>
-                <h4>— Mark D., Australia</h4>
-            </div>
-
-            <div class="testimonial-card reveal delay-3">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"We did the village walk and light birding. It was serene, deeply educational, and completely respectful of the local wildlife. Highly recommended."</p>
-                <h4>— Anil & Priya, India</h4>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="blog-preview-section reveal">
-        <h2 class="section-title" style="text-align: center;">From The Field</h2>
-        
-        <div class="blog-slideshow-container" style="position: relative;">
-            
-            <div class="blog-slide fade">
-                <div class="blog-slide-text">
-                    <h3>What Birds Can I See at Thattekad?</h3>
-                    <p>Species Guide • 2026</p>
-                    <p style="font-size: 1.1rem; color: #ddd;">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist...</p>
-                    <a href="blog/post-3.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+            <div class="blog-slideshow-container" style="position: relative;">
+                
+                <div class="blog-slide fade">
+                    <div class="blog-slide-text">
+                        <h3>What Birds Can I See at Thattekad?</h3>
+                        <p>Species Guide • 2026</p>
+                        <p style="font-size: 1.1rem; color: #ddd;">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist...</p>
+                        <a href="blog/post-3.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                    </div>
+                    <div class="slide-bg" style="background-image: url('images/srilankanfrogmouth.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
-                <div class="slide-bg" style="background-image: url('images/srilankanfrogmouth.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
-            </div>
 
-            <div class="blog-slide fade">
-                <div class="blog-slide-text">
-                    <h3>Best Time to Visit Thattekad for Bird Watching</h3>
-                    <p>Travel Tips • 2026 Guide</p>
-                    <p style="font-size: 1.1rem; color: #ddd;">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
-                    <a href="blog/post-2.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                <div class="blog-slide fade">
+                    <div class="blog-slide-text">
+                        <h3>Best Time to Visit Thattekad for Bird Watching</h3>
+                        <p>Travel Tips • 2026 Guide</p>
+                        <p style="font-size: 1.1rem; color: #ddd;">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
+                        <a href="blog/post-2.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                    </div>
+                    <div class="slide-bg" style="background-image: url('images/arialviewthattekad.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
-                <div class="slide-bg" style="background-image: url('images/arialviewthattekad.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
-            </div>
 
-            <div class="blog-slide fade">
-                <div class="blog-slide-text">
-                    <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
-                    <p>Travel Guide • Honest Verdict</p>
-                    <p style="font-size: 1.1rem; color: #ddd;">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
-                    <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                <div class="blog-slide fade">
+                    <div class="blog-slide-text">
+                        <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
+                        <p>Travel Guide • Honest Verdict</p>
+                        <p style="font-size: 1.1rem; color: #ddd;">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
+                        <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                    </div>
+                    <div class="slide-bg" style="background-image: url('images/thattekadforest.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
-                <div class="slide-bg" style="background-image: url('images/thattekadforest.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+
+                <div class="blog-dots-container">
+                    <span class="blog-dot" aria-label="Blog Slide 1"></span>
+                    <span class="blog-dot" aria-label="Blog Slide 2"></span>
+                    <span class="blog-dot" aria-label="Blog Slide 3"></span>
+                </div>
+
             </div>
+        </section>
 
-            <div class="blog-dots-container">
-                <span class="blog-dot"></span>
-                <span class="blog-dot"></span>
-                <span class="blog-dot"></span>
-            </div>
+        <section class="faq-section">
+            <div class="faq-container reveal">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
+                
+                <div class="faq-card">
+                    <button class="faq-question">What is the best time of year to visit? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>The ideal birding season in Thattekad is between October and March. During these months, the weather is pleasant, and the sanctuary becomes home to a massive influx of migratory species alongside our resident endemics.</p>
+                    </div>
+                </div>
 
-        </div>
-    </section>
+                <div class="faq-card">
+                    <button class="faq-question">Do I need to bring my own camera and binoculars? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>Yes, guests are required to bring their own optical and photography gear. While our guides are experts at spotting and positioning you for the perfect shot, we do not provide camera equipment or binoculars for rent at this time.</p>
+                    </div>
+                </div>
 
-    <section class="faq-section">
-        <div class="faq-container reveal">
-            <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
-            
-            <div class="faq-card">
-                <button class="faq-question">What is the best time of year to visit? <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="faq-answer">
-                    <p>The ideal birding season in Thattekad is between October and March. During these months, the weather is pleasant, and the sanctuary becomes home to a massive influx of migratory species alongside our resident endemics.</p>
+                <div class="faq-card">
+                    <button class="faq-question">Are the walking trails physically demanding? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>We offer tours for all fitness levels. Our "Village & Culture Walk" is very flat and relaxed, while the "Guided Sanctuary Trail" involves deeper forest trekking. If you have mobility concerns, please let us know when booking so we can customize a flat-terrain route for you.</p>
+                    </div>
+                </div>
+
+                <div class="faq-card">
+                    <button class="faq-question">Are leeches a problem in the forest? <i class="fa-solid fa-chevron-down"></i></button>
+                    <div class="faq-answer">
+                        <p>During the dry season (Dec-March), leeches are very rare. However, if you visit right after the monsoon, they can be present. We highly recommend wearing closed-toe trekking shoes and long trousers. We also provide organic anti-leech remedies (like salt/tobacco powder) before entering the deep trails.</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="faq-card">
-                <button class="faq-question">Do I need to bring my own camera and binoculars? <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="faq-answer">
-                    <p>Yes, guests are required to bring their own optical and photography gear. While our guides are experts at spotting and positioning you for the perfect shot, we do not provide camera equipment or binoculars for rent at this time.</p>
-                </div>
-            </div>
-
-            <div class="faq-card">
-                <button class="faq-question">Are the walking trails physically demanding? <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="faq-answer">
-                    <p>We offer tours for all fitness levels. Our "Village & Culture Walk" is very flat and relaxed, while the "Guided Sanctuary Trail" involves deeper forest trekking. If you have mobility concerns, please let us know when booking so we can customize a flat-terrain route for you.</p>
-                </div>
-            </div>
-
-            <div class="faq-card">
-                <button class="faq-question">Are leeches a problem in the forest? <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="faq-answer">
-                    <p>During the dry season (Dec-March), leeches are very rare. However, if you visit right after the monsoon, they can be present. We highly recommend wearing closed-toe trekking shoes and long trousers. We also provide organic anti-leech remedies (like salt/tobacco powder) before entering the deep trails.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
         <div class="footer-content">
@@ -339,8 +347,8 @@
                 <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
             </p>
             <div class="socials">
-                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#email-modal" style="color: inherit;"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;" aria-label="Message us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#email-modal" style="color: inherit;" aria-label="Send us an email"><i class="fa-solid fa-envelope"></i></a>
             </div>
         </div>
         <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
@@ -351,18 +359,18 @@
     </a>
 
     <div id="email-modal" class="css-modal">
-        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Email Modal Background"></a>
         
         <div class="modal-inner-box">
-            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <a href="#" class="modal-close" aria-label="Close Email Modal"><i class="fa-solid fa-xmark"></i></a>
             
             <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
             
             <form id="quick-email-form">
-                <input type="text" id="quick-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
-                <input type="email" id="quick-email" placeholder="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
-                <textarea id="quick-message" placeholder="How can we help you?" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
+                <input type="text" id="quick-name" placeholder="Your Name" aria-label="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <input type="email" id="quick-email" placeholder="Your Email Address" aria-label="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <textarea id="quick-message" placeholder="How can we help you?" aria-label="Message" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
                 
                 <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
             </form>
@@ -372,9 +380,9 @@
     </div>
 
     <div id="policies-modal" class="css-modal">
-        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;"></a>
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Policies Modal Background"></a>
         <div class="modal-inner-box" style="max-width: 650px; max-height: 85vh; overflow-y: auto;">
-            <a href="#" class="modal-close"><i class="fa-solid fa-xmark"></i></a>
+            <a href="#" class="modal-close" aria-label="Close Policies Modal"><i class="fa-solid fa-xmark"></i></a>
             <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 1.5rem;">Know Before You Go</h3>
             
             <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Cancellations & Weather</h4>
@@ -428,7 +436,6 @@
                     return;
                 }
 
-                // Calculate the width of one card plus its gap
                 const cardWidth = cards[0].offsetWidth;
                 const gap = window.innerWidth > 600 ? 20 : 0; 
                 const moveAmount = cardWidth + gap;
@@ -437,7 +444,6 @@
                     track.style.transition = "transform 0.5s ease-in-out";
                     track.style.transform = `translateX(-${moveAmount}px)`;
                     
-                    // Wait for transition to finish, then move the first element to the back
                     setTimeout(() => {
                         track.style.transition = "none";
                         track.appendChild(track.firstElementChild);
@@ -446,17 +452,13 @@
                     }, 500);
                     
                 } else if (direction === -1) { // Slide Left (Previous)
-                    // Move the last element to the front instantly
                     track.style.transition = "none";
                     track.insertBefore(track.lastElementChild, track.firstElementChild);
                     
-                    // Instantly offset the track so it looks like nothing changed yet
                     track.style.transform = `translateX(-${moveAmount}px)`;
                     
-                    // Force a browser reflow so the instant change applies before the animation
                     void track.offsetWidth;
                     
-                    // Animate the track back to position 0
                     track.style.transition = "transform 0.5s ease-in-out";
                     track.style.transform = "translateX(0)";
                     
@@ -490,7 +492,6 @@
                 slides[blogIndex-1].style.display = "block";
                 dots[blogIndex-1].className += " active";
                 
-                // SPEED INCREASED: Changed to 2000ms (2 seconds) as requested
                 blogTimer = setTimeout(showBlogSlides, 2000); 
             }
 
