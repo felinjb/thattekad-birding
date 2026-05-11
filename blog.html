@@ -3,27 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Blog | Thattekad Birding</title>
     
-    <!-- PageSpeed Optimizations -->
+    <meta name="description" content="Read the latest insights, travel tips, and species guides from Thattekad Birding. Discover the rare endemics of Kerala's evergreen forests.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thattekadbirding.com/blog.html">
+    <meta property="og:title" content="Blog | Thattekad Birding">
+    <meta property="og:description" content="Insights and stories from the heart of Kerala's evergreen forests.">
+    <meta property="og:image" content="https://thattekadbirding.com/images/thattekadforest.webp">
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <link rel="preload" as="image" href="images/thattekadforest.webp" fetchpriority="high">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap"></noscript>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Non-blocking FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
-    <link rel="stylesheet" href="style.css"> 
     <style>
-        /* Ensures the logo remains clean without underlines */
+        :root {
+            --primary: #2d6a4f; 
+            --primary-light: #40916c;
+            --dark: #1b4332;
+            --accent: #d4a373; 
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--light-bg);
+            overflow-x: hidden; 
+        }
+
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; left: 0;
+            z-index: 1000; transition: all 0.3s ease; background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(27, 67, 50, 0.98); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 1rem 5%;
+        }
+        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center;}
         .navbar .logo { text-decoration: none !important; border-bottom: none !important; }
         .navbar .logo:hover { text-decoration: none !important; }
+        
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; margin: 0;}
+        .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-btn { background: var(--accent); padding: 8px 20px; border-radius: 30px; font-weight: 600 !important; color: #0b1c15 !important;}
+        .menu-icon { display: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
+
+        .subpage-hero {
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white);
+            height: 50vh; padding-top: 80px;
+        }
+        .hero-content { max-width: 800px; padding: 0 20px; }
+        .subpage-hero h1 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.1; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2.5rem; font-weight: 300; }
+
+        .tours-section { padding: 5rem 5%; }
+        .tour-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem; max-width: 1200px; margin: 0 auto;
+        }
+
+        /* Blog Specific Styles */
+        .blog-post-card {
+            background-color: var(--white); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease;
+        }
+        .blog-post-card:hover { transform: translateY(-5px); }
+        .blog-card-img { height: 220px; background-size: cover; background-position: center; }
+        .card-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-content h3 { color: var(--dark); font-size: 1.5rem; margin-bottom: 0.8rem; line-height: 1.3; }
+        .tour-highlights { color: var(--primary); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; }
+        .blog-post-excerpt { font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.6; }
+        .blog-card-footer { margin-top: auto; padding-top: 1rem; }
+
+        .btn { display: inline-block; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: 600; cursor: pointer; border: none; font-family: 'Poppins', sans-serif; transition: 0.3s;}
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); text-align: center; display: block; background: transparent; }
+        .btn-outline:hover { background-color: var(--primary); color: var(--white); }
+
+        footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; }
+        .footer-content p { margin-bottom: 1rem; }
+        .socials { font-size: 1.5rem; margin: 1.5rem 0; }
+        .socials i { margin: 0 10px; color: white; transition: color 0.3s; }
+        .socials a:hover i { color: var(--accent); }
+        .copyright { margin-top: 2rem; font-size: 0.9rem; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+            .menu-icon { display: flex; align-items: center; justify-content: center; }
+            
+            .nav-links {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(27, 67, 50, 0.98);
+                flex-direction: column; padding: 2rem 0; gap: 1.5rem;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                opacity: 0; transform: translateY(-20px); pointer-events: none; transition: all 0.3s ease;
+            }
+            .nav-links.nav-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+            .nav-links a { font-size: 1.2rem; }
+
+            .subpage-hero h1 { font-size: 2.5rem; }
+            .tour-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar scrolled" id="navbar">
+    
+    <nav class="navbar" id="navbar">
         <a href="index.html" class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</a>
         <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
         <ul class="nav-links" id="nav-links">
@@ -31,84 +141,112 @@
             <li><a href="tours.html">Tours</a></li>
             <li><a href="blog.html" style="color: var(--accent);">Blog</a></li>
             <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+            <li><a href="book.html" class="nav-btn" style="color: #0b1c15 !important;">Book Now</a></li>
         </ul>
     </nav>
 
-    <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/thattekadforest.webp');">
-        <div class="hero-content">
-            <h1>Our Blog</h1>
-            <p>Insights and stories from the heart of Kerala's evergreen forests.</p>
-        </div>
-    </header>
+    <main>
+        <header class="subpage-hero" style="background-image: linear-gradient(rgba(27, 67, 50, 0.7), rgba(27, 67, 50, 0.9)), url('images/thattekadforest.webp');">
+            <div class="hero-content">
+                <h1>Our Blog</h1>
+                <p>Insights and stories from the heart of Kerala's evergreen forests.</p>
+            </div>
+        </header>
 
-    <section class="tours-section">
-        <div class="tour-grid">
+        <section class="tours-section">
+            <h2 class="sr-only">Latest Articles</h2>
             
-            <!-- Blog Post 3 Card (NEWEST) -->
-            <div class="blog-post-card">
-                <div class="blog-card-img" style="background-image: url('images/srilankanfrogmouth.webp');"></div>
-                <div class="card-content">
-                    <h3>What Birds Can I See at Thattekad?</h3>
-                    <p class="tour-highlights">Species Guide • 2026</p>
-                    <p class="blog-post-excerpt">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist for the "Big Three" and more...</p>
-                    <div class="blog-card-footer">
-                        <a href="blog/post-3.html" class="btn btn-outline">Read Full Story</a>
+            <div class="tour-grid">
+                
+                <div class="blog-post-card">
+                    <div class="blog-card-img" style="background-image: url('images/srilankanfrogmouth.webp');"></div>
+                    <div class="card-content">
+                        <h3>What Birds Can I See at Thattekad?</h3>
+                        <p class="tour-highlights">Species Guide • 2026</p>
+                        <p class="blog-post-excerpt">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist for the "Big Three" and more...</p>
+                        <div class="blog-card-footer">
+                            <a href="blog/post-3.html" class="btn btn-outline" aria-label="Read full story: What Birds Can I See at Thattekad?">Read Full Story</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Blog Post 2 Card -->
-            <div class="blog-post-card">
-                <div class="blog-card-img" style="background-image: url('images/arialviewthattekad.webp');"></div>
-                <div class="card-content">
-                    <h3>Best Time to Visit Thattekad for Bird Watching</h3>
-                    <p class="tour-highlights">Travel Tips • 2026 Guide</p>
-                    <p class="blog-post-excerpt">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
-                    <div class="blog-card-footer">
-                        <a href="blog/post-2.html" class="btn btn-outline">Read Full Story</a>
+                
+                <div class="blog-post-card">
+                    <div class="blog-card-img" style="background-image: url('images/arialviewthattekad.webp');"></div>
+                    <div class="card-content">
+                        <h3>Best Time to Visit Thattekad for Bird Watching</h3>
+                        <p class="tour-highlights">Travel Tips • 2026 Guide</p>
+                        <p class="blog-post-excerpt">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
+                        <div class="blog-card-footer">
+                            <a href="blog/post-2.html" class="btn btn-outline" aria-label="Read full story: Best Time to Visit Thattekad for Bird Watching">Read Full Story</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Blog Post 1 Card -->
-            <div class="blog-post-card">
-                <div class="blog-card-img" style="background-image: url('images/thattekadforest.webp');"></div>
-                <div class="card-content">
-                    <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
-                    <p class="tour-highlights">Travel Guide • Honest Verdict</p>
-                    <p class="blog-post-excerpt">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
-                    <div class="blog-card-footer">
-                        <a href="blog/post-1.html" class="btn btn-outline">Read Full Story</a>
+                <div class="blog-post-card">
+                    <div class="blog-card-img" style="background-image: url('images/thattekadforest.webp');"></div>
+                    <div class="card-content">
+                        <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
+                        <p class="tour-highlights">Travel Guide • Honest Verdict</p>
+                        <p class="blog-post-excerpt">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
+                        <div class="blog-card-footer">
+                            <a href="blog/post-1.html" class="btn btn-outline" aria-label="Read full story: Is Thattekad Bird Sanctuary Really Worth the Visit?">Read Full Story</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-    </section>
+            </div>
+        </section>
+    </main>
 
     <footer>
         <div class="footer-content">
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Kerala, India • info@thattekadbirding.com</p>
             <div class="socials">
-                <a href="https://wa.me/918921243251" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://wa.me/918921243251" target="_blank" aria-label="Message us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
         <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
     
     <script src="script.js" defer></script>
-    <!-- BEGIN PLERDY CODE -->
-<script type="text/javascript" defer data-plerdy_code='1'>
-    var _protocol="https:"==document.location.protocol?"https://":"http://";
-    _site_hash_code = "e67f7ebc5c109baddac8810504c6e449",_suid=76336, plerdyScript=document.createElement("script");
-    plerdyScript.setAttribute("defer",""),plerdyScript.dataset.plerdymainscript="plerdymainscript",
-    plerdyScript.src="https://a.plerdy.com/public/js/click/main.js?v="+Math.random();
-    var plerdymainscript=document.querySelector("[data-plerdymainscript='plerdymainscript']");
-    plerdymainscript&&plerdymainscript.parentNode.removeChild(plerdymainscript);
-    try{document.head.appendChild(plerdyScript)}catch(t){console.log(t,"unable add script tag")}
-</script>
-<!-- END PLERDY CODE -->
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let trackingLoaded = false;
+
+            function loadTrackingScripts() {
+                if (trackingLoaded) return;
+                trackingLoaded = true;
+
+                let gtagScript = document.createElement('script');
+                gtagScript.async = true;
+                gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT";
+                document.head.appendChild(gtagScript);
+                
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-WXGEJ9RLRT');
+                gtag('config', 'AW-17993783369');
+
+                window._protocol = "https:" == document.location.protocol ? "https://" : "http://";
+                window._site_hash_code = "e67f7ebc5c109baddac8810504c6e449";
+                window._suid = 76336;
+
+                let plerdyScript = document.createElement("script");
+                plerdyScript.setAttribute("defer", "");
+                plerdyScript.dataset.plerdymainscript = "plerdymainscript";
+                plerdyScript.src = "https://a.plerdy.com/public/js/click/main.js?v=" + Math.random();
+                document.head.appendChild(plerdyScript);
+            }
+
+            ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(event) {
+                window.addEventListener(event, loadTrackingScripts, { once: true, passive: true });
+            });
+
+            setTimeout(loadTrackingScripts, 4000);
+        });
+    </script>
 </body>
 </html>
