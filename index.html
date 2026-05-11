@@ -7,7 +7,7 @@
     <title>Thattekad Birding Tours | Local Guides in Kerala</title>
     <meta name="description" content="Experience expert-guided birding tours in Kerala's Salim Ali Bird Sanctuary. Track rare endemics like the Ceylon Frogmouth with Thattekad's top local guides.">
     
-    <link rel="preload" as="image" href="image/coverimage.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="images/coverimage.webp" fetchpriority="high">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://thattekadbirding.com/">
     <meta property="og:title" content="Thattekad Birding | Expert Guided Tours">
     <meta property="og:description" content="Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography.">
-    <meta property="og:image" content="https://thattekadbirding.com/image/coverimage.webp">
+    <meta property="og:image" content="https://thattekadbirding.com/images/coverimage.webp">
     
     <link rel="icon" type="image/png" href="favicon.png">
     
@@ -52,7 +52,6 @@
 
         h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
 
-        /* --- Navbar (Desktop) --- */
         .navbar {
             display: flex; justify-content: space-between; align-items: center;
             padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; left: 0;
@@ -69,7 +68,6 @@
         .nav-btn { background: var(--accent); padding: 8px 20px; border-radius: 30px; font-weight: 600 !important; }
         .menu-icon { display: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
 
-        /* --- Hero Sections --- */
         .hero, .subpage-hero {
             background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white);
@@ -82,7 +80,6 @@
         .hero-content p { font-size: 1.2rem; margin-bottom: 2.5rem; font-weight: 300; }
         .hero-buttons { display: flex; gap: 1rem; justify-content: center; }
 
-        /* --- General Layout & Grid --- */
         .welcome-section { padding: 5rem 5%; background: var(--white); }
         .welcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto; align-items: center; }
         .welcome-text p { margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.8; color: #555; }
@@ -96,7 +93,6 @@
         .map-container { max-width: 1000px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 4px solid var(--white); }
         .section-title { font-size: 2.5rem; color: var(--dark); margin-bottom: 1rem; }
 
-        /* --- Tours & Accordion Styles --- */
         .tours-section { padding: 5rem 5%; }
         .tour-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto;}
         .tour-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; flex-direction: column;}
@@ -117,7 +113,6 @@
         .itinerary-list li { margin-bottom: 10px; padding-left: 20px; position: relative; color: #444; font-size: 0.95rem; line-height: 1.6;}
         .itinerary-list li::before { content: '•'; color: var(--accent); font-size: 1.5rem; position: absolute; left: 0; top: -5px; }
 
-        /* --- Buttons --- */
         .btn { display: inline-block; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: 600; cursor: pointer; border: none; font-family: 'Poppins', sans-serif; transition: 0.3s;}
         .btn-primary { background-color: var(--accent); color: var(--white); }
         .btn-primary:hover { background-color: #bc8a5f; }
@@ -125,7 +120,6 @@
         .btn-outline:hover { background-color: var(--primary); color: var(--white); }
         .btn-full { width: 100%; display: block; text-align: center; margin-top: 10px;}
 
-        /* --- Premium Gallery Slideshow --- */
         .gallery-section { padding: 5rem 5%; background: var(--light-bg); }
         .slideshow-container { max-width: 1000px; margin: 0 auto; }
         .main-slide-wrapper {
@@ -149,7 +143,6 @@
         .thumb:hover { opacity: 0.8; }
         .thumb.active { opacity: 1; border-color: var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        /* --- Booking Form (Desktop) --- */
         .booking-section { padding: 5rem 5%; background: var(--dark); color: var(--white); }
         .booking-container { max-width: 800px; margin: 0 auto; text-align: center; }
         form { background: var(--white); padding: 3rem; border-radius: 12px; margin-top: 2rem; }
@@ -164,13 +157,11 @@
         .success-msg { color: var(--primary); margin-top: 1.5rem; font-weight: 600; font-size: 1.1rem; }
         .hidden { display: none !important; }
 
-        /* --- Footer --- */
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; }
         .socials { font-size: 1.5rem; margin: 1.5rem 0; }
         .socials i { margin: 0 10px; color: white;}
         .socials a:hover i { color: var(--accent); }
 
-        /* --- Floating WhatsApp Button --- */
         .whatsapp-float {
             position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
             background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center;
@@ -180,7 +171,6 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); color: #FFF; box-shadow: 0px 6px 20px rgba(0,0,0,0.4); }
 
-        /* --- Premium FAQ Cards --- */
         .faq-section { padding: 5rem 5%; background-color: var(--light-bg); }
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-card {
@@ -201,7 +191,6 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .faq-answer p { padding: 0 1.5rem 1.5rem; color: #555; line-height: 1.8; margin: 0; font-size: 0.95rem; }
 
-        /* --- Testimonials Section --- */
         .testimonials-section { padding: 5rem 5%; background: var(--dark); color: var(--white); }
         .testimonials-section .section-title { color: var(--white); }
         .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
@@ -214,16 +203,12 @@
         .testimonial-card p { font-style: italic; line-height: 1.8; margin-bottom: 1.5rem; font-size: 0.95rem; color: rgba(255,255,255,0.9); }
         .testimonial-card h4 { color: var(--accent); font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; }
 
-        /* --- Scroll Reveal Animations --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
 
-        /* ========================================= */
-        /* --- MOBILE RESPONSIVE FIXES -- */
-        /* ========================================= */
         @media (max-width: 768px) {
             .navbar { padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
             .menu-icon { display: flex; align-items: center; justify-content: center; }
@@ -265,9 +250,6 @@
             .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 28px; }
         }
 
-        /* ========================================================= */
-        /* --- NEW BLOG SECTION: STYLES ADDED HERE --- */
-        /* ========================================================= */
         .blog-preview-section { padding: 5rem 5%; background-color: var(--white); }
         .blog-slideshow-container { max-width: 1000px; margin: 0 auto; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
         .blog-slide { display: none; height: 500px; background-size: cover; background-position: center; position: relative; }
@@ -381,7 +363,7 @@
     </nav>
 
     <main>
-        <header class="hero" style="background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('image/coverimage.webp');">
+        <header class="hero" style="background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('images/coverimage.webp');">
             <div class="hero-content">
                 <h1>Discover the Magic of Thattekad</h1>
                 <p>Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography opportunities.</p>
@@ -400,7 +382,7 @@
                     <p>Our indigenous guides have spent their lives navigating these trails. Whether you are a professional photographer looking for the perfect golden-hour shot, or a nature lover wanting to see the legendary Ceylon Frogmouth, we tailor our treks to your exact needs.</p>
                     <a href="book.html" class="btn btn-primary" style="margin-top: 1rem;">Check Availability</a>
                 </div>
-                <div class="welcome-image reveal delay-2" style="background-image: url('image/image-2.webp');"></div>
+                <div class="welcome-image reveal delay-2" style="background-image: url('images/image-2.webp');"></div>
             </div>
         </section>
 
@@ -432,7 +414,7 @@
                     <div class="tour-carousel-track" id="tourTrack">
                         
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/early-morning-chorus.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/early-morning-chorus.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Early Morning Chorus</h3>
                                 <p class="tour-desc">Experience the forest waking up in optimal morning light. Perfect for songbirds and hornbills.</p>
@@ -441,7 +423,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/target-species-tracking.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/target-species-tracking.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Target Species Tracking</h3>
                                 <p class="tour-desc">A highly specialized trek focused entirely on locating specific rare endemics on your checklist.</p>
@@ -450,7 +432,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/photographers-special.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/photographers-special.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">The Photographer's Special</h3>
                                 <p class="tour-desc">Paced for patience. We prioritize perfect lighting, strategic positioning, and long observation periods.</p>
@@ -459,7 +441,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/night-birding.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/night-birding.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Night Birding Tour</h3>
                                 <p class="tour-desc">Venture into the forest edges after dusk to spot elusive nocturnal species like the Sri Lanka Bay Owl.</p>
@@ -468,7 +450,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/guided-trail.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/guided-trail.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Guided Sanctuary Trail</h3>
                                 <p class="tour-desc">An immersive full-day trek deep into the dense tropical evergreen ecosystem.</p>
@@ -477,7 +459,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/pitviper.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/pitviper.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Monsoon Herping Expedition</h3>
                                 <p class="tour-desc">Track rare Western Ghats endemic reptiles and amphibians on this specialized night trek.</p>
@@ -486,7 +468,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/spices-kerala-2.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/spices-kerala-2.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Spice Plantation Birding</h3>
                                 <p class="tour-desc">A leisurely walk through local spice farms with flat paths and zero heavy trekking.</p>
@@ -495,7 +477,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('image/village-walk.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/village-walk.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Village & Culture Walk</h3>
                                 <p class="tour-desc">Take a break from the jungle and explore local Kerala village life and agricultural borders.</p>
@@ -549,9 +531,9 @@
                         <h3>What Birds Can I See at Thattekad?</h3>
                         <p>Species Guide • 2026</p>
                         <p style="font-size: 1.1rem; color: #ddd;">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist...</p>
-                        <a href="blog/post-3.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                        <a href="blog/post-3.html" class="btn btn-primary" style="margin-top: 20px;" aria-label="Read full guide on What Birds Can I See at Thattekad">Read More</a>
                     </div>
-                    <div class="slide-bg" style="background-image: url('image/srilankanfrogmouth.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+                    <div class="slide-bg" style="background-image: url('images/srilankanfrogmouth.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
 
                 <div class="blog-slide fade">
@@ -559,9 +541,9 @@
                         <h3>Best Time to Visit Thattekad for Bird Watching</h3>
                         <p>Travel Tips • 2026 Guide</p>
                         <p style="font-size: 1.1rem; color: #ddd;">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
-                        <a href="blog/post-2.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                        <a href="blog/post-2.html" class="btn btn-primary" style="margin-top: 20px;" aria-label="Read full guide on the Best Time to Visit Thattekad">Read More</a>
                     </div>
-                    <div class="slide-bg" style="background-image: url('image/arialviewthattekad.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+                    <div class="slide-bg" style="background-image: url('images/arialviewthattekad.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
 
                 <div class="blog-slide fade">
@@ -569,9 +551,9 @@
                         <h3>Is Thattekad Bird Sanctuary Really Worth the Visit?</h3>
                         <p>Travel Guide • Honest Verdict</p>
                         <p style="font-size: 1.1rem; color: #ddd;">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
-                        <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
+                        <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;" aria-label="Read full guide on Is Thattekad Bird Sanctuary Really Worth the Visit">Read More</a>
                     </div>
-                    <div class="slide-bg" style="background-image: url('image/thattekadforest.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+                    <div class="slide-bg" style="background-image: url('images/thattekadforest.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
 
                 <div class="blog-dots-container">
