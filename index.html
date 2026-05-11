@@ -7,7 +7,7 @@
     <title>Thattekad Birding Tours | Local Guides in Kerala</title>
     <meta name="description" content="Experience expert-guided birding tours in Kerala's Salim Ali Bird Sanctuary. Track rare endemics like the Ceylon Frogmouth with Thattekad's top local guides.">
     
-    <link rel="preload" as="image" href="images/coverimage.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="image/coverimage.webp" fetchpriority="high">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://thattekadbirding.com/">
     <meta property="og:title" content="Thattekad Birding | Expert Guided Tours">
     <meta property="og:description" content="Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography.">
-    <meta property="og:image" content="https://thattekadbirding.com/images/coverimage.webp">
+    <meta property="og:image" content="https://thattekadbirding.com/image/coverimage.webp">
     
     <link rel="icon" type="image/png" href="favicon.png">
     
@@ -27,9 +27,295 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
-    <link rel="stylesheet" href="style.css">
-
     <style>
+        /* ========================================================= */
+        /* --- 1. MAIN GLOBAL STYLES (Formerly style.css) --- */
+        /* ========================================================= */
+        :root {
+            --primary: #2d6a4f; 
+            --primary-light: #40916c;
+            --dark: #1b4332;
+            --accent: #d4a373; 
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--light-bg);
+            overflow-x: hidden; 
+        }
+
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
+
+        /* --- Navbar (Desktop) --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; left: 0;
+            z-index: 1000; transition: all 0.3s ease; background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(27, 67, 50, 0.98); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 1rem 5%;
+        }
+        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center;}
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; margin: 0;}
+        .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-btn { background: var(--accent); padding: 8px 20px; border-radius: 30px; font-weight: 600 !important; }
+        .menu-icon { display: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
+
+        /* --- Hero Sections --- */
+        .hero, .subpage-hero {
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white);
+        }
+        .hero { height: 100vh; }
+        .subpage-hero { height: 50vh; padding-top: 80px; }
+        .hero-content { max-width: 800px; padding: 0 20px; }
+        .hero-content h1 { font-size: 4.5rem; margin-bottom: 1rem; line-height: 1.1; }
+        .subpage-hero h1 { font-size: 3.5rem; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2.5rem; font-weight: 300; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; }
+
+        /* --- General Layout & Grid --- */
+        .welcome-section { padding: 5rem 5%; background: var(--white); }
+        .welcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto; align-items: center; }
+        .welcome-text p { margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.8; color: #555; }
+        .welcome-image { height: 400px; background-size: cover; background-position: center; border-radius: 12px; }
+
+        .features { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; padding: 5rem 5%; background: var(--light-bg); }
+        .feature-box { text-align: center; max-width: 300px; padding: 2rem; background: var(--white); border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .feature-box i { font-size: 2.5rem; color: var(--primary-light); margin-bottom: 1rem; }
+
+        .location-section { padding: 5rem 5%; background: var(--white); text-align: center; }
+        .map-container { max-width: 1000px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 4px solid var(--white); }
+        .section-title { font-size: 2.5rem; color: var(--dark); margin-bottom: 1rem; }
+
+        /* --- Tours & Accordion Styles --- */
+        .tours-section { padding: 5rem 5%; }
+        .tour-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto;}
+        .tour-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; flex-direction: column;}
+        .card-img { height: 250px; background-size: cover; background-position: center; }
+        .card-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-content h3 { color: var(--dark); font-size: 1.5rem; margin-bottom: 0.8rem; }
+        .card-footer { margin-top: auto; padding-top: 1.5rem; }
+
+        .tour-details { display: none; padding-top: 20px; margin-top: 20px; border-top: 1px solid #eee; animation: slideDown 0.3s ease-out forwards; }
+        .tour-details.active { display: block; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tour-highlights { color: var(--primary); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; background: #e9f0ea; padding: 10px; border-radius: 5px; }
+        .tour-desc { font-size: 0.95rem; color: #555; margin-bottom: 15px; line-height: 1.6;}
+        .itinerary-list { list-style: none; padding-left: 0; margin-bottom: 20px; text-align: left;}
+        .itinerary-list li { margin-bottom: 10px; padding-left: 20px; position: relative; color: #444; font-size: 0.95rem; line-height: 1.6;}
+        .itinerary-list li::before { content: '•'; color: var(--accent); font-size: 1.5rem; position: absolute; left: 0; top: -5px; }
+
+        /* --- Buttons --- */
+        .btn { display: inline-block; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: 600; cursor: pointer; border: none; font-family: 'Poppins', sans-serif; transition: 0.3s;}
+        .btn-primary { background-color: var(--accent); color: var(--white); }
+        .btn-primary:hover { background-color: #bc8a5f; }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); text-align: center; display: block; background: transparent; }
+        .btn-outline:hover { background-color: var(--primary); color: var(--white); }
+        .btn-full { width: 100%; display: block; text-align: center; margin-top: 10px;}
+
+        /* --- Premium Gallery Slideshow --- */
+        .gallery-section { padding: 5rem 5%; background: var(--light-bg); }
+        .slideshow-container { max-width: 1000px; margin: 0 auto; }
+        .main-slide-wrapper {
+            width: 100%; height: 550px; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15); background-color: #e9ecef;
+            margin-bottom: 20px; position: relative; 
+        }
+        #main-slide { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease-in-out; }
+        .slide-caption {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white; padding: 30px 20px 15px; font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem; text-align: center; transition: opacity 0.3s ease; pointer-events: none;
+        }
+        .thumbnail-track { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: thin; }
+        .thumb {
+            width: 120px; height: 80px; border-radius: 8px; cursor: pointer;
+            object-fit: cover; opacity: 0.4; transition: all 0.3s ease;
+            border: 3px solid transparent; flex-shrink: 0;
+        }
+        .thumb:hover { opacity: 0.8; }
+        .thumb.active { opacity: 1; border-color: var(--accent); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+        /* --- Booking Form (Desktop) --- */
+        .booking-section { padding: 5rem 5%; background: var(--dark); color: var(--white); }
+        .booking-container { max-width: 800px; margin: 0 auto; text-align: center; }
+        form { background: var(--white); padding: 3rem; border-radius: 12px; margin-top: 2rem; }
+        .input-group { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; width: 100%; }
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea { 
+            flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 5px; 
+            font-family: inherit; width: 100%; max-width: 100%; box-sizing: border-box; 
+            font-size: 16px; background-color: var(--white); color: var(--text);
+        }
+        .success-msg { color: var(--primary); margin-top: 1.5rem; font-weight: 600; font-size: 1.1rem; }
+        .hidden { display: none !important; }
+
+        /* --- Footer --- */
+        footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; }
+        .socials { font-size: 1.5rem; margin: 1.5rem 0; }
+        .socials i { margin: 0 10px; color: white;}
+        .socials a:hover i { color: var(--accent); }
+
+        /* --- Floating WhatsApp Button --- */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+            background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center;
+            font-size: 35px; box-shadow: 0px 4px 15px rgba(0,0,0,0.3); z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; text-decoration: none;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); color: #FFF; box-shadow: 0px 6px 20px rgba(0,0,0,0.4); }
+
+        /* --- Premium FAQ Cards --- */
+        .faq-section { padding: 5rem 5%; background-color: var(--light-bg); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-card {
+            background: var(--white); border-radius: 8px; margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #eee;
+            overflow: hidden; transition: all 0.3s ease;
+        }
+        .faq-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+        .faq-question {
+            width: 100%; text-align: left; padding: 1.5rem; background: transparent;
+            border: none; font-family: 'Playfair Display', serif; font-size: 1.3rem;
+            font-weight: 600; color: var(--dark); cursor: pointer; display: flex;
+            justify-content: space-between; align-items: center; transition: color 0.3s;
+        }
+        .faq-question:hover { color: var(--primary); }
+        .faq-question i { color: var(--accent); font-size: 1rem; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .faq-question.active i { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .faq-answer p { padding: 0 1.5rem 1.5rem; color: #555; line-height: 1.8; margin: 0; font-size: 0.95rem; }
+
+        /* --- Testimonials Section --- */
+        .testimonials-section { padding: 5rem 5%; background: var(--dark); color: var(--white); }
+        .testimonials-section .section-title { color: var(--white); }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .testimonial-card { 
+            background: rgba(255,255,255,0.05); padding: 2.5rem 2rem; border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s ease; 
+        }
+        .testimonial-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.08); }
+        .stars { color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem; }
+        .testimonial-card p { font-style: italic; line-height: 1.8; margin-bottom: 1.5rem; font-size: 0.95rem; color: rgba(255,255,255,0.9); }
+        .testimonial-card h4 { color: var(--accent); font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; }
+
+        /* --- Scroll Reveal Animations --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* ========================================= */
+        /* --- MOBILE RESPONSIVE FIXES -- */
+        /* ========================================= */
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+            .menu-icon { display: flex; align-items: center; justify-content: center; }
+            
+            .nav-links {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(27, 67, 50, 0.98);
+                flex-direction: column; padding: 2rem 0; gap: 1.5rem;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                opacity: 0; transform: translateY(-20px); pointer-events: none; transition: all 0.3s ease;
+            }
+            .nav-links.nav-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+            .nav-links a { font-size: 1.2rem; }
+
+            .hero-content h1, .subpage-hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .welcome-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            
+            .tour-grid { grid-template-columns: 1fr; }
+            
+            .main-slide-wrapper { height: 300px; }
+            .thumb { width: 80px; height: 60px; }
+            .slide-caption { font-size: 0.95rem; padding: 20px 15px 10px; }
+            
+            form { padding: 1.5rem; width: 100%; box-sizing: border-box; }
+            .input-group { display: block; width: 100%; margin-bottom: 0; }
+            
+            .input-group input, 
+            .input-group select, 
+            .input-group textarea {
+                width: 100%; max-width: 100%; display: block;
+                margin-bottom: 1rem; box-sizing: border-box;
+                -webkit-appearance: none; appearance: none;
+            }
+
+            input[type="date"], input[type="text"]#date { min-height: 50px; }
+
+            .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 28px; }
+        }
+
+        /* ========================================================= */
+        /* --- NEW BLOG SECTION: STYLES ADDED HERE --- */
+        /* ========================================================= */
+        .blog-preview-section { padding: 5rem 5%; background-color: var(--white); }
+        .blog-slideshow-container { max-width: 1000px; margin: 0 auto; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); }
+        .blog-slide { display: none; height: 500px; background-size: cover; background-position: center; position: relative; }
+        .blog-slide.fade { animation: fadeEffect 1.5s; }
+        @keyframes fadeEffect { from { opacity: 0.4; } to { opacity: 1; } }
+
+        .blog-slide-text {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white; padding: 50px 40px 30px; text-align: left;
+        }
+        .blog-slide-text h3 { color: white; margin-bottom: 10px; font-size: 1.8rem; }
+        .blog-slide-text p { color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: 10px; }
+
+        .blog-dots-container { text-align: center; margin-top: 20px; }
+        .blog-dot {
+            height: 12px; width: 12px; margin: 0 5px; background-color: #ccc;
+            border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;
+        }
+        .blog-dot.active, .blog-dot:hover { background-color: var(--accent); }
+
+        .blog-post-card { background-color: var(--white); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; }
+        .blog-card-img { height: 220px; background-size: cover; background-position: center; }
+        .blog-post-excerpt { font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.6; }
+        .blog-card-footer { margin-top: auto; padding-top: 1rem; }
+
+        .blog-post-header { background-color: var(--light-bg); padding: 10rem 5% 4rem; text-align: center; }
+        .blog-post-meta { color: var(--accent); font-weight: 600; margin-bottom: 1rem; font-size: 1rem; }
+        .blog-post-container { max-width: 800px; margin: 4rem auto; padding: 0 5%; }
+        .blog-post-cover-img { width: 100%; height: 450px; background-size: cover; background-position: center; border-radius: 12px; margin-bottom: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .blog-post-content { line-height: 1.8; color: var(--text); font-size: 1.1rem; }
+        .blog-post-content h2, .blog-post-content h3 { margin-top: 3rem; margin-bottom: 1.5rem; color: var(--dark); }
+        .blog-post-content p { margin-bottom: 1.5rem; }
+        .blog-post-content ul { margin-bottom: 1.5rem; padding-left: 2rem; }
+        .blog-post-content li { margin-bottom: 0.5rem; }
+        .blog-post-content blockquote { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--primary); border-left: 4px solid var(--accent); padding-left: 20px; margin: 2.5rem 0; font-style: italic; }
+
+        @media (max-width: 768px) {
+            .blog-slide { height: 350px; }
+            .blog-slide-text { padding: 30px 20px 20px; }
+            .blog-slide-text h3 { font-size: 1.4rem; }
+            .blog-post-cover-img { height: 250px; }
+            .blog-post-header { padding: 8rem 5% 3rem; }
+        }
+
+        /* ========================================================= */
+        /* --- 2. INDEX.HTML SPECIFIC OVERRIDES & CAROUSEL --- */
+        /* ========================================================= */
         .btn-primary, .nav-btn {
             color: #0b1c15 !important;
             font-weight: 700 !important;
@@ -95,7 +381,7 @@
     </nav>
 
     <main>
-        <header class="hero" style="background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('images/coverimage.webp');">
+        <header class="hero" style="background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('image/coverimage.webp');">
             <div class="hero-content">
                 <h1>Discover the Magic of Thattekad</h1>
                 <p>Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography opportunities.</p>
@@ -114,7 +400,7 @@
                     <p>Our indigenous guides have spent their lives navigating these trails. Whether you are a professional photographer looking for the perfect golden-hour shot, or a nature lover wanting to see the legendary Ceylon Frogmouth, we tailor our treks to your exact needs.</p>
                     <a href="book.html" class="btn btn-primary" style="margin-top: 1rem;">Check Availability</a>
                 </div>
-                <div class="welcome-image reveal delay-2" style="background-image: url('images/image 2.webp');"></div>
+                <div class="welcome-image reveal delay-2" style="background-image: url('image/image-2.webp');"></div>
             </div>
         </section>
 
@@ -146,7 +432,7 @@
                     <div class="tour-carousel-track" id="tourTrack">
                         
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/Early Morning Chorus.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/early-morning-chorus.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Early Morning Chorus</h3>
                                 <p class="tour-desc">Experience the forest waking up in optimal morning light. Perfect for songbirds and hornbills.</p>
@@ -155,7 +441,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/Target Species Tracking.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/target-species-tracking.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Target Species Tracking</h3>
                                 <p class="tour-desc">A highly specialized trek focused entirely on locating specific rare endemics on your checklist.</p>
@@ -164,7 +450,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/The Photographer\'s Special.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/photographers-special.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">The Photographer's Special</h3>
                                 <p class="tour-desc">Paced for patience. We prioritize perfect lighting, strategic positioning, and long observation periods.</p>
@@ -173,7 +459,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/Night Birding Expedition.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/night-birding.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Night Birding Tour</h3>
                                 <p class="tour-desc">Venture into the forest edges after dusk to spot elusive nocturnal species like the Sri Lanka Bay Owl.</p>
@@ -182,7 +468,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/Guided Sanctuary Trail.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/guided-trail.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Guided Sanctuary Trail</h3>
                                 <p class="tour-desc">An immersive full-day trek deep into the dense tropical evergreen ecosystem.</p>
@@ -191,7 +477,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/pitviper.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/pitviper.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Monsoon Herping Expedition</h3>
                                 <p class="tour-desc">Track rare Western Ghats endemic reptiles and amphibians on this specialized night trek.</p>
@@ -200,7 +486,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/spices-kerala-2.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/spices-kerala-2.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Spice Plantation Birding</h3>
                                 <p class="tour-desc">A leisurely walk through local spice farms with flat paths and zero heavy trekking.</p>
@@ -209,7 +495,7 @@
                         </div>
 
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/Village & Culture Walk.webp');"></div>
+                            <div class="card-img" style="background-image: url('image/village-walk.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Village & Culture Walk</h3>
                                 <p class="tour-desc">Take a break from the jungle and explore local Kerala village life and agricultural borders.</p>
@@ -265,7 +551,7 @@
                         <p style="font-size: 1.1rem; color: #ddd;">Discover the rare endemics and migratory birds of the Salim Ali Bird Sanctuary. Your ultimate checklist...</p>
                         <a href="blog/post-3.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
                     </div>
-                    <div class="slide-bg" style="background-image: url('images/srilankanfrogmouth.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+                    <div class="slide-bg" style="background-image: url('image/srilankanfrogmouth.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
 
                 <div class="blog-slide fade">
@@ -275,7 +561,7 @@
                         <p style="font-size: 1.1rem; color: #ddd;">Timing is everything in a dense forest. Learn about the "Golden Window" and the best months for the Indian Pitta...</p>
                         <a href="blog/post-2.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
                     </div>
-                    <div class="slide-bg" style="background-image: url('images/arialviewthattekad.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+                    <div class="slide-bg" style="background-image: url('image/arialviewthattekad.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
 
                 <div class="blog-slide fade">
@@ -285,7 +571,7 @@
                         <p style="font-size: 1.1rem; color: #ddd;">Discover why Dr. Salim Ali called this the richest bird habitat in peninsular India and if it fits your travel style...</p>
                         <a href="blog/post-1.html" class="btn btn-primary" style="margin-top: 20px;">Read More</a>
                     </div>
-                    <div class="slide-bg" style="background-image: url('images/thattekadforest.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
+                    <div class="slide-bg" style="background-image: url('image/thattekadforest.webp'); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center;"></div>
                 </div>
 
                 <div class="blog-dots-container">
@@ -415,6 +701,10 @@
                 gtag('js', new Date());
                 gtag('config', 'G-WXGEJ9RLRT');
                 gtag('config', 'AW-17993783369');
+
+                window._protocol = "https:" == document.location.protocol ? "https://" : "http://";
+                window._site_hash_code = "e67f7ebc5c109baddac8810504c6e449";
+                window._suid = 76336;
 
                 let plerdyScript = document.createElement("script");
                 plerdyScript.setAttribute("defer", "");
