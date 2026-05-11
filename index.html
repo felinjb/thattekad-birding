@@ -7,7 +7,7 @@
     <title>Thattekad Birding Tours | Local Guides in Kerala</title>
     <meta name="description" content="Experience expert-guided birding tours in Kerala's Salim Ali Bird Sanctuary. Track rare endemics like the Ceylon Frogmouth with Thattekad's top local guides.">
     
-    <link rel="preload" as="image" href="images/coverimage.webp">
+    <link rel="preload" as="image" href="images/coverimage.webp" fetchpriority="high">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,18 +28,15 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* Accessibility Contrast Fixes */
         .btn-primary, .nav-btn {
             color: #0b1c15 !important;
             font-weight: 700 !important;
         }
 
-        /* Modern 3-Card Carousel for Tours */
         .tour-carousel-wrapper { position: relative; max-width: 1100px; margin: 0 auto; padding: 0 50px; }
         .tour-carousel-container { overflow: hidden; width: 100%; padding: 15px 0; }
         .tour-carousel-track { display: flex; gap: 20px; }
         
-        /* Card Alignment Fixes */
         .tour-carousel-track .tour-card { 
             flex: 0 0 calc(33.333% - 13.5px); 
             min-width: 0; 
@@ -55,13 +52,11 @@
             padding: 20px;
         }
         
-        /* Carousel Arrows */
         .carousel-arrow { position: absolute; top: 45%; transform: translateY(-50%); cursor: pointer; color: white; background-color: var(--dark); font-size: 20px; z-index: 10; border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; transition: 0.3s; user-select: none;}
         .carousel-arrow.prev-arrow { left: 0; }
         .carousel-arrow.next-arrow { right: 0; }
         .carousel-arrow:hover { background-color: var(--accent); }
 
-        /* Responsive Breakpoints for Carousel */
         @media (max-width: 900px) {
             .tour-carousel-track .tour-card { flex: 0 0 calc(50% - 10px); }
         }
@@ -72,7 +67,6 @@
             .carousel-arrow { display: none; }
         }
 
-        /* Modals */
         .css-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 999999; align-items: center; justify-content: center; padding: 20px; }
         .css-modal:target { display: flex; }
         .modal-inner-box { background: white; max-width: 600px; width: 100%; border-radius: 12px; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
@@ -396,31 +390,48 @@
             
             <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear & Ethics</h4>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6;">Bring your own binoculars and camera gear. We practice strict ethical birding: no playback calls to stress the birds, and no flash photography for nocturnal species.</p>
-        </div>
+            
+            </div>
     </div>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-WXGEJ9RLRT');
-      gtag('config', 'AW-17993783369');
-    </script>
-    
     <script src="script.js" defer></script>
 
-    <script type="text/javascript" defer data-plerdy_code='1'>
-        var _protocol="https:"==document.location.protocol?"https://":"http://";
-        _site_hash_code = "e67f7ebc5c109baddac8810504c6e449",_suid=76336, plerdyScript=document.createElement("script");
-        plerdyScript.setAttribute("defer",""),plerdyScript.dataset.plerdymainscript="plerdymainscript",
-        plerdyScript.src="https://a.plerdy.com/public/js/click/main.js?v="+Math.random();
-        var plerdymainscript=document.querySelector("[data-plerdymainscript='plerdymainscript']");
-        plerdymainscript&&plerdymainscript.parentNode.removeChild(plerdymainscript);
-        try{document.head.appendChild(plerdyScript)}catch(t){console.log(t,"unable add script tag")}
-    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            let trackingLoaded = false;
+
+            function loadTrackingScripts() {
+                if (trackingLoaded) return;
+                trackingLoaded = true;
+
+                // 1. Inject Google Tag Manager
+                let gtagScript = document.createElement('script');
+                gtagScript.async = true;
+                gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT";
+                document.head.appendChild(gtagScript);
+                
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-WXGEJ9RLRT');
+                gtag('config', 'AW-17993783369');
+
+                // 2. Inject Plerdy Heatmaps
+                let plerdyScript = document.createElement("script");
+                plerdyScript.setAttribute("defer", "");
+                plerdyScript.dataset.plerdymainscript = "plerdymainscript";
+                plerdyScript.src = "https://a.plerdy.com/public/js/click/main.js?v=" + Math.random();
+                document.head.appendChild(plerdyScript);
+            }
+
+            // Wait for user to interact (scroll, tap, mouse move) BEFORE loading heavy tracking scripts
+            ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(event) {
+                window.addEventListener(event, loadTrackingScripts, { once: true, passive: true });
+            });
+
+            // Fallback: If they do nothing for 4 seconds, load it anyway
+            setTimeout(loadTrackingScripts, 4000);
+
             
             // --- NEW TRUE INFINITE TOUR CAROUSEL LOGIC ---
             const track = document.getElementById("tourTrack");
@@ -440,7 +451,7 @@
                 const gap = window.innerWidth > 600 ? 20 : 0; 
                 const moveAmount = cardWidth + gap;
 
-                if (direction === 1) { // Slide Right (Next)
+                if (direction === 1) { 
                     track.style.transition = "transform 0.5s ease-in-out";
                     track.style.transform = `translateX(-${moveAmount}px)`;
                     
@@ -451,7 +462,7 @@
                         isTransitioning = false;
                     }, 500);
                     
-                } else if (direction === -1) { // Slide Left (Previous)
+                } else if (direction === -1) { 
                     track.style.transition = "none";
                     track.insertBefore(track.lastElementChild, track.firstElementChild);
                     
