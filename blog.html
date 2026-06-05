@@ -59,7 +59,6 @@
             padding: 1rem 5%;
         }
         
-        /* LOGO FIX: REMOVES UNDERLINE */
         .logo { 
             font-size: 1.8rem; color: var(--white); font-weight: 700; 
             display: flex; align-items: center; text-decoration: none !important;
@@ -96,6 +95,7 @@
         .card-content h2 { color: var(--dark); font-size: 1.5rem; margin-bottom: 0.8rem; line-height: 1.3; }
         .tour-highlights { color: var(--primary); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; }
         .blog-post-excerpt { font-size: 0.95rem; color: #555; margin-bottom: 1.5rem; line-height: 1.6; }
+        .blog-card-footer { margin-top: auto; padding-top: 1rem; }
 
         .btn { display: inline-block; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: 600; cursor: pointer; border: none; font-family: 'Poppins', sans-serif; transition: 0.3s;}
         .btn-outline { border: 2px solid var(--primary); color: var(--primary); text-align: center; display: block; background: transparent; }
@@ -154,6 +154,18 @@
             <div class="tour-grid">
                 
                 <div class="blog-post-card">
+                    <div class="blog-card-img" style="background-image: url('images/thattekadforest.webp');"></div>
+                    <div class="card-content">
+                        <h2>What to Do in Kerala During the Monsoon: A Wildlife Insider's Guide</h2>
+                        <p class="tour-highlights">Monsoon Travel • 2026 Guide</p>
+                        <p class="blog-post-excerpt">When the heavy rains hit the Western Ghats, the forests wake up. Explore dynamic, deep biodiverse trails instead of staying indoors...</p>
+                        <div class="blog-card-footer">
+                            <a href="blog/post-5.html" class="btn btn-outline" aria-label="Read full story: What to Do in Kerala During the Monsoon">Read Full Story</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-post-card">
                     <div class="blog-card-img" style="background-image: url('images/pitviper.webp');"></div>
                     <div class="card-content">
                         <h2>Monsoon Herping Expedition in Thattekad</h2>
@@ -190,7 +202,7 @@
                 </div>
 
                 <div class="blog-post-card">
-                    <div class="blog-card-img" style="background-image: url('images/thattekadforest.webp');"></div>
+                    <div class="blog-card-img" style="background-image: url('images/coverimage.webp');"></div>
                     <div class="card-content">
                         <h2>Is Thattekad Bird Sanctuary Really Worth the Visit?</h2>
                         <p class="tour-highlights">Travel Guide • Honest Verdict</p>
@@ -220,8 +232,25 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let trackingLoaded = false;
+            // Mobile Menu Logic
+            const menuIcon = document.getElementById("menu-icon");
+            const navLinks = document.getElementById("nav-links");
+            
+            if (menuIcon && navLinks) {
+                menuIcon.addEventListener("click", function() {
+                    navLinks.classList.toggle("nav-active");
+                    const icon = menuIcon.querySelector('i');
+                    if (navLinks.classList.contains('nav-active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-xmark');
+                    } else {
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
 
+            let trackingLoaded = false;
             function loadTrackingScripts() {
                 if (trackingLoaded) return;
                 trackingLoaded = true;
@@ -236,22 +265,11 @@
                 gtag('js', new Date());
                 gtag('config', 'G-WXGEJ9RLRT');
                 gtag('config', 'AW-17993783369');
-
-                window._protocol = "https:" == document.location.protocol ? "https://" : "http://";
-                window._site_hash_code = "e67f7ebc5c109baddac8810504c6e449";
-                window._suid = 76336;
-
-                let plerdyScript = document.createElement("script");
-                plerdyScript.setAttribute("defer", "");
-                plerdyScript.dataset.plerdymainscript = "plerdymainscript";
-                plerdyScript.src = "https://a.plerdy.com/public/js/click/main.js?v=" + Math.random();
-                document.head.appendChild(plerdyScript);
             }
 
             ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(event) {
                 window.addEventListener(event, loadTrackingScripts, { once: true, passive: true });
             });
-
             setTimeout(loadTrackingScripts, 4000);
         });
     </script>
