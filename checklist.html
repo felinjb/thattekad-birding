@@ -46,10 +46,13 @@
             gap: 30px;
             position: relative;
             z-index: 10;
+            align-items: start;
         }
 
-        /* SIDEBAR CONTAINER (NO LONGER UNSTUCK/STUCK BADLY) */
+        /* STICKY SIDEBAR */
         .sidebar {
+            position: sticky;
+            top: 95px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -155,11 +158,37 @@
         .btn-quick-send { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem;}
         .btn-quick-send:hover { background: var(--dark); }
 
+        /* FLOATING SEARCH BUTTON FOR MOBILE */
+        .floating-search-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background-color: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 9998;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .floating-search-btn:hover {
+            transform: scale(1.1);
+        }
+
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; margin-top: 50px;}
         .hidden { display: none !important; }
 
         @media (max-width: 950px) {
             .page-layout { grid-template-columns: 1fr; }
+            .sidebar { position: relative; top: 0; }
+            .floating-search-btn { display: flex; } /* Show floating search button on mobile/tablets */
         }
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -412,10 +441,10 @@
 
         </div>
 
-        <!-- RIGHT COLUMN: SIDEBAR (SEARCH BAR FIRST, THEN SLIDESHOW & FACTS, THEN EMAIL FORM) -->
-        <aside class="sidebar">
+        <!-- RIGHT COLUMN: SIDEBAR -->
+        <aside class="sidebar" id="sidebar-search-anchor">
             
-            <!-- 1. Real-Time Search Bar at the Top of Sidebar -->
+            <!-- 1. Real-Time Search Bar at the Top -->
             <div class="sidebar-card">
                 <h3><i class="fa-solid fa-magnifying-glass" style="color: var(--accent);"></i> Quick Search</h3>
                 <div class="search-bar-wrapper">
@@ -457,10 +486,10 @@
                 </div>
             </div>
 
-            <!-- 3. Quick Email Card at the Bottom -->
+            <!-- 3. Quick Email Card -->
             <div class="sidebar-card">
                 <h3><i class="fa-solid fa-envelope" style="color: var(--accent);"></i> Save Your Results</h3>
-                <p style="font-size: 0.88rem; color: #666; margin-bottom: 12px; line-height: 1.5;">Enter your details to instantly email yourself a breakdown of every bird you've checked off.</p>
+                <p style="font-size: 0.88rem; color: #666; margin-bottom: 12px; line-height: 1.5;">Enter your details to instantly email yourself and a copy to us with your breakdown of checked birds.</p>
                 <form id="quick-save-form" class="quick-email-form">
                     <input type="text" id="birder-name" placeholder="Your Name" required>
                     <input type="email" id="birder-email" placeholder="Your Email Address" required>
@@ -474,6 +503,11 @@
         </aside>
 
     </main>
+
+    <!-- FLOATING SEARCH BUTTON FOR MOBILE PHONES -->
+    <a href="#sidebar-search-anchor" class="floating-search-btn" id="floatingSearchBtn" aria-label="Quick Search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </a>
 
     <footer>
         <div class="footer-content">
@@ -515,7 +549,7 @@
             
             updateProgress();
 
-            // 3. Real-Time Search Filter
+            // 3. Real-Time Search Filter & Smooth Floating Button Focus
             const searchInput = document.getElementById('bird-search');
             searchInput.addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase().trim();
@@ -533,6 +567,16 @@
                 });
             });
 
+            const floatingBtn = document.getElementById('floatingSearchBtn');
+            floatingBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sidebarAnchor = document.getElementById('sidebar-search-anchor');
+                sidebarAnchor.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    searchInput.focus();
+                }, 500);
+            });
+
             // 4. Sidebar Slideshow Automatic Rotation
             let currentSlide = 0;
             const slides = document.querySelectorAll('.slide-item');
@@ -541,7 +585,7 @@
                     slides[currentSlide].classList.remove('active-slide');
                     currentSlide = (currentSlide + 1) % slides.length;
                     slides[currentSlide].classList.add('active-slide');
-                }, 4000); // Rotates every 4 seconds
+                }, 4000); 
             }
 
             // 5. Mobile Menu Toggle
@@ -566,7 +610,7 @@
                 });
             }
 
-            // 6. Email Form Submission Logic
+            // 6. Professional Email Form Submission Logic
             const form = document.getElementById('quick-save-form');
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -584,16 +628,41 @@
                     ? spottedBirds.join('\n') 
                     : "No birds checked off yet!";
 
-                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending Checklist...`;
+
+                const emailBody = `
+=========================================
+THATTEKAD BIRDING - FIELD CHECKLIST REPORT
+=========================================
+Hello ${name},
+
+Thank you for exploring the Salim Ali Bird Sanctuary with us! Here is the summary of the species you tracked during your session.
+
+--- YOUR SIGHTINGS SUMMARY ---
+Total Species Spotted: ${spottedBirds.length} out of ${totalBirds}
+
+${birdText}
+------------------------------
+
+Keep this email as a record of your life list! If you are planning your next expedition or looking for an expert indigenous guide to track down elusive endemics like the Ceylon Frogmouth, get in touch with us.
+
+-----------------------------------------
+THATTEKAD BIRDING TOURS
+Ernakulam, Kerala, India
+Website: https://thattekadbirding.com
+Email: info@thattekadbirding.com
+Phone / WhatsApp: +91 89212 43251
+-----------------------------------------
+`;
 
                 const payload = {
                     access_key: "0f708846-4d24-4ff1-bff5-e038dd1a925c",
-                    subject: `My Thattekad Birding Checklist - ${name}`,
-                    from_name: "Thattekad Field Guide",
-                    Name: name,
-                    Email: email,
-                    Total_Spotted: spottedBirds.length + " out of " + totalBirds,
-                    Birds_Spotted: birdText
+                    subject: `Your Thattekad Birding Checklist Results (${spottedBirds.length}/${totalBirds} Spotted)`,
+                    from_name: "Thattekad Birding Field Guide",
+                    name: name,
+                    email: email,
+                    replyto: email,
+                    message: emailBody
                 };
 
                 fetch("https://api.web3forms.com/submit", { 
@@ -612,6 +681,10 @@
                         btn.innerHTML = "Email My Checklist";
                         alert("Error sending. Please check connection.");
                     }
+                })
+                .catch(error => {
+                    btn.innerHTML = "Email My Checklist";
+                    alert("Network error. Please try again.");
                 });
             });
         });
