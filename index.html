@@ -410,9 +410,9 @@
                 <div class="tour-carousel-container">
                     <div class="tour-carousel-track" id="tourTrack">
                         
-                        <!-- NEW MULTIDAY PACKAGE 1 -->
+                        <!-- MULTIDAY PACKAGE 1 (Image updated to kuttanpuzha.webp) -->
                         <div class="tour-card">
-                            <div class="card-img" style="background-image: url('images/thattekadinrain.webp');"></div>
+                            <div class="card-img" style="background-image: url('images/kuttanpuzha.webp');"></div>
                             <div class="card-content">
                                 <h3 style="margin-bottom: 10px;">Thattekad Multiday (3N/4D)</h3>
                                 <p class="tour-desc">A deep, multi-day immersion into the sanctuary to maximize your chances of spotting elusive endemics at a relaxed pace.</p>
@@ -420,7 +420,7 @@
                             </div>
                         </div>
 
-                        <!-- NEW MULTIDAY PACKAGE 2 -->
+                        <!-- MULTIDAY PACKAGE 2 -->
                         <div class="tour-card">
                             <div class="card-img" style="background-image: url('images/munnar.webp');"></div>
                             <div class="card-content">
@@ -718,8 +718,10 @@
 
             setTimeout(loadTrackingScripts, 4000);
             
+            // --- CAROUSEL LOGIC WITH AUTO-SLIDE ADDED ---
             const track = document.getElementById("tourTrack");
             let isTransitioning = false;
+            let autoSlideInterval; // Variable to hold the timer
 
             window.moveInfiniteCarousel = function(direction) {
                 if (isTransitioning) return;
@@ -752,7 +754,7 @@
                     
                     track.style.transform = `translateX(-${moveAmount}px)`;
                     
-                    void track.offsetWidth;
+                    void track.offsetWidth; // Trigger reflow
                     
                     track.style.transition = "transform 0.5s ease-in-out";
                     track.style.transform = "translateX(0)";
@@ -762,6 +764,25 @@
                     }, 500);
                 }
             };
+
+            // START AUTO-SLIDE 
+            autoSlideInterval = setInterval(() => {
+                window.moveInfiniteCarousel(1);
+            }, 3000); // 3000 = Slides every 3 seconds
+
+            // PAUSE SLIDING WHEN MOUSE HOVERS OVER IT
+            const carouselContainer = document.querySelector('.tour-carousel-wrapper');
+            if(carouselContainer) {
+                carouselContainer.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+                carouselContainer.addEventListener('mouseleave', () => {
+                    autoSlideInterval = setInterval(() => {
+                        window.moveInfiniteCarousel(1);
+                    }, 3000);
+                });
+            }
+            // --- END CAROUSEL LOGIC ---
 
             let blogIndex = 0;
             let blogTimer;
