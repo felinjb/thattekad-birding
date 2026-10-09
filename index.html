@@ -76,9 +76,12 @@
         .hero-bg {
             background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('images/coverimage.webp');
         }
+        
         @media (max-width: 768px) {
             .hero-bg {
                 background-image: linear-gradient(rgba(17, 42, 32, 0.7), rgba(17, 42, 32, 0.8)), url('images/coverimagemob.webp') !important;
+                background-attachment: scroll !important;
+                background-position: center center !important;
             }
         }
 
@@ -281,7 +284,7 @@
     </nav>
 
     <main>
-        <!-- Notice the added 'hero-bg' class to control mobile vs desktop image -->
+        <!-- Mobile/Desktop Hero Section with bug fix applied -->
         <header class="hero hero-bg">
             <div class="hero-content">
                 <h1>Discover the Magic of Thattekad</h1>
@@ -458,7 +461,6 @@
             </div>
         </section>
 
-        <!-- NEW SLIDING BLOG SECTION -->
         <section class="blog-preview-section reveal">
             <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">From The Field</h2>
             
