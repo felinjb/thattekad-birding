@@ -36,7 +36,7 @@
         .subpage-hero h1 { font-size: 3rem; margin-bottom: 1rem; line-height: 1.2; }
         .subpage-hero p { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 800px; margin: 0 auto;}
 
-        /* MASTER GRID LAYOUT (FIXES EMPTY EDGES) */
+        /* MASTER GRID LAYOUT */
         .page-layout {
             max-width: 1350px;
             margin: -30px auto 4rem;
@@ -48,11 +48,8 @@
             z-index: 10;
         }
 
-        /* STICKY SIDEBAR */
+        /* SIDEBAR CONTAINER (NO LONGER UNSTUCK/STUCK BADLY) */
         .sidebar {
-            position: sticky;
-            top: 85px;
-            height: fit-content;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -73,10 +70,27 @@
             padding-bottom: 8px;
         }
 
-        /* SIDEBAR PHOTO SHOWCASE */
+        /* SIDEBAR SLIDESHOW CONTAINER */
+        .sidebar-slideshow {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .slide-item {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .slide-item.active-slide {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
         .fact-card-img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             background-size: cover;
             background-position: center;
             border-radius: 8px;
@@ -95,22 +109,11 @@
         }
 
         /* CONTROL PANEL */
-        .control-panel { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px;}
+        .control-panel { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px;}
         .control-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;}
         .progress-text { font-weight: 600; color: var(--primary); font-size: 1.1rem; }
-        .progress-bar-bg { background: #eee; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 15px;}
+        .progress-bar-bg { background: #eee; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 10px;}
         .progress-bar-fill { background: var(--accent); height: 100%; width: 0%; transition: width 0.4s ease; }
-        
-        /* SEARCH BAR */
-        .search-bar-wrapper { position: relative; width: 100%; margin-bottom: 15px;}
-        .search-bar-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888;}
-        #bird-search { width: 100%; padding: 12px 15px 12px 45px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.3s;}
-        #bird-search:focus { border-color: var(--primary); }
-
-        /* QUICK EMAIL FORM */
-        .quick-email-form input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 12px; font-size: 0.95rem; font-family: inherit;}
-        .btn-quick-send { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem;}
-        .btn-quick-send:hover { background: var(--dark); }
 
         /* CHECKLIST MAIN CONTENT */
         .checklist-main { display: flex; flex-direction: column; gap: 30px; }
@@ -141,12 +144,22 @@
             opacity: 0.4; transition: 0.3s;
         }
 
+        /* SEARCH BAR */
+        .search-bar-wrapper { position: relative; width: 100%; }
+        .search-bar-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888;}
+        #bird-search { width: 100%; padding: 12px 15px 12px 45px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.3s;}
+        #bird-search:focus { border-color: var(--primary); }
+
+        /* QUICK EMAIL FORM */
+        .quick-email-form input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 12px; font-size: 0.95rem; font-family: inherit;}
+        .btn-quick-send { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem;}
+        .btn-quick-send:hover { background: var(--dark); }
+
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; margin-top: 50px;}
         .hidden { display: none !important; }
 
         @media (max-width: 950px) {
             .page-layout { grid-template-columns: 1fr; }
-            .sidebar { position: relative; top: 0; }
         }
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -183,17 +196,11 @@
             <div class="control-panel">
                 <div class="control-top">
                     <div class="progress-text">Progress: <span id="count">0</span> / 150 Spotted!</div>
-                    <div style="font-size: 0.9rem; color: #666;"><i class="fa-solid fa-floppy-disk" style="color: var(--primary);"></i> Auto-saved to device</div>
+                    <div style="font-size: 0.9rem; color: #666;"><i class="fa-solid fa-floppy-disk" style="color: var(--primary);"></i> Auto-saved</div>
                 </div>
                 
                 <div class="progress-bar-bg">
                     <div class="progress-bar-fill" id="progress-fill"></div>
-                </div>
-
-                <!-- Instant Search Bar -->
-                <div class="search-bar-wrapper" style="margin-bottom: 0;">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="bird-search" placeholder="Search birds by name (e.g. Trogon, Hornbill, Owl)...">
                 </div>
             </div>
 
@@ -405,13 +412,55 @@
 
         </div>
 
-        <!-- RIGHT COLUMN: STICKY SIDEBAR WITH PHOTOS & FACTS (FILLS THE EDGES) -->
+        <!-- RIGHT COLUMN: SIDEBAR (SEARCH BAR FIRST, THEN SLIDESHOW & FACTS, THEN EMAIL FORM) -->
         <aside class="sidebar">
             
-            <!-- Quick Email Card -->
+            <!-- 1. Real-Time Search Bar at the Top of Sidebar -->
+            <div class="sidebar-card">
+                <h3><i class="fa-solid fa-magnifying-glass" style="color: var(--accent);"></i> Quick Search</h3>
+                <div class="search-bar-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="bird-search" placeholder="Type bird name (e.g. Owl)...">
+                </div>
+            </div>
+
+            <!-- 2. Dynamic Image Slideshow with Wildlife Facts -->
+            <div class="sidebar-card">
+                <h3><i class="fa-solid fa-camera-retro" style="color: var(--accent);"></i> Field Guide Spotlight</h3>
+                
+                <div class="sidebar-slideshow" id="sidebarSlideshow">
+                    
+                    <div class="slide-item active-slide">
+                        <div class="fact-card-img" style="background-image: url('images/image 2.webp');"></div>
+                        <h4 class="fact-card-title">Malabar Trogon</h4>
+                        <p class="fact-card-desc">Featuring a deep crimson breast, these stunning birds sit motionless in the mid-canopy waiting for flying insects.</p>
+                    </div>
+
+                    <div class="slide-item">
+                        <div class="fact-card-img" style="background-image: url('images/image 11.webp');"></div>
+                        <h4 class="fact-card-title">Sri Lanka Frogmouth</h4>
+                        <p class="fact-card-desc">An absolute Thattekad icon. Their camouflage makes them look completely identical to a cluster of dead brown leaves.</p>
+                    </div>
+
+                    <div class="slide-item">
+                        <div class="fact-card-img" style="background-image: url('images/image 7.webp');"></div>
+                        <h4 class="fact-card-title">Grey-headed Fish Eagle</h4>
+                        <p class="fact-card-desc">Frequently perched over the Periyar River, equipped with spiculated talons to securely grip slippery fish.</p>
+                    </div>
+
+                    <div class="slide-item">
+                        <div class="fact-card-img" style="background-image: url('images/image 1.webp');"></div>
+                        <h4 class="fact-card-title">Malabar Giant Squirrel</h4>
+                        <p class="fact-card-desc">Crashing through the upper canopy, these massive deep-maroon rodents can leap up to 20 feet between trees!</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 3. Quick Email Card at the Bottom -->
             <div class="sidebar-card">
                 <h3><i class="fa-solid fa-envelope" style="color: var(--accent);"></i> Save Your Results</h3>
-                <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.5;">Enter your details to instantly email yourself a breakdown of every bird you've checked off.</p>
+                <p style="font-size: 0.88rem; color: #666; margin-bottom: 12px; line-height: 1.5;">Enter your details to instantly email yourself a breakdown of every bird you've checked off.</p>
                 <form id="quick-save-form" class="quick-email-form">
                     <input type="text" id="birder-name" placeholder="Your Name" required>
                     <input type="email" id="birder-email" placeholder="Your Email Address" required>
@@ -420,38 +469,6 @@
                 <div id="email-success" class="hidden" style="margin-top: 10px; font-weight: 600; color: #2d6a4f; text-align: center; background: #e9f0ea; padding: 10px; border-radius: 6px; font-size: 0.9rem;">
                     <i class="fa-solid fa-circle-check"></i> Results sent successfully!
                 </div>
-            </div>
-
-            <!-- Visual Showcase Card 1 -->
-            <div class="sidebar-card">
-                <div class="fact-card-img" style="background-image: url('images/image 2.webp');"></div>
-                <h4 class="fact-card-title">The Elusive Malabar Trogon</h4>
-                <p class="fact-card-desc">Known for their ruby-red breasts, these birds sit like statues in the dense understory waiting for passing insects.</p>
-            </div>
-
-            <!-- Visual Showcase Card 2 -->
-            <div class="sidebar-card">
-                <div class="fact-card-img" style="background-image: url('images/image 11.webp');"></div>
-                <h4 class="fact-card-title">Sri Lanka Frogmouth</h4>
-                <p class="fact-card-desc">An absolute highlight of Thattekad. Their camouflage is so precise they look identical to a dried brown leaf cluster.</p>
-            </div>
-
-            <!-- Visual Showcase Card 3 -->
-            <div class="sidebar-card">
-                <div class="fact-card-img" style="background-image: url('images/image 1.webp');"></div>
-                <h4 class="fact-card-title">Malabar Giant Squirrel</h4>
-                <p class="fact-card-desc">Often spotted crashing through the high canopy. These massive deep-maroon rodents can leap up to 20 feet between trees!</p>
-            </div>
-
-            <!-- Sanctuary Quick Facts Card -->
-            <div class="sidebar-card">
-                <h3><i class="fa-solid fa-binoculars" style="color: var(--accent);"></i> Sanctuary Highlights</h3>
-                <ul style="padding-left: 18px; font-size: 0.9rem; color: #555; line-height: 1.7;">
-                    <li><strong>Total Species:</strong> Over 270+ recorded bird species.</li>
-                    <li><strong>Top Target:</strong> Salim Ali Bird Sanctuary is world-famous for nocturnal endemics.</li>
-                    <li><strong>Best Season:</strong> October to March brings a massive influx of winter migrants.</li>
-                    <li><strong>Ethics:</strong> No playback calls used to protect nesting habitats.</li>
-                </ul>
             </div>
 
         </aside>
@@ -516,7 +533,18 @@
                 });
             });
 
-            // 4. Mobile Menu Toggle
+            // 4. Sidebar Slideshow Automatic Rotation
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide-item');
+            if (slides.length > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active-slide');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active-slide');
+                }, 4000); // Rotates every 4 seconds
+            }
+
+            // 5. Mobile Menu Toggle
             const menuIcon = document.getElementById('menu-icon');
             const navLinks = document.getElementById('nav-links');
             if (menuIcon && navLinks) {
@@ -538,7 +566,7 @@
                 });
             }
 
-            // 5. Email Form Submission Logic
+            // 6. Email Form Submission Logic
             const form = document.getElementById('quick-save-form');
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
