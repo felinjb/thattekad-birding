@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Interactive Species Checklist | Thattekad Birding</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2d6a4f; 
+            --dark: #1b4332;
+            --accent: #d4a373; 
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text: #333333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text); background-color: var(--light-bg); overflow-x: hidden; }
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
+
+        /* NAVBAR STYLES */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; background: rgba(27, 67, 50, 0.98); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center; text-decoration: none; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; margin: 0;}
+        .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-btn { background: var(--accent); padding: 8px 20px; border-radius: 30px; font-weight: 600 !important; color: #0b1c15 !important;}
+        .menu-icon { display: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
+
+        .subpage-hero { background: var(--dark); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); padding: 120px 20px 60px; }
+        .subpage-hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .subpage-hero p { font-size: 1.1rem; color: rgba(255,255,255,0.8); }
+
+        /* CHECKLIST STYLES */
+        .checklist-container { max-width: 800px; margin: -30px auto 4rem; padding: 0 5%; position: relative; z-index: 10;}
+        .progress-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px; text-align: center; position: sticky; top: 80px; z-index: 99;}
+        .progress-text { font-weight: 600; color: var(--primary); margin-bottom: 10px; font-size: 1.2rem; }
+        .progress-bar-bg { background: #eee; height: 10px; border-radius: 5px; overflow: hidden; }
+        .progress-bar-fill { background: var(--accent); height: 100%; width: 0%; transition: width 0.4s ease; }
+
+        .category-box { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .category-title { color: var(--dark); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; display: flex; align-items: center; gap: 10px;}
+        
+        .bird-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px dashed #eee; cursor: pointer; transition: 0.3s; }
+        .bird-item:last-child { border-bottom: none; }
+        .bird-item:hover { background: #fdfdfd; }
+        
+        .bird-item input[type="checkbox"] { 
+            width: 22px; height: 22px; margin-right: 15px; cursor: pointer; 
+            accent-color: var(--primary); flex-shrink: 0;
+        }
+        
+        /* THUMBNAIL STYLES */
+        .bird-thumbnail {
+            width: 50px; height: 50px; border-radius: 8px; object-fit: cover; 
+            margin-right: 15px; background-color: #f0f0f0; display: flex; 
+            align-items: center; justify-content: center; color: #bbb; font-size: 1.2rem; flex-shrink: 0;
+            border: 1px solid #eee;
+        }
+
+        .bird-info { flex-grow: 1; }
+        .bird-name { font-size: 1.1rem; color: #444; font-weight: 600; transition: 0.3s;}
+        .scientific-name { font-size: 0.85rem; color: #888; font-style: italic; }
+        
+        .bird-item input[type="checkbox"]:checked ~ .bird-info .bird-name {
+            text-decoration: line-through; color: #aaa;
+        }
+        .bird-item input[type="checkbox"]:checked ~ .bird-thumbnail {
+            opacity: 0.5; filter: grayscale(100%); transition: 0.3s;
+        }
+
+        /* LEAD GEN BOX */
+        .email-capture-box { background: var(--primary); color: white; padding: 40px; border-radius: 12px; text-align: center; margin-top: 40px; }
+        .email-capture-box h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .email-capture-box input { width: 100%; padding: 15px; border-radius: 5px; border: none; margin-bottom: 15px; font-size: 1rem; }
+        .btn-accent { background: var(--accent); color: var(--dark); padding: 15px 30px; border: none; border-radius: 5px; font-weight: 700; width: 100%; cursor: pointer; font-size: 1.1rem; transition: 0.3s;}
+        .btn-accent:hover { background: #bc8a5f; }
+
+        footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; margin-top: 50px;}
+        .hidden { display: none !important; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-icon { display: block; }
+            .category-box { padding: 20px; }
+            .email-capture-box { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</a>
+        <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tours.html">Tours</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+        </ul>
+    </nav>
+
+    <header class="subpage-hero">
+        <div class="hero-content">
+            <h1>Target Species Checklist</h1>
+            <p>Track your sightings digitally. Your progress is saved automatically to your phone!</p>
+        </div>
+    </header>
+
+    <main class="checklist-container">
+        
+        <!-- Sticky Progress Bar -->
+        <div class="progress-box">
+            <div class="progress-text">Progress: <span id="count">0</span> / 19 Spotted!</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Category 1 -->
+        <div class="category-box">
+            <h3 class="category-title"><i class="fa-solid fa-crown" style="color: var(--accent);"></i> Endemics & Residents</h3>
+            <div class="checklist-items">
+                <label class="bird-item">
+                    <input type="checkbox" value="Malabar Trogon">
+                    <img src="images/image 2.webp" alt="Malabar Trogon" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Malabar Trogon</div><div class="scientific-name">Harpactes fasciatus</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Malabar Parakeet">
+                    <img src="images/image 18.webp" alt="Malabar Parakeet" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Malabar Parakeet</div><div class="scientific-name">Psittacula columboides</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Grey Jungle Fowl">
+                    <img src="images/image 13.webp" alt="Grey Jungle Fowl" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Grey Jungle Fowl</div><div class="scientific-name">Gallus sonneratii</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Yellow Browed Bulbul">
+                    <img src="images/image 15.webp" alt="Yellow Browed Bulbul" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Yellow-browed Bulbul</div><div class="scientific-name">Acritillas indica</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Spangled Drongo">
+                    <img src="images/image 9.webp" alt="Spangled Drongo" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Spangled Drongo</div><div class="scientific-name">Dicrurus bracteatus</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Malabar Grey Hornbill">
+                    <div class="bird-thumbnail"><i class="fa-solid fa-feather"></i></div>
+                    <div class="bird-info"><div class="bird-name">Malabar Grey Hornbill</div><div class="scientific-name">Ocyceros griseus</div></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="category-box">
+            <h3 class="category-title"><i class="fa-solid fa-moon" style="color: var(--accent);"></i> Owls & Night Birds</h3>
+            <div class="checklist-items">
+                <label class="bird-item">
+                    <input type="checkbox" value="Sri Lanka Frogmouth">
+                    <img src="images/image 11.webp" alt="Frogmouth" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Sri Lanka Frogmouth</div><div class="scientific-name">Batrachostomus moniliger</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Sri Lanka Bay Owl">
+                    <div class="bird-thumbnail"><i class="fa-solid fa-feather"></i></div>
+                    <div class="bird-info"><div class="bird-name">Sri Lanka Bay Owl</div><div class="scientific-name">Phodilus assimilis</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Mottled Wood Owl">
+                    <div class="bird-thumbnail"><i class="fa-solid fa-feather"></i></div>
+                    <div class="bird-info"><div class="bird-name">Mottled Wood Owl</div><div class="scientific-name">Strix ocellata</div></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="category-box">
+            <h3 class="category-title"><i class="fa-solid fa-water" style="color: var(--accent);"></i> River Edge & Raptors</h3>
+            <div class="checklist-items">
+                <label class="bird-item">
+                    <input type="checkbox" value="Grey Headed Fish Eagle">
+                    <img src="images/image 7.webp" alt="Grey Headed Fish Eagle" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Grey-headed Fish Eagle</div><div class="scientific-name">Haliaeetus ichthyaetus</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="White Throated Kingfisher">
+                    <img src="images/image 8.webp" alt="White Throated Kingfisher" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">White-throated Kingfisher</div><div class="scientific-name">Halcyon smyrnensis</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="White Browed Wagtail">
+                    <img src="images/image 10.webp" alt="White Browed Wagtail" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">White-browed Wagtail</div><div class="scientific-name">Motacilla maderaspatensis</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Black Baza">
+                    <div class="bird-thumbnail"><i class="fa-solid fa-feather"></i></div>
+                    <div class="bird-info"><div class="bird-name">Black Baza</div><div class="scientific-name">Aviceda leuphotes</div></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 4 -->
+        <div class="category-box">
+            <h3 class="category-title"><i class="fa-brands fa-pagelines" style="color: var(--accent);"></i> Colorful Forest Dwellers</h3>
+            <div class="checklist-items">
+                <label class="bird-item">
+                    <input type="checkbox" value="Plum Headed Parakeet">
+                    <img src="images/image 4.webp" alt="Plum Headed Parakeet" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Plum-headed Parakeet</div><div class="scientific-name">Psittacula cyanocephala</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Blue Tailed Bee Eater">
+                    <img src="images/image 6.webp" alt="Blue Tailed Bee Eater" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Blue-tailed Bee-eater</div><div class="scientific-name">Merops philippinus</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Brown Shrike">
+                    <img src="images/image 3.webp" alt="Brown Shrike" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Brown Shrike</div><div class="scientific-name">Lanius cristatus</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Dark Sided Flycatcher">
+                    <img src="images/image 5.webp" alt="Dark Sided Flycatcher" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Dark-sided Flycatcher</div><div class="scientific-name">Muscicapa sibirica</div></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Bonus Category -->
+        <div class="category-box">
+            <h3 class="category-title"><i class="fa-solid fa-paw" style="color: var(--accent);"></i> Bonus: Mammals</h3>
+            <div class="checklist-items">
+                <label class="bird-item">
+                    <input type="checkbox" value="Malabar Giant Squirrel">
+                    <img src="images/image 1.webp" alt="Malabar Giant Squirrel" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Malabar Giant Squirrel</div><div class="scientific-name">Ratufa indica</div></div>
+                </label>
+                <label class="bird-item">
+                    <input type="checkbox" value="Indian Dhole">
+                    <img src="images/image 12.webp" alt="Indian Dhole" class="bird-thumbnail" loading="lazy">
+                    <div class="bird-info"><div class="bird-name">Indian Dhole (Wild Dog)</div><div class="scientific-name">Cuon alpinus</div></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Lead Capture to Email Results -->
+        <div class="email-capture-box">
+            <h3><i class="fa-solid fa-envelope"></i> Send My Checklist</h3>
+            <p style="margin-bottom: 20px; color: rgba(255,255,255,0.9);">Don't lose your progress! Enter your email and we will send you a copy of your findings.</p>
+            <form id="save-list-form">
+                <input type="text" id="birder-name" placeholder="Your Name" required>
+                <input type="email" id="birder-email" placeholder="Your Email Address" required>
+                <button type="submit" class="btn-accent" id="submit-btn">Email My Results</button>
+            </form>
+            <div id="email-success" class="hidden" style="margin-top: 15px; font-weight: 600; color: var(--dark); background: white; padding: 10px; border-radius: 5px;">
+                <i class="fa-solid fa-circle-check" style="color: #25D366;"></i> Checklist successfully sent to your email!
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+            <p>Ernakulam, Kerala, India</p>
+            <p class="copyright" style="margin-top: 20px;">&copy; 2026 Thattekad Birding. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const countDisplay = document.getElementById('count');
+            const progressFill = document.getElementById('progress-fill');
+            const totalBirds = checkboxes.length;
+
+            // 1. Load saved data from Phone Storage
+            const savedData = JSON.parse(localStorage.getItem('thattekadChecklist')) || {};
+            
+            checkboxes.forEach(box => {
+                // Check box if it was saved previously
+                if(savedData[box.value]) {
+                    box.checked = true;
+                }
+
+                // Listen for clicks
+                box.addEventListener('change', () => {
+                    // Save to local storage
+                    savedData[box.value] = box.checked;
+                    localStorage.setItem('thattekadChecklist', JSON.stringify(savedData));
+                    updateProgress();
+                });
+            });
+
+            // 2. Update Progress Bar
+            function updateProgress() {
+                const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                countDisplay.innerText = checkedCount;
+                const percentage = (checkedCount / totalBirds) * 100;
+                progressFill.style.width = percentage + '%';
+            }
+            
+            // Run on initial load
+            updateProgress();
+
+            // 3. Mobile Menu Toggle
+            const menuIcon = document.getElementById('menu-icon');
+            const navLinks = document.getElementById('nav-links');
+            if (menuIcon && navLinks) {
+                menuIcon.addEventListener('click', () => {
+                    if (navLinks.style.display === 'flex') {
+                        navLinks.style.display = 'none';
+                        menuIcon.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                    } else {
+                        navLinks.style.display = 'flex';
+                        navLinks.style.flexDirection = 'column';
+                        navLinks.style.position = 'absolute';
+                        navLinks.style.top = '100%';
+                        navLinks.style.left = '0';
+                        navLinks.style.width = '100%';
+                        navLinks.style.background = 'rgba(27, 67, 50, 0.98)';
+                        navLinks.style.padding = '20px 0';
+                        menuIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                    }
+                });
+            }
+
+            // 4. Email Form Submission Logic
+            const form = document.getElementById('save-list-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('birder-name').value;
+                const email = document.getElementById('birder-email').value;
+                const btn = document.getElementById('submit-btn');
+                
+                // Gather list of checked birds
+                let spottedBirds = [];
+                document.querySelectorAll('input[type="checkbox"]:checked').forEach(box => {
+                    spottedBirds.push("✅ " + box.value);
+                });
+
+                let birdText = spottedBirds.length > 0 
+                    ? spottedBirds.join('\n') 
+                    : "No birds checked off yet!";
+
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending...`;
+
+                const payload = {
+                    access_key: "0f708846-4d24-4ff1-bff5-e038dd1a925c",
+                    subject: `My Thattekad Birding Checklist - ${name}`,
+                    from_name: "Thattekad Birding Tracker",
+                    Name: name,
+                    Email: email,
+                    Total_Spotted: spottedBirds.length + " out of " + totalBirds,
+                    Birds_Spotted: birdText
+                };
+
+                fetch("https://api.web3forms.com/submit", { 
+                    method: "POST", 
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(payload) 
+                })
+                .then(response => {
+                    if (response.status == 200) {
+                        form.style.display = 'none';
+                        document.getElementById('email-success').classList.remove('hidden');
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'conversion_event_lead_capture');
+                        }
+                    } else {
+                        btn.innerHTML = "Email My Results";
+                        alert("Error sending. Please check connection.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
