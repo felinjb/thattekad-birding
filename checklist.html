@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- Include jsPDF Library for Instant PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
         :root {
             --primary: #2d6a4f; 
@@ -153,12 +156,12 @@
         #bird-search { width: 100%; padding: 12px 15px 12px 45px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.3s;}
         #bird-search:focus { border-color: var(--primary); }
 
-        /* QUICK EMAIL FORM */
-        .quick-email-form input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 12px; font-size: 0.95rem; font-family: inherit;}
-        .btn-quick-send { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem;}
-        .btn-quick-send:hover { background: var(--dark); }
+        /* PDF DOWNLOAD FORM STYLES */
+        .pdf-form input, .pdf-form textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 12px; font-size: 0.95rem; font-family: inherit;}
+        .btn-pdf-download { background: var(--accent); color: var(--dark); border: none; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem;}
+        .btn-pdf-download:hover { background: #bc8a5f; }
 
-        /* FLOATING SEARCH BUTTON FOR MOBILE */
+        /* FLOATING SEARCH BUTTON FOR MOBILE PHONES */
         .floating-search-btn {
             position: fixed;
             bottom: 30px;
@@ -178,9 +181,7 @@
             text-decoration: none;
             transition: transform 0.3s ease;
         }
-        .floating-search-btn:hover {
-            transform: scale(1.1);
-        }
+        .floating-search-btn:hover { transform: scale(1.1); }
 
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; margin-top: 50px;}
         .hidden { display: none !important; }
@@ -188,7 +189,7 @@
         @media (max-width: 950px) {
             .page-layout { grid-template-columns: 1fr; }
             .sidebar { position: relative; top: 0; }
-            .floating-search-btn { display: flex; } /* Show floating search button on mobile/tablets */
+            .floating-search-btn { display: flex; }
         }
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -213,7 +214,7 @@
     <header class="subpage-hero">
         <div class="hero-content">
             <h1>The Complete 150 Target Field Guide</h1>
-            <p>Explore species across Thattekad's rich ecosystem. Search instantly, check them off, and save or email your results effortlessly!</p>
+            <p>Explore species across Thattekad's rich ecosystem. Search instantly, check off your sightings, and download your custom PDF report with our travel ads!</p>
         </div>
     </header>
 
@@ -486,18 +487,16 @@
                 </div>
             </div>
 
-            <!-- 3. Quick Email Card -->
+            <!-- 3. Download PDF Report Card (With Custom Birds & Ads) -->
             <div class="sidebar-card">
-                <h3><i class="fa-solid fa-envelope" style="color: var(--accent);"></i> Save Your Results</h3>
-                <p style="font-size: 0.88rem; color: #666; margin-bottom: 12px; line-height: 1.5;">Enter your details to instantly email yourself and a copy to us with your breakdown of checked birds.</p>
-                <form id="quick-save-form" class="quick-email-form">
-                    <input type="text" id="birder-name" placeholder="Your Name" required>
-                    <input type="email" id="birder-email" placeholder="Your Email Address" required>
-                    <button type="submit" class="btn-quick-send" id="submit-btn"><i class="fa-solid fa-paper-plane"></i> Email My Checklist</button>
+                <h3><i class="fa-solid fa-file-pdf" style="color: var(--accent);"></i> Download PDF Report</h3>
+                <p style="font-size: 0.88rem; color: #666; margin-bottom: 12px; line-height: 1.5;">Generate an instant PDF of your sightings, including any extra birds you spotted!</p>
+                
+                <form id="pdf-download-form" class="pdf-form">
+                    <input type="text" id="birder-name" placeholder="Your Name (for the report)" required>
+                    <textarea id="extra-birds" placeholder="Spotted any extra birds not on our list? Type them here (comma separated)..." rows="2"></textarea>
+                    <button type="button" id="download-pdf-btn" class="btn-pdf-download"><i class="fa-solid fa-download"></i> Download My PDF Report</button>
                 </form>
-                <div id="email-success" class="hidden" style="margin-top: 10px; font-weight: 600; color: #2d6a4f; text-align: center; background: #e9f0ea; padding: 10px; border-radius: 6px; font-size: 0.9rem;">
-                    <i class="fa-solid fa-circle-check"></i> Results sent successfully!
-                </div>
             </div>
 
         </aside>
@@ -610,82 +609,105 @@
                 });
             }
 
-            // 6. Professional Email Form Submission Logic
-            const form = document.getElementById('quick-save-form');
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const name = document.getElementById('birder-name').value;
-                const email = document.getElementById('birder-email').value;
-                const btn = document.getElementById('submit-btn');
-                
+            // 6. Client-Side PDF Generation with jsPDF (Includes Custom Birds & Brand Ads)
+            const pdfBtn = document.getElementById('download-pdf-btn');
+            pdfBtn.addEventListener('click', () => {
+                const birderNameInput = document.getElementById('birder-name').value.trim();
+                const birderName = birderNameInput !== "" ? birderNameInput : "Valued Birder";
+                const extraBirdsInput = document.getElementById('extra-birds').value.trim();
+
+                // Gather checked checklist birds
                 let spottedBirds = [];
                 document.querySelectorAll('input[type="checkbox"]:checked').forEach(box => {
-                    spottedBirds.push("✅ " + box.value);
+                    spottedBirds.push(box.value);
                 });
 
-                let birdText = spottedBirds.length > 0 
-                    ? spottedBirds.join('\n') 
-                    : "No birds checked off yet!";
+                // Add extra custom birds if provided
+                if (extraBirdsInput !== "") {
+                    const extraList = extraBirdsInput.split(',').map(b => b.trim()).filter(b => b.length > 0);
+                    spottedBirds = spottedBirds.concat(extraList);
+                }
 
-                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Sending Checklist...`;
+                // Initialize jsPDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
 
-                const emailBody = `
-=========================================
-THATTEKAD BIRDING - FIELD CHECKLIST REPORT
-=========================================
-Hello ${name},
+                // Header Styling
+                doc.setFillColor(27, 67, 50); // Dark Green Header
+                doc.rect(0, 0, 210, 35, 'F');
+                
+                doc.setTextColor(255, 255, 255);
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(20);
+                doc.text("THATTEKAD BIRDING", 15, 20);
+                
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(11);
+                doc.text("Official Field Sightings Report", 15, 28);
 
-Thank you for exploring the Salim Ali Bird Sanctuary with us! Here is the summary of the species you tracked during your session.
+                // Birder Info
+                doc.setTextColor(33, 33, 33);
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(14);
+                doc.text(`Prepared for: ${birderName}`, 15, 48);
 
---- YOUR SIGHTINGS SUMMARY ---
-Total Species Spotted: ${spottedBirds.length} out of ${totalBirds}
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(10);
+                doc.text(`Location: Salim Ali Bird Sanctuary, Thattekad, Kerala`, 15, 55);
+                doc.text(`Total Species Recorded: ${spottedBirds.length}`, 15, 62);
 
-${birdText}
-------------------------------
+                // Divider Line
+                doc.setDrawColor(200, 200, 200);
+                doc.line(15, 68, 195, 68);
 
-Keep this email as a record of your life list! If you are planning your next expedition or looking for an expert indigenous guide to track down elusive endemics like the Ceylon Frogmouth, get in touch with us.
+                // List of Birds
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(12);
+                doc.text("Your Sightings Checklist:", 15, 78);
 
------------------------------------------
-THATTEKAD BIRDING TOURS
-Ernakulam, Kerala, India
-Website: https://thattekadbirding.com
-Email: info@thattekadbirding.com
-Phone / WhatsApp: +91 89212 43251
------------------------------------------
-`;
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(10);
 
-                const payload = {
-                    access_key: "0f708846-4d24-4ff1-bff5-e038dd1a925c",
-                    subject: `Your Thattekad Birding Checklist Results (${spottedBirds.length}/${totalBirds} Spotted)`,
-                    from_name: "Thattekad Birding Field Guide",
-                    name: name,
-                    email: email,
-                    replyto: email,
-                    message: emailBody
-                };
-
-                fetch("https://api.web3forms.com/submit", { 
-                    method: "POST", 
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(payload) 
-                })
-                .then(response => {
-                    if (response.status == 200) {
-                        form.style.display = 'none';
-                        document.getElementById('email-success').classList.remove('hidden');
-                        if (typeof gtag === 'function') {
-                            gtag('event', 'conversion_event_lead_capture');
+                let y = 86;
+                if (spottedBirds.length === 0) {
+                    doc.text("No birds checked off yet.", 15, y);
+                    y += 10;
+                } else {
+                    spottedBirds.forEach((bird, index) => {
+                        if (y > 250) { // Add new page if list exceeds page height
+                            doc.addPage();
+                            y = 20;
                         }
-                    } else {
-                        btn.innerHTML = "Email My Checklist";
-                        alert("Error sending. Please check connection.");
-                    }
-                })
-                .catch(error => {
-                    btn.innerHTML = "Email My Checklist";
-                    alert("Network error. Please try again.");
-                });
+                        doc.text(`[ X ]  ${bird}`, 15, y);
+                        y += 8;
+                    });
+                }
+
+                // Advertisement Footer Box
+                if (y > 230) { doc.addPage(); y = 30; } else { y += 10; }
+
+                doc.setFillColor(248, 249, 250); // Light background box
+                doc.roundedRect(15, y, 180, 45, 3, 3, 'F');
+                doc.setDrawColor(212, 163, 115); // Accent border
+                doc.roundedRect(15, y, 180, 45, 3, 3, 'S');
+
+                doc.setTextColor(27, 67, 50);
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(11);
+                doc.text("Plan Your Next Expedition with Thattekad Birding!", 22, y + 10);
+
+                doc.setTextColor(85, 85, 85);
+                doc.setFont("helvetica", "normal");
+                doc.setFontSize(9);
+                doc.text("Experience world-class guiding through Kerala's dense evergreen forests.", 22, y + 17);
+                doc.text("Specializing in rare Western Ghats endemics, nocturnal species, and photography tours.", 22, y + 23);
+                
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(45, 106, 79);
+                doc.text("Website: https://thattekadbirding.com  |  WhatsApp: +91 89212 43251  |  info@thattekadbirding.com", 22, y + 35);
+
+                // Save PDF file
+                doc.save(`Thattekad_Birding_Report_${birderName.replace(/\s+/g, '_')}.pdf`);
             });
         });
     </script>
