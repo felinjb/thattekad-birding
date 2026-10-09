@@ -52,28 +52,30 @@
             align-items: start;
         }
 
-        /* STICKY SIDEBAR */
+        /* STICKY SIDEBAR WITH FIXED SIZING */
         .sidebar {
             position: sticky;
             top: 95px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            width: 100%;
         }
 
         .sidebar-card {
             background: white;
-            padding: 25px;
+            padding: 22px;
             border-radius: 12px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            width: 100%;
         }
 
         .sidebar-card h3 {
             color: var(--dark);
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
             border-bottom: 2px solid #eee;
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         /* SIDEBAR SLIDESHOW CONTAINER */
@@ -96,22 +98,22 @@
         }
         .fact-card-img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             background-size: cover;
             background-position: center;
             border-radius: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .fact-card-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--dark);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         .fact-card-desc {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: #555;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         /* CONTROL PANEL */
@@ -122,7 +124,7 @@
         .progress-bar-fill { background: var(--accent); height: 100%; width: 0%; transition: width 0.4s ease; }
 
         /* CHECKLIST MAIN CONTENT */
-        .checklist-main { display: flex; flex-direction: column; gap: 30px; }
+        .checklist-main { display: flex; flex-direction: column; gap: 30px; width: 100%; }
         .category-box { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .category-title { color: var(--dark); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; display: flex; align-items: center; gap: 12px;}
         
@@ -153,35 +155,43 @@
         /* SEARCH BAR */
         .search-bar-wrapper { position: relative; width: 100%; }
         .search-bar-wrapper i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #888;}
-        #bird-search { width: 100%; padding: 12px 15px 12px 45px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.3s;}
+        #bird-search { width: 100%; padding: 10px 15px 10px 40px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.3s;}
         #bird-search:focus { border-color: var(--primary); }
 
         /* PDF DOWNLOAD FORM STYLES */
-        .pdf-form input, .pdf-form textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 12px; font-size: 0.95rem; font-family: inherit;}
-        .btn-pdf-download { background: var(--accent); color: var(--dark); border: none; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; font-size: 1rem;}
+        .pdf-form input, .pdf-form textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 10px; font-size: 0.9rem; font-family: inherit;}
+        .btn-pdf-download { background: var(--accent); color: var(--dark); border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; font-size: 0.95rem;}
         .btn-pdf-download:hover { background: #bc8a5f; }
 
-        /* FLOATING SEARCH BUTTON FOR MOBILE PHONES */
-        .floating-search-btn {
+        /* FLOATING ACTION BUTTONS FOR MOBILE PHONES */
+        .mobile-floating-container {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 25px;
+            left: 20px;
+            display: none;
+            gap: 12px;
+            z-index: 9998;
+        }
+        .floating-action-btn {
             background-color: var(--primary);
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 22px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 9998;
             cursor: pointer;
             text-decoration: none;
             transition: transform 0.3s ease;
         }
-        .floating-search-btn:hover { transform: scale(1.1); }
+        .floating-action-btn.pdf-btn {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        .floating-action-btn:hover { transform: scale(1.1); }
 
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; margin-top: 50px;}
         .hidden { display: none !important; }
@@ -189,7 +199,7 @@
         @media (max-width: 950px) {
             .page-layout { grid-template-columns: 1fr; }
             .sidebar { position: relative; top: 0; }
-            .floating-search-btn { display: flex; }
+            .mobile-floating-container { display: flex; } /* Show floating buttons on mobile/tablets */
         }
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -207,6 +217,8 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="tours.html">Tours</a></li>
             <li><a href="blog.html">Blog</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="checklist.html" style="color: var(--accent);">Checklist</a></li>
             <li><a href="book.html" class="nav-btn">Book Now</a></li>
         </ul>
     </nav>
@@ -488,13 +500,13 @@
             </div>
 
             <!-- 3. Download PDF Report Card (With Custom Birds & Ads) -->
-            <div class="sidebar-card">
+            <div class="sidebar-card" id="sidebar-pdf-anchor">
                 <h3><i class="fa-solid fa-file-pdf" style="color: var(--accent);"></i> Download PDF Report</h3>
-                <p style="font-size: 0.88rem; color: #666; margin-bottom: 12px; line-height: 1.5;">Generate an instant PDF of your sightings, including any extra birds you spotted!</p>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px; line-height: 1.4;">Generate an instant PDF of your sightings, including any extra birds you spotted!</p>
                 
                 <form id="pdf-download-form" class="pdf-form">
                     <input type="text" id="birder-name" placeholder="Your Name (for the report)" required>
-                    <textarea id="extra-birds" placeholder="Spotted any extra birds not on our list? Type them here (comma separated)..." rows="2"></textarea>
+                    <textarea id="extra-birds" placeholder="Spotted extra birds? Type here..." rows="2"></textarea>
                     <button type="button" id="download-pdf-btn" class="btn-pdf-download"><i class="fa-solid fa-download"></i> Download My PDF Report</button>
                 </form>
             </div>
@@ -503,10 +515,15 @@
 
     </main>
 
-    <!-- FLOATING SEARCH BUTTON FOR MOBILE PHONES -->
-    <a href="#sidebar-search-anchor" class="floating-search-btn" id="floatingSearchBtn" aria-label="Quick Search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </a>
+    <!-- FLOATING ACTION BUTTONS FOR MOBILE PHONES -->
+    <div class="mobile-floating-container">
+        <a href="#sidebar-search-anchor" class="floating-action-btn" id="floatingSearchBtn" aria-label="Quick Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+        <a href="#sidebar-pdf-anchor" class="floating-action-btn pdf-btn" id="floatingPdfBtn" aria-label="Download PDF">
+            <i class="fa-solid fa-file-pdf"></i>
+        </a>
+    </div>
 
     <footer>
         <div class="footer-content">
@@ -566,14 +583,17 @@
                 });
             });
 
-            const floatingBtn = document.getElementById('floatingSearchBtn');
-            floatingBtn.addEventListener('click', (e) => {
+            const floatingSearchBtn = document.getElementById('floatingSearchBtn');
+            floatingSearchBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const sidebarAnchor = document.getElementById('sidebar-search-anchor');
-                sidebarAnchor.scrollIntoView({ behavior: 'smooth' });
-                setTimeout(() => {
-                    searchInput.focus();
-                }, 500);
+                document.getElementById('sidebar-search-anchor').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => { searchInput.focus(); }, 500);
+            });
+
+            const floatingPdfBtn = document.getElementById('floatingPdfBtn');
+            floatingPdfBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('sidebar-pdf-anchor').scrollIntoView({ behavior: 'smooth' });
             });
 
             // 4. Sidebar Slideshow Automatic Rotation
@@ -616,24 +636,20 @@
                 const birderName = birderNameInput !== "" ? birderNameInput : "Valued Birder";
                 const extraBirdsInput = document.getElementById('extra-birds').value.trim();
 
-                // Gather checked checklist birds
                 let spottedBirds = [];
                 document.querySelectorAll('input[type="checkbox"]:checked').forEach(box => {
                     spottedBirds.push(box.value);
                 });
 
-                // Add extra custom birds if provided
                 if (extraBirdsInput !== "") {
                     const extraList = extraBirdsInput.split(',').map(b => b.trim()).filter(b => b.length > 0);
                     spottedBirds = spottedBirds.concat(extraList);
                 }
 
-                // Initialize jsPDF
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
 
-                // Header Styling
-                doc.setFillColor(27, 67, 50); // Dark Green Header
+                doc.setFillColor(27, 67, 50);
                 doc.rect(0, 0, 210, 35, 'F');
                 
                 doc.setTextColor(255, 255, 255);
@@ -645,7 +661,6 @@
                 doc.setFontSize(11);
                 doc.text("Official Field Sightings Report", 15, 28);
 
-                // Birder Info
                 doc.setTextColor(33, 33, 33);
                 doc.setFont("helvetica", "bold");
                 doc.setFontSize(14);
@@ -656,11 +671,9 @@
                 doc.text(`Location: Salim Ali Bird Sanctuary, Thattekad, Kerala`, 15, 55);
                 doc.text(`Total Species Recorded: ${spottedBirds.length}`, 15, 62);
 
-                // Divider Line
                 doc.setDrawColor(200, 200, 200);
                 doc.line(15, 68, 195, 68);
 
-                // List of Birds
                 doc.setFont("helvetica", "bold");
                 doc.setFontSize(12);
                 doc.text("Your Sightings Checklist:", 15, 78);
@@ -674,7 +687,7 @@
                     y += 10;
                 } else {
                     spottedBirds.forEach((bird, index) => {
-                        if (y > 250) { // Add new page if list exceeds page height
+                        if (y > 250) {
                             doc.addPage();
                             y = 20;
                         }
@@ -683,12 +696,11 @@
                     });
                 }
 
-                // Advertisement Footer Box
                 if (y > 230) { doc.addPage(); y = 30; } else { y += 10; }
 
-                doc.setFillColor(248, 249, 250); // Light background box
+                doc.setFillColor(248, 249, 250);
                 doc.roundedRect(15, y, 180, 45, 3, 3, 'F');
-                doc.setDrawColor(212, 163, 115); // Accent border
+                doc.setDrawColor(212, 163, 115);
                 doc.roundedRect(15, y, 180, 45, 3, 3, 'S');
 
                 doc.setTextColor(27, 67, 50);
@@ -706,7 +718,6 @@
                 doc.setTextColor(45, 106, 79);
                 doc.text("Website: https://thattekadbirding.com  |  WhatsApp: +91 89212 43251  |  info@thattekadbirding.com", 22, y + 35);
 
-                // Save PDF file
                 doc.save(`Thattekad_Birding_Report_${birderName.replace(/\s+/g, '_')}.pdf`);
             });
         });
