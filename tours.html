@@ -58,7 +58,9 @@
             background: rgba(27, 67, 50, 0.98); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             padding: 1rem 5%;
         }
-        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center;}
+        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center; text-decoration: none !important;}
+        .logo:hover { text-decoration: none !important; }
+        
         .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; margin: 0;}
         .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent); }
@@ -181,13 +183,14 @@
 <body id="page-top">
     
     <nav class="navbar" id="navbar">
-        <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
+        <a href="index.html" class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</a>
         <div class="menu-icon" id="menu-icon"><i class="fa-solid fa-bars"></i></div>
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="tours.html" style="color: var(--accent);">Tours</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="checklist.html">Checklist</a></li>
             <li><a href="book.html" class="nav-btn" style="color: #0b1c15 !important;">Book Now</a></li>
         </ul>
     </nav>
