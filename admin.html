@@ -145,7 +145,7 @@
             <h3>Thattekad Admin</h3>
             <p style="color: #666; font-size: 0.85rem; text-align: center; margin-bottom: 20px;">Enter your secure credentials</p>
             
-            <form onsubmit="handleLogin(event)">
+            <form id="login-form">
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" id="admin-user" placeholder="admin" required>
@@ -164,7 +164,7 @@
     <div id="dashboard-screen">
         <header class="admin-header">
             <h1><i class="fa-solid fa-shield-halved"></i> Thattekad Control Center</h1>
-            <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+            <button type="button" class="logout-btn" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
         </header>
 
         <div class="admin-container">
@@ -187,9 +187,9 @@
 
             <!-- TABS -->
             <div class="admin-tabs">
-                <button class="tab-btn active-tab" onclick="switchTab('bookings')"><i class="fa-solid fa-calendar-check"></i> Bookings & CRM</button>
-                <button class="tab-btn" onclick="switchTab('invoices')"><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator</button>
-                <button class="tab-btn" onclick="switchTab('sightings')"><i class="fa-solid fa-binoculars"></i> Moderate Sightings</button>
+                <button type="button" class="tab-btn active-tab" data-tab="bookings"><i class="fa-solid fa-calendar-check"></i> Bookings & CRM</button>
+                <button type="button" class="tab-btn" data-tab="invoices"><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator</button>
+                <button type="button" class="tab-btn" data-tab="sightings"><i class="fa-solid fa-binoculars"></i> Moderate Sightings</button>
             </div>
 
             <!-- TAB 1: BOOKINGS MANAGEMENT & MANUAL ENTRY -->
@@ -198,7 +198,7 @@
                 <!-- MANUAL BOOKING ENTRY FORM -->
                 <div class="admin-card" style="background: #f4f8f5; border: 1px dashed var(--primary);">
                     <h3 style="border-bottom: none; margin-bottom: 10px;"><i class="fa-solid fa-user-plus" style="color: var(--primary);"></i> Add Manual Booking / Phone Enquiry</h3>
-                    <form id="manual-booking-form" onsubmit="addManualBooking(event)">
+                    <form id="manual-booking-form">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Guest Full Name</label>
@@ -243,7 +243,7 @@
                         <h3>Client Reservations & Custom Itineraries</h3>
                         <div class="search-box">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" id="crm-search" placeholder="Search guest name or tour..." oninput="filterCRM()">
+                            <input type="text" id="crm-search" placeholder="Search guest name or tour...">
                         </div>
                     </div>
                     <div style="overflow-x: auto;">
@@ -275,12 +275,12 @@
                     <!-- Guest Selector to Auto-fill -->
                     <div class="form-group" style="margin-bottom: 20px; background: #fdfdfd; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
                         <label><i class="fa-solid fa-magic" style="color: var(--accent);"></i> Quick Select Guest from Bookings (Auto-Fill Details)</label>
-                        <select id="guest-selector" onchange="autoFillInvoice()" style="margin-top: 5px;">
+                        <select id="guest-selector" style="margin-top: 5px;">
                             <option value="">-- Choose a guest from active bookings --</option>
                         </select>
                     </div>
 
-                    <form id="invoice-form" onsubmit="generateInvoicePDF(event)">
+                    <form id="invoice-form">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Guest Full Name</label>
@@ -336,7 +336,7 @@
     <!-- CUSTOM ITINERARY EDIT MODAL -->
     <div id="itinerary-modal" class="modal-overlay">
         <div class="modal-card">
-            <span class="modal-close" onclick="closeItineraryModal()">&times;</span>
+            <span class="modal-close" id="modal-close-btn">&times;</span>
             <h3 style="color: var(--dark); margin-bottom: 15px;"><i class="fa-solid fa-pen-to-square"></i> Edit Custom Itinerary</h3>
             <input type="hidden" id="edit-booking-index">
             <div class="form-group" style="margin-bottom: 15px;">
@@ -347,39 +347,134 @@
                 <label>Custom Itinerary & Schedule Notes</label>
                 <textarea id="edit-itinerary-text" rows="5" placeholder="Enter custom day-by-day notes, timings, or target species for this guest..."></textarea>
             </div>
-            <button type="button" class="btn-action" onclick="saveItineraryChanges()"><i class="fa-solid fa-floppy-disk"></i> Save Itinerary</button>
+            <button type="button" class="btn-action" id="save-itinerary-btn"><i class="fa-solid fa-floppy-disk"></i> Save Itinerary</button>
         </div>
     </div>
 
     <script>
-        // TAB CONTROLLER
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active-content'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
-            
-            document.getElementById('tab-' + tabName).classList.add('active-content');
-            event.currentTarget.classList.add('active-tab');
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // TAB SWITCHING
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const tabName = e.currentTarget.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active-content'));
+                    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+                    
+                    document.getElementById('tab-' + tabName).classList.add('active-content');
+                    e.currentTarget.classList.add('active-tab');
+                });
+            });
 
-        // AUTHENTICATION
-        function handleLogin(event) {
-            event.preventDefault();
-            const user = document.getElementById('admin-user').value.trim();
-            const pass = document.getElementById('admin-pass').value.trim();
-            const errorMsg = document.getElementById('auth-error-msg');
+            // LOGIN FORM
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const user = document.getElementById('admin-user').value.trim();
+                    const pass = document.getElementById('admin-pass').value.trim();
+                    const errorMsg = document.getElementById('auth-error-msg');
 
-            if (user === 'admin' && pass === 'thattekad2026') {
-                localStorage.setItem('thattekadAdminAuth', 'true');
-                checkAuth();
-            } else {
-                errorMsg.style.display = 'block';
+                    if (user === 'admin' && pass === 'thattekad2026') {
+                        localStorage.setItem('thattekadAdminAuth', 'true');
+                        checkAuth();
+                    } else {
+                        errorMsg.style.display = 'block';
+                    }
+                });
             }
-        }
 
-        function logout() {
-            localStorage.removeItem('thattekadAdminAuth');
+            // LOGOUT
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('thattekadAdminAuth');
+                    checkAuth();
+                });
+            }
+
+            // MANUAL BOOKING FORM
+            const manualForm = document.getElementById('manual-booking-form');
+            if (manualForm) {
+                manualForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('man-name').value.trim();
+                    const email = document.getElementById('man-email').value.trim();
+                    const tour = document.getElementById('man-tour').value;
+                    const tourDate = document.getElementById('man-date').value;
+                    const itinerary = document.getElementById('man-itinerary').value.trim();
+
+                    let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+                    const newBooking = {
+                        date: new Date().toISOString().split('T')[0],
+                        name: name,
+                        email: email,
+                        tour: tour,
+                        tourDate: tourDate,
+                        itinerary: itinerary !== "" ? itinerary : "Standard guided trek schedule.",
+                        status: "Confirmed"
+                    };
+
+                    bookings.unshift(newBooking);
+                    localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
+                    
+                    alert("Manual booking & itinerary added successfully!");
+                    manualForm.reset();
+                    loadAdminData();
+                });
+            }
+
+            // CRM SEARCH FILTER
+            const crmSearch = document.getElementById('crm-search');
+            if (crmSearch) {
+                crmSearch.addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase().trim();
+                    let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+                    const filtered = bookings.filter(b => 
+                        b.name.toLowerCase().includes(term) || 
+                        b.tour.toLowerCase().includes(term) || 
+                        b.email.toLowerCase().includes(term)
+                    );
+                    renderTable(filtered);
+                });
+            }
+
+            // GUEST SELECTOR AUTO-FILL INVOICE
+            const guestSelector = document.getElementById('guest-selector');
+            if (guestSelector) {
+                guestSelector.addEventListener('change', (e) => {
+                    const idx = e.target.value;
+                    if(idx === "") return;
+
+                    let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+                    const guest = bookings[idx];
+                    if(guest) {
+                        document.getElementById('inv-name').value = guest.name;
+                        document.getElementById('inv-email').value = guest.email;
+                        document.getElementById('inv-tour').value = guest.tour;
+                        document.getElementById('inv-num').value = `TB-2026-${Math.floor(100 + Math.random() * 900)}`;
+                    }
+                });
+            }
+
+            // INVOICE FORM SUBMISSION
+            const invoiceForm = document.getElementById('invoice-form');
+            if (invoiceForm) {
+                invoiceForm.addEventListener('submit', generateInvoicePDF);
+            }
+
+            // MODAL CLOSE & SAVE
+            const closeBtn = document.getElementById('modal-close-btn');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeItineraryModal);
+            }
+
+            const saveItineraryBtn = document.getElementById('save-itinerary-btn');
+            if (saveItineraryBtn) {
+                saveItineraryBtn.addEventListener('click', saveItineraryChanges);
+            }
+
             checkAuth();
-        }
+        });
 
         function checkAuth() {
             const isAuth = localStorage.getItem('thattekadAdminAuth');
@@ -399,7 +494,6 @@
                 { date: "2026-04-10", name: "Agnieszka Smith", email: "agnieszka@example.com", tour: "Thattekad Multiday (3N/4D)", tourDate: "2026-05-12", itinerary: "Custom 3-day frogmouth focus, early morning canopy walks.", status: "Confirmed" }
             ];
 
-            // Update stats
             document.getElementById('stat-total').innerText = bookings.length;
             document.getElementById('stat-pending').innerText = bookings.filter(b => b.status === 'Pending').length;
             document.getElementById('stat-confirmed').innerText = bookings.filter(b => b.status === 'Confirmed' || b.status === 'Completed').length;
@@ -434,44 +528,16 @@
                         <td><span class="badge ${badgeClass}" onclick="toggleStatus(${index})" title="Click to change status">${b.status}</span></td>
                         <td>
                             <div style="display: flex; gap: 5px; align-items: center; flex-wrap: wrap;">
-                                <button class="btn-action btn-itinerary" onclick="openItineraryModal(${index})" title="Edit Itinerary"><i class="fa-solid fa-pen"></i></button>
+                                <button type="button" class="btn-action btn-itinerary" onclick="openItineraryModal(${index})" title="Edit Itinerary"><i class="fa-solid fa-pen"></i></button>
                                 <a href="https://wa.me/918921243251?text=${waText}" target="_blank" class="btn-action btn-whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                                 <a href="mailto:${b.email}?subject=${emailSub}&body=${emailBody}" class="btn-action btn-email" title="Email"><i class="fa-solid fa-envelope"></i></a>
-                                <button class="btn-action btn-danger" onclick="deleteBooking(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                <button type="button" class="btn-action btn-danger" onclick="deleteBooking(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
                 `;
             });
             tbody.innerHTML = bHtml;
-        }
-
-        // ADD MANUAL BOOKING
-        function addManualBooking(event) {
-            event.preventDefault();
-            const name = document.getElementById('man-name').value.trim();
-            const email = document.getElementById('man-email').value.trim();
-            const tour = document.getElementById('man-tour').value;
-            const tourDate = document.getElementById('man-date').value;
-            const itinerary = document.getElementById('man-itinerary').value.trim();
-
-            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-            const newBooking = {
-                date: new Date().toISOString().split('T')[0],
-                name: name,
-                email: email,
-                tour: tour,
-                tourDate: tourDate,
-                itinerary: itinerary !== "" ? itinerary : "Standard guided trek schedule.",
-                status: "Confirmed"
-            };
-
-            bookings.unshift(newBooking);
-            localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
-            
-            alert("Manual booking & itinerary added successfully!");
-            document.getElementById('manual-booking-form').reset();
-            loadAdminData();
         }
 
         // OPEN & CLOSE ITINERARY MODAL
@@ -514,34 +580,6 @@
             selector.innerHTML = options;
         }
 
-        // AUTO-FILL INVOICE FORM FROM SELECTED GUEST
-        function autoFillInvoice() {
-            const idx = document.getElementById('guest-selector').value;
-            if(idx === "") return;
-
-            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-            const guest = bookings[idx];
-            if(guest) {
-                document.getElementById('inv-name').value = guest.name;
-                document.getElementById('inv-email').value = guest.email;
-                document.getElementById('inv-tour').value = guest.tour;
-                document.getElementById('inv-num').value = `TB-2026-${Math.floor(100 + Math.random() * 900)}`;
-            }
-        }
-
-        // CRM SEARCH FILTER
-        function filterCRM() {
-            const term = document.getElementById('crm-search').value.toLowerCase().trim();
-            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-            
-            const filtered = bookings.filter(b => 
-                b.name.toLowerCase().includes(term) || 
-                b.tour.toLowerCase().includes(term) || 
-                b.email.toLowerCase().includes(term)
-            );
-            renderTable(filtered);
-        }
-
         function toggleStatus(index) {
             let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
             if(bookings[index]) {
@@ -579,7 +617,7 @@
                             <strong>${s.bird}</strong> <span style="font-size:0.8rem; color:#666;">(by ${s.name})</span>
                             <p style="font-size:0.85rem; color:#444; margin-top:2px;">${s.notes}</p>
                         </div>
-                        <button class="btn-action btn-danger" onclick="deleteSighting(${idx})">Delete</button>
+                        <button type="button" class="btn-action btn-danger" onclick="deleteSighting(${idx})">Delete</button>
                     </div>
                 `;
             });
@@ -676,8 +714,6 @@
             doc.save(`Invoice_${invNum}_${name.replace(/\s+/g, '_')}.pdf`);
             alert("Invoice PDF generated and downloaded successfully!");
         }
-
-        window.onload = checkAuth;
     </script>
 </body>
 </html>
