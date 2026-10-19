@@ -7,157 +7,228 @@
 <title>Thattekad Birding · Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- Firebase (only used when CONFIG.FIREBASE is filled in; otherwise the dashboard runs in local mode) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <style>
 :root{
-  --green:#1b4332; --green-2:#2d6a4f; --green-3:#d8f3dc;
+  --green:#1b4332; --green-2:#2d6a4f; --green-3:#d8f3dc; --ink:#1b4332;
   --gold:#d4a373; --gold-dark:#b8864f;
-  --bg:#f8f9fa; --card:#fff; --text:#212529; --muted:#6c757d; --border:#e3e7ea;
+  --bg:#f8f9fa; --card:#fff; --text:#212529; --muted:#6c757d; --border:#e3e7ea; --soft:#f1f5f2;
   --danger:#c0392b; --radius:12px; --shadow:0 2px 12px rgba(27,67,50,.08);
+}
+html[data-theme="dark"]{
+  --bg:#11181b; --card:#1a2327; --text:#e6ecef; --muted:#9aa7ae; --border:#2c3a40; --soft:#212d32;
+  --green-3:#23382d; --ink:#8fd1a8; --shadow:0 2px 12px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-text-size-adjust:100%}
-h1,h2,h3{font-family:'Playfair Display',serif;color:var(--green)}
+h1,h2,h3{font-family:'Playfair Display',serif;color:var(--ink)}
 button{font-family:inherit;cursor:pointer}
 .hidden{display:none!important}
 
-/* ---------- Login ---------- */
-#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
-  background:linear-gradient(135deg,rgba(27,67,50,.96),rgba(45,106,79,.92)),var(--green)}
-.login-card{background:#fff;width:100%;max-width:400px;border-radius:16px;padding:36px 30px;box-shadow:0 20px 50px rgba(0,0,0,.3);text-align:center}
+/* Login */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,rgba(27,67,50,.97),rgba(45,106,79,.93)),var(--green)}
+.login-card{background:var(--card);width:100%;max-width:400px;border-radius:16px;padding:36px 30px;box-shadow:0 20px 50px rgba(0,0,0,.3);text-align:center}
 .login-card .logo{width:64px;height:64px;border-radius:50%;background:var(--green);color:var(--gold);display:grid;place-items:center;font-size:28px;margin:0 auto 14px}
 .login-card h1{font-size:1.6rem;margin-bottom:4px}
 .login-card p.sub{color:var(--muted);font-size:.9rem;margin-bottom:24px}
 .login-error{background:#fdecea;color:var(--danger);padding:9px 12px;border-radius:8px;font-size:.85rem;margin-bottom:14px}
+.mode-tag{display:inline-block;margin-top:16px;font-size:.72rem;color:var(--muted)}
 
-/* ---------- Forms ---------- */
+/* Forms */
 .field{text-align:left;margin-bottom:14px}
-label{display:block;font-size:.78rem;font-weight:600;color:var(--green);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
-input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font:inherit;font-size:.95rem;background:#fff;color:var(--text);transition:border .15s,box-shadow .15s}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(45,106,79,.15)}
+label{display:block;font-size:.74rem;font-weight:700;color:var(--ink);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font:inherit;font-size:.93rem;background:var(--card);color:var(--text);transition:border .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(45,106,79,.18)}
 textarea{resize:vertical;min-height:90px}
-input[readonly]{background:#f1f3f4;color:#555}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border:none;border-radius:8px;font-weight:600;font-size:.9rem;transition:.15s}
+input[readonly]{background:var(--soft);color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border:none;border-radius:8px;font-weight:600;font-size:.88rem;transition:.15s;text-decoration:none}
 .btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:var(--green-2)}
 .btn-gold{background:var(--gold);color:#2b1d0e}.btn-gold:hover{background:var(--gold-dark);color:#fff}
-.btn-outline{background:transparent;border:1px solid var(--border);color:var(--green)}.btn-outline:hover{background:var(--green-3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--ink)}.btn-outline:hover{background:var(--green-3)}
 .btn-danger{background:var(--danger);color:#fff}
+.btn-wa{background:#25d366;color:#fff}
+.btn-sm{padding:7px 12px;font-size:.8rem}
 .btn-block{width:100%}
 
-/* ---------- App shell ---------- */
-header.topbar{background:var(--green);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+/* Shell */
+header.topbar{background:var(--green);color:#fff;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.2)}
 .brand{display:flex;align-items:center;gap:12px}
 .brand i{color:var(--gold);font-size:1.5rem}
-.brand h1{color:#fff;font-size:1.25rem;line-height:1.1}
-.brand small{color:var(--gold);font-size:.72rem;letter-spacing:1px;text-transform:uppercase}
+.brand h1{color:#fff;font-size:1.2rem;line-height:1.1}
+.brand small{color:var(--gold);font-size:.7rem;letter-spacing:1px;text-transform:uppercase}
+.top-actions{display:flex;gap:8px}
 .topbar .btn{background:rgba(255,255,255,.12);color:#fff;padding:8px 14px}
 .topbar .btn:hover{background:var(--gold);color:#2b1d0e}
-main{max-width:1280px;margin:0 auto;padding:24px 20px 60px}
+main{max-width:1320px;margin:0 auto;padding:22px 18px 70px}
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-.stat{background:var(--card);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
-.stat .ico{width:50px;height:50px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:var(--green-3);color:var(--green);flex-shrink:0}
-.stat .num{font-size:1.9rem;font-weight:700;color:var(--green);line-height:1}
-.stat .lbl{font-size:.8rem;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:22px}
+.stat{background:var(--card);border-radius:var(--radius);padding:16px 18px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
+.stat .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:1.2rem;background:var(--green-3);color:var(--ink);flex-shrink:0}
+.stat .num{font-size:1.6rem;font-weight:700;color:var(--ink);line-height:1.1}
+.stat .lbl{font-size:.76rem;color:var(--muted);margin-top:3px}
 
-.tabs{display:flex;gap:6px;border-bottom:2px solid var(--border);margin-bottom:22px;overflow-x:auto}
-.tab-btn{background:none;border:none;padding:12px 20px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;font-size:.95rem}
-.tab-btn.active{color:var(--green);border-bottom-color:var(--gold)}
-.tab-btn .pill{background:var(--gold);color:#2b1d0e;font-size:.7rem;padding:1px 7px;border-radius:20px;margin-left:6px}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:20px;overflow-x:auto;scrollbar-width:thin}
+.tab-btn{background:none;border:none;padding:12px 16px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;font-size:.9rem}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--gold)}
+.tab-btn .pill{background:var(--gold);color:#2b1d0e;font-size:.68rem;padding:1px 7px;border-radius:20px;margin-left:6px}
 .tab-panel{display:none}.tab-panel.active{display:block}
 
-.card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:22px}
-.card h2{font-size:1.2rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:20px}
+.card h2{font-size:1.15rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .card h2 i{color:var(--gold)}
+.card h3{font-size:1rem;margin-bottom:10px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:0 14px}
 .span-2{grid-column:span 2}
-
-.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}
-.search{position:relative;flex:1;min-width:220px;max-width:420px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}
+.toolbar .group{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toolbar select{width:auto}
+.search{position:relative;flex:1;min-width:200px;max-width:380px}
 .search i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
 .search input{padding-left:36px}
 
-/* ---------- Table ---------- */
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.88rem}
-th{background:var(--green);color:#fff;text-align:left;padding:12px;font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
-th:first-child{border-radius:8px 0 0 8px}th:last-child{border-radius:0 8px 8px 0}
-td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top}
-tr:hover td{background:#fbfcfb}
-.guest-name{font-weight:600;color:var(--green)}
-.guest-email{color:var(--muted);font-size:.8rem;word-break:break-all}
-.itin{max-width:260px;white-space:pre-wrap;word-break:break-word;font-size:.82rem;color:#444;max-height:90px;overflow:auto}
-.itin.empty{color:#aaa;font-style:italic}
+.banner{background:#fff3cd;color:#7a5d00;border:1px solid #ffe08a;border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-size:.88rem}
+html[data-theme="dark"] .banner{background:#3a3115;color:#f3d77a;border-color:#5b4c1a}
 
-.badge{border:none;padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:transform .1s}
+/* Table */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th{background:var(--green);color:#fff;text-align:left;padding:11px 10px;font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+th:first-child{border-radius:8px 0 0 8px}th:last-child{border-radius:0 8px 8px 0}
+td{padding:11px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:hover td{background:var(--soft)}
+.guest-name{font-weight:600;color:var(--ink)}
+.guest-email{color:var(--muted);font-size:.78rem;word-break:break-all}
+.itin{max-width:240px;white-space:pre-wrap;word-break:break-word;font-size:.8rem;max-height:84px;overflow:auto}
+.itin.empty{color:var(--muted);font-style:italic}
+.pay-cell{font-size:.8rem;white-space:nowrap}
+.pay-cell .bal{color:var(--danger);font-weight:600}
+.pay-cell .ok{color:#198754;font-weight:600}
+.warn{color:var(--danger);font-size:.76rem;font-weight:600;display:inline-flex;gap:4px;align-items:center;margin-top:3px}
+.fu{background:#fff3cd;color:#7a5d00;font-size:.68rem;font-weight:700;border-radius:10px;padding:1px 8px;margin-top:3px;display:inline-block}
+.badge{border:none;padding:6px 13px;border-radius:20px;font-size:.76rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:transform .1s}
 .badge:hover{transform:scale(1.06)}
 .badge.pending{background:#fff3cd;color:#8a6d00}
 .badge.confirmed{background:#d1e7dd;color:#0f5132}
 .badge.completed{background:#cfe2ff;color:#0a3d91}
-.actions{display:flex;gap:6px;flex-wrap:wrap}
-.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green);display:grid;place-items:center;font-size:.95rem;text-decoration:none;transition:.15s}
+.actions{display:flex;gap:5px;flex-wrap:wrap}
+.icon-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--ink);display:grid;place-items:center;font-size:.9rem;text-decoration:none;transition:.15s}
 .icon-btn:hover{background:var(--green);color:#fff}
 .icon-btn.wa:hover{background:#25d366;border-color:#25d366}
 .icon-btn.del:hover{background:var(--danger);border-color:var(--danger)}
-.empty-state{text-align:center;padding:40px 10px;color:var(--muted)}
-.empty-state i{font-size:2.2rem;color:var(--gold);margin-bottom:10px;display:block}
+.empty-state{text-align:center;padding:36px 10px;color:var(--muted)}
+.empty-state i{font-size:2.1rem;color:var(--gold);margin-bottom:10px;display:block}
+.pager{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:14px;font-size:.85rem;color:var(--muted)}
 
-/* ---------- Sightings ---------- */
-.sight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
-.sight{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;border-top:4px solid var(--gold);display:flex;flex-direction:column;gap:6px}
+/* Calendar */
+.cal-nav{display:flex;align-items:center;gap:10px}
+.cal-nav h3{margin:0;min-width:170px;text-align:center}
+.cal-week,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-week div{text-align:center;font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:6px 0}
+.cal-cell{min-height:96px;background:var(--soft);border:1px solid var(--border);border-radius:8px;padding:5px;cursor:pointer;overflow:hidden;transition:.15s}
+.cal-cell:hover{border-color:var(--gold)}
+.cal-cell.out{opacity:.35}
+.cal-cell.today{border:2px solid var(--gold)}
+.cal-cell.clash{border-color:var(--danger)}
+.cal-cell .dn{font-size:.76rem;font-weight:700;color:var(--ink);display:flex;justify-content:space-between}
+.cal-chip{display:block;width:100%;text-align:left;border:none;border-radius:5px;font-size:.68rem;padding:2px 5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.cal-chip.pending{background:#fff3cd;color:#8a6d00}
+.cal-chip.confirmed{background:#d1e7dd;color:#0f5132}
+.cal-chip.completed{background:#cfe2ff;color:#0a3d91}
+.cal-more{font-size:.66rem;color:var(--muted);margin-top:3px}
+.legend{display:flex;gap:14px;font-size:.78rem;color:var(--muted);margin-top:12px;flex-wrap:wrap}
+.legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--c)}
+
+/* Sightings */
+.sight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.sight{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;border-top:4px solid var(--gold);display:flex;flex-direction:column;gap:6px}
 .sight.approved{border-top-color:var(--green-2)}
-.sight h3{font-size:1.05rem}
-.sight .meta{font-size:.8rem;color:var(--muted)}
+.sight img{width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:4px}
+.sight h3{font-size:1.02rem;margin:0}
+.sight .meta{font-size:.78rem;color:var(--muted)}
 .sight .meta i{width:16px;color:var(--gold)}
-.sight p{font-size:.88rem;margin:4px 0}
+.sight p{font-size:.86rem;margin:4px 0}
 .sight .row{display:flex;gap:8px;margin-top:auto;padding-top:10px}
 .sight .row .btn{flex:1;padding:8px}
 .filter-chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{border:1px solid var(--border);background:#fff;color:var(--green);padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600}
+.chip{border:1px solid var(--border);background:var(--card);color:var(--ink);padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:600}
 .chip.active{background:var(--green);color:#fff;border-color:var(--green)}
 
-/* ---------- Modal & toast ---------- */
-.modal-bg{position:fixed;inset:0;background:rgba(10,30,20,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:200}
-.modal{background:#fff;border-radius:14px;width:100%;max-width:620px;max-height:92vh;overflow:auto;padding:26px;box-shadow:0 25px 60px rgba(0,0,0,.35)}
+/* Analytics */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
+.tile{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border-top:4px solid var(--gold)}
+.tile .v{font-size:1.7rem;font-weight:700;color:var(--ink)}
+.tile .l{font-size:.78rem;color:var(--muted)}
+.bars .bar-row{display:grid;grid-template-columns:130px 1fr 80px;gap:10px;align-items:center;margin-bottom:8px;font-size:.82rem}
+.bars .track{background:var(--soft);border-radius:6px;height:14px;overflow:hidden}
+.bars .fill{height:100%;background:linear-gradient(90deg,var(--green-2),var(--gold));border-radius:6px;min-width:2px}
+.bars .bl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bars .bv{text-align:right;font-weight:600;color:var(--ink)}
+
+/* Lists in settings / modals */
+.list{display:flex;flex-direction:column;gap:8px}
+.list-item{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--soft);border-radius:8px;padding:9px 12px;font-size:.86rem}
+.list-item .sub{color:var(--muted);font-size:.76rem}
+.tag{background:var(--green-3);color:var(--ink);font-size:.68rem;font-weight:700;border-radius:10px;padding:1px 8px;text-transform:uppercase;margin-right:6px}
+.note{background:var(--soft);border-left:3px solid var(--gold);border-radius:6px;padding:8px 12px;font-size:.84rem;white-space:pre-wrap}
+.note small{display:block;color:var(--muted);font-size:.7rem;margin-bottom:2px}
+.sec-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ink);margin:18px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px}
+
+/* Modals / toast */
+.modal-bg{position:fixed;inset:0;background:rgba(10,30,20,.62);display:flex;align-items:center;justify-content:center;padding:14px;z-index:200}
+.modal{background:var(--card);border-radius:14px;width:100%;max-width:640px;max-height:92vh;overflow:auto;padding:24px;box-shadow:0 25px 60px rgba(0,0,0,.35)}
+.modal.wide{max-width:820px}
 .modal h2{margin-bottom:4px}
-.modal .sub{color:var(--muted);font-size:.88rem;margin-bottom:16px}
+.modal .sub{color:var(--muted);font-size:.86rem;margin-bottom:14px}
 .modal .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#fff;padding:12px 22px;border-radius:30px;font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;z-index:300;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:92vw;text-align:center}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#fff;padding:12px 22px;border-radius:30px;font-size:.88rem;opacity:0;pointer-events:none;transition:.3s;z-index:300;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:92vw;text-align:center}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 #toast.err{background:var(--danger)}
+#toast.has-action{pointer-events:auto}
+#toast button{margin-left:14px;background:var(--gold);color:#2b1d0e;border:none;border-radius:14px;padding:3px 12px;font-weight:700}
+.total-box{background:var(--green-3);border-radius:10px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;margin:4px 0 8px;font-weight:600;color:var(--ink)}
+.total-box strong{font-size:1.3rem}
+.info{font-size:.82rem;color:var(--muted);margin-bottom:12px}
 
-.total-box{background:var(--green-3);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin:6px 0 16px;font-weight:600;color:var(--green)}
-.total-box strong{font-size:1.4rem}
-
-/* ---------- Responsive ---------- */
-@media(max-width:900px){
-  .grid-3{grid-template-columns:1fr 1fr}
-}
+@media(max-width:900px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}}
 @media(max-width:720px){
-  main{padding:16px 12px 50px}
-  header.topbar{padding:12px 14px}
-  .brand h1{font-size:1.05rem}
+  main{padding:14px 10px 60px}
+  header.topbar{padding:10px 12px}
+  .brand h1{font-size:1rem}
   .topbar .btn span{display:none}
-  .stats{grid-template-columns:1fr;gap:10px}
-  .stat{padding:14px}
-  .grid-2,.grid-3{grid-template-columns:1fr}
-  .span-2{grid-column:auto}
-  .card{padding:16px}
-  /* table -> cards */
-  table,thead,tbody,tr,td{display:block;width:100%}
-  thead{display:none}
-  tr{background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
-  td{border:none;padding:6px 0;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
-  td::before{content:attr(data-label);font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);flex:0 0 90px;padding-top:2px}
-  td>*{flex:1;text-align:right;min-width:0}
-  td .actions{justify-content:flex-end}
+  .stats{grid-template-columns:1fr 1fr;gap:10px}
+  .stat{padding:12px;gap:10px}.stat .ico{width:38px;height:38px}.stat .num{font-size:1.3rem}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.span-2{grid-column:auto}
+  .card{padding:15px}
+  .bars .bar-row{grid-template-columns:90px 1fr 60px}
+  .cal-cell{min-height:58px;padding:3px}.cal-chip{font-size:.58rem;padding:1px 3px}
+  .cal-nav h3{min-width:120px;font-size:.95rem}
+  table.resp,table.resp thead,table.resp tbody,table.resp tr,table.resp td{display:block;width:100%}
+  table.resp thead{display:none}
+  table.resp tr{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+  table.resp td{border:none;padding:6px 0;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+  table.resp td::before{content:attr(data-label);font-size:.68rem;font-weight:700;text-transform:uppercase;color:var(--muted);flex:0 0 84px;padding-top:2px}
+  table.resp td>*{flex:1;text-align:right;min-width:0}
+  table.resp td .actions{justify-content:flex-end}
+  table.resp tr:hover td{background:none}
   .itin{max-width:none}
-  tr:hover td{background:none}
+}
+@media print{
+  body.print-crm header,body.print-crm .stats,body.print-crm .tabs,body.print-crm .tab-panel:not(#tabCrm),
+  body.print-crm #manualCard,body.print-crm .toolbar .group,body.print-crm .search,body.print-crm .pager,body.print-crm #followBanner,
+  body.print-crm th:last-child,body.print-crm td:last-child,body.print-crm #toast{display:none!important}
+  body.print-crm{background:#fff}
+  body.print-crm .card{box-shadow:none;padding:0}
+  body.print-crm .itin{max-height:none}
 }
 </style>
 </head>
@@ -170,20 +241,21 @@ tr:hover td{background:#fbfcfb}
     <h1>Thattekad Birding</h1>
     <p class="sub">Admin Console · Authorised access only</p>
     <div id="loginError" class="login-error hidden"></div>
-    <div class="field"><label for="loginUser">Username</label><input id="loginUser" type="text" autocomplete="username" required></div>
+    <div class="field"><label for="loginUser" id="loginUserLabel">Username</label><input id="loginUser" type="text" autocomplete="username" required></div>
     <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" required></div>
     <button class="btn btn-primary btn-block" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
+    <span class="mode-tag" id="loginModeTag"></span>
   </form>
 </section>
 
 <!-- ================= APP ================= -->
 <div id="appScreen" class="hidden">
   <header class="topbar">
-    <div class="brand">
-      <i class="fa-solid fa-dove"></i>
-      <div><h1>Thattekad Birding</h1><small>Admin Dashboard</small></div>
+    <div class="brand"><i class="fa-solid fa-dove"></i><div><h1>Thattekad Birding</h1><small>Admin Dashboard</small></div></div>
+    <div class="top-actions">
+      <button class="btn" id="themeBtn" type="button" title="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="btn" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
     </div>
-    <button class="btn" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
   </header>
 
   <main>
@@ -191,25 +263,32 @@ tr:hover td{background:#fbfcfb}
       <div class="stat"><div class="ico"><i class="fa-solid fa-envelope-open-text"></i></div><div><div class="num" id="statTotal">0</div><div class="lbl">Total Enquiries</div></div></div>
       <div class="stat"><div class="ico"><i class="fa-solid fa-hourglass-half"></i></div><div><div class="num" id="statPending">0</div><div class="lbl">Pending Bookings</div></div></div>
       <div class="stat"><div class="ico"><i class="fa-solid fa-circle-check"></i></div><div><div class="num" id="statDone">0</div><div class="lbl">Confirmed / Completed</div></div></div>
+      <div class="stat"><div class="ico"><i class="fa-solid fa-bell"></i></div><div><div class="num" id="statFollow">0</div><div class="lbl">Follow-ups Due</div></div></div>
+      <div class="stat"><div class="ico"><i class="fa-solid fa-indian-rupee-sign"></i></div><div><div class="num" id="statRevenue">₹0</div><div class="lbl">Payments Received</div></div></div>
     </div>
 
     <nav class="tabs" role="tablist">
       <button class="tab-btn active" type="button" data-tab="tabCrm"><i class="fa-solid fa-address-book"></i> CRM &amp; Bookings</button>
-      <button class="tab-btn" type="button" data-tab="tabInvoice"><i class="fa-solid fa-file-invoice"></i> Invoice Generator</button>
+      <button class="tab-btn" type="button" data-tab="tabCal"><i class="fa-solid fa-calendar-days"></i> Calendar</button>
+      <button class="tab-btn" type="button" data-tab="tabInvoice"><i class="fa-solid fa-file-invoice"></i> Invoices</button>
       <button class="tab-btn" type="button" data-tab="tabSightings"><i class="fa-solid fa-feather"></i> Sightings <span class="pill" id="sightPill">0</span></button>
+      <button class="tab-btn" type="button" data-tab="tabAnalytics"><i class="fa-solid fa-chart-column"></i> Analytics</button>
+      <button class="tab-btn" type="button" data-tab="tabSettings"><i class="fa-solid fa-sliders"></i> Setup &amp; Data</button>
     </nav>
 
-    <!-- TAB 1: CRM -->
+    <!-- TAB: CRM -->
     <section id="tabCrm" class="tab-panel active">
-      <div class="card">
+      <div class="card" id="manualCard">
         <h2><i class="fa-solid fa-user-plus"></i> Add Manual Booking / Walk-in Enquiry</h2>
         <form id="manualForm" novalidate>
-          <div class="grid-2">
+          <div class="grid-3">
             <div class="field"><label for="mName">Guest Full Name *</label><input id="mName" required></div>
             <div class="field"><label for="mEmail">Guest Email *</label><input id="mEmail" type="email" required></div>
-            <div class="field"><label for="mPhone">Phone / WhatsApp (optional)</label><input id="mPhone" type="tel" placeholder="+91 98765 43210"></div>
+            <div class="field"><label for="mPhone">Phone / WhatsApp</label><input id="mPhone" type="tel" placeholder="+91 98765 43210"></div>
             <div class="field"><label for="mPackage">Tour Package *</label><select id="mPackage" required></select></div>
             <div class="field"><label for="mDate">Tour Date *</label><input id="mDate" type="date" required></div>
+            <div class="field"><label for="mSource">Lead Source</label><select id="mSource"></select></div>
+            <div class="field"><label for="mTotal">Quoted Total (₹, optional)</label><input id="mTotal" type="number" min="0" step="0.01"></div>
             <div class="field span-2"><label for="mNotes">Custom Itinerary &amp; Notes</label><textarea id="mNotes" placeholder="Day-by-day schedule, timings, target species…"></textarea></div>
           </div>
           <button class="btn btn-primary" type="submit"><i class="fa-solid fa-plus"></i> Add Booking</button>
@@ -219,19 +298,53 @@ tr:hover td{background:#fbfcfb}
       <div class="card">
         <div class="toolbar">
           <h2 style="margin:0"><i class="fa-solid fa-table-list"></i> Bookings CRM</h2>
+          <div class="group">
+            <button class="btn btn-outline btn-sm" id="exportCsvBtn" type="button"><i class="fa-solid fa-file-csv"></i> CSV</button>
+            <button class="btn btn-outline btn-sm" id="printBtn" type="button"><i class="fa-solid fa-print"></i> Print</button>
+          </div>
+        </div>
+        <div id="followBanner" class="banner hidden"></div>
+        <div class="toolbar">
           <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" type="search" placeholder="Search name, email or package…"></div>
+          <div class="group">
+            <select id="statusFilter" aria-label="Filter by status">
+              <option value="all">All statuses</option><option>Pending</option><option>Confirmed</option><option>Completed</option><option value="followup">Needs follow-up</option>
+            </select>
+            <select id="sortSelect" aria-label="Sort">
+              <option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="tour">Tour date</option><option value="name">Guest name</option>
+            </select>
+          </div>
         </div>
         <div class="table-wrap">
-          <table>
-            <thead><tr><th>Submitted</th><th>Guest</th><th>Tour Package</th><th>Tour Date</th><th>Custom Itinerary</th><th>Status</th><th>Actions</th></tr></thead>
+          <table class="resp">
+            <thead><tr><th>Submitted</th><th>Guest</th><th>Tour Package</th><th>Tour Date</th><th>Custom Itinerary</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody id="crmBody"></tbody>
           </table>
         </div>
         <div id="crmEmpty" class="empty-state hidden"><i class="fa-solid fa-binoculars"></i>No bookings found.</div>
+        <div class="pager" id="pager"><button class="btn btn-outline btn-sm" id="pagePrev" type="button">‹ Prev</button><span id="pageInfo"></span><button class="btn btn-outline btn-sm" id="pageNext" type="button">Next ›</button></div>
       </div>
     </section>
 
-    <!-- TAB 2: INVOICE -->
+    <!-- TAB: CALENDAR -->
+    <section id="tabCal" class="tab-panel">
+      <div class="card">
+        <div class="toolbar">
+          <h2 style="margin:0"><i class="fa-solid fa-calendar-days"></i> Tour Calendar</h2>
+          <div class="cal-nav">
+            <button class="btn btn-outline btn-sm" id="calPrev" type="button" aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button>
+            <h3 id="calTitle"></h3>
+            <button class="btn btn-outline btn-sm" id="calNext" type="button" aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="btn btn-gold btn-sm" id="calToday" type="button">Today</button>
+          </div>
+        </div>
+        <div class="cal-week"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="legend"><span style="--c:#f1c40f">Pending</span><span style="--c:#2e9e6a">Confirmed</span><span style="--c:#3d7be0">Completed</span><span style="--c:var(--danger)">Resource clash</span></div>
+      </div>
+    </section>
+
+    <!-- TAB: INVOICES -->
     <section id="tabInvoice" class="tab-panel">
       <div class="card">
         <h2><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator</h2>
@@ -247,17 +360,28 @@ tr:hover td{background:#fbfcfb}
             <div class="field"><label for="invPax">Number of Guests</label><input id="invPax" type="number" min="1" value="1"></div>
             <div class="field"><label for="invRate">Rate per Guest (₹)</label><input id="invRate" type="number" min="0" step="0.01" value="0"></div>
             <div class="field"><label for="invExtra">Extras / Permits (₹)</label><input id="invExtra" type="number" min="0" step="0.01" value="0"></div>
-            <div class="field span-2"><label for="invBank">Bank Transfer Instructions</label>
-              <textarea id="invBank"></textarea></div>
-            <div class="field"><label for="invNotes">Invoice Notes</label><textarea id="invNotes" placeholder="e.g. 50% advance to confirm"></textarea></div>
+            <div class="field"><label for="invAdvance">Advance Received (₹)</label><input id="invAdvance" type="number" min="0" step="0.01" value="0"></div>
+            <div class="field span-2"><label for="invBank">Bank Transfer Instructions</label><textarea id="invBank"></textarea></div>
+            <div class="field span-2"><label for="invNotes">Invoice Notes</label><textarea id="invNotes" placeholder="e.g. Balance payable on arrival"></textarea></div>
           </div>
           <div class="total-box"><span>Grand Total</span><strong id="invTotal">₹0.00</strong></div>
+          <div class="total-box"><span>Balance Due</span><strong id="invBalance">₹0.00</strong></div>
           <button class="btn btn-gold" type="submit"><i class="fa-solid fa-file-pdf"></i> Generate &amp; Download Invoice PDF</button>
         </form>
       </div>
+      <div class="card">
+        <h2><i class="fa-solid fa-clock-rotate-left"></i> Invoice History</h2>
+        <div class="table-wrap">
+          <table class="resp">
+            <thead><tr><th>Invoice</th><th>Guest</th><th>Date</th><th>Total</th><th>Balance</th><th>Payment</th><th>Actions</th></tr></thead>
+            <tbody id="invHistBody"></tbody>
+          </table>
+        </div>
+        <div id="invHistEmpty" class="empty-state hidden"><i class="fa-solid fa-file-invoice"></i>No invoices generated yet.</div>
+      </div>
     </section>
 
-    <!-- TAB 3: SIGHTINGS -->
+    <!-- TAB: SIGHTINGS -->
     <section id="tabSightings" class="tab-panel">
       <div class="card">
         <div class="toolbar">
@@ -272,18 +396,142 @@ tr:hover td{background:#fbfcfb}
         <div id="sightEmpty" class="empty-state hidden"><i class="fa-solid fa-dove"></i>No sightings to show.</div>
       </div>
     </section>
+
+    <!-- TAB: ANALYTICS -->
+    <section id="tabAnalytics" class="tab-panel">
+      <div class="tiles" id="anTiles"></div>
+      <div class="two-col">
+        <div class="card"><h2><i class="fa-solid fa-calendar"></i> Enquiries · last 6 months</h2><div class="bars" id="anMonths"></div></div>
+        <div class="card"><h2><i class="fa-solid fa-indian-rupee-sign"></i> Payments received · last 6 months</h2><div class="bars" id="anRevenue"></div></div>
+        <div class="card"><h2><i class="fa-solid fa-ranking-star"></i> Popular packages</h2><div class="bars" id="anPackages"></div></div>
+        <div class="card"><h2><i class="fa-solid fa-bullhorn"></i> Lead sources</h2><div class="bars" id="anSources"></div></div>
+      </div>
+    </section>
+
+    <!-- TAB: SETTINGS -->
+    <section id="tabSettings" class="tab-panel">
+      <div class="card">
+        <h2><i class="fa-solid fa-database"></i> Data &amp; Backup</h2>
+        <p class="info" id="modeInfo"></p>
+        <div class="toolbar"><div class="group">
+          <button class="btn btn-primary btn-sm" id="exportCsvBtn2" type="button"><i class="fa-solid fa-file-csv"></i> Export bookings CSV</button>
+          <button class="btn btn-primary btn-sm" id="backupBtn" type="button"><i class="fa-solid fa-download"></i> Download full backup (JSON)</button>
+          <button class="btn btn-gold btn-sm" id="restoreBtn" type="button"><i class="fa-solid fa-upload"></i> Restore backup…</button>
+          <input type="file" id="restoreInput" accept="application/json,.json" class="hidden">
+        </div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <h2><i class="fa-solid fa-users-gear"></i> Guides, Boats &amp; Vehicles</h2>
+          <form id="resForm" class="grid-2" novalidate>
+            <div class="field"><label for="resName">Name</label><input id="resName" placeholder="e.g. Rajan (guide)" required></div>
+            <div class="field"><label for="resType">Type</label><select id="resType"><option value="guide">Guide</option><option value="boat">Boat</option><option value="vehicle">Vehicle</option></select></div>
+            <div class="span-2" style="margin-bottom:12px"><button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-plus"></i> Add</button></div>
+          </form>
+          <div class="list" id="resList"></div>
+        </div>
+        <div class="card">
+          <h2><i class="fa-solid fa-file-lines"></i> Itinerary &amp; Message Templates</h2>
+          <p class="info">Placeholders for messages: {name} {package} {date} {total} {paid} {balance} {guide}</p>
+          <form id="tplForm" novalidate>
+            <input type="hidden" id="tplEditId">
+            <div class="grid-2">
+              <div class="field"><label for="tplType">Type</label><select id="tplType"><option value="message">Message</option><option value="itinerary">Itinerary</option></select></div>
+              <div class="field"><label for="tplName">Template name</label><input id="tplName" required></div>
+            </div>
+            <div class="field"><label for="tplBody">Content</label><textarea id="tplBody" style="min-height:140px" required></textarea></div>
+            <button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save template</button>
+            <button class="btn btn-outline btn-sm hidden" id="tplCancel" type="button">Cancel edit</button>
+            <button class="btn btn-outline btn-sm" id="loadDefaultsBtn" type="button">Load defaults</button>
+          </form>
+          <div class="sec-title">Saved templates</div>
+          <div class="list" id="tplList"></div>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
-<!-- Itinerary modal -->
+<!-- ===== Modals ===== -->
 <div id="itinModal" class="modal-bg hidden" role="dialog" aria-modal="true">
   <div class="modal">
     <h2>Edit Custom Itinerary</h2>
     <p class="sub" id="itinSub"></p>
-    <textarea id="itinText" style="min-height:260px" placeholder="Day 1 – 05:30 Depart for Urulanthanni… Target species: Malabar Trogon, Sri Lanka Frogmouth…"></textarea>
+    <div class="field"><label for="itinTpl">Insert from template</label><select id="itinTpl"></select></div>
+    <textarea id="itinText" style="min-height:250px" placeholder="Day 1 – 05:30 Depart for Urulanthanni… Target species: Malabar Trogon, Sri Lanka Frogmouth…"></textarea>
     <div class="btns">
-      <button class="btn btn-outline" type="button" id="itinCancel">Cancel</button>
-      <button class="btn btn-primary" type="button" id="itinSave"><i class="fa-solid fa-floppy-disk"></i> Save Itinerary</button>
+      <button class="btn btn-outline btn-sm" type="button" id="itinSaveTpl"><i class="fa-regular fa-bookmark"></i> Save as template</button>
+      <button class="btn btn-outline btn-sm" type="button" id="itinPdf"><i class="fa-solid fa-file-pdf"></i> Itinerary PDF</button>
+      <button class="btn btn-outline" type="button" data-close>Cancel</button>
+      <button class="btn btn-primary" type="button" id="itinSave"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="manageModal" class="modal-bg hidden" role="dialog" aria-modal="true">
+  <div class="modal wide">
+    <h2 id="manageTitle">Manage Booking</h2>
+    <p class="sub" id="manageSub"></p>
+    <div class="grid-3">
+      <div class="field"><label for="eName">Guest Name</label><input id="eName"></div>
+      <div class="field"><label for="eEmail">Email</label><input id="eEmail" type="email"></div>
+      <div class="field"><label for="ePhone">Phone</label><input id="ePhone" type="tel"></div>
+      <div class="field"><label for="ePackage">Package</label><select id="ePackage"></select></div>
+      <div class="field"><label for="eDate">Tour Date</label><input id="eDate" type="date"></div>
+      <div class="field"><label for="eSource">Lead Source</label><select id="eSource"></select></div>
+      <div class="field"><label for="eTotal">Quoted Total (₹)</label><input id="eTotal" type="number" min="0" step="0.01"></div>
+      <div class="field"><label for="eGuide">Guide</label><select id="eGuide"></select></div>
+      <div class="field"><label for="eBoat">Boat</label><select id="eBoat"></select></div>
+      <div class="field"><label for="eVehicle">Vehicle</label><select id="eVehicle"></select></div>
+    </div>
+    <div id="eClash" class="warn hidden"></div>
+    <div class="btns" style="margin-top:6px">
+      <button class="btn btn-outline btn-sm" id="eInvoice" type="button"><i class="fa-solid fa-file-invoice"></i> Create invoice</button>
+      <button class="btn btn-primary" id="eSave" type="button"><i class="fa-solid fa-floppy-disk"></i> Save details</button>
+    </div>
+
+    <div class="sec-title">Payments</div>
+    <div class="total-box"><span id="paySummary"></span></div>
+    <div class="list" id="payList"></div>
+    <form id="payForm" class="grid-4" style="margin-top:10px" novalidate>
+      <div class="field"><label for="pDate">Date</label><input id="pDate" type="date"></div>
+      <div class="field"><label for="pAmount">Amount (₹)</label><input id="pAmount" type="number" min="0" step="0.01"></div>
+      <div class="field"><label for="pMethod">Method</label><select id="pMethod"><option>Bank transfer</option><option>UPI</option><option>Cash</option><option>Card</option><option>Other</option></select></div>
+      <div class="field"><label for="pNote">Note</label><input id="pNote" placeholder="Advance / balance"></div>
+      <div><button class="btn btn-gold btn-sm" type="submit"><i class="fa-solid fa-plus"></i> Record payment</button></div>
+    </form>
+
+    <div class="sec-title">Notes &amp; Activity</div>
+    <div class="field"><textarea id="noteText" style="min-height:60px" placeholder="e.g. Called on 12 Oct — wants a photography guide"></textarea></div>
+    <button class="btn btn-outline btn-sm" id="noteAdd" type="button"><i class="fa-solid fa-plus"></i> Add note</button>
+    <div class="list" id="noteList" style="margin-top:12px"></div>
+    <div class="btns"><button class="btn btn-outline" type="button" data-close>Close</button></div>
+  </div>
+</div>
+
+<div id="msgModal" class="modal-bg hidden" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2>Message Guest</h2>
+    <p class="sub" id="msgSub"></p>
+    <div class="field"><label for="msgTpl">Template</label><select id="msgTpl"></select></div>
+    <div class="field"><textarea id="msgText" style="min-height:200px"></textarea></div>
+    <div class="btns">
+      <button class="btn btn-outline" type="button" data-close>Close</button>
+      <button class="btn btn-outline" type="button" id="msgCopy"><i class="fa-regular fa-copy"></i> Copy</button>
+      <button class="btn btn-outline" type="button" id="msgMail"><i class="fa-solid fa-envelope"></i> Email</button>
+      <button class="btn btn-wa" type="button" id="msgWa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<div id="dayModal" class="modal-bg hidden" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2 id="dayTitle"></h2>
+    <p class="sub">Tours on this day</p>
+    <div class="list" id="dayList"></div>
+    <div class="btns">
+      <button class="btn btn-outline" type="button" data-close>Close</button>
+      <button class="btn btn-primary" type="button" id="dayAdd"><i class="fa-solid fa-plus"></i> Add booking on this date</button>
     </div>
   </div>
 </div>
@@ -292,24 +540,20 @@ tr:hover td{background:#fbfcfb}
 
 <script>
 /* =====================================================================
-   Thattekad Birding · Admin Dashboard
-   All logic runs after DOMContentLoaded. Edit CONFIG to suit your site.
+   Thattekad Birding · Admin Dashboard v2
+   - Cloud mode (Firebase Auth + Firestore) when CONFIG.FIREBASE is filled in
+   - Local mode (this browser only) otherwise
    ===================================================================== */
 (function () {
   'use strict';
 
   /* ---------------- CONFIG ---------------- */
   const CONFIG = {
+    // Local-mode login (ignored in cloud mode). CHANGE THE PASSWORD before publishing.
     adminUser: 'admin',
     adminPass: 'thattekad2026',
-    // localStorage keys — change these if your public pages use different ones.
-    // Extra keys listed in *_ALIASES are also read (and merged) so older/other forms still sync.
-    KEY_BOOKINGS: 'tb_bookings',
-    BOOKING_ALIASES: ['bookings', 'thattekad_bookings', 'tb_enquiries', 'enquiries'],
-    KEY_SIGHTINGS: 'tb_sightings',
-    SIGHTING_ALIASES: ['sightings', 'thattekad_sightings', 'communitySightings'],
-    KEY_AUTH: 'tb_admin_auth',
-    KEY_INVOICE_SEQ: 'tb_invoice_seq',
+    // Paste your Firebase web-app config here to enable shared cloud sync (see SETUP.md).
+    FIREBASE: { apiKey: '', authDomain: '', projectId: '', appId: '' },
     PACKAGES: [
       'Half-Day Birding Walk (Morning)',
       'Full-Day Thattekad Birding Tour',
@@ -318,22 +562,60 @@ tr:hover td{background:#fbfcfb}
       'Multi-Day Birding Package',
       'Custom Tour'
     ],
+    SOURCES: ['Website', 'WhatsApp', 'Phone call', 'Walk-in', 'Instagram', 'Facebook', 'Referral', 'Other'],
     WHATSAPP_COUNTRY_CODE: '91',
     SESSION_HOURS: 12,
+    FOLLOWUP_HOURS: 48,
+    PAGE_SIZE: 10,
+    MAX_LOGIN_ATTEMPTS: 5,
+    LOCKOUT_MINUTES: 5,
     DEFAULT_BANK:
       'Account Name: Thattekad Birding\nBank: <Your Bank Name>\nAccount No: <XXXXXXXXXXXX>\nIFSC: <XXXXXXXXXXX>\nUPI: <yourid@bank>\nPlease quote the invoice number as payment reference.'
   };
 
-  /* ---------------- helpers ---------------- */
-  const $  = (id) => document.getElementById(id);
-  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const uid = () => 'id' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   const STATUSES = ['Pending', 'Confirmed', 'Completed'];
+  const COLS = ['bookings', 'sightings', 'invoices', 'templates', 'resources'];
+  const KEYS = { bookings: 'tb_bookings', sightings: 'tb_sightings', invoices: 'tb_invoices', templates: 'tb_templates', resources: 'tb_resources' };
+  const ALIASES = {
+    bookings: ['bookings', 'thattekad_bookings', 'tb_enquiries', 'enquiries'],
+    sightings: ['sightings', 'thattekad_sightings', 'communitySightings'],
+    invoices: [], templates: [], resources: []
+  };
+  const KEY_AUTH = 'tb_admin_auth', KEY_LOCK = 'tb_admin_lock', KEY_THEME = 'tb_theme', KEY_SEEDED = 'tb_seeded';
+
+  /* ---------------- helpers ---------------- */
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const uid = () => 'id' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   const pick = (o, keys) => { for (const k of keys) if (o && o[k] != null && o[k] !== '') return o[k]; return ''; };
+  const isoToday = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const num = (v) => Number(v) || 0;
+  const money = (n) => '₹' + num(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const money0 = (n) => '₹' + Math.round(num(n)).toLocaleString('en-IN');
+  const pdfSafe = (s) => String(s == null ? '' : s).replace(/[^\x09\x0A\x0D\x20-\x7E\xA0-\xFF\u2013\u2014\u2018\u2019\u201C\u201D\u2022]/g, '?');
+
+  function tsIso(v) {
+    if (!v) return '';
+    if (typeof v === 'object' && typeof v.toDate === 'function') return v.toDate().toISOString();
+    if (typeof v === 'object' && v.seconds) return new Date(v.seconds * 1000).toISOString();
+    return String(v);
+  }
+  function parseDate(v) {
+    if (!v) return null;
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(v));
+    const d = m ? new Date(+m[1], +m[2] - 1, +m[3]) : new Date(v);
+    return isNaN(d) ? null : d;
+  }
+  function fmtDate(v) {
+    if (!v) return '—';
+    const d = parseDate(v);
+    return d ? d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : String(v);
+  }
+  const fd = (v) => esc(fmtDate(v));
+  function monthKey(iso) { const d = parseDate(iso); return d ? d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') : ''; }
 
   function readJSON(key) {
-    try { const v = JSON.parse(localStorage.getItem(key)); return Array.isArray(v) ? v : []; }
-    catch (e) { return []; }
+    try { const v = JSON.parse(localStorage.getItem(key)); return Array.isArray(v) ? v : []; } catch (e) { return []; }
   }
   function writeJSON(key, val) {
     try { localStorage.setItem(key, JSON.stringify(val)); return true; }
@@ -341,70 +623,45 @@ tr:hover td{background:#fbfcfb}
   }
 
   let toastTimer;
-  function toast(msg, isErr) {
+  function toast(msg, isErr, action) {
     const t = $('toast');
-    t.textContent = msg;
+    t.innerHTML = '';
+    const s = document.createElement('span'); s.textContent = msg; t.appendChild(s);
+    if (action) {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = action.label;
+      b.addEventListener('click', () => { action.fn(); t.classList.remove('show'); });
+      t.appendChild(b);
+    }
     t.classList.toggle('err', !!isErr);
+    t.classList.toggle('has-action', !!action);
     t.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+    toastTimer = setTimeout(() => t.classList.remove('show'), action ? 8000 : 2800);
   }
 
-  function fmtDate(v) {
-    if (!v) return '—';
-    const d = new Date(v);
-    if (isNaN(d)) return esc(v);
-    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-  }
-  const isoToday = () => new Date().toISOString().slice(0, 10);
-  const money = (n) => '₹' + (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-  /* ---------------- data layer ---------------- */
+  /* ---------------- normalisers ---------------- */
   function normBooking(r) {
-    const status = String(pick(r, ['status', 'Status']) || 'Pending');
-    const sNorm = STATUSES.find((s) => s.toLowerCase() === status.toLowerCase()) || 'Pending';
+    const st = String(pick(r, ['status', 'Status']) || 'Pending');
     return {
       id: r.id || uid(),
-      submitted: pick(r, ['submitted', 'submittedAt', 'createdAt', 'timestamp', 'date_submitted', 'created']) || new Date().toISOString(),
+      submitted: tsIso(pick(r, ['submitted', 'submittedAt', 'createdAt', 'timestamp', 'date_submitted', 'created'])) || new Date().toISOString(),
       name: pick(r, ['name', 'fullName', 'guestName', 'guest', 'full_name']),
       email: pick(r, ['email', 'guestEmail', 'Email']),
       phone: pick(r, ['phone', 'whatsapp', 'mobile', 'tel']),
       package: pick(r, ['package', 'tourPackage', 'tour', 'packageName']),
       date: pick(r, ['date', 'tourDate', 'tour_date', 'preferredDate']),
-      itinerary: pick(r, ['itinerary', 'customItinerary', 'notes', 'message', 'details']),
-      status: sNorm,
-      invoiceNo: r.invoiceNo || ''
+      itinerary: pick(r, ['itinerary', 'customItinerary', 'message', 'details']) || (typeof r.notes === 'string' ? r.notes : ''),
+      status: STATUSES.find((s) => s.toLowerCase() === st.toLowerCase()) || 'Pending',
+      invoiceNo: r.invoiceNo || '',
+      source: r.source || r.leadSource || 'Website',
+      total: num(r.total),
+      payments: Array.isArray(r.payments) ? r.payments.map((p) => ({ id: p.id || uid(), date: p.date || isoToday(), amount: num(p.amount), method: p.method || '', note: p.note || '' })) : [],
+      guide: r.guide || '', boat: r.boat || '', vehicle: r.vehicle || '',
+      notes: Array.isArray(r.notes) ? r.notes.filter((n) => n && n.text).map((n) => ({ t: n.t || new Date().toISOString(), text: String(n.text) })) : [],
+      lastContact: tsIso(r.lastContact)
     };
   }
-  function loadBookings() {
-    const keys = [CONFIG.KEY_BOOKINGS].concat(CONFIG.BOOKING_ALIASES);
-    const seen = new Set(); const out = [];
-    keys.forEach((k) => {
-      readJSON(k).forEach((r) => {
-        if (!r || typeof r !== 'object') return;
-        const b = normBooking(r);
-        const sig = b.id + '|' + b.email + '|' + b.submitted;
-        if (seen.has(sig)) return;
-        seen.add(sig); out.push(b);
-      });
-    });
-    return out.sort((a, b) => new Date(b.submitted) - new Date(a.submitted));
-  }
-  function saveBookings(list) {
-    return writeJSON(CONFIG.KEY_BOOKINGS, list);
-  }
-  // Consolidate aliases into the primary key once so edits persist everywhere.
-  function consolidate() {
-    const list = loadBookings();
-    if (list.length) saveBookings(list);
-    CONFIG.BOOKING_ALIASES.forEach((k) => { if (readJSON(k).length) localStorage.removeItem(k); });
-    const s = loadSightings();
-    if (s.length) writeJSON(CONFIG.KEY_SIGHTINGS, s);
-    CONFIG.SIGHTING_ALIASES.forEach((k) => { if (readJSON(k).length) localStorage.removeItem(k); });
-  }
-
   function normSighting(r) {
-    const appr = r.approved === true || String(r.status || '').toLowerCase() === 'approved';
     return {
       id: r.id || uid(),
       species: pick(r, ['species', 'bird', 'birdName', 'name']),
@@ -413,25 +670,141 @@ tr:hover td{background:#fbfcfb}
       observer: pick(r, ['observer', 'submittedBy', 'user', 'reporter', 'author']),
       notes: pick(r, ['notes', 'comments', 'description', 'details']),
       count: pick(r, ['count', 'quantity']),
-      submitted: pick(r, ['submitted', 'createdAt', 'timestamp']) || new Date().toISOString(),
-      approved: appr
+      photoUrl: pick(r, ['photoUrl', 'photo', 'image']),
+      submitted: tsIso(pick(r, ['submitted', 'createdAt', 'timestamp'])) || new Date().toISOString(),
+      approved: r.approved === true || String(r.status || '').toLowerCase() === 'approved'
     };
   }
-  function loadSightings() {
-    const keys = [CONFIG.KEY_SIGHTINGS].concat(CONFIG.SIGHTING_ALIASES);
-    const seen = new Set(); const out = [];
-    keys.forEach((k) => readJSON(k).forEach((r) => {
-      if (!r || typeof r !== 'object') return;
-      const s = normSighting(r);
-      const sig = s.id + '|' + s.species + '|' + s.submitted;
-      if (seen.has(sig)) return;
-      seen.add(sig); out.push(s);
-    }));
-    return out.sort((a, b) => new Date(b.submitted) - new Date(a.submitted));
+  const normPass = (r) => Object.assign({}, r, { id: r.id || uid() });
+  const NORM = { bookings: normBooking, sightings: normSighting, invoices: normPass, templates: normPass, resources: normPass };
+
+  /* ---------------- store (local + Firestore) ---------------- */
+  const DB = { bookings: [], sightings: [], invoices: [], templates: [], resources: [] };
+  let onChange = function () {};
+
+  const Store = {
+    mode: 'local', fs: null, auth: null, unsubs: [], sig: '', firstSnaps: {},
+    clean(o) { return JSON.parse(JSON.stringify(o)); },
+    computeSig() {
+      return COLS.map((c) => [KEYS[c]].concat(ALIASES[c]).map((k) => localStorage.getItem(k) || '').join('|')).join('||');
+    },
+    localLoad(col) {
+      const seen = new Set(), out = [];
+      let dirty = false;
+      [KEYS[col]].concat(ALIASES[col]).forEach((k, i) => {
+        readJSON(k).forEach((r) => {
+          if (!r || typeof r !== 'object') return;
+          if (!r.id || i > 0) dirty = true;
+          const n = NORM[col](r);
+          const sig = n.id + '|' + (n.email || n.species || n.name || '') + '|' + (n.submitted || '');
+          if (seen.has(sig)) return;
+          seen.add(sig); out.push(n);
+        });
+      });
+      DB[col] = out;
+      if (dirty) {
+        writeJSON(KEYS[col], out);
+        ALIASES[col].forEach((k) => { if (localStorage.getItem(k)) localStorage.removeItem(k); });
+      }
+    },
+    start() {
+      if (this.mode === 'cloud') {
+        this.stop();
+        COLS.forEach((col) => {
+          const unsub = this.fs.collection(col).onSnapshot((snap) => {
+            DB[col] = snap.docs.map((d) => NORM[col](Object.assign({}, d.data(), { id: d.id })));
+            this.firstSnaps[col] = true;
+            if (COLS.every((c) => this.firstSnaps[c])) seedDefaults();
+            onChange();
+          }, (err) => toast('Cloud sync error: ' + err.message, true));
+          this.unsubs.push(unsub);
+        });
+      } else {
+        COLS.forEach((c) => this.localLoad(c));
+        this.sig = this.computeSig();
+        seedDefaults();
+        onChange();
+      }
+    },
+    stop() { this.unsubs.forEach((u) => u()); this.unsubs = []; this.firstSnaps = {}; },
+    pollLocal() {
+      if (this.mode !== 'local') return false;
+      const s = this.computeSig();
+      if (s === this.sig) return false;
+      COLS.forEach((c) => this.localLoad(c));
+      this.sig = this.computeSig();
+      return true;
+    },
+    persistLocal(col) { if (writeJSON(KEYS[col], DB[col])) this.sig = this.computeSig(); },
+    save(col, item) {
+      const clean = this.clean(item);
+      const i = DB[col].findIndex((x) => x.id === clean.id);
+      if (i >= 0) DB[col][i] = clean; else DB[col].unshift(clean);
+      if (this.mode === 'cloud') this.fs.collection(col).doc(clean.id).set(clean).catch((e) => toast('Save failed: ' + e.message, true));
+      else this.persistLocal(col);
+      onChange();
+    },
+    saveMany(col, items) {
+      items.forEach((it) => {
+        const clean = this.clean(NORM[col](it));
+        const i = DB[col].findIndex((x) => x.id === clean.id);
+        if (i >= 0) DB[col][i] = clean; else DB[col].push(clean);
+      });
+      if (this.mode === 'cloud') {
+        const items2 = DB[col].filter((d) => items.some((it) => it.id === d.id));
+        for (let s = 0; s < items2.length; s += 400) {
+          const batch = this.fs.batch();
+          items2.slice(s, s + 400).forEach((d) => batch.set(this.fs.collection(col).doc(d.id), this.clean(d)));
+          batch.commit().catch((e) => toast('Restore failed: ' + e.message, true));
+        }
+      } else this.persistLocal(col);
+      onChange();
+    },
+    remove(col, id) {
+      DB[col] = DB[col].filter((x) => x.id !== id);
+      if (this.mode === 'cloud') this.fs.collection(col).doc(id).delete().catch((e) => toast('Delete failed: ' + e.message, true));
+      else this.persistLocal(col);
+      onChange();
+    }
+  };
+
+  /* ---------------- default templates ---------------- */
+  const DEFAULT_TEMPLATES = [
+    { id: 'tpl-msg-confirm', type: 'message', name: 'Booking confirmation', body: 'Hello {name},\n\nYour {package} on {date} with Thattekad Birding is confirmed! 🐦\n\nTotal: {total}\nAdvance paid: {paid}\nBalance due: {balance}\n\nWe will share the meeting point and briefing shortly.\n\nWarm regards,\nThattekad Birding' },
+    { id: 'tpl-msg-advance', type: 'message', name: 'Advance payment reminder', body: 'Hello {name},\n\nA gentle reminder to pay the advance to secure your {package} on {date}. Balance currently due: {balance}.\n\nPayment details are on your invoice. Please reply once done.\n\nThank you,\nThattekad Birding' },
+    { id: 'tpl-msg-brief', type: 'message', name: 'Pre-tour briefing', body: 'Hello {name},\n\nA few tips for your {package} on {date}:\n• Wear neutral/earthy colours and comfortable closed shoes\n• Carry leech socks, water, a hat and insect repellent\n• Bring binoculars/camera if you have them\n• We start early — please be ready 15 minutes before pickup\nYour guide: {guide}\n\nSee you on the trail!\nThattekad Birding' },
+    { id: 'tpl-msg-thanks', type: 'message', name: 'Post-tour thank you & review', body: 'Dear {name},\n\nThank you for birding with us! We hope you enjoyed {package}. If you have a minute, a review on Google or TripAdvisor would mean a lot to us — and we would love to see your photos.\n\nWith gratitude,\nThattekad Birding' },
+    { id: 'tpl-itin-frogmouth', type: 'itinerary', name: 'Dawn walk – Sri Lanka Frogmouth', body: '05:30  Pickup from stay\n06:00  Dawn walk along Urulanthanni forest edge\n   Target species: Sri Lanka Frogmouth, Malabar Trogon, Rufous Woodpecker\n09:00  Breakfast break\n10:30  Short walk near the Periyar river bank\n12:00  Wrap-up and drop-off' },
+    { id: 'tpl-itin-fullday', type: 'itinerary', name: 'Full-day Thattekad classic', body: '06:00  Pickup — forest trail walk\n09:00  Breakfast\n10:00  Boat ride on the Periyar river (kingfishers, herons, Ceylon Frogmouth roost)\n13:00  Lunch\n15:00  Evening walk — woodpeckers, drongos, flycatchers\n18:00  Day wrap-up and checklist' }
+  ];
+  function seedDefaults() {
+    if (localStorage.getItem(KEY_SEEDED) || DB.templates.length) return;
+    localStorage.setItem(KEY_SEEDED, '1');
+    DEFAULT_TEMPLATES.forEach((t) => Store.save('templates', t));
   }
-  function saveSightings(list) { return writeJSON(CONFIG.KEY_SIGHTINGS, list); }
+
+  /* ---------------- derived data ---------------- */
+  const getBooking = (id) => DB.bookings.find((b) => b.id === id);
+  const paidOf = (b) => b.payments.reduce((s, p) => s + num(p.amount), 0);
+  const balanceOf = (b) => Math.max(num(b.total) - paidOf(b), 0);
+  function needsFollowUp(b) {
+    if (b.status !== 'Pending') return false;
+    const ref = new Date(b.lastContact || b.submitted);
+    return !isNaN(ref) && Date.now() - ref.getTime() > CONFIG.FOLLOWUP_HOURS * 3600e3;
+  }
+  function clashesFor(d) {
+    if (!d.date) return [];
+    const out = [];
+    [['guide', 'Guide'], ['boat', 'Boat'], ['vehicle', 'Vehicle']].forEach(([k, label]) => {
+      if (!d[k]) return;
+      DB.bookings.forEach((o) => { if (o.id !== d.id && o.date === d.date && o[k] === d[k]) out.push(`${label} "${d[k]}" is also assigned to ${o.name || 'another guest'}`); });
+    });
+    return out;
+  }
+  const resOptions = (type) => DB.resources.filter((r) => r.type === type).map((r) => r.name);
 
   /* ---------------- auth ---------------- */
+  let appActive = false;
   async function sha(str) {
     if (window.crypto && crypto.subtle) {
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -439,407 +812,796 @@ tr:hover td{background:#fbfcfb}
     }
     return 'plain:' + str;
   }
-  function isLoggedIn() {
-    try {
-      const a = JSON.parse(localStorage.getItem(CONFIG.KEY_AUTH));
-      return !!(a && a.token && a.expires > Date.now());
-    } catch (e) { return false; }
-  }
   function randToken() {
     const a = new Uint8Array(16);
-    (window.crypto || {}).getRandomValues ? crypto.getRandomValues(a) : a.forEach((_, i) => (a[i] = Math.random() * 256));
+    if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(a); else for (let i = 0; i < 16; i++) a[i] = Math.random() * 256;
     return Array.from(a).map((b) => b.toString(16).padStart(2, '0')).join('');
   }
+  function localLoggedIn() {
+    try { const a = JSON.parse(localStorage.getItem(KEY_AUTH)); return !!(a && a.token && a.expires > Date.now()); } catch (e) { return false; }
+  }
+  function loginError(msg) { const el = $('loginError'); el.textContent = msg; el.classList.remove('hidden'); }
+
   async function handleLogin(e) {
     e.preventDefault();
-    const u = $('loginUser').value.trim();
-    const p = $('loginPass').value;
+    const u = $('loginUser').value.trim(), p = $('loginPass').value;
+    if (!u || !p) return loginError('Please enter your credentials.');
+    if (Store.mode === 'cloud') {
+      try { await Store.auth.signInWithEmailAndPassword(u, p); $('loginPass').value = ''; $('loginError').classList.add('hidden'); }
+      catch (err) { loginError(err.code === 'auth/network-request-failed' ? 'Network error. Check your connection.' : err.code === 'auth/too-many-requests' ? 'Too many attempts. Try again later.' : 'Invalid email or password.'); }
+      return;
+    }
+    let lock = {}; try { lock = JSON.parse(localStorage.getItem(KEY_LOCK)) || {}; } catch (x) { lock = {}; }
+    if (lock.until && lock.until > Date.now()) return loginError(`Too many attempts. Try again in ${Math.ceil((lock.until - Date.now()) / 60000)} min.`);
     const [hu, hp, eu, ep] = await Promise.all([sha(u), sha(p), sha(CONFIG.adminUser), sha(CONFIG.adminPass)]);
     if (hu === eu && hp === ep) {
-      localStorage.setItem(CONFIG.KEY_AUTH, JSON.stringify({ token: randToken(), expires: Date.now() + CONFIG.SESSION_HOURS * 3600e3 }));
-      $('loginError').classList.add('hidden');
-      $('loginPass').value = '';
-      showApp();
+      localStorage.removeItem(KEY_LOCK);
+      localStorage.setItem(KEY_AUTH, JSON.stringify({ token: randToken(), expires: Date.now() + CONFIG.SESSION_HOURS * 3600e3 }));
+      $('loginError').classList.add('hidden'); $('loginPass').value = '';
+      enterApp();
     } else {
-      const el = $('loginError');
-      el.textContent = 'Invalid username or password.';
-      el.classList.remove('hidden');
+      const count = (lock.count || 0) + 1;
+      if (count >= CONFIG.MAX_LOGIN_ATTEMPTS) { localStorage.setItem(KEY_LOCK, JSON.stringify({ count: 0, until: Date.now() + CONFIG.LOCKOUT_MINUTES * 60000 })); loginError(`Too many attempts. Locked for ${CONFIG.LOCKOUT_MINUTES} minutes.`); }
+      else { localStorage.setItem(KEY_LOCK, JSON.stringify({ count, until: 0 })); loginError(`Invalid username or password. (${CONFIG.MAX_LOGIN_ATTEMPTS - count} attempts left)`); }
     }
   }
+  function showLogin() {
+    appActive = false; Store.stop();
+    $('appScreen').classList.add('hidden'); $('loginScreen').classList.remove('hidden');
+    closeAllModals();
+  }
   function logout() {
-    localStorage.removeItem(CONFIG.KEY_AUTH);
-    $('appScreen').classList.add('hidden');
-    $('loginScreen').classList.remove('hidden');
-    $('loginUser').value = '';
-    $('loginUser').focus();
+    if (Store.mode === 'cloud') Store.auth.signOut(); else { localStorage.removeItem(KEY_AUTH); showLogin(); $('loginUser').value = ''; $('loginUser').focus(); }
   }
-  function showApp() {
-    $('loginScreen').classList.add('hidden');
-    $('appScreen').classList.remove('hidden');
-    consolidate();
-    renderAll();
+  function enterApp() {
+    appActive = true;
+    $('loginScreen').classList.add('hidden'); $('appScreen').classList.remove('hidden');
+    Store.start();
+    renderSettingsInfo();
   }
 
-  /* ---------------- rendering: stats / CRM ---------------- */
-  let searchTerm = '';
-  let sightFilter = 'pending';
-  let itinEditId = null;
-
+  /* ---------------- rendering: orchestration ---------------- */
+  let rafPending = false;
+  onChange = function () {
+    if (!appActive || rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => { rafPending = false; renderAll(); });
+  };
   function renderAll() {
-    populatePackages();
-    renderStats();
-    renderCrm();
-    renderInvoiceGuests();
-    renderSightings();
+    if (!appActive) return;
+    populateSelects();
+    renderStats(); renderCrm(); renderCalendar(); renderInvoiceGuests(); renderInvoiceHistory();
+    renderSightings(); renderAnalytics(); renderSettingsLists();
   }
+
+  function fillSelect(el, options, blank, keep) {
+    const cur = keep === undefined ? el.value : keep;
+    el.innerHTML = (blank != null ? `<option value="">${esc(blank)}</option>` : '') + options.map((o) => `<option>${esc(o)}</option>`).join('');
+    if (cur && options.indexOf(cur) < 0 && blank != null) el.insertAdjacentHTML('beforeend', `<option>${esc(cur)}</option>`);
+    el.value = cur || '';
+  }
+  function allPackages() {
+    return Array.from(new Set(CONFIG.PACKAGES.concat(DB.bookings.map((b) => b.package).filter(Boolean))));
+  }
+  function populateSelects() {
+    fillSelect($('mPackage'), allPackages(), 'Select a package…');
+    fillSelect($('mSource'), CONFIG.SOURCES, null, $('mSource').value || 'Website');
+  }
+
+  /* ---------------- stats / CRM ---------------- */
+  let searchTerm = '', statusFilter = 'all', sortMode = 'newest', page = 1;
 
   function renderStats() {
-    const b = loadBookings();
+    const b = DB.bookings;
     $('statTotal').textContent = b.length;
     $('statPending').textContent = b.filter((x) => x.status === 'Pending').length;
     $('statDone').textContent = b.filter((x) => x.status !== 'Pending').length;
+    const fu = b.filter(needsFollowUp).length;
+    $('statFollow').textContent = fu;
+    $('statRevenue').textContent = money0(b.reduce((s, x) => s + paidOf(x), 0));
+    const bn = $('followBanner');
+    bn.classList.toggle('hidden', !fu);
+    bn.innerHTML = fu ? `<span><i class="fa-solid fa-bell"></i> ${fu} enquir${fu === 1 ? 'y has' : 'ies have'} been pending for over ${CONFIG.FOLLOWUP_HOURS} hours.</span><button class="btn btn-gold btn-sm" type="button" id="showFollowBtn">Show them</button>` : '';
   }
 
-  function populatePackages() {
-    const sel = $('mPackage');
-    const current = sel.value;
-    const extra = loadBookings().map((b) => b.package).filter((p) => p && !CONFIG.PACKAGES.includes(p));
-    const all = Array.from(new Set(CONFIG.PACKAGES.concat(extra)));
-    sel.innerHTML = '<option value="">Select a package…</option>' + all.map((p) => `<option>${esc(p)}</option>`).join('');
-    if (current) sel.value = current;
+  function crmList() {
+    const q = searchTerm.toLowerCase();
+    let l = DB.bookings.filter((b) => !q || (b.name + ' ' + b.email + ' ' + b.package).toLowerCase().includes(q));
+    if (statusFilter === 'followup') l = l.filter(needsFollowUp);
+    else if (statusFilter !== 'all') l = l.filter((b) => b.status === statusFilter);
+    const t = (x) => new Date(x).getTime() || 0;
+    if (sortMode === 'oldest') l.sort((a, b) => t(a.submitted) - t(b.submitted));
+    else if (sortMode === 'tour') l.sort((a, b) => (a.date || '9999').localeCompare(b.date || '9999'));
+    else if (sortMode === 'name') l.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+    else l.sort((a, b) => t(b.submitted) - t(a.submitted));
+    return l;
   }
+
+  function digits(phone) {
+    let p = String(phone || '').replace(/\D/g, '');
+    if (p.length === 10) p = CONFIG.WHATSAPP_COUNTRY_CODE + p;
+    return p;
+  }
+  const waLink = (b, text) => `https://wa.me/${digits(b.phone)}?text=${encodeURIComponent(text)}`;
+  const mailLink = (b, subj, body) => `mailto:${encodeURIComponent(b.email || '')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+  const defaultWa = (b) => `Hello ${b.name || 'there'}, this is Thattekad Birding. Thank you for your enquiry about "${b.package || 'our birding tour'}"${b.date ? ' on ' + fmtDate(b.date) : ''}. We'd love to help plan your trip. When is a good time to talk?`;
+  const defaultMailBody = (b) => `Dear ${b.name || 'Guest'},\n\nThank you for choosing Thattekad Birding.\n\nTour: ${b.package || '-'}\nDate: ${b.date ? fmtDate(b.date) : 'To be confirmed'}\nStatus: ${b.status}\n\nPlease let us know if you have any questions.\n\nWarm regards,\nThattekad Birding\nhttps://thattekadbirding.com/`;
 
   function renderCrm() {
-    const q = searchTerm.toLowerCase();
-    const list = loadBookings().filter((b) =>
-      !q || (b.name + ' ' + b.email + ' ' + b.package).toLowerCase().includes(q));
-    const body = $('crmBody');
-    $('crmEmpty').classList.toggle('hidden', list.length > 0);
-    body.innerHTML = list.map((b) => {
-      const msg = encodeURIComponent(
-        `Hello ${b.name || 'there'}, this is Thattekad Birding. Thank you for your enquiry about "${b.package || 'our birding tour'}"` +
-        (b.date ? ` on ${fmtDate(b.date)}` : '') + `. We'd love to help plan your trip. When is a good time to talk?`);
-      let phone = String(b.phone || '').replace(/\D/g, '');
-      if (phone.length === 10) phone = CONFIG.WHATSAPP_COUNTRY_CODE + phone;
-      const waHref = `https://wa.me/${phone}?text=${msg}`;
-      const subj = encodeURIComponent(`Your Thattekad Birding Tour – ${b.package || 'Enquiry'}`);
-      const body_ = encodeURIComponent(
-        `Dear ${b.name || 'Guest'},\n\nThank you for choosing Thattekad Birding.\n\nTour: ${b.package || '-'}\nDate: ${b.date ? fmtDate(b.date).replace(/&amp;/g,'&') : 'To be confirmed'}\nStatus: ${b.status}\n\nPlease let us know if you have any questions.\n\nWarm regards,\nThattekad Birding\nhttps://thattekadbirding.com/`);
-      const mailHref = `mailto:${encodeURIComponent(b.email || '')}?subject=${subj}&body=${body_}`;
+    const all = crmList();
+    const pages = Math.max(1, Math.ceil(all.length / CONFIG.PAGE_SIZE));
+    if (page > pages) page = pages;
+    const list = all.slice((page - 1) * CONFIG.PAGE_SIZE, page * CONFIG.PAGE_SIZE);
+    $('crmEmpty').classList.toggle('hidden', all.length > 0);
+    $('pager').classList.toggle('hidden', all.length <= CONFIG.PAGE_SIZE);
+    $('pageInfo').textContent = `Page ${page} of ${pages} · ${all.length} records`;
+    $('pagePrev').disabled = page <= 1; $('pageNext').disabled = page >= pages;
+
+    $('crmBody').innerHTML = list.map((b) => {
+      const clash = clashesFor(b);
+      const paid = paidOf(b), bal = balanceOf(b);
+      const pay = b.total > 0
+        ? `<div class="pay-cell">${money0(paid)} / ${money0(b.total)}<br>${bal > 0 ? `<span class="bal">Due ${money0(bal)}</span>` : '<span class="ok">Paid in full</span>'}</div>`
+        : (paid > 0 ? `<div class="pay-cell">${money0(paid)} received</div>` : '<div class="pay-cell">—</div>');
       return `<tr data-id="${esc(b.id)}">
-        <td data-label="Submitted">${fmtDate(b.submitted)}</td>
-        <td data-label="Guest"><div><div class="guest-name">${esc(b.name) || '—'}</div><div class="guest-email">${esc(b.email)}</div>${b.phone ? `<div class="guest-email">${esc(b.phone)}</div>` : ''}</div></td>
-        <td data-label="Package">${esc(b.package) || '—'}</td>
-        <td data-label="Tour Date">${fmtDate(b.date)}</td>
+        <td data-label="Submitted">${fd(b.submitted)}</td>
+        <td data-label="Guest"><div><div class="guest-name">${esc(b.name) || '—'}</div><div class="guest-email">${esc(b.email)}</div>${b.phone ? `<div class="guest-email">${esc(b.phone)}</div>` : ''}${needsFollowUp(b) ? '<span class="fu"><i class="fa-solid fa-bell"></i> Follow up</span>' : ''}</div></td>
+        <td data-label="Package"><div>${esc(b.package) || '—'}</div></td>
+        <td data-label="Tour Date"><div>${fd(b.date)}${clash.length ? `<div class="warn" title="${esc(clash.join('; '))}"><i class="fa-solid fa-triangle-exclamation"></i> Clash</div>` : ''}</div></td>
         <td data-label="Itinerary"><div class="itin ${b.itinerary ? '' : 'empty'}">${b.itinerary ? esc(b.itinerary) : 'No itinerary yet'}</div></td>
-        <td data-label="Status"><div><button type="button" class="badge ${b.status.toLowerCase()}" data-act="status" title="Click to change status"><i class="fa-solid fa-rotate"></i> ${b.status}</button></div></td>
+        <td data-label="Payment">${pay}</td>
+        <td data-label="Status"><div><button type="button" class="badge ${b.status.toLowerCase()}" data-act="status" title="Click to change status"><i class="fa-solid fa-rotate"></i> ${esc(b.status)}</button></div></td>
         <td data-label="Actions"><div class="actions">
+          <button type="button" class="icon-btn" data-act="manage" title="Manage: details, payments, notes"><i class="fa-solid fa-folder-open"></i></button>
           <button type="button" class="icon-btn" data-act="itin" title="Edit custom itinerary"><i class="fa-solid fa-pen-to-square"></i></button>
-          <a class="icon-btn wa" href="${waHref}" target="_blank" rel="noopener" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-          <a class="icon-btn" href="${mailHref}" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <button type="button" class="icon-btn" data-act="msg" title="Message from template"><i class="fa-solid fa-comment-dots"></i></button>
+          <a class="icon-btn wa" data-act="wa" href="${esc(waLink(b, defaultWa(b)))}" target="_blank" rel="noopener" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a class="icon-btn" data-act="mail" href="${esc(mailLink(b, 'Your Thattekad Birding Tour – ' + (b.package || 'Enquiry'), defaultMailBody(b)))}" title="Email"><i class="fa-solid fa-envelope"></i></a>
           <button type="button" class="icon-btn del" data-act="del" title="Delete"><i class="fa-solid fa-trash"></i></button>
         </div></td></tr>`;
     }).join('');
   }
 
+  function addNote(b, text) { b.notes.unshift({ t: new Date().toISOString(), text }); }
+  function touchContact(id, text) {
+    const b = getBooking(id); if (!b) return;
+    const c = JSON.parse(JSON.stringify(b)); c.lastContact = new Date().toISOString(); addNote(c, text); Store.save('bookings', c);
+  }
+
   function onCrmClick(e) {
     const btn = e.target.closest('[data-act]');
     if (!btn) return;
-    const tr = btn.closest('tr');
-    if (!tr) return;
-    const id = tr.getAttribute('data-id');
-    const list = loadBookings();
-    const b = list.find((x) => x.id === id);
-    if (!b) return;
+    const tr = btn.closest('tr'); if (!tr) return;
+    const id = tr.getAttribute('data-id'); const b = getBooking(id); if (!b) return;
     const act = btn.getAttribute('data-act');
-
     if (act === 'status') {
-      b.status = STATUSES[(STATUSES.indexOf(b.status) + 1) % STATUSES.length];
-      saveBookings(list);
-      renderStats(); renderCrm();
-      toast(`${b.name || 'Booking'} → ${b.status}`);
-    } else if (act === 'itin') {
-      itinEditId = id;
-      $('itinSub').textContent = `${b.name || 'Guest'} · ${b.package || 'Tour'}`;
-      $('itinText').value = b.itinerary || '';
-      $('itinModal').classList.remove('hidden');
-      $('itinText').focus();
-    } else if (act === 'del') {
-      if (confirm(`Delete the booking for "${b.name || 'this guest'}"? This cannot be undone.`)) {
-        saveBookings(list.filter((x) => x.id !== id));
-        renderAll();
-        toast('Booking deleted');
-      }
-    }
+      const c = JSON.parse(JSON.stringify(b));
+      c.status = STATUSES[(STATUSES.indexOf(b.status) + 1) % STATUSES.length];
+      addNote(c, `Status changed: ${b.status} → ${c.status}`);
+      Store.save('bookings', c); toast(`${b.name || 'Booking'} → ${c.status}`);
+    } else if (act === 'manage') openManage(id);
+    else if (act === 'itin') openItin(id);
+    else if (act === 'msg') openMsg(id);
+    else if (act === 'wa') touchContact(id, 'Contacted via WhatsApp');
+    else if (act === 'mail') touchContact(id, 'Contacted via email');
+    else if (act === 'del') deleteBooking(id);
+  }
+  function deleteBooking(id) {
+    const b = getBooking(id); if (!b) return;
+    if (!confirm(`Delete the booking for "${b.name || 'this guest'}"?`)) return;
+    const copy = JSON.parse(JSON.stringify(b));
+    Store.remove('bookings', id); closeAllModals();
+    toast('Booking deleted', false, { label: 'Undo', fn: () => { Store.save('bookings', copy); toast('Booking restored'); } });
   }
 
-  function saveItinerary() {
-    const list = loadBookings();
-    const b = list.find((x) => x.id === itinEditId);
-    if (b) {
-      b.itinerary = $('itinText').value.trim();
-      saveBookings(list);
-      renderCrm();
-      toast('Itinerary saved');
-    }
-    closeItin();
-  }
-  function closeItin() { $('itinModal').classList.add('hidden'); itinEditId = null; }
+  function validPhone(p) { if (!p) return true; const d = p.replace(/[\s\-()+]/g, ''); return /^\d{7,15}$/.test(d); }
+  const validEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
   function addManualBooking(e) {
     e.preventDefault();
-    const name = $('mName').value.trim(), email = $('mEmail').value.trim();
-    const pkg = $('mPackage').value, date = $('mDate').value;
+    const name = $('mName').value.trim(), email = $('mEmail').value.trim(), pkg = $('mPackage').value, date = $('mDate').value, phone = $('mPhone').value.trim();
     if (!name || !email || !pkg || !date) return toast('Please fill all required fields', true);
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast('Enter a valid email address', true);
-    const list = loadBookings();
-    list.unshift({
-      id: uid(), submitted: new Date().toISOString(), name, email,
-      phone: $('mPhone').value.trim(), package: pkg, date,
-      itinerary: $('mNotes').value.trim(), status: 'Pending', invoiceNo: ''
-    });
-    if (saveBookings(list)) {
-      e.target.reset();
-      renderAll();
-      toast('Booking added');
+    if (!validEmail(email)) return toast('Enter a valid email address', true);
+    if (!validPhone(phone)) return toast('Enter a valid phone number (7–15 digits)', true);
+    if (date < isoToday()) return toast('Tour date cannot be in the past', true);
+    Store.save('bookings', normBooking({
+      id: uid(), submitted: new Date().toISOString(), name, email, phone, package: pkg, date,
+      itinerary: $('mNotes').value.trim(), status: 'Pending', source: $('mSource').value || 'Other', total: num($('mTotal').value)
+    }));
+    e.target.reset(); $('mSource').value = 'Website';
+    toast('Booking added');
+  }
+
+  /* ---------------- itinerary modal ---------------- */
+  let itinId = null;
+  function openItin(id) {
+    const b = getBooking(id); if (!b) return;
+    itinId = id;
+    $('itinSub').textContent = `${b.name || 'Guest'} · ${b.package || 'Tour'}`;
+    $('itinText').value = b.itinerary || '';
+    const tpls = DB.templates.filter((t) => t.type === 'itinerary');
+    $('itinTpl').innerHTML = '<option value="">— Choose a template —</option>' + tpls.map((t) => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('');
+    openModal('itinModal'); $('itinText').focus();
+  }
+  function saveItinerary() {
+    const b = getBooking(itinId); if (!b) return closeAllModals();
+    const c = JSON.parse(JSON.stringify(b)); c.itinerary = $('itinText').value.trim();
+    Store.save('bookings', c); toast('Itinerary saved'); closeAllModals();
+  }
+  function applyItinTpl() {
+    const t = DB.templates.find((x) => x.id === $('itinTpl').value); if (!t) return;
+    const cur = $('itinText').value.trim();
+    if (!cur) $('itinText').value = t.body;
+    else $('itinText').value = confirm('Replace current text with the template?\nOK = replace, Cancel = append below.') ? t.body : cur + '\n\n' + t.body;
+    $('itinTpl').value = '';
+  }
+  function saveItinAsTemplate() {
+    const body = $('itinText').value.trim(); if (!body) return toast('Write an itinerary first', true);
+    const name = prompt('Template name:'); if (!name) return;
+    Store.save('templates', { id: uid(), type: 'itinerary', name: name.trim(), body });
+    toast('Template saved');
+    const tpls = DB.templates.filter((t) => t.type === 'itinerary');
+    $('itinTpl').innerHTML = '<option value="">— Choose a template —</option>' + tpls.map((t) => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('');
+  }
+
+  /* ---------------- manage modal ---------------- */
+  let manageId = null;
+  function fillResSelect(el, type, cur) {
+    const opts = resOptions(type);
+    el.innerHTML = '<option value="">— None —</option>' + opts.map((o) => `<option>${esc(o)}</option>`).join('');
+    if (cur && opts.indexOf(cur) < 0) el.insertAdjacentHTML('beforeend', `<option>${esc(cur)}</option>`);
+    el.value = cur || '';
+  }
+  function openManage(id) {
+    const b = getBooking(id); if (!b) return;
+    manageId = id;
+    $('manageTitle').textContent = b.name || 'Booking';
+    $('manageSub').textContent = `Submitted ${fmtDate(b.submitted)} · Status: ${b.status}`;
+    $('eName').value = b.name; $('eEmail').value = b.email; $('ePhone').value = b.phone;
+    fillSelect($('ePackage'), allPackages(), 'Select a package…', b.package);
+    $('eDate').value = b.date || '';
+    fillSelect($('eSource'), CONFIG.SOURCES, null, b.source || 'Website');
+    $('eTotal').value = b.total || '';
+    fillResSelect($('eGuide'), 'guide', b.guide); fillResSelect($('eBoat'), 'boat', b.boat); fillResSelect($('eVehicle'), 'vehicle', b.vehicle);
+    $('pDate').value = isoToday(); $('pAmount').value = ''; $('pNote').value = ''; $('noteText').value = '';
+    updateClashBox(); renderManageLists();
+    openModal('manageModal');
+  }
+  function updateClashBox() {
+    const msgs = clashesFor({ id: manageId, date: $('eDate').value, guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
+    const el = $('eClash');
+    el.classList.toggle('hidden', !msgs.length);
+    el.innerHTML = msgs.map((m) => `<span><i class="fa-solid fa-triangle-exclamation"></i> ${esc(m)} on this date</span>`).join('<br>');
+  }
+  function renderManageLists() {
+    const b = getBooking(manageId); if (!b) return;
+    const paid = paidOf(b);
+    $('paySummary').innerHTML = `Total ${money(b.total)} · Paid ${money(paid)} · <b>Balance ${money(balanceOf(b))}</b>`;
+    $('payList').innerHTML = b.payments.length ? b.payments.map((p) => `<div class="list-item"><div><strong>${money(p.amount)}</strong> <span class="sub">${fd(p.date)} · ${esc(p.method)}${p.note ? ' · ' + esc(p.note) : ''}</span></div><button class="icon-btn del" type="button" data-pay-del="${esc(p.id)}" title="Remove payment"><i class="fa-solid fa-xmark"></i></button></div>`).join('') : '<div class="info">No payments recorded.</div>';
+    $('noteList').innerHTML = b.notes.length ? b.notes.map((n) => `<div class="note"><small>${esc(new Date(n.t).toLocaleString('en-IN'))}</small>${esc(n.text)}</div>`).join('') : '<div class="info">No notes yet.</div>';
+  }
+  function saveManage() {
+    const b = getBooking(manageId); if (!b) return;
+    const name = $('eName').value.trim(), email = $('eEmail').value.trim(), phone = $('ePhone').value.trim();
+    if (!name) return toast('Guest name is required', true);
+    if (email && !validEmail(email)) return toast('Enter a valid email address', true);
+    if (!validPhone(phone)) return toast('Enter a valid phone number', true);
+    const c = JSON.parse(JSON.stringify(b));
+    Object.assign(c, { name, email, phone, package: $('ePackage').value, date: $('eDate').value, source: $('eSource').value, total: num($('eTotal').value), guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
+    Store.save('bookings', c); toast('Details saved'); $('manageTitle').textContent = name;
+  }
+  function addPayment(e) {
+    e.preventDefault();
+    const b = getBooking(manageId); if (!b) return;
+    const amount = num($('pAmount').value);
+    if (amount <= 0) return toast('Enter a payment amount', true);
+    const c = JSON.parse(JSON.stringify(b));
+    c.payments.push({ id: uid(), date: $('pDate').value || isoToday(), amount, method: $('pMethod').value, note: $('pNote').value.trim() });
+    addNote(c, `Payment recorded: ${money(amount)} (${$('pMethod').value})`);
+    Store.save('bookings', c); $('pAmount').value = ''; $('pNote').value = ''; renderManageLists(); toast('Payment recorded');
+  }
+  function removePayment(pid) {
+    const b = getBooking(manageId); if (!b || !confirm('Remove this payment record?')) return;
+    const c = JSON.parse(JSON.stringify(b)); c.payments = c.payments.filter((p) => p.id !== pid);
+    addNote(c, 'A payment record was removed'); Store.save('bookings', c); renderManageLists();
+  }
+  function addManualNote() {
+    const text = $('noteText').value.trim(); if (!text) return;
+    const b = getBooking(manageId); if (!b) return;
+    const c = JSON.parse(JSON.stringify(b)); addNote(c, text); Store.save('bookings', c); $('noteText').value = ''; renderManageLists();
+  }
+
+  /* ---------------- message modal ---------------- */
+  let msgId = null;
+  function fillTpl(body, b) {
+    const map = { name: b.name || 'Guest', package: b.package || 'your tour', date: b.date ? fmtDate(b.date) : 'the scheduled date', total: money(b.total), paid: money(paidOf(b)), balance: money(balanceOf(b)), guide: b.guide || 'to be assigned' };
+    return String(body).replace(/\{(\w+)\}/g, (m, k) => (k in map ? map[k] : m));
+  }
+  function openMsg(id) {
+    const b = getBooking(id); if (!b) return;
+    msgId = id;
+    $('msgSub').textContent = `${b.name || 'Guest'} · ${b.phone || b.email || 'no contact saved'}`;
+    const tpls = DB.templates.filter((t) => t.type === 'message');
+    $('msgTpl').innerHTML = tpls.map((t) => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('') || '<option value="">No templates — add some in Setup</option>';
+    $('msgText').value = tpls.length ? fillTpl(tpls[0].body, b) : defaultWa(b);
+    openModal('msgModal');
+  }
+  function onMsgTplChange() {
+    const b = getBooking(msgId), t = DB.templates.find((x) => x.id === $('msgTpl').value);
+    if (b && t) $('msgText').value = fillTpl(t.body, b);
+  }
+  function msgSend(kind) {
+    const b = getBooking(msgId); if (!b) return;
+    const text = $('msgText').value;
+    if (kind === 'wa') { window.open(waLink(b, text), '_blank', 'noopener'); touchContact(msgId, 'WhatsApp message sent'); }
+    else if (kind === 'mail') { window.location.href = mailLink(b, 'Thattekad Birding – ' + (b.package || 'Your tour'), text); touchContact(msgId, 'Email sent'); }
+    else {
+      const done = () => toast('Message copied');
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, () => { $('msgText').select(); document.execCommand('copy'); done(); });
+      else { $('msgText').select(); document.execCommand('copy'); done(); }
     }
   }
 
-  /* ---------------- invoice ---------------- */
+  /* ---------------- calendar ---------------- */
+  const now0 = new Date();
+  let calY = now0.getFullYear(), calM = now0.getMonth(), dayDate = '';
+  function renderCalendar() {
+    const first = new Date(calY, calM, 1);
+    $('calTitle').textContent = first.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+    const startOffset = first.getDay();
+    const daysInMonth = new Date(calY, calM + 1, 0).getDate();
+    const byDate = {};
+    DB.bookings.forEach((b) => { if (b.date) (byDate[b.date] = byDate[b.date] || []).push(b); });
+    const today = isoToday();
+    let html = '';
+    for (let i = 0; i < 42; i++) {
+      const d = new Date(calY, calM, 1 - startOffset + i);
+      if (i >= 35 && d.getMonth() !== calM) break;
+      const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+      const items = byDate[iso] || [];
+      const clash = items.some((b) => clashesFor(b).length);
+      const cls = ['cal-cell', d.getMonth() !== calM ? 'out' : '', iso === today ? 'today' : '', clash ? 'clash' : ''].join(' ');
+      html += `<div class="${cls}" data-date="${iso}"><div class="dn"><span>${d.getDate()}</span>${clash ? '<span class="warn"><i class="fa-solid fa-triangle-exclamation"></i></span>' : ''}</div>` +
+        items.slice(0, 3).map((b) => `<button type="button" class="cal-chip ${b.status.toLowerCase()}" data-id="${esc(b.id)}" title="${esc((b.name || '') + ' · ' + (b.package || ''))}">${esc(b.name || 'Guest')}</button>`).join('') +
+        (items.length > 3 ? `<div class="cal-more">+${items.length - 3} more</div>` : '') + '</div>';
+    }
+    $('calGrid').innerHTML = html;
+  }
+  function onCalClick(e) {
+    const chip = e.target.closest('.cal-chip');
+    if (chip) return openManage(chip.getAttribute('data-id'));
+    const cell = e.target.closest('.cal-cell'); if (cell) openDay(cell.getAttribute('data-date'));
+  }
+  function openDay(iso) {
+    dayDate = iso;
+    $('dayTitle').textContent = fmtDate(iso);
+    const items = DB.bookings.filter((b) => b.date === iso);
+    $('dayList').innerHTML = items.length ? items.map((b) => {
+      const cl = clashesFor(b);
+      return `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong> <span class="badge ${b.status.toLowerCase()}" style="padding:2px 9px;cursor:default">${esc(b.status)}</span><div class="sub">${esc(b.package)}${b.guide ? ' · Guide: ' + esc(b.guide) : ''}${b.boat ? ' · Boat: ' + esc(b.boat) : ''}${b.vehicle ? ' · ' + esc(b.vehicle) : ''}</div>${cl.length ? `<div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(cl.join('; '))}</div>` : ''}</div><button class="btn btn-outline btn-sm" type="button" data-day-manage="${esc(b.id)}">Manage</button></div>`;
+    }).join('') : '<div class="info">No tours scheduled.</div>';
+    openModal('dayModal');
+  }
+
+  /* ---------------- invoices ---------------- */
   function renderInvoiceGuests() {
-    const sel = $('invGuest');
-    const prev = sel.value;
-    const list = loadBookings();
-    sel.innerHTML = '<option value="">— Select a guest —</option>' + list.map((b) =>
+    const sel = $('invGuest'), prev = sel.value;
+    sel.innerHTML = '<option value="">— Select a guest —</option>' + DB.bookings.map((b) =>
       `<option value="${esc(b.id)}">${esc(b.name || 'Unnamed')} · ${esc(b.package || 'No package')} · ${esc(b.status)}</option>`).join('');
-    if (prev && list.some((b) => b.id === prev)) sel.value = prev;
+    if (prev && DB.bookings.some((b) => b.id === prev)) sel.value = prev;
   }
-
   function nextInvoiceNo() {
-    const year = new Date().getFullYear();
-    const used = loadBookings().map((b) => b.invoiceNo).filter(Boolean);
-    let seq = parseInt(localStorage.getItem(CONFIG.KEY_INVOICE_SEQ), 10) || 0;
-    used.forEach((n) => { const m = /(\d+)$/.exec(n); if (m) seq = Math.max(seq, parseInt(m[1], 10)); });
-    seq += 1;
-    localStorage.setItem(CONFIG.KEY_INVOICE_SEQ, String(seq));
-    return `TB-${year}-${String(seq).padStart(3, '0')}`;
+    const year = new Date().getFullYear(); let max = 0;
+    DB.bookings.map((b) => b.invoiceNo).concat(DB.invoices.map((i) => i.no)).forEach((n) => {
+      const m = /^TB-(\d{4})-(\d+)$/.exec(n || ''); if (m && +m[1] === year) max = Math.max(max, +m[2]);
+    });
+    return `TB-${year}-${String(max + 1).padStart(3, '0')}`;
   }
-
+  function calcInvoice() {
+    const total = num($('invPax').value) * num($('invRate').value) + num($('invExtra').value);
+    $('invTotal').textContent = money(total);
+    $('invBalance').textContent = money(Math.max(total - num($('invAdvance').value), 0));
+    return total;
+  }
   function onGuestSelect() {
     const id = $('invGuest').value;
-    const form = $('invoiceForm');
-    if (!id) { form.reset(); $('invNo').value = ''; $('invBank').value = CONFIG.DEFAULT_BANK; setInvDefaults(); calcTotal(); return; }
-    const list = loadBookings();
-    const b = list.find((x) => x.id === id);
-    if (!b) return;
-    if (!b.invoiceNo) { b.invoiceNo = nextInvoiceNo(); saveBookings(list); }
-    $('invName').value = b.name;
-    $('invEmail').value = b.email;
-    $('invPackage').value = b.package;
+    if (!id) { $('invoiceForm').reset(); $('invNo').value = ''; $('invBank').value = CONFIG.DEFAULT_BANK; $('invDate').value = isoToday(); calcInvoice(); return; }
+    const b = getBooking(id); if (!b) return;
+    let no = b.invoiceNo;
+    if (!no) { no = nextInvoiceNo(); const c = JSON.parse(JSON.stringify(b)); c.invoiceNo = no; Store.save('bookings', c); }
+    $('invNo').value = no;
+    $('invName').value = b.name; $('invEmail').value = b.email; $('invPackage').value = b.package;
     $('invTourDate').value = /^\d{4}-\d{2}-\d{2}/.test(b.date) ? String(b.date).slice(0, 10) : '';
-    $('invNo').value = b.invoiceNo;
-    calcTotal();
+    $('invDate').value = $('invDate').value || isoToday();
+    if (b.total > 0) { $('invPax').value = 1; $('invRate').value = b.total; $('invExtra').value = 0; }
+    $('invAdvance').value = paidOf(b);
+    const prior = DB.invoices.find((i) => i.no === no);
+    if (prior) { $('invPax').value = prior.pax; $('invRate').value = prior.rate; $('invExtra').value = prior.extra; $('invNotes').value = prior.notes || ''; }
+    calcInvoice();
     toast('Invoice details filled for ' + (b.name || 'guest'));
   }
-
-  function setInvDefaults() {
-    $('invDate').value = isoToday();
-    if (!$('invBank').value) $('invBank').value = CONFIG.DEFAULT_BANK;
-    if (!$('invPax').value) $('invPax').value = 1;
+  function openInvoiceFor(id) {
+    closeAllModals(); switchTab('tabInvoice');
+    $('invGuest').value = id; onGuestSelect();
   }
 
-  function calcTotal() {
-    const t = (Number($('invPax').value) || 0) * (Number($('invRate').value) || 0) + (Number($('invExtra').value) || 0);
-    $('invTotal').textContent = money(t);
-    return t;
+  function pdfBand(doc, title) {
+    doc.setFillColor(27, 67, 50); doc.rect(0, 0, 210, 38, 'F');
+    doc.setFillColor(212, 163, 115); doc.rect(0, 38, 210, 2.5, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.text('Thattekad Birding', 16, 18);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(212, 163, 115);
+    doc.text('Eco-tourism & Bird Watching · Thattekad, Kerala, India', 16, 25);
+    doc.setTextColor(255, 255, 255); doc.text('thattekadbirding.com', 16, 31);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(title.length > 8 ? 17 : 24); doc.text(title, 194, 20, { align: 'right' });
   }
+  function pdfFooters(doc, text) {
+    const n = doc.getNumberOfPages();
+    for (let i = 1; i <= n; i++) {
+      doc.setPage(i); doc.setFillColor(27, 67, 50); doc.rect(0, 284, 210, 13, 'F');
+      doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text(text, 105, 291, { align: 'center' });
+      doc.setFontSize(8); doc.setTextColor(212, 163, 115); doc.text(`Page ${i} of ${n}`, 194, 291, { align: 'right' });
+    }
+  }
+  const pdfMoney = (n) => 'Rs. ' + num(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  function generatePdf(e) {
-    e.preventDefault();
-    if (!window.jspdf || !window.jspdf.jsPDF) return toast('PDF library failed to load. Check your internet connection.', true);
-    const name = $('invName').value.trim(), pkg = $('invPackage').value.trim();
-    if (!$('invNo').value) return toast('Select a guest first to generate an invoice number', true);
-    if (!name || !pkg) return toast('Guest name and tour package are required', true);
-
-    const pax = Number($('invPax').value) || 1, rate = Number($('invRate').value) || 0, extra = Number($('invExtra').value) || 0;
-    const sub = pax * rate, total = sub + extra;
-    const pdfMoney = (n) => 'Rs. ' + (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
+  function buildInvoicePdf(inv) {
+    if (!window.jspdf || !window.jspdf.jsPDF) { toast('PDF library failed to load. Check your internet connection.', true); return false; }
     const doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
-    const W = 210, M = 16;
-    const green = [27, 67, 50], gold = [212, 163, 115];
-
-    // header band
-    doc.setFillColor(...green); doc.rect(0, 0, W, 38, 'F');
-    doc.setFillColor(...gold); doc.rect(0, 38, W, 2.5, 'F');
-    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(22);
-    doc.text('Thattekad Birding', M, 18);
-    doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(...gold);
-    doc.text('Eco-tourism & Bird Watching · Thattekad, Kerala, India', M, 25);
-    doc.setTextColor(255, 255, 255);
-    doc.text('thattekadbirding.com', M, 31);
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(24);
-    doc.text('INVOICE', W - M, 20, { align: 'right' });
-
-    // meta
+    const W = 210, M = 16, green = [27, 67, 50], gold = [212, 163, 115];
+    const sub = inv.pax * inv.rate, total = sub + inv.extra, balance = Math.max(total - inv.advance, 0);
+    pdfBand(doc, 'INVOICE');
     let y = 54;
     doc.setTextColor(60, 60, 60); doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold'); doc.text('Invoice No:', W - M - 52, y); doc.setFont('helvetica', 'normal'); doc.text($('invNo').value, W - M, y, { align: 'right' });
-    doc.setFont('helvetica', 'bold'); doc.text('Invoice Date:', W - M - 52, y + 6); doc.setFont('helvetica', 'normal');
-    doc.text(fmtDate($('invDate').value || isoToday()), W - M, y + 6, { align: 'right' });
-
+    doc.setFont('helvetica', 'bold'); doc.text('Invoice No:', W - M - 52, y); doc.setFont('helvetica', 'normal'); doc.text(pdfSafe(inv.no), W - M, y, { align: 'right' });
+    doc.setFont('helvetica', 'bold'); doc.text('Invoice Date:', W - M - 52, y + 6); doc.setFont('helvetica', 'normal'); doc.text(pdfSafe(fmtDate(inv.date)), W - M, y + 6, { align: 'right' });
     doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('BILLED TO', M, y);
-    doc.setTextColor(30, 30, 30); doc.setFontSize(12); doc.text(name, M, y + 7);
+    doc.setTextColor(30, 30, 30); doc.setFontSize(12); doc.text(pdfSafe(inv.name), M, y + 7);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(90, 90, 90);
-    if ($('invEmail').value) doc.text($('invEmail').value.trim(), M, y + 13);
+    if (inv.email) doc.text(pdfSafe(inv.email), M, y + 13);
 
-    // table
     y = 82;
     doc.setFillColor(...green); doc.rect(M, y, W - 2 * M, 9, 'F');
     doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5);
-    doc.text('DESCRIPTION', M + 3, y + 6);
-    doc.text('QTY', 128, y + 6, { align: 'right' });
-    doc.text('RATE', 156, y + 6, { align: 'right' });
-    doc.text('AMOUNT', W - M - 3, y + 6, { align: 'right' });
-
+    doc.text('DESCRIPTION', M + 3, y + 6); doc.text('QTY', 128, y + 6, { align: 'right' }); doc.text('RATE', 156, y + 6, { align: 'right' }); doc.text('AMOUNT', W - M - 3, y + 6, { align: 'right' });
     y += 9;
-    doc.setTextColor(30, 30, 30); doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-    const descLines = doc.splitTextToSize(pkg, 85);
-    const tourDate = $('invTourDate').value;
-    const rowH = Math.max(14, descLines.length * 5 + (tourDate ? 8 : 4));
+    doc.setTextColor(30, 30, 30); doc.setFontSize(10);
+    const lines = doc.splitTextToSize(pdfSafe(inv.package), 85);
+    const rowH = Math.max(14, lines.length * 5 + (inv.tourDate ? 8 : 4));
     doc.setFillColor(248, 249, 250); doc.rect(M, y, W - 2 * M, rowH, 'F');
-    doc.setFont('helvetica', 'bold'); doc.text(descLines, M + 3, y + 6);
+    doc.setFont('helvetica', 'bold'); doc.text(lines, M + 3, y + 6);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(110, 110, 110);
-    if (tourDate) doc.text('Tour date: ' + fmtDate(tourDate), M + 3, y + 6 + descLines.length * 5);
+    if (inv.tourDate) doc.text('Tour date: ' + pdfSafe(fmtDate(inv.tourDate)), M + 3, y + 6 + lines.length * 5);
     doc.setFontSize(10); doc.setTextColor(30, 30, 30);
-    doc.text(String(pax), 128, y + 6, { align: 'right' });
-    doc.text(pdfMoney(rate), 156, y + 6, { align: 'right' });
-    doc.text(pdfMoney(sub), W - M - 3, y + 6, { align: 'right' });
+    doc.text(String(inv.pax), 128, y + 6, { align: 'right' }); doc.text(pdfMoney(inv.rate), 156, y + 6, { align: 'right' }); doc.text(pdfMoney(sub), W - M - 3, y + 6, { align: 'right' });
     y += rowH;
-
-    if (extra > 0) {
+    if (inv.extra > 0) {
       doc.setDrawColor(230, 230, 230); doc.line(M, y, W - M, y);
-      doc.text('Extras / Permits / Fees', M + 3, y + 7);
-      doc.text(pdfMoney(extra), W - M - 3, y + 7, { align: 'right' });
-      y += 11;
+      doc.text('Extras / Permits / Fees', M + 3, y + 7); doc.text(pdfMoney(inv.extra), W - M - 3, y + 7, { align: 'right' }); y += 11;
     }
     doc.setDrawColor(...gold); doc.setLineWidth(0.6); doc.line(M, y, W - M, y);
 
-    // totals
-    y += 10;
-    doc.setFont('helvetica', 'normal'); doc.setTextColor(90, 90, 90);
-    doc.text('Subtotal', 128, y, { align: 'right' }); doc.text(pdfMoney(sub + extra), W - M - 3, y, { align: 'right' });
-    y += 4;
+    y += 8;
     doc.setFillColor(...green); doc.roundedRect(100, y, W - M - 100, 12, 2, 2, 'F');
-    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
-    doc.text('GRAND TOTAL', 104, y + 8);
-    doc.setTextColor(...gold); doc.setFontSize(12);
-    doc.text(pdfMoney(total), W - M - 3, y + 8, { align: 'right' });
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('GRAND TOTAL', 104, y + 8);
+    doc.setTextColor(...gold); doc.setFontSize(12); doc.text(pdfMoney(total), W - M - 3, y + 8, { align: 'right' });
+    y += 18;
+    if (inv.advance > 0) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(90, 90, 90);
+      doc.text('Advance received', 128, y, { align: 'right' }); doc.text('- ' + pdfMoney(inv.advance), W - M - 3, y, { align: 'right' }); y += 8;
+    }
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(...green);
+    doc.text('BALANCE DUE', 128, y, { align: 'right' }); doc.text(pdfMoney(balance), W - M - 3, y, { align: 'right' });
+    if (balance === 0 && total > 0) { doc.setTextColor(25, 135, 84); doc.text('PAID IN FULL', M, y); }
 
-    // bank
-    y += 26;
-    doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5);
-    doc.text('BANK TRANSFER INSTRUCTIONS', M, y);
+    y += 16;
+    if (y > 235) { doc.addPage(); y = 24; }
+    doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.text('BANK TRANSFER INSTRUCTIONS', M, y);
     doc.setDrawColor(...gold); doc.line(M, y + 2, M + 62, y + 2);
     doc.setTextColor(50, 50, 50); doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5);
-    const bankLines = doc.splitTextToSize($('invBank').value || '', W - 2 * M);
-    doc.text(bankLines, M, y + 9);
-    y += 9 + bankLines.length * 4.6;
-
-    const notes = $('invNotes').value.trim();
-    if (notes) {
-      y += 6;
+    const bank = doc.splitTextToSize(pdfSafe(inv.bank || ''), W - 2 * M);
+    doc.text(bank, M, y + 9); y += 9 + bank.length * 4.6;
+    if (inv.notes) {
+      y += 6; if (y > 255) { doc.addPage(); y = 24; }
       doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.text('NOTES', M, y);
-      doc.setTextColor(50, 50, 50); doc.setFont('helvetica', 'normal');
-      doc.text(doc.splitTextToSize(notes, W - 2 * M), M, y + 6);
+      doc.setTextColor(50, 50, 50); doc.setFont('helvetica', 'normal'); doc.text(doc.splitTextToSize(pdfSafe(inv.notes), W - 2 * M), M, y + 6);
     }
+    pdfFooters(doc, 'Thank you for choosing Thattekad Birding — see you on the trail!');
+    const safe = String(inv.name).replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '');
+    doc.save(`${inv.no}_${safe || 'Guest'}.pdf`);
+    return true;
+  }
 
-    // footer
-    doc.setFillColor(...green); doc.rect(0, 284, W, 13, 'F');
-    doc.setTextColor(255, 255, 255); doc.setFontSize(9);
-    doc.text('Thank you for choosing Thattekad Birding — see you on the trail!', W / 2, 291, { align: 'center' });
+  function generateInvoice(e) {
+    e.preventDefault();
+    const no = $('invNo').value, name = $('invName').value.trim(), pkg = $('invPackage').value.trim();
+    if (!no) return toast('Select a guest first to generate an invoice number', true);
+    if (!name || !pkg) return toast('Guest name and tour package are required', true);
+    const prior = DB.invoices.find((i) => i.no === no);
+    const inv = {
+      id: prior ? prior.id : uid(), no, bookingId: $('invGuest').value, name, email: $('invEmail').value.trim(), package: pkg,
+      date: $('invDate').value || isoToday(), tourDate: $('invTourDate').value,
+      pax: Math.max(num($('invPax').value), 1), rate: num($('invRate').value), extra: num($('invExtra').value), advance: num($('invAdvance').value),
+      bank: $('invBank').value, notes: $('invNotes').value.trim(), paid: prior ? !!prior.paid : false, created: prior ? prior.created : new Date().toISOString()
+    };
+    if (buildInvoicePdf(inv)) { Store.save('invoices', inv); toast('Invoice downloaded'); }
+  }
 
-    const safe = name.replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '');
-    doc.save(`${$('invNo').value}_${safe || 'Guest'}.pdf`);
-    toast('Invoice downloaded');
+  function renderInvoiceHistory() {
+    const list = DB.invoices.slice().sort((a, b) => String(b.created).localeCompare(String(a.created)));
+    $('invHistEmpty').classList.toggle('hidden', list.length > 0);
+    $('invHistBody').innerHTML = list.map((i) => {
+      const total = i.pax * i.rate + i.extra, bal = Math.max(total - num(i.advance), 0);
+      return `<tr data-id="${esc(i.id)}">
+        <td data-label="Invoice"><strong>${esc(i.no)}</strong></td>
+        <td data-label="Guest"><div><div class="guest-name">${esc(i.name)}</div><div class="guest-email">${esc(i.package)}</div></div></td>
+        <td data-label="Date">${fd(i.date)}</td>
+        <td data-label="Total">${money(total)}</td>
+        <td data-label="Balance">${i.paid ? money(0) : money(bal)}</td>
+        <td data-label="Payment"><div><button type="button" class="badge ${i.paid ? 'confirmed' : 'pending'}" data-iact="paid">${i.paid ? '<i class="fa-solid fa-check"></i> Paid' : 'Unpaid'}</button></div></td>
+        <td data-label="Actions"><div class="actions">
+          <button type="button" class="icon-btn" data-iact="dl" title="Download PDF again"><i class="fa-solid fa-file-pdf"></i></button>
+          <button type="button" class="icon-btn del" data-iact="del" title="Delete"><i class="fa-solid fa-trash"></i></button></div></td></tr>`;
+    }).join('');
+  }
+  function onInvHistClick(e) {
+    const btn = e.target.closest('[data-iact]'); if (!btn) return;
+    const id = btn.closest('tr').getAttribute('data-id'); const inv = DB.invoices.find((x) => x.id === id); if (!inv) return;
+    const act = btn.getAttribute('data-iact');
+    if (act === 'dl') buildInvoicePdf(inv);
+    else if (act === 'paid') { Store.save('invoices', Object.assign({}, inv, { paid: !inv.paid })); toast(inv.paid ? 'Marked unpaid' : 'Marked paid'); }
+    else if (act === 'del') {
+      const copy = JSON.parse(JSON.stringify(inv)); Store.remove('invoices', id);
+      toast('Invoice deleted', false, { label: 'Undo', fn: () => { Store.save('invoices', copy); toast('Invoice restored'); } });
+    }
+  }
+
+  /* ---------------- itinerary PDF ---------------- */
+  function itineraryPdf(b) {
+    if (!window.jspdf || !window.jspdf.jsPDF) return toast('PDF library failed to load.', true);
+    const text = $('itinText').value.trim() || b.itinerary;
+    if (!text) return toast('Write an itinerary first', true);
+    const doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+    const M = 16, green = [27, 67, 50], gold = [212, 163, 115];
+    pdfBand(doc, 'TOUR ITINERARY');
+    let y = 54;
+    doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('PREPARED FOR', M, y);
+    doc.setTextColor(30, 30, 30); doc.setFontSize(13); doc.text(pdfSafe(b.name || 'Guest'), M, y + 7);
+    y += 18;
+    const rows = [['Tour', b.package || '—'], ['Date', fmtDate(b.date)], ['Guide', b.guide || 'To be assigned'], ['Vehicle', b.vehicle || '—'], ['Boat', b.boat || '—']];
+    doc.setFontSize(10);
+    rows.forEach((r) => {
+      doc.setFont('helvetica', 'bold'); doc.setTextColor(...green); doc.text(r[0] + ':', M, y);
+      doc.setFont('helvetica', 'normal'); doc.setTextColor(50, 50, 50); doc.text(pdfSafe(r[1]), M + 24, y); y += 6;
+    });
+    y += 4; doc.setDrawColor(...gold); doc.setLineWidth(0.6); doc.line(M, y, 194, y); y += 9;
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(...green); doc.setFontSize(11); doc.text('YOUR SCHEDULE', M, y); y += 8;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5); doc.setTextColor(40, 40, 40);
+    doc.splitTextToSize(pdfSafe(text), 178).forEach((ln) => {
+      if (y > 274) { doc.addPage(); y = 20; }
+      doc.text(ln, M, y); y += 5.6;
+    });
+    pdfFooters(doc, 'Thattekad Birding · thattekadbirding.com');
+    doc.save(`Itinerary_${String(b.name || 'Guest').replace(/[^a-z0-9]+/gi, '_')}.pdf`);
   }
 
   /* ---------------- sightings ---------------- */
+  let sightFilter = 'pending';
   function renderSightings() {
-    const all = loadSightings();
-    const pendingCount = all.filter((s) => !s.approved).length;
-    $('sightPill').textContent = pendingCount;
+    const all = DB.sightings.slice().sort((a, b) => String(b.submitted).localeCompare(String(a.submitted)));
+    $('sightPill').textContent = all.filter((s) => !s.approved).length;
     const list = all.filter((s) => sightFilter === 'all' || (sightFilter === 'approved' ? s.approved : !s.approved));
     $('sightEmpty').classList.toggle('hidden', list.length > 0);
     $('sightGrid').innerHTML = list.map((s) => `
       <article class="sight ${s.approved ? 'approved' : ''}" data-id="${esc(s.id)}">
+        ${/^(https?:|data:image\/)/.test(s.photoUrl || '') ? `<img src="${esc(s.photoUrl)}" alt="${esc(s.species)}" loading="lazy">` : ''}
         <h3>${esc(s.species) || 'Unnamed species'}${s.count ? ` <small style="color:var(--muted)">×${esc(s.count)}</small>` : ''}</h3>
         <div class="meta"><i class="fa-solid fa-location-dot"></i>${esc(s.location) || 'Location not given'}</div>
-        <div class="meta"><i class="fa-solid fa-calendar"></i>${fmtDate(s.date || s.submitted)}</div>
+        <div class="meta"><i class="fa-solid fa-calendar"></i>${fd(s.date || s.submitted)}</div>
         <div class="meta"><i class="fa-solid fa-user"></i>${esc(s.observer) || 'Anonymous'}</div>
         ${s.notes ? `<p>${esc(s.notes)}</p>` : ''}
         <div class="row">
-          ${s.approved
-            ? `<button class="btn btn-outline" type="button" data-act="unapprove"><i class="fa-solid fa-rotate-left"></i> Unapprove</button>`
-            : `<button class="btn btn-primary" type="button" data-act="approve"><i class="fa-solid fa-check"></i> Approve</button>`}
+          ${s.approved ? '<button class="btn btn-outline" type="button" data-act="unapprove"><i class="fa-solid fa-rotate-left"></i> Unapprove</button>' : '<button class="btn btn-primary" type="button" data-act="approve"><i class="fa-solid fa-check"></i> Approve</button>'}
           <button class="btn btn-danger" type="button" data-act="delete"><i class="fa-solid fa-trash"></i> Delete</button>
-        </div>
-      </article>`).join('');
+        </div></article>`).join('');
   }
-
   function onSightClick(e) {
-    const btn = e.target.closest('[data-act]');
-    if (!btn) return;
-    const card = btn.closest('.sight');
-    const id = card && card.getAttribute('data-id');
-    const list = loadSightings();
-    const s = list.find((x) => x.id === id);
-    if (!s) return;
+    const btn = e.target.closest('[data-act]'); if (!btn) return;
+    const id = btn.closest('.sight').getAttribute('data-id'); const s = DB.sightings.find((x) => x.id === id); if (!s) return;
     const act = btn.getAttribute('data-act');
     if (act === 'approve' || act === 'unapprove') {
-      s.approved = act === 'approve';
-      s.status = s.approved ? 'approved' : 'pending';
-      saveSightings(list); renderSightings();
-      toast(s.approved ? 'Sighting approved' : 'Moved back to pending');
-    } else if (act === 'delete') {
-      if (confirm(`Delete the sighting of "${s.species || 'this bird'}"?`)) {
-        saveSightings(list.filter((x) => x.id !== id));
-        renderSightings();
-        toast('Sighting deleted');
-      }
+      Store.save('sightings', Object.assign({}, s, { approved: act === 'approve', status: act === 'approve' ? 'approved' : 'pending' }));
+      toast(act === 'approve' ? 'Sighting approved' : 'Moved back to pending');
+    } else {
+      const copy = JSON.parse(JSON.stringify(s)); Store.remove('sightings', id);
+      toast('Sighting deleted', false, { label: 'Undo', fn: () => { Store.save('sightings', copy); toast('Sighting restored'); } });
     }
   }
 
-  /* ---------------- tabs ---------------- */
+  /* ---------------- analytics ---------------- */
+  function barList(el, rows, fmt) {
+    const max = Math.max.apply(null, rows.map((r) => r.value).concat([1]));
+    el.innerHTML = rows.length ? rows.map((r) => `<div class="bar-row"><span class="bl" title="${esc(r.label)}">${esc(r.label)}</span><div class="track"><div class="fill" style="width:${Math.round((r.value / max) * 100)}%"></div></div><span class="bv">${fmt ? fmt(r.value) : r.value}</span></div>`).join('') : '<div class="info">No data yet.</div>';
+  }
+  function countBy(arr, fn) { const m = {}; arr.forEach((x) => { const k = fn(x) || 'Unknown'; m[k] = (m[k] || 0) + 1; }); return Object.keys(m).map((k) => ({ label: k, value: m[k] })).sort((a, b) => b.value - a.value); }
+  function renderAnalytics() {
+    const b = DB.bookings, total = b.length;
+    const won = b.filter((x) => x.status !== 'Pending').length;
+    const received = b.reduce((s, x) => s + paidOf(x), 0);
+    const outstanding = b.filter((x) => x.status !== 'Pending' && x.total > 0).reduce((s, x) => s + balanceOf(x), 0);
+    const quoted = b.filter((x) => x.total > 0);
+    const avg = quoted.length ? quoted.reduce((s, x) => s + x.total, 0) / quoted.length : 0;
+    const tiles = [['Conversion rate', total ? Math.round((won / total) * 100) + '%' : '—'], ['Payments received', money0(received)], ['Outstanding balances', money0(outstanding)], ['Avg. booking value', avg ? money0(avg) : '—'], ['Upcoming tours', b.filter((x) => x.date >= isoToday() && x.status === 'Confirmed').length]];
+    $('anTiles').innerHTML = tiles.map((t) => `<div class="tile"><div class="v">${esc(t[1])}</div><div class="l">${esc(t[0])}</div></div>`).join('');
+    const months = []; const d = new Date();
+    for (let i = 5; i >= 0; i--) { const m = new Date(d.getFullYear(), d.getMonth() - i, 1); months.push({ key: m.getFullYear() + '-' + String(m.getMonth() + 1).padStart(2, '0'), label: m.toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }) }); }
+    barList($('anMonths'), months.map((m) => ({ label: m.label, value: b.filter((x) => monthKey(x.submitted) === m.key).length })));
+    const pays = []; b.forEach((x) => x.payments.forEach((p) => pays.push(p)));
+    barList($('anRevenue'), months.map((m) => ({ label: m.label, value: pays.filter((p) => monthKey(p.date) === m.key).reduce((s, p) => s + num(p.amount), 0) })), money0);
+    barList($('anPackages'), countBy(b, (x) => x.package).slice(0, 6));
+    barList($('anSources'), countBy(b, (x) => x.source));
+  }
+
+  /* ---------------- settings: resources / templates / data ---------------- */
+  function renderSettingsInfo() {
+    $('modeInfo').innerHTML = Store.mode === 'cloud'
+      ? `<i class="fa-solid fa-cloud" style="color:var(--green-2)"></i> <strong>Cloud sync is ON</strong> (Firebase project <code>${esc(CONFIG.FIREBASE.projectId)}</code>) — enquiries from your public pages reach every device.`
+      : '<i class="fa-solid fa-triangle-exclamation" style="color:var(--gold-dark)"></i> <strong>Local mode</strong> — data lives only in this browser. Visitors on other devices cannot send you enquiries until you enable cloud sync (see SETUP.md). Download backups regularly.';
+  }
+  function renderSettingsLists() {
+    const labels = { guide: 'Guide', boat: 'Boat', vehicle: 'Vehicle' };
+    $('resList').innerHTML = DB.resources.length ? DB.resources.map((r) => `<div class="list-item"><div><span class="tag">${labels[r.type] || esc(r.type)}</span>${esc(r.name)}</div><button class="icon-btn del" type="button" data-res-del="${esc(r.id)}" title="Delete"><i class="fa-solid fa-trash"></i></button></div>`).join('') : '<div class="info">No guides, boats or vehicles yet.</div>';
+    $('tplList').innerHTML = DB.templates.length ? DB.templates.map((t) => `<div class="list-item"><div><span class="tag">${esc(t.type)}</span>${esc(t.name)}</div><div class="actions"><button class="icon-btn" type="button" data-tpl-edit="${esc(t.id)}" title="Edit"><i class="fa-solid fa-pen"></i></button><button class="icon-btn del" type="button" data-tpl-del="${esc(t.id)}" title="Delete"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : '<div class="info">No templates yet.</div>';
+  }
+  function addResource(e) {
+    e.preventDefault();
+    const name = $('resName').value.trim(); if (!name) return toast('Enter a name', true);
+    Store.save('resources', { id: uid(), name, type: $('resType').value }); $('resName').value = ''; toast('Added');
+  }
+  function saveTemplate(e) {
+    e.preventDefault();
+    const name = $('tplName').value.trim(), body = $('tplBody').value.trim();
+    if (!name || !body) return toast('Name and content are required', true);
+    Store.save('templates', { id: $('tplEditId').value || uid(), type: $('tplType').value, name, body });
+    resetTplForm(); toast('Template saved');
+  }
+  function resetTplForm() { $('tplEditId').value = ''; $('tplName').value = ''; $('tplBody').value = ''; $('tplCancel').classList.add('hidden'); }
+  function onSettingsClick(e) {
+    const rd = e.target.closest('[data-res-del]');
+    if (rd) { const r = DB.resources.find((x) => x.id === rd.getAttribute('data-res-del')); if (r) { const copy = JSON.parse(JSON.stringify(r)); Store.remove('resources', r.id); toast('Removed', false, { label: 'Undo', fn: () => Store.save('resources', copy) }); } return; }
+    const te = e.target.closest('[data-tpl-edit]');
+    if (te) { const t = DB.templates.find((x) => x.id === te.getAttribute('data-tpl-edit')); if (t) { $('tplEditId').value = t.id; $('tplType').value = t.type; $('tplName').value = t.name; $('tplBody').value = t.body; $('tplCancel').classList.remove('hidden'); $('tplName').focus(); } return; }
+    const td = e.target.closest('[data-tpl-del]');
+    if (td) { const t = DB.templates.find((x) => x.id === td.getAttribute('data-tpl-del')); if (t) { const copy = JSON.parse(JSON.stringify(t)); Store.remove('templates', t.id); toast('Template deleted', false, { label: 'Undo', fn: () => Store.save('templates', copy) }); } }
+  }
+
+  function download(filename, mime, content) {
+    const blob = new Blob([content], { type: mime });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  }
+  function exportCsv() {
+    if (!DB.bookings.length) return toast('No bookings to export', true);
+    const cell = (v) => { let s = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
+    const head = ['Submitted', 'Name', 'Email', 'Phone', 'Package', 'Tour Date', 'Status', 'Source', 'Total', 'Paid', 'Balance', 'Guide', 'Boat', 'Vehicle', 'Itinerary'];
+    const rows = DB.bookings.map((b) => [fmtDate(b.submitted), b.name, b.email, b.phone, b.package, b.date, b.status, b.source, b.total, paidOf(b), balanceOf(b), b.guide, b.boat, b.vehicle, b.itinerary]);
+    download(`thattekad-bookings-${isoToday()}.csv`, 'text/csv;charset=utf-8', '\uFEFF' + [head].concat(rows).map((r) => r.map(cell).join(',')).join('\r\n'));
+    toast('CSV downloaded');
+  }
+  function backup() {
+    const data = {}; COLS.forEach((c) => (data[c] = DB[c]));
+    download(`thattekad-backup-${isoToday()}.json`, 'application/json', JSON.stringify({ app: 'thattekad-admin', version: 2, exported: new Date().toISOString(), data }, null, 2));
+    toast('Backup downloaded');
+  }
+  function restore(file) {
+    if (!file) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try {
+        const j = JSON.parse(rd.result);
+        if (!j || j.app !== 'thattekad-admin' || !j.data) throw new Error('Not a Thattekad backup file');
+        const counts = COLS.map((c) => `${(j.data[c] || []).length} ${c}`).join(', ');
+        if (!confirm(`Restore ${counts}?\nExisting records with the same ID will be overwritten; others are kept.`)) return;
+        COLS.forEach((c) => { if (Array.isArray(j.data[c]) && j.data[c].length) Store.saveMany(c, j.data[c].filter((x) => x && typeof x === 'object' && x.id)); });
+        toast('Backup restored');
+      } catch (err) { toast('Restore failed: ' + err.message, true); }
+    };
+    rd.readAsText(file);
+    $('restoreInput').value = '';
+  }
+
+  /* ---------------- modals / tabs / theme ---------------- */
+  function openModal(id) { $(id).classList.remove('hidden'); }
+  function closeAllModals() {
+    document.querySelectorAll('.modal-bg').forEach((m) => m.classList.add('hidden'));
+    itinId = null; manageId = null; msgId = null;
+  }
   function switchTab(id) {
     document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === id));
     document.querySelectorAll('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === id));
-    if (id === 'tabInvoice') renderInvoiceGuests();
-    if (id === 'tabSightings') renderSightings();
+    if (appActive) renderAll();
+  }
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    const ic = $('themeBtn') && $('themeBtn').querySelector('i');
+    if (ic) ic.className = t === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
   }
 
   /* ---------------- init ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
+    let theme = 'light'; try { theme = localStorage.getItem(KEY_THEME) || 'light'; } catch (e) { /* ignore */ }
+    applyTheme(theme);
+    $('themeBtn').addEventListener('click', () => { const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; localStorage.setItem(KEY_THEME, t); applyTheme(t); });
+
+    // Cloud or local?
+    const f = CONFIG.FIREBASE;
+    if (f && f.apiKey && f.projectId && window.firebase) {
+      try { firebase.initializeApp(f); Store.fs = firebase.firestore(); Store.auth = firebase.auth(); Store.mode = 'cloud'; }
+      catch (err) { console.error('Firebase init failed, using local mode', err); }
+    }
+    if (Store.mode === 'cloud') {
+      $('loginUserLabel').textContent = 'Email'; $('loginUser').type = 'email';
+      $('loginModeTag').textContent = 'Secure cloud sign-in';
+    } else {
+      $('loginModeTag').textContent = (f && f.apiKey) ? 'Firebase failed to load — running in local mode' : 'Local mode (this browser only)';
+    }
+
     $('loginForm').addEventListener('submit', handleLogin);
     $('logoutBtn').addEventListener('click', logout);
-
     document.querySelectorAll('.tab-btn').forEach((b) => b.addEventListener('click', () => switchTab(b.dataset.tab)));
 
+    // CRM
     $('manualForm').addEventListener('submit', addManualBooking);
+    $('mDate').min = isoToday();
     $('crmBody').addEventListener('click', onCrmClick);
-    $('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value.trim(); renderCrm(); });
+    $('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value.trim(); page = 1; renderCrm(); });
+    $('statusFilter').addEventListener('change', (e) => { statusFilter = e.target.value; page = 1; renderCrm(); });
+    $('sortSelect').addEventListener('change', (e) => { sortMode = e.target.value; page = 1; renderCrm(); });
+    $('pagePrev').addEventListener('click', () => { if (page > 1) { page--; renderCrm(); } });
+    $('pageNext').addEventListener('click', () => { page++; renderCrm(); });
+    $('followBanner').addEventListener('click', (e) => { if (e.target.closest('#showFollowBtn')) { statusFilter = 'followup'; $('statusFilter').value = 'followup'; page = 1; renderCrm(); } });
+    $('exportCsvBtn').addEventListener('click', exportCsv);
+    $('exportCsvBtn2').addEventListener('click', exportCsv);
+    $('printBtn').addEventListener('click', () => { document.body.classList.add('print-crm'); window.print(); });
+    window.addEventListener('afterprint', () => document.body.classList.remove('print-crm'));
+
+    // Modals
+    document.querySelectorAll('.modal-bg').forEach((m) => m.addEventListener('click', (e) => { if (e.target === m) closeAllModals(); }));
+    document.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', closeAllModals));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAllModals(); });
 
     $('itinSave').addEventListener('click', saveItinerary);
-    $('itinCancel').addEventListener('click', closeItin);
-    $('itinModal').addEventListener('click', (e) => { if (e.target === $('itinModal')) closeItin(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeItin(); });
+    $('itinTpl').addEventListener('change', applyItinTpl);
+    $('itinSaveTpl').addEventListener('click', saveItinAsTemplate);
+    $('itinPdf').addEventListener('click', () => { const b = getBooking(itinId); if (b) itineraryPdf(b); });
 
+    $('eSave').addEventListener('click', saveManage);
+    ['eDate', 'eGuide', 'eBoat', 'eVehicle'].forEach((id) => $(id).addEventListener('change', updateClashBox));
+    $('eInvoice').addEventListener('click', () => { if (manageId) openInvoiceFor(manageId); });
+    $('payForm').addEventListener('submit', addPayment);
+    $('payList').addEventListener('click', (e) => { const d = e.target.closest('[data-pay-del]'); if (d) removePayment(d.getAttribute('data-pay-del')); });
+    $('noteAdd').addEventListener('click', addManualNote);
+
+    $('msgTpl').addEventListener('change', onMsgTplChange);
+    $('msgWa').addEventListener('click', () => msgSend('wa'));
+    $('msgMail').addEventListener('click', () => msgSend('mail'));
+    $('msgCopy').addEventListener('click', () => msgSend('copy'));
+
+    // Calendar
+    $('calPrev').addEventListener('click', () => { calM--; if (calM < 0) { calM = 11; calY--; } renderCalendar(); });
+    $('calNext').addEventListener('click', () => { calM++; if (calM > 11) { calM = 0; calY++; } renderCalendar(); });
+    $('calToday').addEventListener('click', () => { const n = new Date(); calY = n.getFullYear(); calM = n.getMonth(); renderCalendar(); });
+    $('calGrid').addEventListener('click', onCalClick);
+    $('dayList').addEventListener('click', (e) => { const m = e.target.closest('[data-day-manage]'); if (m) { const id = m.getAttribute('data-day-manage'); closeAllModals(); openManage(id); } });
+    $('dayAdd').addEventListener('click', () => { closeAllModals(); switchTab('tabCrm'); $('mDate').value = dayDate >= isoToday() ? dayDate : isoToday(); $('mName').focus(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    // Invoices
     $('invGuest').addEventListener('change', onGuestSelect);
-    ['invPax', 'invRate', 'invExtra'].forEach((id) => $(id).addEventListener('input', calcTotal));
-    $('invoiceForm').addEventListener('submit', generatePdf);
-    $('invBank').value = CONFIG.DEFAULT_BANK;
-    setInvDefaults();
+    ['invPax', 'invRate', 'invExtra', 'invAdvance'].forEach((id) => $(id).addEventListener('input', calcInvoice));
+    $('invoiceForm').addEventListener('submit', generateInvoice);
+    $('invBank').value = CONFIG.DEFAULT_BANK; $('invDate').value = isoToday(); calcInvoice();
+    $('invHistBody').addEventListener('click', onInvHistClick);
 
+    // Sightings
     $('sightGrid').addEventListener('click', onSightClick);
     $('sightFilters').addEventListener('click', (e) => {
       const c = e.target.closest('.chip'); if (!c) return;
@@ -848,16 +1610,28 @@ tr:hover td{background:#fbfcfb}
       renderSightings();
     });
 
-    // Live sync: new enquiries from book.html (other tab) appear automatically.
-    window.addEventListener('storage', () => { if (isLoggedIn()) { renderStats(); renderCrm(); renderInvoiceGuests(); renderSightings(); } });
-    setInterval(() => {
-      if (!isLoggedIn() || !$('itinModal').classList.contains('hidden')) return;
-      if (document.activeElement && document.activeElement.id === 'searchInput') return;
-      renderStats(); renderSightings();
-    }, 5000);
+    // Settings
+    $('resForm').addEventListener('submit', addResource);
+    $('tplForm').addEventListener('submit', saveTemplate);
+    $('tplCancel').addEventListener('click', resetTplForm);
+    $('loadDefaultsBtn').addEventListener('click', () => { DEFAULT_TEMPLATES.forEach((t) => { if (!DB.templates.some((x) => x.id === t.id)) Store.save('templates', t); }); toast('Default templates loaded'); });
+    $('tabSettings').addEventListener('click', onSettingsClick);
+    $('backupBtn').addEventListener('click', backup);
+    $('restoreBtn').addEventListener('click', () => $('restoreInput').click());
+    $('restoreInput').addEventListener('change', (e) => restore(e.target.files[0]));
 
-    // Restore session after refresh
-    if (isLoggedIn()) showApp(); else $('loginUser').focus();
+    // Live sync for local mode + session expiry + follow-up recompute
+    window.addEventListener('storage', () => { if (appActive && Store.pollLocal()) onChange(); });
+    setInterval(() => {
+      if (!appActive) return;
+      if (Store.mode === 'local') { if (!localLoggedIn()) return showLogin(); if (Store.pollLocal()) onChange(); }
+    }, 4000);
+
+    // Session restore
+    if (Store.mode === 'cloud') {
+      Store.auth.onAuthStateChanged((user) => { if (user) enterApp(); else { showLogin(); } });
+    } else if (localLoggedIn()) enterApp();
+    else $('loginUser').focus();
   });
 })();
 </script>
