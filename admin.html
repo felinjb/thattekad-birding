@@ -1,719 +1,865 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin CRM & Custom Itineraries | Thattekad Birding</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- jsPDF for Professional Invoice Generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Thattekad Birding · Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --green:#1b4332; --green-2:#2d6a4f; --green-3:#d8f3dc;
+  --gold:#d4a373; --gold-dark:#b8864f;
+  --bg:#f8f9fa; --card:#fff; --text:#212529; --muted:#6c757d; --border:#e3e7ea;
+  --danger:#c0392b; --radius:12px; --shadow:0 2px 12px rgba(27,67,50,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:'Playfair Display',serif;color:var(--green)}
+button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
 
-    <style>
-        :root {
-            --primary: #2d6a4f; 
-            --primary-light: #40916c;
-            --dark: #1b4332;
-            --accent: #d4a373; 
-            --light-bg: #f8f9fa;
-            --white: #ffffff;
-            --text: #333333;
-            --danger: #e63946;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; color: var(--text); background-color: var(--light-bg); }
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+/* ---------- Login ---------- */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:linear-gradient(135deg,rgba(27,67,50,.96),rgba(45,106,79,.92)),var(--green)}
+.login-card{background:#fff;width:100%;max-width:400px;border-radius:16px;padding:36px 30px;box-shadow:0 20px 50px rgba(0,0,0,.3);text-align:center}
+.login-card .logo{width:64px;height:64px;border-radius:50%;background:var(--green);color:var(--gold);display:grid;place-items:center;font-size:28px;margin:0 auto 14px}
+.login-card h1{font-size:1.6rem;margin-bottom:4px}
+.login-card p.sub{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+.login-error{background:#fdecea;color:var(--danger);padding:9px 12px;border-radius:8px;font-size:.85rem;margin-bottom:14px}
 
-        /* AUTH SCREEN */
-        #auth-screen {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 100vh; background: var(--dark); color: white; text-align: center; padding: 20px;
-        }
-        .login-box {
-            background: white; padding: 35px; border-radius: 12px; width: 100%; max-width: 400px;
-            color: var(--text); box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: left;
-        }
-        .login-box h3 { color: var(--dark); text-align: center; margin-bottom: 20px; font-size: 1.5rem; }
-        .login-box .form-group { margin-bottom: 15px; }
-        .btn-login-submit {
-            background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px;
-            font-weight: 600; font-size: 1rem; cursor: pointer; width: 100%; transition: 0.3s; margin-top: 10px;
-        }
-        .btn-login-submit:hover { background: var(--primary-light); }
-        .auth-error { color: var(--danger); font-size: 0.85rem; text-align: center; margin-top: 10px; display: none; }
+/* ---------- Forms ---------- */
+.field{text-align:left;margin-bottom:14px}
+label{display:block;font-size:.78rem;font-weight:600;color:var(--green);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font:inherit;font-size:.95rem;background:#fff;color:var(--text);transition:border .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(45,106,79,.15)}
+textarea{resize:vertical;min-height:90px}
+input[readonly]{background:#f1f3f4;color:#555}
 
-        /* DASHBOARD LAYOUT */
-        #dashboard-screen { display: none; min-height: 100vh; flex-direction: column; }
-        .admin-header {
-            background: var(--dark); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
-        }
-        .admin-header h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
-        
-        .admin-container { max-width: 1350px; width: 94%; margin: 30px auto; flex-grow: 1; }
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border:none;border-radius:8px;font-weight:600;font-size:.9rem;transition:.15s}
+.btn-primary{background:var(--green);color:#fff}.btn-primary:hover{background:var(--green-2)}
+.btn-gold{background:var(--gold);color:#2b1d0e}.btn-gold:hover{background:var(--gold-dark);color:#fff}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--green)}.btn-outline:hover{background:var(--green-3)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-block{width:100%}
 
-        /* STATS OVERVIEW CARDS */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
-        .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border-left: 4px solid var(--primary); }
-        .stat-card h4 { font-size: 0.8rem; color: #666; font-family: 'Poppins', sans-serif; text-transform: uppercase; margin-bottom: 5px; }
-        .stat-card .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--dark); }
+/* ---------- App shell ---------- */
+header.topbar{background:var(--green);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand i{color:var(--gold);font-size:1.5rem}
+.brand h1{color:#fff;font-size:1.25rem;line-height:1.1}
+.brand small{color:var(--gold);font-size:.72rem;letter-spacing:1px;text-transform:uppercase}
+.topbar .btn{background:rgba(255,255,255,.12);color:#fff;padding:8px 14px}
+.topbar .btn:hover{background:var(--gold);color:#2b1d0e}
+main{max-width:1280px;margin:0 auto;padding:24px 20px 60px}
 
-        /* TABS NAVIGATION */
-        .admin-tabs { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid #ddd; padding-bottom: 10px; flex-wrap: wrap; }
-        .tab-btn {
-            background: transparent; border: none; font-family: inherit; font-size: 1rem; font-weight: 600;
-            color: #666; cursor: pointer; padding: 8px 16px; border-radius: 6px; transition: 0.3s;
-        }
-        .tab-btn.active-tab { background: var(--primary); color: white; }
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.stat{background:var(--card);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);border-left:5px solid var(--gold)}
+.stat .ico{width:50px;height:50px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:var(--green-3);color:var(--green);flex-shrink:0}
+.stat .num{font-size:1.9rem;font-weight:700;color:var(--green);line-height:1}
+.stat .lbl{font-size:.8rem;color:var(--muted);margin-top:4px}
 
-        .tab-content { display: none; }
-        .tab-content.active-content { display: block; }
+.tabs{display:flex;gap:6px;border-bottom:2px solid var(--border);margin-bottom:22px;overflow-x:auto}
+.tab-btn{background:none;border:none;padding:12px 20px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;font-size:.95rem}
+.tab-btn.active{color:var(--green);border-bottom-color:var(--gold)}
+.tab-btn .pill{background:var(--gold);color:#2b1d0e;font-size:.7rem;padding:1px 7px;border-radius:20px;margin-left:6px}
+.tab-panel{display:none}.tab-panel.active{display:block}
 
-        /* CARDS & TABLES */
-        .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .admin-card h3 { color: var(--dark); margin-bottom: 15px; font-size: 1.25rem; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+.card{background:var(--card);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);margin-bottom:22px}
+.card h2{font-size:1.2rem;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.card h2 i{color:var(--gold)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 18px}
+.span-2{grid-column:span 2}
 
-        /* CRM CONTROLS */
-        .crm-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 15px; flex-wrap: wrap; }
-        .search-box { position: relative; flex-grow: 1; max-width: 350px; }
-        .search-box input { width: 100%; padding: 8px 12px 8px 35px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.9rem; }
-        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #888; }
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}
+.search{position:relative;flex:1;min-width:220px;max-width:420px}
+.search i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.search input{padding-left:36px}
 
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.88rem; }
-        th, td { padding: 12px 12px; text-align: left; border-bottom: 1px solid #eee; vertical-align: top; }
-        th { background: #f4f6f4; color: var(--dark); font-weight: 600; }
-        tr:hover { background: #fafafa; }
+/* ---------- Table ---------- */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{background:var(--green);color:#fff;text-align:left;padding:12px;font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+th:first-child{border-radius:8px 0 0 8px}th:last-child{border-radius:0 8px 8px 0}
+td{padding:12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:hover td{background:#fbfcfb}
+.guest-name{font-weight:600;color:var(--green)}
+.guest-email{color:var(--muted);font-size:.8rem;word-break:break-all}
+.itin{max-width:260px;white-space:pre-wrap;word-break:break-word;font-size:.82rem;color:#444;max-height:90px;overflow:auto}
+.itin.empty{color:#aaa;font-style:italic}
 
-        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; display: inline-block; }
-        .badge-pending { background: #ffbe0b; color: #000; }
-        .badge-confirmed { background: var(--primary); color: white; }
-        .badge-completed { background: #457b9d; color: white; }
+.badge{border:none;padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:transform .1s}
+.badge:hover{transform:scale(1.06)}
+.badge.pending{background:#fff3cd;color:#8a6d00}
+.badge.confirmed{background:#d1e7dd;color:#0f5132}
+.badge.completed{background:#cfe2ff;color:#0a3d91}
+.actions{display:flex;gap:6px;flex-wrap:wrap}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:#fff;color:var(--green);display:grid;place-items:center;font-size:.95rem;text-decoration:none;transition:.15s}
+.icon-btn:hover{background:var(--green);color:#fff}
+.icon-btn.wa:hover{background:#25d366;border-color:#25d366}
+.icon-btn.del:hover{background:var(--danger);border-color:var(--danger)}
+.empty-state{text-align:center;padding:40px 10px;color:var(--muted)}
+.empty-state i{font-size:2.2rem;color:var(--gold);margin-bottom:10px;display:block}
 
-        /* FORMS & INPUTS */
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 15px; }
-        .form-group { display: flex; flex-direction: column; gap: 5px; }
-        label { font-size: 0.85rem; font-weight: 600; color: #555; }
-        input, select, textarea {
-            padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; outline: none;
-        }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+/* ---------- Sightings ---------- */
+.sight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.sight{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;border-top:4px solid var(--gold);display:flex;flex-direction:column;gap:6px}
+.sight.approved{border-top-color:var(--green-2)}
+.sight h3{font-size:1.05rem}
+.sight .meta{font-size:.8rem;color:var(--muted)}
+.sight .meta i{width:16px;color:var(--gold)}
+.sight p{font-size:.88rem;margin:4px 0}
+.sight .row{display:flex;gap:8px;margin-top:auto;padding-top:10px}
+.sight .row .btn{flex:1;padding:8px}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--border);background:#fff;color:var(--green);padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600}
+.chip.active{background:var(--green);color:#fff;border-color:var(--green)}
 
-        .btn-action {
-            background: var(--primary); color: white; border: none; padding: 7px 12px; border-radius: 6px;
-            font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
-        }
-        .btn-action:hover { background: var(--primary-light); }
-        .btn-whatsapp { background: #25d366; }
-        .btn-whatsapp:hover { background: #1ebe5d; }
-        .btn-email { background: #457b9d; }
-        .btn-email:hover { background: #1d3557; }
-        .btn-itinerary { background: var(--accent); color: var(--dark); }
-        .btn-itinerary:hover { background: #bc8a5f; color: white; }
-        .btn-danger { background: var(--danger); }
-        .btn-danger:hover { background: #c1121f; }
+/* ---------- Modal & toast ---------- */
+.modal-bg{position:fixed;inset:0;background:rgba(10,30,20,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:200}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:620px;max-height:92vh;overflow:auto;padding:26px;box-shadow:0 25px 60px rgba(0,0,0,.35)}
+.modal h2{margin-bottom:4px}
+.modal .sub{color:var(--muted);font-size:.88rem;margin-bottom:16px}
+.modal .btns{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--green);color:#fff;padding:12px 22px;border-radius:30px;font-size:.9rem;opacity:0;pointer-events:none;transition:.3s;z-index:300;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:92vw;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#toast.err{background:var(--danger)}
 
-        /* ITINERARY EDITOR MODAL */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.7); z-index: 99999; align-items: center; justify-content: center; padding: 20px;
-        }
-        .modal-card {
-            background: white; max-width: 600px; width: 100%; border-radius: 12px; padding: 30px; position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto;
-        }
-        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #777; }
-        .modal-close:hover { color: var(--danger); }
+.total-box{background:var(--green-3);border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin:6px 0 16px;font-weight:600;color:var(--green)}
+.total-box strong{font-size:1.4rem}
 
-        .logout-btn { color: #ffb703; background: transparent; border: 1px solid #ffb703; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
-        .logout-btn:hover { background: #ffb703; color: var(--dark); }
-
-        @media(max-width: 768px) {
-            .form-grid { grid-template-columns: 1fr; }
-            table { display: block; overflow-x: auto; }
-        }
-    </style>
+/* ---------- Responsive ---------- */
+@media(max-width:900px){
+  .grid-3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  main{padding:16px 12px 50px}
+  header.topbar{padding:12px 14px}
+  .brand h1{font-size:1.05rem}
+  .topbar .btn span{display:none}
+  .stats{grid-template-columns:1fr;gap:10px}
+  .stat{padding:14px}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .span-2{grid-column:auto}
+  .card{padding:16px}
+  /* table -> cards */
+  table,thead,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  tr{background:#fff;border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+  td{border:none;padding:6px 0;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+  td::before{content:attr(data-label);font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--muted);flex:0 0 90px;padding-top:2px}
+  td>*{flex:1;text-align:right;min-width:0}
+  td .actions{justify-content:flex-end}
+  .itin{max-width:none}
+  tr:hover td{background:none}
+}
+</style>
 </head>
 <body>
 
-    <!-- AUTHENTICATION SCREEN -->
-    <div id="auth-screen">
-        <div class="login-box">
-            <div style="text-align: center; margin-bottom: 15px;">
-                <i class="fa-solid fa-leaf" style="font-size: 2.5rem; color: var(--primary);"></i>
-            </div>
-            <h3>Thattekad Admin</h3>
-            <p style="color: #666; font-size: 0.85rem; text-align: center; margin-bottom: 20px;">Enter your secure credentials</p>
-            
-            <form id="login-form">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="admin-user" placeholder="admin" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="admin-pass" placeholder="••••••••" required>
-                </div>
-                <div id="auth-error-msg" class="auth-error">Invalid username or password! (Default: admin / thattekad2026)</div>
-                <button type="submit" class="btn-login-submit">Login to Dashboard</button>
-            </form>
-        </div>
+<!-- ================= LOGIN ================= -->
+<section id="loginScreen">
+  <form class="login-card" id="loginForm" autocomplete="off" novalidate>
+    <div class="logo"><i class="fa-solid fa-dove"></i></div>
+    <h1>Thattekad Birding</h1>
+    <p class="sub">Admin Console · Authorised access only</p>
+    <div id="loginError" class="login-error hidden"></div>
+    <div class="field"><label for="loginUser">Username</label><input id="loginUser" type="text" autocomplete="username" required></div>
+    <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" required></div>
+    <button class="btn btn-primary btn-block" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Sign In</button>
+  </form>
+</section>
+
+<!-- ================= APP ================= -->
+<div id="appScreen" class="hidden">
+  <header class="topbar">
+    <div class="brand">
+      <i class="fa-solid fa-dove"></i>
+      <div><h1>Thattekad Birding</h1><small>Admin Dashboard</small></div>
+    </div>
+    <button class="btn" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></button>
+  </header>
+
+  <main>
+    <div class="stats">
+      <div class="stat"><div class="ico"><i class="fa-solid fa-envelope-open-text"></i></div><div><div class="num" id="statTotal">0</div><div class="lbl">Total Enquiries</div></div></div>
+      <div class="stat"><div class="ico"><i class="fa-solid fa-hourglass-half"></i></div><div><div class="num" id="statPending">0</div><div class="lbl">Pending Bookings</div></div></div>
+      <div class="stat"><div class="ico"><i class="fa-solid fa-circle-check"></i></div><div><div class="num" id="statDone">0</div><div class="lbl">Confirmed / Completed</div></div></div>
     </div>
 
-    <!-- MAIN DASHBOARD SCREEN -->
-    <div id="dashboard-screen">
-        <header class="admin-header">
-            <h1><i class="fa-solid fa-shield-halved"></i> Thattekad Control Center</h1>
-            <button type="button" class="logout-btn" id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-        </header>
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn active" type="button" data-tab="tabCrm"><i class="fa-solid fa-address-book"></i> CRM &amp; Bookings</button>
+      <button class="tab-btn" type="button" data-tab="tabInvoice"><i class="fa-solid fa-file-invoice"></i> Invoice Generator</button>
+      <button class="tab-btn" type="button" data-tab="tabSightings"><i class="fa-solid fa-feather"></i> Sightings <span class="pill" id="sightPill">0</span></button>
+    </nav>
 
-        <div class="admin-container">
-            
-            <!-- QUICK STATS OVERVIEW CARDS -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h4>Total Enquiries</h4>
-                    <div class="stat-value" id="stat-total">0</div>
-                </div>
-                <div class="stat-card" style="border-left-color: #ffbe0b;">
-                    <h4>Pending Bookings</h4>
-                    <div class="stat-value" id="stat-pending">0</div>
-                </div>
-                <div class="stat-card" style="border-left-color: #457b9d;">
-                    <h4>Confirmed / Completed</h4>
-                    <div class="stat-value" id="stat-confirmed">0</div>
-                </div>
-            </div>
+    <!-- TAB 1: CRM -->
+    <section id="tabCrm" class="tab-panel active">
+      <div class="card">
+        <h2><i class="fa-solid fa-user-plus"></i> Add Manual Booking / Walk-in Enquiry</h2>
+        <form id="manualForm" novalidate>
+          <div class="grid-2">
+            <div class="field"><label for="mName">Guest Full Name *</label><input id="mName" required></div>
+            <div class="field"><label for="mEmail">Guest Email *</label><input id="mEmail" type="email" required></div>
+            <div class="field"><label for="mPhone">Phone / WhatsApp (optional)</label><input id="mPhone" type="tel" placeholder="+91 98765 43210"></div>
+            <div class="field"><label for="mPackage">Tour Package *</label><select id="mPackage" required></select></div>
+            <div class="field"><label for="mDate">Tour Date *</label><input id="mDate" type="date" required></div>
+            <div class="field span-2"><label for="mNotes">Custom Itinerary &amp; Notes</label><textarea id="mNotes" placeholder="Day-by-day schedule, timings, target species…"></textarea></div>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-plus"></i> Add Booking</button>
+        </form>
+      </div>
 
-            <!-- TABS -->
-            <div class="admin-tabs">
-                <button type="button" class="tab-btn active-tab" data-tab="bookings"><i class="fa-solid fa-calendar-check"></i> Bookings & CRM</button>
-                <button type="button" class="tab-btn" data-tab="invoices"><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator</button>
-                <button type="button" class="tab-btn" data-tab="sightings"><i class="fa-solid fa-binoculars"></i> Moderate Sightings</button>
-            </div>
-
-            <!-- TAB 1: BOOKINGS MANAGEMENT & MANUAL ENTRY -->
-            <div id="tab-bookings" class="tab-content active-content">
-                
-                <!-- MANUAL BOOKING ENTRY FORM -->
-                <div class="admin-card" style="background: #f4f8f5; border: 1px dashed var(--primary);">
-                    <h3 style="border-bottom: none; margin-bottom: 10px;"><i class="fa-solid fa-user-plus" style="color: var(--primary);"></i> Add Manual Booking / Phone Enquiry</h3>
-                    <form id="manual-booking-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Guest Full Name</label>
-                                <input type="text" id="man-name" placeholder="e.g. John Doe" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Guest Email</label>
-                                <input type="email" id="man-email" placeholder="john@example.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Tour Package</label>
-                                <select id="man-tour" required>
-                                    <option value="" disabled selected>Select Tour Package...</option>
-                                    <option value="Thattekad Multiday (3N/4D)">Thattekad Multiday (3N/4D)</option>
-                                    <option value="Thattekad & Munnar (4N/5D)">Thattekad & Munnar (4N/5D)</option>
-                                    <option value="Early Morning Chorus">Early Morning Chorus</option>
-                                    <option value="Guided Sanctuary Trail">Guided Sanctuary Trail</option>
-                                    <option value="Night Birding Tour">Night Birding Tour</option>
-                                    <option value="Target Species Tracking">Target Species Tracking</option>
-                                    <option value="The Photographer's Special">The Photographer's Special</option>
-                                    <option value="Monsoon Herping Expedition">Monsoon Herping Expedition</option>
-                                    <option value="Village & Culture Walk">Village & Culture Walk</option>
-                                    <option value="Spice Plantation Birding">Spice Plantation Birding</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Tour Date</label>
-                                <input type="date" id="man-date" required>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 15px;">
-                            <label>Custom Itinerary & Special Notes</label>
-                            <input type="text" id="man-itinerary" placeholder="e.g. Custom 2-day frogmouth & trogon focus, hotel pickup at 5:30 AM">
-                        </div>
-                        <button type="submit" class="btn-action"><i class="fa-solid fa-plus"></i> Save Booking & Itinerary</button>
-                    </form>
-                </div>
-
-                <!-- CRM TABLE -->
-                <div class="admin-card">
-                    <div class="crm-controls">
-                        <h3>Client Reservations & Custom Itineraries</h3>
-                        <div class="search-box">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" id="crm-search" placeholder="Search guest name or tour...">
-                        </div>
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table id="bookings-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Guest Name</th>
-                                    <th>Tour Package</th>
-                                    <th>Tour Date</th>
-                                    <th>Custom Itinerary & Notes</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="bookings-tbody">
-                                <!-- Populated dynamically -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 2: AUTO-FILLING INVOICE GENERATOR -->
-            <div id="tab-invoices" class="tab-content">
-                <div class="admin-card">
-                    <h3>Create & Download Professional Invoice (PDF)</h3>
-                    
-                    <!-- Guest Selector to Auto-fill -->
-                    <div class="form-group" style="margin-bottom: 20px; background: #fdfdfd; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
-                        <label><i class="fa-solid fa-magic" style="color: var(--accent);"></i> Quick Select Guest from Bookings (Auto-Fill Details)</label>
-                        <select id="guest-selector" style="margin-top: 5px;">
-                            <option value="">-- Choose a guest from active bookings --</option>
-                        </select>
-                    </div>
-
-                    <form id="invoice-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Guest Full Name</label>
-                                <input type="text" id="inv-name" placeholder="e.g. Agnieszka Smith" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Guest Email</label>
-                                <input type="email" id="inv-email" placeholder="client@example.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Tour Package Name</label>
-                                <input type="text" id="inv-tour" placeholder="e.g. Thattekad Multiday (3N/4D)" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Invoice Number</label>
-                                <input type="text" id="inv-num" value="TB-2026-001" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Total Amount (INR / USD)</label>
-                                <input type="text" id="inv-amount" placeholder="e.g. ₹35,000 or $450" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Payment Status</label>
-                                <select id="inv-status">
-                                    <option value="Full Payment Upfront (Paid)">Full Payment Upfront (Paid)</option>
-                                    <option value="Pending Payment">Pending Payment</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-bottom: 20px;">
-                            <label>Custom Notes / Bank Transfer Instructions</label>
-                            <textarea id="inv-notes" rows="2">Please use Name + 'Thattekad Tour' as reference. Full payment required upfront to confirm guide allocation.</textarea>
-                        </div>
-                        <button type="submit" class="btn-action" style="padding: 12px 20px; font-size: 0.95rem;"><i class="fa-solid fa-file-pdf"></i> Generate & Download Invoice PDF</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- TAB 3: MODERATE RECENT SIGHTINGS -->
-            <div id="tab-sightings" class="tab-content">
-                <div class="admin-card">
-                    <h3>Community Bird Sightings Moderation</h3>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Review user-submitted sightings posted from the checklist page before they appear on the public feed.</p>
-                    <div id="admin-sightings-list">
-                        <!-- Populated dynamically -->
-                    </div>
-                </div>
-            </div>
-
+      <div class="card">
+        <div class="toolbar">
+          <h2 style="margin:0"><i class="fa-solid fa-table-list"></i> Bookings CRM</h2>
+          <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" type="search" placeholder="Search name, email or package…"></div>
         </div>
-    </div>
-
-    <!-- CUSTOM ITINERARY EDIT MODAL -->
-    <div id="itinerary-modal" class="modal-overlay">
-        <div class="modal-card">
-            <span class="modal-close" id="modal-close-btn">&times;</span>
-            <h3 style="color: var(--dark); margin-bottom: 15px;"><i class="fa-solid fa-pen-to-square"></i> Edit Custom Itinerary</h3>
-            <input type="hidden" id="edit-booking-index">
-            <div class="form-group" style="margin-bottom: 15px;">
-                <label>Guest Name</label>
-                <input type="text" id="edit-name" disabled style="background:#eee;">
-            </div>
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label>Custom Itinerary & Schedule Notes</label>
-                <textarea id="edit-itinerary-text" rows="5" placeholder="Enter custom day-by-day notes, timings, or target species for this guest..."></textarea>
-            </div>
-            <button type="button" class="btn-action" id="save-itinerary-btn"><i class="fa-solid fa-floppy-disk"></i> Save Itinerary</button>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Submitted</th><th>Guest</th><th>Tour Package</th><th>Tour Date</th><th>Custom Itinerary</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="crmBody"></tbody>
+          </table>
         </div>
+        <div id="crmEmpty" class="empty-state hidden"><i class="fa-solid fa-binoculars"></i>No bookings found.</div>
+      </div>
+    </section>
+
+    <!-- TAB 2: INVOICE -->
+    <section id="tabInvoice" class="tab-panel">
+      <div class="card">
+        <h2><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator</h2>
+        <div class="field"><label for="invGuest">Select Guest / Booking</label><select id="invGuest"></select></div>
+        <form id="invoiceForm" novalidate>
+          <div class="grid-3">
+            <div class="field"><label for="invNo">Invoice No.</label><input id="invNo" readonly placeholder="Select a guest"></div>
+            <div class="field"><label for="invDate">Invoice Date</label><input id="invDate" type="date"></div>
+            <div class="field"><label for="invTourDate">Tour Date</label><input id="invTourDate" type="date"></div>
+            <div class="field"><label for="invName">Guest Name</label><input id="invName" required></div>
+            <div class="field"><label for="invEmail">Guest Email</label><input id="invEmail" type="email"></div>
+            <div class="field"><label for="invPackage">Tour Package</label><input id="invPackage" required></div>
+            <div class="field"><label for="invPax">Number of Guests</label><input id="invPax" type="number" min="1" value="1"></div>
+            <div class="field"><label for="invRate">Rate per Guest (₹)</label><input id="invRate" type="number" min="0" step="0.01" value="0"></div>
+            <div class="field"><label for="invExtra">Extras / Permits (₹)</label><input id="invExtra" type="number" min="0" step="0.01" value="0"></div>
+            <div class="field span-2"><label for="invBank">Bank Transfer Instructions</label>
+              <textarea id="invBank"></textarea></div>
+            <div class="field"><label for="invNotes">Invoice Notes</label><textarea id="invNotes" placeholder="e.g. 50% advance to confirm"></textarea></div>
+          </div>
+          <div class="total-box"><span>Grand Total</span><strong id="invTotal">₹0.00</strong></div>
+          <button class="btn btn-gold" type="submit"><i class="fa-solid fa-file-pdf"></i> Generate &amp; Download Invoice PDF</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 3: SIGHTINGS -->
+    <section id="tabSightings" class="tab-panel">
+      <div class="card">
+        <div class="toolbar">
+          <h2 style="margin:0"><i class="fa-solid fa-feather-pointed"></i> Community Sightings Moderation</h2>
+          <div class="filter-chips" id="sightFilters">
+            <button class="chip active" type="button" data-f="pending">Pending</button>
+            <button class="chip" type="button" data-f="approved">Approved</button>
+            <button class="chip" type="button" data-f="all">All</button>
+          </div>
+        </div>
+        <div class="sight-grid" id="sightGrid"></div>
+        <div id="sightEmpty" class="empty-state hidden"><i class="fa-solid fa-dove"></i>No sightings to show.</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Itinerary modal -->
+<div id="itinModal" class="modal-bg hidden" role="dialog" aria-modal="true">
+  <div class="modal">
+    <h2>Edit Custom Itinerary</h2>
+    <p class="sub" id="itinSub"></p>
+    <textarea id="itinText" style="min-height:260px" placeholder="Day 1 – 05:30 Depart for Urulanthanni… Target species: Malabar Trogon, Sri Lanka Frogmouth…"></textarea>
+    <div class="btns">
+      <button class="btn btn-outline" type="button" id="itinCancel">Cancel</button>
+      <button class="btn btn-primary" type="button" id="itinSave"><i class="fa-solid fa-floppy-disk"></i> Save Itinerary</button>
     </div>
+  </div>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // TAB SWITCHING
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const tabName = e.currentTarget.getAttribute('data-tab');
-                    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active-content'));
-                    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
-                    
-                    document.getElementById('tab-' + tabName).classList.add('active-content');
-                    e.currentTarget.classList.add('active-tab');
-                });
-            });
+<div id="toast" role="status"></div>
 
-            // LOGIN FORM
-            const loginForm = document.getElementById('login-form');
-            if (loginForm) {
-                loginForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const user = document.getElementById('admin-user').value.trim();
-                    const pass = document.getElementById('admin-pass').value.trim();
-                    const errorMsg = document.getElementById('auth-error-msg');
+<script>
+/* =====================================================================
+   Thattekad Birding · Admin Dashboard
+   All logic runs after DOMContentLoaded. Edit CONFIG to suit your site.
+   ===================================================================== */
+(function () {
+  'use strict';
 
-                    if (user === 'admin' && pass === 'thattekad2026') {
-                        localStorage.setItem('thattekadAdminAuth', 'true');
-                        checkAuth();
-                    } else {
-                        errorMsg.style.display = 'block';
-                    }
-                });
-            }
+  /* ---------------- CONFIG ---------------- */
+  const CONFIG = {
+    adminUser: 'admin',
+    adminPass: 'thattekad2026',
+    // localStorage keys — change these if your public pages use different ones.
+    // Extra keys listed in *_ALIASES are also read (and merged) so older/other forms still sync.
+    KEY_BOOKINGS: 'tb_bookings',
+    BOOKING_ALIASES: ['bookings', 'thattekad_bookings', 'tb_enquiries', 'enquiries'],
+    KEY_SIGHTINGS: 'tb_sightings',
+    SIGHTING_ALIASES: ['sightings', 'thattekad_sightings', 'communitySightings'],
+    KEY_AUTH: 'tb_admin_auth',
+    KEY_INVOICE_SEQ: 'tb_invoice_seq',
+    PACKAGES: [
+      'Half-Day Birding Walk (Morning)',
+      'Full-Day Thattekad Birding Tour',
+      'Bird Photography Tour',
+      'Boat Safari + Birding',
+      'Multi-Day Birding Package',
+      'Custom Tour'
+    ],
+    WHATSAPP_COUNTRY_CODE: '91',
+    SESSION_HOURS: 12,
+    DEFAULT_BANK:
+      'Account Name: Thattekad Birding\nBank: <Your Bank Name>\nAccount No: <XXXXXXXXXXXX>\nIFSC: <XXXXXXXXXXX>\nUPI: <yourid@bank>\nPlease quote the invoice number as payment reference.'
+  };
 
-            // LOGOUT
-            const logoutBtn = document.getElementById('logout-btn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', () => {
-                    localStorage.removeItem('thattekadAdminAuth');
-                    checkAuth();
-                });
-            }
+  /* ---------------- helpers ---------------- */
+  const $  = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const uid = () => 'id' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  const STATUSES = ['Pending', 'Confirmed', 'Completed'];
+  const pick = (o, keys) => { for (const k of keys) if (o && o[k] != null && o[k] !== '') return o[k]; return ''; };
 
-            // MANUAL BOOKING FORM
-            const manualForm = document.getElementById('manual-booking-form');
-            if (manualForm) {
-                manualForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const name = document.getElementById('man-name').value.trim();
-                    const email = document.getElementById('man-email').value.trim();
-                    const tour = document.getElementById('man-tour').value;
-                    const tourDate = document.getElementById('man-date').value;
-                    const itinerary = document.getElementById('man-itinerary').value.trim();
+  function readJSON(key) {
+    try { const v = JSON.parse(localStorage.getItem(key)); return Array.isArray(v) ? v : []; }
+    catch (e) { return []; }
+  }
+  function writeJSON(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); return true; }
+    catch (e) { toast('Storage error: ' + e.message, true); return false; }
+  }
 
-                    let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-                    const newBooking = {
-                        date: new Date().toISOString().split('T')[0],
-                        name: name,
-                        email: email,
-                        tour: tour,
-                        tourDate: tourDate,
-                        itinerary: itinerary !== "" ? itinerary : "Standard guided trek schedule.",
-                        status: "Confirmed"
-                    };
+  let toastTimer;
+  function toast(msg, isErr) {
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.toggle('err', !!isErr);
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
 
-                    bookings.unshift(newBooking);
-                    localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
-                    
-                    alert("Manual booking & itinerary added successfully!");
-                    manualForm.reset();
-                    loadAdminData();
-                });
-            }
+  function fmtDate(v) {
+    if (!v) return '—';
+    const d = new Date(v);
+    if (isNaN(d)) return esc(v);
+    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+  const isoToday = () => new Date().toISOString().slice(0, 10);
+  const money = (n) => '₹' + (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-            // CRM SEARCH FILTER
-            const crmSearch = document.getElementById('crm-search');
-            if (crmSearch) {
-                crmSearch.addEventListener('input', (e) => {
-                    const term = e.target.value.toLowerCase().trim();
-                    let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-                    const filtered = bookings.filter(b => 
-                        b.name.toLowerCase().includes(term) || 
-                        b.tour.toLowerCase().includes(term) || 
-                        b.email.toLowerCase().includes(term)
-                    );
-                    renderTable(filtered);
-                });
-            }
+  /* ---------------- data layer ---------------- */
+  function normBooking(r) {
+    const status = String(pick(r, ['status', 'Status']) || 'Pending');
+    const sNorm = STATUSES.find((s) => s.toLowerCase() === status.toLowerCase()) || 'Pending';
+    return {
+      id: r.id || uid(),
+      submitted: pick(r, ['submitted', 'submittedAt', 'createdAt', 'timestamp', 'date_submitted', 'created']) || new Date().toISOString(),
+      name: pick(r, ['name', 'fullName', 'guestName', 'guest', 'full_name']),
+      email: pick(r, ['email', 'guestEmail', 'Email']),
+      phone: pick(r, ['phone', 'whatsapp', 'mobile', 'tel']),
+      package: pick(r, ['package', 'tourPackage', 'tour', 'packageName']),
+      date: pick(r, ['date', 'tourDate', 'tour_date', 'preferredDate']),
+      itinerary: pick(r, ['itinerary', 'customItinerary', 'notes', 'message', 'details']),
+      status: sNorm,
+      invoiceNo: r.invoiceNo || ''
+    };
+  }
+  function loadBookings() {
+    const keys = [CONFIG.KEY_BOOKINGS].concat(CONFIG.BOOKING_ALIASES);
+    const seen = new Set(); const out = [];
+    keys.forEach((k) => {
+      readJSON(k).forEach((r) => {
+        if (!r || typeof r !== 'object') return;
+        const b = normBooking(r);
+        const sig = b.id + '|' + b.email + '|' + b.submitted;
+        if (seen.has(sig)) return;
+        seen.add(sig); out.push(b);
+      });
+    });
+    return out.sort((a, b) => new Date(b.submitted) - new Date(a.submitted));
+  }
+  function saveBookings(list) {
+    return writeJSON(CONFIG.KEY_BOOKINGS, list);
+  }
+  // Consolidate aliases into the primary key once so edits persist everywhere.
+  function consolidate() {
+    const list = loadBookings();
+    if (list.length) saveBookings(list);
+    CONFIG.BOOKING_ALIASES.forEach((k) => { if (readJSON(k).length) localStorage.removeItem(k); });
+    const s = loadSightings();
+    if (s.length) writeJSON(CONFIG.KEY_SIGHTINGS, s);
+    CONFIG.SIGHTING_ALIASES.forEach((k) => { if (readJSON(k).length) localStorage.removeItem(k); });
+  }
 
-            // GUEST SELECTOR AUTO-FILL INVOICE
-            const guestSelector = document.getElementById('guest-selector');
-            if (guestSelector) {
-                guestSelector.addEventListener('change', (e) => {
-                    const idx = e.target.value;
-                    if(idx === "") return;
+  function normSighting(r) {
+    const appr = r.approved === true || String(r.status || '').toLowerCase() === 'approved';
+    return {
+      id: r.id || uid(),
+      species: pick(r, ['species', 'bird', 'birdName', 'name']),
+      location: pick(r, ['location', 'place', 'site']),
+      date: pick(r, ['date', 'sightingDate', 'seenOn']),
+      observer: pick(r, ['observer', 'submittedBy', 'user', 'reporter', 'author']),
+      notes: pick(r, ['notes', 'comments', 'description', 'details']),
+      count: pick(r, ['count', 'quantity']),
+      submitted: pick(r, ['submitted', 'createdAt', 'timestamp']) || new Date().toISOString(),
+      approved: appr
+    };
+  }
+  function loadSightings() {
+    const keys = [CONFIG.KEY_SIGHTINGS].concat(CONFIG.SIGHTING_ALIASES);
+    const seen = new Set(); const out = [];
+    keys.forEach((k) => readJSON(k).forEach((r) => {
+      if (!r || typeof r !== 'object') return;
+      const s = normSighting(r);
+      const sig = s.id + '|' + s.species + '|' + s.submitted;
+      if (seen.has(sig)) return;
+      seen.add(sig); out.push(s);
+    }));
+    return out.sort((a, b) => new Date(b.submitted) - new Date(a.submitted));
+  }
+  function saveSightings(list) { return writeJSON(CONFIG.KEY_SIGHTINGS, list); }
 
-                    let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-                    const guest = bookings[idx];
-                    if(guest) {
-                        document.getElementById('inv-name').value = guest.name;
-                        document.getElementById('inv-email').value = guest.email;
-                        document.getElementById('inv-tour').value = guest.tour;
-                        document.getElementById('inv-num').value = `TB-2026-${Math.floor(100 + Math.random() * 900)}`;
-                    }
-                });
-            }
+  /* ---------------- auth ---------------- */
+  async function sha(str) {
+    if (window.crypto && crypto.subtle) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+    }
+    return 'plain:' + str;
+  }
+  function isLoggedIn() {
+    try {
+      const a = JSON.parse(localStorage.getItem(CONFIG.KEY_AUTH));
+      return !!(a && a.token && a.expires > Date.now());
+    } catch (e) { return false; }
+  }
+  function randToken() {
+    const a = new Uint8Array(16);
+    (window.crypto || {}).getRandomValues ? crypto.getRandomValues(a) : a.forEach((_, i) => (a[i] = Math.random() * 256));
+    return Array.from(a).map((b) => b.toString(16).padStart(2, '0')).join('');
+  }
+  async function handleLogin(e) {
+    e.preventDefault();
+    const u = $('loginUser').value.trim();
+    const p = $('loginPass').value;
+    const [hu, hp, eu, ep] = await Promise.all([sha(u), sha(p), sha(CONFIG.adminUser), sha(CONFIG.adminPass)]);
+    if (hu === eu && hp === ep) {
+      localStorage.setItem(CONFIG.KEY_AUTH, JSON.stringify({ token: randToken(), expires: Date.now() + CONFIG.SESSION_HOURS * 3600e3 }));
+      $('loginError').classList.add('hidden');
+      $('loginPass').value = '';
+      showApp();
+    } else {
+      const el = $('loginError');
+      el.textContent = 'Invalid username or password.';
+      el.classList.remove('hidden');
+    }
+  }
+  function logout() {
+    localStorage.removeItem(CONFIG.KEY_AUTH);
+    $('appScreen').classList.add('hidden');
+    $('loginScreen').classList.remove('hidden');
+    $('loginUser').value = '';
+    $('loginUser').focus();
+  }
+  function showApp() {
+    $('loginScreen').classList.add('hidden');
+    $('appScreen').classList.remove('hidden');
+    consolidate();
+    renderAll();
+  }
 
-            // INVOICE FORM SUBMISSION
-            const invoiceForm = document.getElementById('invoice-form');
-            if (invoiceForm) {
-                invoiceForm.addEventListener('submit', generateInvoicePDF);
-            }
+  /* ---------------- rendering: stats / CRM ---------------- */
+  let searchTerm = '';
+  let sightFilter = 'pending';
+  let itinEditId = null;
 
-            // MODAL CLOSE & SAVE
-            const closeBtn = document.getElementById('modal-close-btn');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', closeItineraryModal);
-            }
+  function renderAll() {
+    populatePackages();
+    renderStats();
+    renderCrm();
+    renderInvoiceGuests();
+    renderSightings();
+  }
 
-            const saveItineraryBtn = document.getElementById('save-itinerary-btn');
-            if (saveItineraryBtn) {
-                saveItineraryBtn.addEventListener('click', saveItineraryChanges);
-            }
+  function renderStats() {
+    const b = loadBookings();
+    $('statTotal').textContent = b.length;
+    $('statPending').textContent = b.filter((x) => x.status === 'Pending').length;
+    $('statDone').textContent = b.filter((x) => x.status !== 'Pending').length;
+  }
 
-            checkAuth();
-        });
+  function populatePackages() {
+    const sel = $('mPackage');
+    const current = sel.value;
+    const extra = loadBookings().map((b) => b.package).filter((p) => p && !CONFIG.PACKAGES.includes(p));
+    const all = Array.from(new Set(CONFIG.PACKAGES.concat(extra)));
+    sel.innerHTML = '<option value="">Select a package…</option>' + all.map((p) => `<option>${esc(p)}</option>`).join('');
+    if (current) sel.value = current;
+  }
 
-        function checkAuth() {
-            const isAuth = localStorage.getItem('thattekadAdminAuth');
-            if(isAuth === 'true') {
-                document.getElementById('auth-screen').style.display = 'none';
-                document.getElementById('dashboard-screen').style.display = 'flex';
-                loadAdminData();
-            } else {
-                document.getElementById('auth-screen').style.display = 'flex';
-                document.getElementById('dashboard-screen').style.display = 'none';
-            }
-        }
+  function renderCrm() {
+    const q = searchTerm.toLowerCase();
+    const list = loadBookings().filter((b) =>
+      !q || (b.name + ' ' + b.email + ' ' + b.package).toLowerCase().includes(q));
+    const body = $('crmBody');
+    $('crmEmpty').classList.toggle('hidden', list.length > 0);
+    body.innerHTML = list.map((b) => {
+      const msg = encodeURIComponent(
+        `Hello ${b.name || 'there'}, this is Thattekad Birding. Thank you for your enquiry about "${b.package || 'our birding tour'}"` +
+        (b.date ? ` on ${fmtDate(b.date)}` : '') + `. We'd love to help plan your trip. When is a good time to talk?`);
+      let phone = String(b.phone || '').replace(/\D/g, '');
+      if (phone.length === 10) phone = CONFIG.WHATSAPP_COUNTRY_CODE + phone;
+      const waHref = `https://wa.me/${phone}?text=${msg}`;
+      const subj = encodeURIComponent(`Your Thattekad Birding Tour – ${b.package || 'Enquiry'}`);
+      const body_ = encodeURIComponent(
+        `Dear ${b.name || 'Guest'},\n\nThank you for choosing Thattekad Birding.\n\nTour: ${b.package || '-'}\nDate: ${b.date ? fmtDate(b.date).replace(/&amp;/g,'&') : 'To be confirmed'}\nStatus: ${b.status}\n\nPlease let us know if you have any questions.\n\nWarm regards,\nThattekad Birding\nhttps://thattekadbirding.com/`);
+      const mailHref = `mailto:${encodeURIComponent(b.email || '')}?subject=${subj}&body=${body_}`;
+      return `<tr data-id="${esc(b.id)}">
+        <td data-label="Submitted">${fmtDate(b.submitted)}</td>
+        <td data-label="Guest"><div><div class="guest-name">${esc(b.name) || '—'}</div><div class="guest-email">${esc(b.email)}</div>${b.phone ? `<div class="guest-email">${esc(b.phone)}</div>` : ''}</div></td>
+        <td data-label="Package">${esc(b.package) || '—'}</td>
+        <td data-label="Tour Date">${fmtDate(b.date)}</td>
+        <td data-label="Itinerary"><div class="itin ${b.itinerary ? '' : 'empty'}">${b.itinerary ? esc(b.itinerary) : 'No itinerary yet'}</div></td>
+        <td data-label="Status"><div><button type="button" class="badge ${b.status.toLowerCase()}" data-act="status" title="Click to change status"><i class="fa-solid fa-rotate"></i> ${b.status}</button></div></td>
+        <td data-label="Actions"><div class="actions">
+          <button type="button" class="icon-btn" data-act="itin" title="Edit custom itinerary"><i class="fa-solid fa-pen-to-square"></i></button>
+          <a class="icon-btn wa" href="${waHref}" target="_blank" rel="noopener" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a class="icon-btn" href="${mailHref}" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          <button type="button" class="icon-btn del" data-act="del" title="Delete"><i class="fa-solid fa-trash"></i></button>
+        </div></td></tr>`;
+    }).join('');
+  }
 
-        // LOAD CRM & BOOKINGS DATA
-        function loadAdminData() {
-            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [
-                { date: "2026-04-10", name: "Agnieszka Smith", email: "agnieszka@example.com", tour: "Thattekad Multiday (3N/4D)", tourDate: "2026-05-12", itinerary: "Custom 3-day frogmouth focus, early morning canopy walks.", status: "Confirmed" }
-            ];
+  function onCrmClick(e) {
+    const btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    const tr = btn.closest('tr');
+    if (!tr) return;
+    const id = tr.getAttribute('data-id');
+    const list = loadBookings();
+    const b = list.find((x) => x.id === id);
+    if (!b) return;
+    const act = btn.getAttribute('data-act');
 
-            document.getElementById('stat-total').innerText = bookings.length;
-            document.getElementById('stat-pending').innerText = bookings.filter(b => b.status === 'Pending').length;
-            document.getElementById('stat-confirmed').innerText = bookings.filter(b => b.status === 'Confirmed' || b.status === 'Completed').length;
+    if (act === 'status') {
+      b.status = STATUSES[(STATUSES.indexOf(b.status) + 1) % STATUSES.length];
+      saveBookings(list);
+      renderStats(); renderCrm();
+      toast(`${b.name || 'Booking'} → ${b.status}`);
+    } else if (act === 'itin') {
+      itinEditId = id;
+      $('itinSub').textContent = `${b.name || 'Guest'} · ${b.package || 'Tour'}`;
+      $('itinText').value = b.itinerary || '';
+      $('itinModal').classList.remove('hidden');
+      $('itinText').focus();
+    } else if (act === 'del') {
+      if (confirm(`Delete the booking for "${b.name || 'this guest'}"? This cannot be undone.`)) {
+        saveBookings(list.filter((x) => x.id !== id));
+        renderAll();
+        toast('Booking deleted');
+      }
+    }
+  }
 
-            renderTable(bookings);
-            populateGuestSelector(bookings);
-            loadAdminSightings();
-        }
+  function saveItinerary() {
+    const list = loadBookings();
+    const b = list.find((x) => x.id === itinEditId);
+    if (b) {
+      b.itinerary = $('itinText').value.trim();
+      saveBookings(list);
+      renderCrm();
+      toast('Itinerary saved');
+    }
+    closeItin();
+  }
+  function closeItin() { $('itinModal').classList.add('hidden'); itinEditId = null; }
 
-        // RENDER CRM TABLE
-        function renderTable(data) {
-            const tbody = document.getElementById('bookings-tbody');
-            if(data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#777; padding:20px;">No bookings found.</td></tr>`;
-                return;
-            }
+  function addManualBooking(e) {
+    e.preventDefault();
+    const name = $('mName').value.trim(), email = $('mEmail').value.trim();
+    const pkg = $('mPackage').value, date = $('mDate').value;
+    if (!name || !email || !pkg || !date) return toast('Please fill all required fields', true);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return toast('Enter a valid email address', true);
+    const list = loadBookings();
+    list.unshift({
+      id: uid(), submitted: new Date().toISOString(), name, email,
+      phone: $('mPhone').value.trim(), package: pkg, date,
+      itinerary: $('mNotes').value.trim(), status: 'Pending', invoiceNo: ''
+    });
+    if (saveBookings(list)) {
+      e.target.reset();
+      renderAll();
+      toast('Booking added');
+    }
+  }
 
-            let bHtml = '';
-            data.forEach((b, index) => {
-                let badgeClass = b.status === 'Confirmed' ? 'badge-confirmed' : (b.status === 'Completed' ? 'badge-completed' : 'badge-pending');
-                let waText = encodeURIComponent(`Hello ${b.name}, regarding your booking for ${b.tour} on ${b.tourDate || ' upcoming dates'}: Here is your custom itinerary update.`);
-                let emailSub = encodeURIComponent(`Your Custom Itinerary: ${b.tour}`);
-                let emailBody = encodeURIComponent(`Hello ${b.name},\n\nHere are your custom itinerary details for your upcoming ${b.tour} on ${b.tourDate || 'your requested date'}:\n\n${b.itinerary || 'Standard itinerary applies.'}\n\nWarm regards,\nThattekad Birding Team`);
+  /* ---------------- invoice ---------------- */
+  function renderInvoiceGuests() {
+    const sel = $('invGuest');
+    const prev = sel.value;
+    const list = loadBookings();
+    sel.innerHTML = '<option value="">— Select a guest —</option>' + list.map((b) =>
+      `<option value="${esc(b.id)}">${esc(b.name || 'Unnamed')} · ${esc(b.package || 'No package')} · ${esc(b.status)}</option>`).join('');
+    if (prev && list.some((b) => b.id === prev)) sel.value = prev;
+  }
 
-                bHtml += `
-                    <tr>
-                        <td>${b.date || 'Today'}</td>
-                        <td><strong>${b.name}</strong><br><span style="font-size:0.75rem; color:#666;">${b.email}</span></td>
-                        <td>${b.tour}</td>
-                        <td>${b.tourDate || 'N/A'}</td>
-                        <td><span style="font-size:0.82rem; color:#444; display:block; max-width:250px;">${b.itinerary || '<em>No custom itinerary set.</em>'}</span></td>
-                        <td><span class="badge ${badgeClass}" onclick="toggleStatus(${index})" title="Click to change status">${b.status}</span></td>
-                        <td>
-                            <div style="display: flex; gap: 5px; align-items: center; flex-wrap: wrap;">
-                                <button type="button" class="btn-action btn-itinerary" onclick="openItineraryModal(${index})" title="Edit Itinerary"><i class="fa-solid fa-pen"></i></button>
-                                <a href="https://wa.me/918921243251?text=${waText}" target="_blank" class="btn-action btn-whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                                <a href="mailto:${b.email}?subject=${emailSub}&body=${emailBody}" class="btn-action btn-email" title="Email"><i class="fa-solid fa-envelope"></i></a>
-                                <button type="button" class="btn-action btn-danger" onclick="deleteBooking(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            });
-            tbody.innerHTML = bHtml;
-        }
+  function nextInvoiceNo() {
+    const year = new Date().getFullYear();
+    const used = loadBookings().map((b) => b.invoiceNo).filter(Boolean);
+    let seq = parseInt(localStorage.getItem(CONFIG.KEY_INVOICE_SEQ), 10) || 0;
+    used.forEach((n) => { const m = /(\d+)$/.exec(n); if (m) seq = Math.max(seq, parseInt(m[1], 10)); });
+    seq += 1;
+    localStorage.setItem(CONFIG.KEY_INVOICE_SEQ, String(seq));
+    return `TB-${year}-${String(seq).padStart(3, '0')}`;
+  }
 
-        // OPEN & CLOSE ITINERARY MODAL
-        function openItineraryModal(index) {
-            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-            const b = bookings[index];
-            if(b) {
-                document.getElementById('edit-booking-index').value = index;
-                document.getElementById('edit-name').value = b.name;
-                document.getElementById('edit-itinerary-text').value = b.itinerary || '';
-                document.getElementById('itinerary-modal').style.display = 'flex';
-            }
-        }
+  function onGuestSelect() {
+    const id = $('invGuest').value;
+    const form = $('invoiceForm');
+    if (!id) { form.reset(); $('invNo').value = ''; $('invBank').value = CONFIG.DEFAULT_BANK; setInvDefaults(); calcTotal(); return; }
+    const list = loadBookings();
+    const b = list.find((x) => x.id === id);
+    if (!b) return;
+    if (!b.invoiceNo) { b.invoiceNo = nextInvoiceNo(); saveBookings(list); }
+    $('invName').value = b.name;
+    $('invEmail').value = b.email;
+    $('invPackage').value = b.package;
+    $('invTourDate').value = /^\d{4}-\d{2}-\d{2}/.test(b.date) ? String(b.date).slice(0, 10) : '';
+    $('invNo').value = b.invoiceNo;
+    calcTotal();
+    toast('Invoice details filled for ' + (b.name || 'guest'));
+  }
 
-        function closeItineraryModal() {
-            document.getElementById('itinerary-modal').style.display = 'none';
-        }
+  function setInvDefaults() {
+    $('invDate').value = isoToday();
+    if (!$('invBank').value) $('invBank').value = CONFIG.DEFAULT_BANK;
+    if (!$('invPax').value) $('invPax').value = 1;
+  }
 
-        function saveItineraryChanges() {
-            const index = document.getElementById('edit-booking-index').value;
-            const newText = document.getElementById('edit-itinerary-text').value.trim();
+  function calcTotal() {
+    const t = (Number($('invPax').value) || 0) * (Number($('invRate').value) || 0) + (Number($('invExtra').value) || 0);
+    $('invTotal').textContent = money(t);
+    return t;
+  }
 
-            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-            if(bookings[index]) {
-                bookings[index].itinerary = newText;
-                localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
-                closeItineraryModal();
-                loadAdminData();
-                alert("Custom itinerary updated successfully!");
-            }
-        }
+  function generatePdf(e) {
+    e.preventDefault();
+    if (!window.jspdf || !window.jspdf.jsPDF) return toast('PDF library failed to load. Check your internet connection.', true);
+    const name = $('invName').value.trim(), pkg = $('invPackage').value.trim();
+    if (!$('invNo').value) return toast('Select a guest first to generate an invoice number', true);
+    if (!name || !pkg) return toast('Guest name and tour package are required', true);
 
-        // POPULATE GUEST SELECTOR FOR INVOICES
-        function populateGuestSelector(bookings) {
-            const selector = document.getElementById('guest-selector');
-            let options = '<option value="">-- Choose a guest from active bookings --</option>';
-            bookings.forEach((b, idx) => {
-                options += `<option value="${idx}">${b.name} (${b.tour} - ${b.tourDate || 'No Date'})</option>`;
-            });
-            selector.innerHTML = options;
-        }
+    const pax = Number($('invPax').value) || 1, rate = Number($('invRate').value) || 0, extra = Number($('invExtra').value) || 0;
+    const sub = pax * rate, total = sub + extra;
+    const pdfMoney = (n) => 'Rs. ' + (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-        function toggleStatus(index) {
-            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-            if(bookings[index]) {
-                const statuses = ['Pending', 'Confirmed', 'Completed'];
-                let currentIdx = statuses.indexOf(bookings[index].status);
-                bookings[index].status = statuses[(currentIdx + 1) % statuses.length];
-                localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
-                loadAdminData();
-            }
-        }
+    const doc = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4' });
+    const W = 210, M = 16;
+    const green = [27, 67, 50], gold = [212, 163, 115];
 
-        function deleteBooking(index) {
-            if(confirm("Are you sure you want to delete this booking record?")) {
-                let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
-                bookings.splice(index, 1);
-                localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
-                loadAdminData();
-            }
-        }
+    // header band
+    doc.setFillColor(...green); doc.rect(0, 0, W, 38, 'F');
+    doc.setFillColor(...gold); doc.rect(0, 38, W, 2.5, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(22);
+    doc.text('Thattekad Birding', M, 18);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(...gold);
+    doc.text('Eco-tourism & Bird Watching · Thattekad, Kerala, India', M, 25);
+    doc.setTextColor(255, 255, 255);
+    doc.text('thattekadbirding.com', M, 31);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(24);
+    doc.text('INVOICE', W - M, 20, { align: 'right' });
 
-        function loadAdminSightings() {
-            const container = document.getElementById('admin-sightings-list');
-            let sightings = JSON.parse(localStorage.getItem('thattekadRecentSightings')) || [];
-            
-            if(sightings.length === 0) {
-                container.innerHTML = '<p style="color:#777; font-size:0.9rem;">No pending sightings to moderate.</p>';
-                return;
-            }
+    // meta
+    let y = 54;
+    doc.setTextColor(60, 60, 60); doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold'); doc.text('Invoice No:', W - M - 52, y); doc.setFont('helvetica', 'normal'); doc.text($('invNo').value, W - M, y, { align: 'right' });
+    doc.setFont('helvetica', 'bold'); doc.text('Invoice Date:', W - M - 52, y + 6); doc.setFont('helvetica', 'normal');
+    doc.text(fmtDate($('invDate').value || isoToday()), W - M, y + 6, { align: 'right' });
 
-            let sHtml = '';
-            sightings.forEach((s, idx) => {
-                sHtml += `
-                    <div style="background:#fdfdfd; border:1px solid #eee; padding:12px; border-radius:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-                        <div>
-                            <strong>${s.bird}</strong> <span style="font-size:0.8rem; color:#666;">(by ${s.name})</span>
-                            <p style="font-size:0.85rem; color:#444; margin-top:2px;">${s.notes}</p>
-                        </div>
-                        <button type="button" class="btn-action btn-danger" onclick="deleteSighting(${idx})">Delete</button>
-                    </div>
-                `;
-            });
-            container.innerHTML = sHtml;
-        }
+    doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('BILLED TO', M, y);
+    doc.setTextColor(30, 30, 30); doc.setFontSize(12); doc.text(name, M, y + 7);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(90, 90, 90);
+    if ($('invEmail').value) doc.text($('invEmail').value.trim(), M, y + 13);
 
-        function deleteSighting(idx) {
-            let sightings = JSON.parse(localStorage.getItem('thattekadRecentSightings')) || [];
-            sightings.splice(idx, 1);
-            localStorage.setItem('thattekadRecentSightings', JSON.stringify(sightings));
-            loadAdminSightings();
-        }
+    // table
+    y = 82;
+    doc.setFillColor(...green); doc.rect(M, y, W - 2 * M, 9, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(9.5);
+    doc.text('DESCRIPTION', M + 3, y + 6);
+    doc.text('QTY', 128, y + 6, { align: 'right' });
+    doc.text('RATE', 156, y + 6, { align: 'right' });
+    doc.text('AMOUNT', W - M - 3, y + 6, { align: 'right' });
 
-        // GENERATE PROFESSIONAL PDF INVOICE
-        function generateInvoicePDF(event) {
-            event.preventDefault();
-            const name = document.getElementById('inv-name').value;
-            const email = document.getElementById('inv-email').value;
-            const tour = document.getElementById('inv-tour').value;
-            const invNum = document.getElementById('inv-num').value;
-            const amount = document.getElementById('inv-amount').value;
-            const status = document.getElementById('inv-status').value;
-            const notes = document.getElementById('inv-notes').value;
+    y += 9;
+    doc.setTextColor(30, 30, 30); doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
+    const descLines = doc.splitTextToSize(pkg, 85);
+    const tourDate = $('invTourDate').value;
+    const rowH = Math.max(14, descLines.length * 5 + (tourDate ? 8 : 4));
+    doc.setFillColor(248, 249, 250); doc.rect(M, y, W - 2 * M, rowH, 'F');
+    doc.setFont('helvetica', 'bold'); doc.text(descLines, M + 3, y + 6);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(110, 110, 110);
+    if (tourDate) doc.text('Tour date: ' + fmtDate(tourDate), M + 3, y + 6 + descLines.length * 5);
+    doc.setFontSize(10); doc.setTextColor(30, 30, 30);
+    doc.text(String(pax), 128, y + 6, { align: 'right' });
+    doc.text(pdfMoney(rate), 156, y + 6, { align: 'right' });
+    doc.text(pdfMoney(sub), W - M - 3, y + 6, { align: 'right' });
+    y += rowH;
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+    if (extra > 0) {
+      doc.setDrawColor(230, 230, 230); doc.line(M, y, W - M, y);
+      doc.text('Extras / Permits / Fees', M + 3, y + 7);
+      doc.text(pdfMoney(extra), W - M - 3, y + 7, { align: 'right' });
+      y += 11;
+    }
+    doc.setDrawColor(...gold); doc.setLineWidth(0.6); doc.line(M, y, W - M, y);
 
-            doc.setFillColor(27, 67, 50);
-            doc.rect(0, 0, 210, 40, 'F');
+    // totals
+    y += 10;
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(90, 90, 90);
+    doc.text('Subtotal', 128, y, { align: 'right' }); doc.text(pdfMoney(sub + extra), W - M - 3, y, { align: 'right' });
+    y += 4;
+    doc.setFillColor(...green); doc.roundedRect(100, y, W - M - 100, 12, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+    doc.text('GRAND TOTAL', 104, y + 8);
+    doc.setTextColor(...gold); doc.setFontSize(12);
+    doc.text(pdfMoney(total), W - M - 3, y + 8, { align: 'right' });
 
-            doc.setTextColor(255, 255, 255);
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(22);
-            doc.text("THATTEKAD BIRDING", 15, 22);
+    // bank
+    y += 26;
+    doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5);
+    doc.text('BANK TRANSFER INSTRUCTIONS', M, y);
+    doc.setDrawColor(...gold); doc.line(M, y + 2, M + 62, y + 2);
+    doc.setTextColor(50, 50, 50); doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5);
+    const bankLines = doc.splitTextToSize($('invBank').value || '', W - 2 * M);
+    doc.text(bankLines, M, y + 9);
+    y += 9 + bankLines.length * 4.6;
 
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(10);
-            doc.text("Official Tax & Tour Invoice", 15, 30);
+    const notes = $('invNotes').value.trim();
+    if (notes) {
+      y += 6;
+      doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.text('NOTES', M, y);
+      doc.setTextColor(50, 50, 50); doc.setFont('helvetica', 'normal');
+      doc.text(doc.splitTextToSize(notes, W - 2 * M), M, y + 6);
+    }
 
-            doc.setTextColor(33, 33, 33);
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(14);
-            doc.text(`INVOICE: ${invNum}`, 140, 52);
+    // footer
+    doc.setFillColor(...green); doc.rect(0, 284, W, 13, 'F');
+    doc.setTextColor(255, 255, 255); doc.setFontSize(9);
+    doc.text('Thank you for choosing Thattekad Birding — see you on the trail!', W / 2, 291, { align: 'center' });
 
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(10);
-            doc.text(`Date: ${new Date().toLocaleDateString()}`, 140, 59);
-            doc.text(`Status: ${status}`, 140, 66);
+    const safe = name.replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '');
+    doc.save(`${$('invNo').value}_${safe || 'Guest'}.pdf`);
+    toast('Invoice downloaded');
+  }
 
-            doc.setFont("helvetica", "bold");
-            doc.text("Billed To:", 15, 52);
-            doc.setFont("helvetica", "normal");
-            doc.text(`${name}`, 15, 59);
-            doc.text(`${email}`, 15, 66);
-            doc.text(`Location: Salim Ali Bird Sanctuary, Kerala`, 15, 73);
+  /* ---------------- sightings ---------------- */
+  function renderSightings() {
+    const all = loadSightings();
+    const pendingCount = all.filter((s) => !s.approved).length;
+    $('sightPill').textContent = pendingCount;
+    const list = all.filter((s) => sightFilter === 'all' || (sightFilter === 'approved' ? s.approved : !s.approved));
+    $('sightEmpty').classList.toggle('hidden', list.length > 0);
+    $('sightGrid').innerHTML = list.map((s) => `
+      <article class="sight ${s.approved ? 'approved' : ''}" data-id="${esc(s.id)}">
+        <h3>${esc(s.species) || 'Unnamed species'}${s.count ? ` <small style="color:var(--muted)">×${esc(s.count)}</small>` : ''}</h3>
+        <div class="meta"><i class="fa-solid fa-location-dot"></i>${esc(s.location) || 'Location not given'}</div>
+        <div class="meta"><i class="fa-solid fa-calendar"></i>${fmtDate(s.date || s.submitted)}</div>
+        <div class="meta"><i class="fa-solid fa-user"></i>${esc(s.observer) || 'Anonymous'}</div>
+        ${s.notes ? `<p>${esc(s.notes)}</p>` : ''}
+        <div class="row">
+          ${s.approved
+            ? `<button class="btn btn-outline" type="button" data-act="unapprove"><i class="fa-solid fa-rotate-left"></i> Unapprove</button>`
+            : `<button class="btn btn-primary" type="button" data-act="approve"><i class="fa-solid fa-check"></i> Approve</button>`}
+          <button class="btn btn-danger" type="button" data-act="delete"><i class="fa-solid fa-trash"></i> Delete</button>
+        </div>
+      </article>`).join('');
+  }
 
-            doc.setDrawColor(200, 200, 200);
-            doc.line(15, 82, 195, 82);
+  function onSightClick(e) {
+    const btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    const card = btn.closest('.sight');
+    const id = card && card.getAttribute('data-id');
+    const list = loadSightings();
+    const s = list.find((x) => x.id === id);
+    if (!s) return;
+    const act = btn.getAttribute('data-act');
+    if (act === 'approve' || act === 'unapprove') {
+      s.approved = act === 'approve';
+      s.status = s.approved ? 'approved' : 'pending';
+      saveSightings(list); renderSightings();
+      toast(s.approved ? 'Sighting approved' : 'Moved back to pending');
+    } else if (act === 'delete') {
+      if (confirm(`Delete the sighting of "${s.species || 'this bird'}"?`)) {
+        saveSightings(list.filter((x) => x.id !== id));
+        renderSightings();
+        toast('Sighting deleted');
+      }
+    }
+  }
 
-            doc.setFillColor(240, 240, 240);
-            doc.rect(15, 90, 180, 10, 'F');
-            doc.setFont("helvetica", "bold");
-            doc.text("Description of Services", 20, 97);
-            doc.text("Total", 165, 97);
+  /* ---------------- tabs ---------------- */
+  function switchTab(id) {
+    document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b.dataset.tab === id));
+    document.querySelectorAll('.tab-panel').forEach((p) => p.classList.toggle('active', p.id === id));
+    if (id === 'tabInvoice') renderInvoiceGuests();
+    if (id === 'tabSightings') renderSightings();
+  }
 
-            doc.setFont("helvetica", "normal");
-            doc.text(`${tour} - Guided Wildlife Expedition`, 20, 112);
-            doc.text(`${amount}`, 165, 112);
+  /* ---------------- init ---------------- */
+  document.addEventListener('DOMContentLoaded', function () {
+    $('loginForm').addEventListener('submit', handleLogin);
+    $('logoutBtn').addEventListener('click', logout);
 
-            doc.line(15, 122, 195, 122);
+    document.querySelectorAll('.tab-btn').forEach((b) => b.addEventListener('click', () => switchTab(b.dataset.tab)));
 
-            doc.setFont("helvetica", "bold");
-            doc.text(`Grand Total: ${amount}`, 135, 135);
+    $('manualForm').addEventListener('submit', addManualBooking);
+    $('crmBody').addEventListener('click', onCrmClick);
+    $('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value.trim(); renderCrm(); });
 
-            doc.setFillColor(248, 249, 250);
-            doc.roundedRect(15, 150, 180, 40, 3, 3, 'F');
-            doc.setDrawColor(212, 163, 115);
-            doc.roundedRect(15, 150, 180, 40, 3, 3, 'S');
+    $('itinSave').addEventListener('click', saveItinerary);
+    $('itinCancel').addEventListener('click', closeItin);
+    $('itinModal').addEventListener('click', (e) => { if (e.target === $('itinModal')) closeItin(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeItin(); });
 
-            doc.setTextColor(27, 67, 50);
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(10);
-            doc.text("Payment & Booking Terms:", 20, 160);
+    $('invGuest').addEventListener('change', onGuestSelect);
+    ['invPax', 'invRate', 'invExtra'].forEach((id) => $(id).addEventListener('input', calcTotal));
+    $('invoiceForm').addEventListener('submit', generatePdf);
+    $('invBank').value = CONFIG.DEFAULT_BANK;
+    setInvDefaults();
 
-            doc.setTextColor(85, 85, 85);
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(9);
-            doc.text(doc.splitTextToSize(notes, 170), 20, 168);
+    $('sightGrid').addEventListener('click', onSightClick);
+    $('sightFilters').addEventListener('click', (e) => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      sightFilter = c.dataset.f;
+      document.querySelectorAll('#sightFilters .chip').forEach((x) => x.classList.toggle('active', x === c));
+      renderSightings();
+    });
 
-            doc.setFont("helvetica", "italic");
-            doc.setFontSize(8);
-            doc.text("Thank you for choosing Thattekad Birding. We look forward to guiding you through Kerala's evergreen forests!", 15, 210);
+    // Live sync: new enquiries from book.html (other tab) appear automatically.
+    window.addEventListener('storage', () => { if (isLoggedIn()) { renderStats(); renderCrm(); renderInvoiceGuests(); renderSightings(); } });
+    setInterval(() => {
+      if (!isLoggedIn() || !$('itinModal').classList.contains('hidden')) return;
+      if (document.activeElement && document.activeElement.id === 'searchInput') return;
+      renderStats(); renderSightings();
+    }, 5000);
 
-            doc.save(`Invoice_${invNum}_${name.replace(/\s+/g, '_')}.pdf`);
-            alert("Invoice PDF generated and downloaded successfully!");
-        }
-    </script>
+    // Restore session after refresh
+    if (isLoggedIn()) showApp(); else $('loginUser').focus();
+  });
+})();
+</script>
 </body>
 </html>
