@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard & Invoicing | Thattekad Birding</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- jsPDF for Professional Invoice Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #2d6a4f; 
+            --primary-light: #40916c;
+            --dark: #1b4332;
+            --accent: #d4a373; 
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text: #333333;
+            --danger: #e63946;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text); background-color: var(--light-bg); }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        /* AUTH SCREEN */
+        #auth-screen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; background: var(--dark); color: white; text-align: center; padding: 20px;
+        }
+        .btn-login {
+            background: white; color: var(--dark); border: none; padding: 12px 25px; border-radius: 30px;
+            font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s; margin-top: 20px;
+        }
+        .btn-login:hover { transform: scale(1.05); }
+
+        /* DASHBOARD LAYOUT */
+        #dashboard-screen { display: none; min-height: 100vh; flex-direction: column; }
+        .admin-header {
+            background: var(--dark); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+        }
+        .admin-header h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        
+        .admin-container { max-width: 1200px; width: 92%; margin: 30px auto; flex-grow: 1; }
+
+        /* TABS NAVIGATION */
+        .admin-tabs { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid #ddd; padding-bottom: 10px; flex-wrap: wrap; }
+        .tab-btn {
+            background: transparent; border: none; font-family: inherit; font-size: 1rem; font-weight: 600;
+            color: #666; cursor: pointer; padding: 8px 16px; border-radius: 6px; transition: 0.3s;
+        }
+        .tab-btn.active-tab { background: var(--primary); color: white; }
+
+        .tab-content { display: none; }
+        .tab-content.active-content { display: block; }
+
+        /* CARDS & TABLES */
+        .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .admin-card h3 { color: var(--dark); margin-bottom: 15px; font-size: 1.25rem; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f4f6f4; color: var(--dark); font-weight: 600; }
+        tr:hover { background: #fafafa; }
+
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .badge-pending { background: #ffbe0b; color: #000; }
+        .badge-confirmed { background: var(--primary); color: white; }
+        .badge-completed { background: #457b9d; color: white; }
+
+        /* FORMS & INPUTS */
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 0.85rem; font-weight: 600; color: #555; }
+        input, select, textarea {
+            padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.95rem; outline: none;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+
+        .btn-action {
+            background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px;
+            font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+        }
+        .btn-action:hover { background: var(--primary-light); }
+        .btn-danger { background: var(--danger); }
+        .btn-danger:hover { background: #c1121f; }
+
+        .logout-btn { color: #ffb703; background: transparent; border: 1px solid #ffb703; padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; }
+        .logout-btn:hover { background: #ffb703; color: var(--dark); }
+
+        @media(max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+            table { display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUTHENTICATION SCREEN -->
+    <div id="auth-screen">
+        <i class="fa-solid fa-leaf" style="font-size: 3.5rem; color: var(--accent); margin-bottom: 15px;"></i>
+        <h2>Thattekad Birding Admin</h2>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 5px;">Secure Management Dashboard</p>
+        <button class="btn-login" onclick="loginWithGoogle()"><i class="fa-brands fa-google"></i> Sign in with Google</button>
+    </div>
+
+    <!-- MAIN DASHBOARD SCREEN -->
+    <div id="dashboard-screen">
+        <header class="admin-header">
+            <h1><i class="fa-solid fa-shield-halved"></i> Thattekad Control Center</h1>
+            <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </header>
+
+        <div class="admin-container">
+            
+            <!-- TABS -->
+            <div class="admin-tabs">
+                <button class="tab-btn active-tab" onclick="switchTab('bookings')"><i class="fa-solid fa-calendar-check"></i> Bookings & CRM</button>
+                <button class="tab-btn" onclick="switchTab('invoices')"><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator</button>
+                <button class="tab-btn" onclick="switchTab('sightings')"><i class="fa-solid fa-binoculars"></i> Moderate Sightings</button>
+            </div>
+
+            <!-- TAB 1: BOOKINGS MANAGEMENT -->
+            <div id="tab-bookings" class="tab-content active-content">
+                <div class="admin-card">
+                    <h3>Recent Client Enquiries & Reservations</h3>
+                    <div style="overflow-x: auto;">
+                        <table id="bookings-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Guest Name</th>
+                                    <th>Email</th>
+                                    <th>Requested Tour</th>
+                                    <th>Tour Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookings-tbody">
+                                <!-- Populated dynamically or via localStorage -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: INVOICE GENERATOR -->
+            <div id="tab-invoices" class="tab-content">
+                <div class="admin-card">
+                    <h3>Create & Download Professional Invoice (PDF)</h3>
+                    <form id="invoice-form" onsubmit="generateInvoicePDF(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Guest Full Name</label>
+                                <input type="text" id="inv-name" placeholder="e.g. Agnieszka Smith" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Guest Email</label>
+                                <input type="email" id="inv-email" placeholder="client@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tour Package Name</label>
+                                <input type="text" id="inv-tour" placeholder="e.g. Thattekad Multiday (3N/4D)" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Invoice Number</label>
+                                <input type="text" id="inv-num" value="TB-2026-001" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Total Amount (INR / USD)</label>
+                                <input type="text" id="inv-amount" placeholder="e.g. ₹35,000 or $450" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Status</label>
+                                <select id="inv-status">
+                                    <option value="Full Payment Upfront (Paid)">Full Payment Upfront (Paid)</option>
+                                    <option value="Pending Payment">Pending Payment</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label>Custom Notes / Bank Transfer Instructions</label>
+                            <textarea id="inv-notes" rows="2">Please use Name + 'Thattekad Tour' as reference. Full payment required upfront to confirm guide allocation.</textarea>
+                        </div>
+                        <button type="submit" class="btn-action"><i class="fa-solid fa-file-pdf"></i> Generate & Download Invoice PDF</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 3: MODERATE RECENT SIGHTINGS -->
+            <div id="tab-sightings" class="tab-content">
+                <div class="admin-card">
+                    <h3>Community Bird Sightings Moderation</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Review user-submitted sightings posted from the checklist page before they appear on the public feed.</p>
+                    <div id="admin-sightings-list">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // SIMPLE TAB CONTROLLER
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active-content'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+            
+            document.getElementById('tab-' + tabName).classList.add('active-content');
+            event.currentTarget.classList.add('active-tab');
+        }
+
+        // SIMULATED AUTHENTICATION (Replace with Firebase Auth when connected)
+        function loginWithGoogle() {
+            // For instant testing without configuring keys yet:
+            localStorage.setItem('thattekadAdminAuth', 'true');
+            checkAuth();
+        }
+
+        function logout() {
+            localStorage.removeItem('thattekadAdminAuth');
+            checkAuth();
+        }
+
+        function checkAuth() {
+            const isAuth = localStorage.getItem('thattekadAdminAuth');
+            if(isAuth === 'true') {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('dashboard-screen').style.display = 'flex';
+                loadAdminData();
+            } else {
+                document.getElementById('auth-screen').style.display = 'flex';
+                document.getElementById('dashboard-screen').style.display = 'none';
+            }
+        }
+
+        // LOAD DUMMY & LOCALSTORAGE DATA INTO ADMIN TABLES
+        function loadAdminData() {
+            // Load Bookings
+            const tbody = document.getElementById('bookings-tbody');
+            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [
+                { date: "2026-04-10", name: "Agnieszka Smith", email: "agnieszka@example.com", tour: "Thattekad Multiday (3N/4D)", tourDate: "2026-05-12", status: "Confirmed" },
+                { date: "2026-04-14", name: "David Miller", email: "david.m@example.com", tour: "Early Morning Chorus", tourDate: "2026-05-15", status: "Pending" }
+            ];
+
+            let bHtml = '';
+            bookings.forEach((b, index) => {
+                let badgeClass = b.status === 'Confirmed' ? 'badge-confirmed' : (b.status === 'Completed' ? 'badge-completed' : 'badge-pending');
+                bHtml += `
+                    <tr>
+                        <td>${b.date}</td>
+                        <td><strong>${b.name}</strong></td>
+                        <td>${b.email}</td>
+                        <td>${b.tour}</td>
+                        <td>${b.tourDate || 'N/A'}</td>
+                        <td><span class="badge ${badgeClass}">${b.status}</span></td>
+                        <td>
+                            <button class="btn-action" style="padding: 5px 10px; font-size: 0.75rem;" onclick="toggleStatus(${index})">Toggle Status</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = bHtml;
+
+            // Load Sightings for Moderation
+            loadAdminSightings();
+        }
+
+        function toggleStatus(index) {
+            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+            if(bookings[index]) {
+                bookings[index].status = bookings[index].status === 'Pending' ? 'Confirmed' : 'Completed';
+                localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
+                loadAdminData();
+            }
+        }
+
+        function loadAdminSightings() {
+            const container = document.getElementById('admin-sightings-list');
+            let sightings = JSON.parse(localStorage.getItem('thattekadRecentSightings')) || [];
+            
+            if(sightings.length === 0) {
+                container.innerHTML = '<p style="color:#777; font-size:0.9rem;">No pending sightings to moderate.</p>';
+                return;
+            }
+
+            let sHtml = '';
+            sightings.forEach((s, idx) => {
+                sHtml += `
+                    <div style="background:#fdfdfd; border:1px solid #eee; padding:12px; border-radius:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                        <div>
+                            <strong>${s.bird}</strong> <span style="font-size:0.8rem; color:#666;">(by ${s.name})</span>
+                            <p style="font-size:0.85rem; color:#444; margin-top:2px;">${s.notes}</p>
+                        </div>
+                        <button class="btn-action btn-danger" style="padding:6px 12px; font-size:0.8rem;" onclick="deleteSighting(${idx})">Delete</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = sHtml;
+        }
+
+        function deleteSighting(idx) {
+            let sightings = JSON.parse(localStorage.getItem('thattekadRecentSightings')) || [];
+            sightings.splice(idx, 1);
+            localStorage.setItem('thattekadRecentSightings', JSON.stringify(sightings));
+            loadAdminSightings();
+        }
+
+        // GENERATE PROFESSIONAL PDF INVOICE
+        function generateInvoicePDF(event) {
+            event.preventDefault();
+            const name = document.getElementById('inv-name').value;
+            const email = document.getElementById('inv-email').value;
+            const tour = document.getElementById('inv-tour').value;
+            const invNum = document.getElementById('inv-num').value;
+            const amount = document.getElementById('inv-amount').value;
+            const status = document.getElementById('inv-status').value;
+            const notes = document.getElementById('inv-notes').value;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Header Background
+            doc.setFillColor(27, 67, 50); // Dark Green
+            doc.rect(0, 0, 210, 40, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(22);
+            doc.text("THATTEKAD BIRDING", 15, 22);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text("Official Tax & Tour Invoice", 15, 30);
+
+            // Invoice Meta
+            doc.setTextColor(33, 33, 33);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(14);
+            doc.text(`INVOICE: ${invNum}`, 140, 52);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+            doc.text(`Date: ${new Date().toLocaleDateString()}`, 140, 59);
+            doc.text(`Status: ${status}`, 140, 66);
+
+            // Client Info
+            doc.setFont("helvetica", "bold");
+            doc.text("Billed To:", 15, 52);
+            doc.setFont("helvetica", "normal");
+            doc.text(`${name}`, 15, 59);
+            doc.text(`${email}`, 15, 66);
+            doc.text(`Location: Salim Ali Bird Sanctuary, Kerala`, 15, 73);
+
+            // Divider
+            doc.setDrawColor(200, 200, 200);
+            doc.line(15, 82, 195, 82);
+
+            // Table Header
+            doc.setFillColor(240, 240, 240);
+            doc.rect(15, 90, 180, 10, 'F');
+            doc.setFont("helvetica", "bold");
+            doc.text("Description of Services", 20, 97);
+            doc.text("Total", 165, 97);
+
+            // Table Row
+            doc.setFont("helvetica", "normal");
+            doc.text(`${tour} - Guided Wildlife Expedition`, 20, 112);
+            doc.text(`${amount}`, 165, 112);
+
+            doc.line(15, 122, 195, 122);
+
+            // Total Block
+            doc.setFont("helvetica", "bold");
+            doc.text(`Grand Total: ${amount}`, 135, 135);
+
+            // Payment Instructions / Notes Box
+            doc.setFillColor(248, 249, 250);
+            doc.roundedRect(15, 150, 180, 40, 3, 3, 'F');
+            doc.setDrawColor(212, 163, 115);
+            doc.roundedRect(15, 150, 180, 40, 3, 3, 'S');
+
+            doc.setTextColor(27, 67, 50);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(10);
+            doc.text("Payment & Booking Terms:", 20, 160);
+
+            doc.setTextColor(85, 85, 85);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            doc.text(doc.splitTextToSize(notes, 170), 20, 168);
+
+            // Footer
+            doc.setFont("helvetica", "italic");
+            doc.setFontSize(8);
+            doc.text("Thank you for choosing Thattekad Birding. We look forward to guiding you through Kerala's evergreen forests!", 15, 210);
+
+            // Save PDF
+            doc.save(`Invoice_${invNum}_${name.replace(/\s+/g, '_')}.pdf`);
+            alert("Invoice PDF generated and downloaded successfully!");
+        }
+
+        // Run check on page load
+        window.onload = checkAuth;
+    </script>
+</body>
+</html>
