@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard & Invoicing | Thattekad Birding</title>
+    <title>Admin CRM & Dashboard | Thattekad Birding</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,12 +51,12 @@
         }
         .admin-header h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
         
-        .admin-container { max-width: 1200px; width: 92%; margin: 30px auto; flex-grow: 1; }
+        .admin-container { max-width: 1300px; width: 94%; margin: 30px auto; flex-grow: 1; }
 
         /* STATS OVERVIEW CARDS */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
         .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border-left: 4px solid var(--primary); }
-        .stat-card h4 { font-size: 0.85rem; color: #666; font-family: 'Poppins', sans-serif; text-transform: uppercase; margin-bottom: 5px; }
+        .stat-card h4 { font-size: 0.8rem; color: #666; font-family: 'Poppins', sans-serif; text-transform: uppercase; margin-bottom: 5px; }
         .stat-card .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--dark); }
 
         /* TABS NAVIGATION */
@@ -74,12 +74,18 @@
         .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
         .admin-card h3 { color: var(--dark); margin-bottom: 15px; font-size: 1.25rem; border-bottom: 1px solid #eee; padding-bottom: 8px; }
 
+        /* CRM CONTROLS */
+        .crm-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 15px; flex-wrap: wrap; }
+        .search-box { position: relative; flex-grow: 1; max-width: 350px; }
+        .search-box input { width: 100%; padding: 8px 12px 8px 35px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 0.9rem; }
+        .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #888; }
+
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
         th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
         th { background: #f4f6f4; color: var(--dark); font-weight: 600; }
         tr:hover { background: #fafafa; }
 
-        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; display: inline-block; }
         .badge-pending { background: #ffbe0b; color: #000; }
         .badge-confirmed { background: var(--primary); color: white; }
         .badge-completed { background: #457b9d; color: white; }
@@ -94,12 +100,14 @@
         input:focus, select:focus, textarea:focus { border-color: var(--primary); }
 
         .btn-action {
-            background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 6px;
-            font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+            background: var(--primary); color: white; border: none; padding: 7px 12px; border-radius: 6px;
+            font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
         }
         .btn-action:hover { background: var(--primary-light); }
         .btn-whatsapp { background: #25d366; }
         .btn-whatsapp:hover { background: #1ebe5d; }
+        .btn-email { background: #457b9d; }
+        .btn-email:hover { background: #1d3557; }
         .btn-danger { background: var(--danger); }
         .btn-danger:hover { background: #c1121f; }
 
@@ -114,7 +122,7 @@
 </head>
 <body>
 
-    <!-- AUTHENTICATION SCREEN WITH USERNAME & PASSWORD -->
+    <!-- AUTHENTICATION SCREEN -->
     <div id="auth-screen">
         <div class="login-box">
             <div style="text-align: center; margin-bottom: 15px;">
@@ -150,7 +158,7 @@
             <!-- QUICK STATS OVERVIEW CARDS -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h4>Total Enquiries / Bookings</h4>
+                    <h4>Total Enquiries</h4>
                     <div class="stat-value" id="stat-total">0</div>
                 </div>
                 <div class="stat-card" style="border-left-color: #ffbe0b;">
@@ -158,7 +166,7 @@
                     <div class="stat-value" id="stat-pending">0</div>
                 </div>
                 <div class="stat-card" style="border-left-color: #457b9d;">
-                    <h4>Confirmed Bookings</h4>
+                    <h4>Confirmed / Completed</h4>
                     <div class="stat-value" id="stat-confirmed">0</div>
                 </div>
             </div>
@@ -170,25 +178,31 @@
                 <button class="tab-btn" onclick="switchTab('sightings')"><i class="fa-solid fa-binoculars"></i> Moderate Sightings</button>
             </div>
 
-            <!-- TAB 1: BOOKINGS MANAGEMENT -->
+            <!-- TAB 1: BOOKINGS MANAGEMENT (PROFESSIONAL CRM) -->
             <div id="tab-bookings" class="tab-content active-content">
                 <div class="admin-card">
-                    <h3>Client Enquiries & Reservations (Synced from Book Now Form)</h3>
+                    <div class="crm-controls">
+                        <h3>Client Reservations & CRM</h3>
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="crm-search" placeholder="Search guest name or tour..." oninput="filterCRM()">
+                        </div>
+                    </div>
                     <div style="overflow-x: auto;">
                         <table id="bookings-table">
                             <thead>
                                 <tr>
-                                    <th>Submitted</th>
+                                    <th>Date</th>
                                     <th>Guest Name</th>
-                                    <th>Contact</th>
-                                    <th>Tour Requested</th>
+                                    <th>Email / Notes</th>
+                                    <th>Tour Package</th>
                                     <th>Tour Date</th>
-                                    <th>Status</th>
+                                    <th>Status (Click to toggle)</th>
                                     <th>Quick Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="bookings-tbody">
-                                <!-- Populated dynamically from localStorage sync -->
+                                <!-- Populated dynamically -->
                             </tbody>
                         </table>
                     </div>
@@ -262,8 +276,7 @@
             event.currentTarget.classList.add('active-tab');
         }
 
-        // USERNAME & PASSWORD AUTHENTICATION LOGIC
-        // Default credentials: username = admin, password = thattekad2026
+        // AUTHENTICATION
         function handleLogin(event) {
             event.preventDefault();
             const user = document.getElementById('admin-user').value.trim();
@@ -295,50 +308,67 @@
             }
         }
 
-        // LOAD DATA & STATS INTO ADMIN TABLES
+        // LOAD CRM & BOOKINGS DATA
         function loadAdminData() {
-            const tbody = document.getElementById('bookings-tbody');
-            
-            // Syncs automatically with submissions from your public book.html form
             let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [
-                { date: "2026-04-10", name: "Agnieszka Smith", email: "agnieszka@example.com", phone: "+44700000000", tour: "Thattekad Multiday (3N/4D)", tourDate: "2026-05-12", status: "Confirmed" }
+                { date: "2026-04-10", name: "Agnieszka Smith", email: "agnieszka@example.com", tour: "Thattekad Multiday (3N/4D)", tourDate: "2026-05-12", details: "Looking forward to frogmouth spotting!", status: "Confirmed" }
             ];
 
-            // Update stats counter cards
-            let totalCount = bookings.length;
-            let pendingCount = bookings.filter(b => b.status === 'Pending').length;
-            let confirmedCount = bookings.filter(b => b.status === 'Confirmed' || b.status === 'Completed').length;
+            // Update stats
+            document.getElementById('stat-total').innerText = bookings.length;
+            document.getElementById('stat-pending').innerText = bookings.filter(b => b.status === 'Pending').length;
+            document.getElementById('stat-confirmed').innerText = bookings.filter(b => b.status === 'Confirmed' || b.status === 'Completed').length;
 
-            document.getElementById('stat-total').innerText = totalCount;
-            document.getElementById('stat-pending').innerText = pendingCount;
-            document.getElementById('stat-confirmed').innerText = confirmedCount;
+            renderTable(bookings);
+            loadAdminSightings();
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('bookings-tbody');
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#777; padding:20px;">No bookings found.</td></tr>`;
+                return;
+            }
 
             let bHtml = '';
-            bookings.forEach((b, index) => {
+            data.forEach((b, index) => {
                 let badgeClass = b.status === 'Confirmed' ? 'badge-confirmed' : (b.status === 'Completed' ? 'badge-completed' : 'badge-pending');
-                let cleanPhone = b.phone ? b.phone.replace(/[^0-9]/g, '') : '918921243251';
                 let waText = encodeURIComponent(`Hello ${b.name}, regarding your booking enquiry for ${b.tour} on ${b.tourDate || ' upcoming dates'}: We would love to assist you!`);
+                let emailSub = encodeURIComponent(`Your Thattekad Birding Booking: ${b.tour}`);
+                let emailBody = encodeURIComponent(`Hello ${b.name},\n\nThank you for reaching out to Thattekad Birding. We have received your request for the ${b.tour} on ${b.tourDate || 'your requested date'}.\n\nWarm regards,\nThattekad Birding Team`);
 
                 bHtml += `
                     <tr>
                         <td>${b.date || 'Today'}</td>
-                        <td><strong>${b.name}</strong><br><span style="font-size:0.75rem; color:#666;">${b.email}</span></td>
-                        <td>${b.phone || 'N/A'}</td>
+                        <td><strong>${b.name}</strong></td>
+                        <td>${b.email}<br><span style="font-size:0.75rem; color:#666;">${b.details || 'No extra notes'}</span></td>
                         <td>${b.tour}</td>
                         <td>${b.tourDate || 'N/A'}</td>
-                        <td><span class="badge ${badgeClass}">${b.status}</span></td>
+                        <td><span class="badge ${badgeClass}" onclick="toggleStatus(${index})" title="Click to change status">${b.status}</span></td>
                         <td>
                             <div style="display: flex; gap: 6px; align-items: center;">
-                                <button class="btn-action" onclick="toggleStatus(${index})">Status</button>
-                                <a href="https://wa.me/${cleanPhone}?text=${waText}" target="_blank" class="btn-action btn-whatsapp" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="https://wa.me/918921243251?text=${waText}" target="_blank" class="btn-action btn-whatsapp" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                                <a href="mailto:${b.email}?subject=${emailSub}&body=${emailBody}" class="btn-action btn-email" title="Send Email"><i class="fa-solid fa-envelope"></i></a>
+                                <button class="btn-action btn-danger" onclick="deleteBooking(${index})" title="Delete"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
                 `;
             });
             tbody.innerHTML = bHtml;
+        }
 
-            loadAdminSightings();
+        // CRM SEARCH FILTER
+        function filterCRM() {
+            const term = document.getElementById('crm-search').value.toLowerCase().trim();
+            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+            
+            const filtered = bookings.filter(b => 
+                b.name.toLowerCase().includes(term) || 
+                b.tour.toLowerCase().includes(term) || 
+                b.email.toLowerCase().includes(term)
+            );
+            renderTable(filtered);
         }
 
         function toggleStatus(index) {
@@ -347,6 +377,15 @@
                 const statuses = ['Pending', 'Confirmed', 'Completed'];
                 let currentIdx = statuses.indexOf(bookings[index].status);
                 bookings[index].status = statuses[(currentIdx + 1) % statuses.length];
+                localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
+                loadAdminData();
+            }
+        }
+
+        function deleteBooking(index) {
+            if(confirm("Are you sure you want to delete this booking record?")) {
+                let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+                bookings.splice(index, 1);
                 localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
                 loadAdminData();
             }
