@@ -31,12 +31,18 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             height: 100vh; background: var(--dark); color: white; text-align: center; padding: 20px;
         }
-        .btn-login {
-            background: white; color: var(--dark); border: none; padding: 12px 25px; border-radius: 30px;
-            font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s; margin-top: 20px;
+        .login-box {
+            background: white; padding: 35px; border-radius: 12px; width: 100%; max-width: 400px;
+            color: var(--text); box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: left;
         }
-        .btn-login:hover { transform: scale(1.05); }
+        .login-box h3 { color: var(--dark); text-align: center; margin-bottom: 20px; font-size: 1.5rem; }
+        .login-box .form-group { margin-bottom: 15px; }
+        .btn-login-submit {
+            background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px;
+            font-weight: 600; font-size: 1rem; cursor: pointer; width: 100%; transition: 0.3s; margin-top: 10px;
+        }
+        .btn-login-submit:hover { background: var(--primary-light); }
+        .auth-error { color: var(--danger); font-size: 0.85rem; text-align: center; margin-top: 10px; display: none; }
 
         /* DASHBOARD LAYOUT */
         #dashboard-screen { display: none; min-height: 100vh; flex-direction: column; }
@@ -46,6 +52,12 @@
         .admin-header h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
         
         .admin-container { max-width: 1200px; width: 92%; margin: 30px auto; flex-grow: 1; }
+
+        /* STATS OVERVIEW CARDS */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border-left: 4px solid var(--primary); }
+        .stat-card h4 { font-size: 0.85rem; color: #666; font-family: 'Poppins', sans-serif; text-transform: uppercase; margin-bottom: 5px; }
+        .stat-card .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--dark); }
 
         /* TABS NAVIGATION */
         .admin-tabs { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid #ddd; padding-bottom: 10px; flex-wrap: wrap; }
@@ -82,10 +94,12 @@
         input:focus, select:focus, textarea:focus { border-color: var(--primary); }
 
         .btn-action {
-            background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px;
-            font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
+            background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 6px;
+            font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
         }
         .btn-action:hover { background: var(--primary-light); }
+        .btn-whatsapp { background: #25d366; }
+        .btn-whatsapp:hover { background: #1ebe5d; }
         .btn-danger { background: var(--danger); }
         .btn-danger:hover { background: #c1121f; }
 
@@ -100,12 +114,28 @@
 </head>
 <body>
 
-    <!-- AUTHENTICATION SCREEN -->
+    <!-- AUTHENTICATION SCREEN WITH USERNAME & PASSWORD -->
     <div id="auth-screen">
-        <i class="fa-solid fa-leaf" style="font-size: 3.5rem; color: var(--accent); margin-bottom: 15px;"></i>
-        <h2>Thattekad Birding Admin</h2>
-        <p style="color: rgba(255,255,255,0.7); margin-top: 5px;">Secure Management Dashboard</p>
-        <button class="btn-login" onclick="loginWithGoogle()"><i class="fa-brands fa-google"></i> Sign in with Google</button>
+        <div class="login-box">
+            <div style="text-align: center; margin-bottom: 15px;">
+                <i class="fa-solid fa-leaf" style="font-size: 2.5rem; color: var(--primary);"></i>
+            </div>
+            <h3>Thattekad Admin</h3>
+            <p style="color: #666; font-size: 0.85rem; text-align: center; margin-bottom: 20px;">Enter your secure credentials</p>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="admin-user" placeholder="admin" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="admin-pass" placeholder="••••••••" required>
+                </div>
+                <div id="auth-error-msg" class="auth-error">Invalid username or password! (Default: admin / thattekad2026)</div>
+                <button type="submit" class="btn-login-submit">Login to Dashboard</button>
+            </form>
+        </div>
     </div>
 
     <!-- MAIN DASHBOARD SCREEN -->
@@ -117,6 +147,22 @@
 
         <div class="admin-container">
             
+            <!-- QUICK STATS OVERVIEW CARDS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Total Enquiries / Bookings</h4>
+                    <div class="stat-value" id="stat-total">0</div>
+                </div>
+                <div class="stat-card" style="border-left-color: #ffbe0b;">
+                    <h4>Pending Bookings</h4>
+                    <div class="stat-value" id="stat-pending">0</div>
+                </div>
+                <div class="stat-card" style="border-left-color: #457b9d;">
+                    <h4>Confirmed Bookings</h4>
+                    <div class="stat-value" id="stat-confirmed">0</div>
+                </div>
+            </div>
+
             <!-- TABS -->
             <div class="admin-tabs">
                 <button class="tab-btn active-tab" onclick="switchTab('bookings')"><i class="fa-solid fa-calendar-check"></i> Bookings & CRM</button>
@@ -127,22 +173,22 @@
             <!-- TAB 1: BOOKINGS MANAGEMENT -->
             <div id="tab-bookings" class="tab-content active-content">
                 <div class="admin-card">
-                    <h3>Recent Client Enquiries & Reservations</h3>
+                    <h3>Client Enquiries & Reservations (Synced from Book Now Form)</h3>
                     <div style="overflow-x: auto;">
                         <table id="bookings-table">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
+                                    <th>Submitted</th>
                                     <th>Guest Name</th>
-                                    <th>Email</th>
-                                    <th>Requested Tour</th>
+                                    <th>Contact</th>
+                                    <th>Tour Requested</th>
                                     <th>Tour Date</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Quick Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="bookings-tbody">
-                                <!-- Populated dynamically or via localStorage -->
+                                <!-- Populated dynamically from localStorage sync -->
                             </tbody>
                         </table>
                     </div>
@@ -187,7 +233,7 @@
                             <label>Custom Notes / Bank Transfer Instructions</label>
                             <textarea id="inv-notes" rows="2">Please use Name + 'Thattekad Tour' as reference. Full payment required upfront to confirm guide allocation.</textarea>
                         </div>
-                        <button type="submit" class="btn-action"><i class="fa-solid fa-file-pdf"></i> Generate & Download Invoice PDF</button>
+                        <button type="submit" class="btn-action" style="padding: 12px 20px; font-size: 0.95rem;"><i class="fa-solid fa-file-pdf"></i> Generate & Download Invoice PDF</button>
                     </form>
                 </div>
             </div>
@@ -207,7 +253,7 @@
     </div>
 
     <script>
-        // SIMPLE TAB CONTROLLER
+        // TAB CONTROLLER
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active-content'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
@@ -216,11 +262,20 @@
             event.currentTarget.classList.add('active-tab');
         }
 
-        // SIMULATED AUTHENTICATION (Replace with Firebase Auth when connected)
-        function loginWithGoogle() {
-            // For instant testing without configuring keys yet:
-            localStorage.setItem('thattekadAdminAuth', 'true');
-            checkAuth();
+        // USERNAME & PASSWORD AUTHENTICATION LOGIC
+        // Default credentials: username = admin, password = thattekad2026
+        function handleLogin(event) {
+            event.preventDefault();
+            const user = document.getElementById('admin-user').value.trim();
+            const pass = document.getElementById('admin-pass').value.trim();
+            const errorMsg = document.getElementById('auth-error-msg');
+
+            if (user === 'admin' && pass === 'thattekad2026') {
+                localStorage.setItem('thattekadAdminAuth', 'true');
+                checkAuth();
+            } else {
+                errorMsg.style.display = 'block';
+            }
         }
 
         function logout() {
@@ -240,42 +295,58 @@
             }
         }
 
-        // LOAD DUMMY & LOCALSTORAGE DATA INTO ADMIN TABLES
+        // LOAD DATA & STATS INTO ADMIN TABLES
         function loadAdminData() {
-            // Load Bookings
             const tbody = document.getElementById('bookings-tbody');
+            
+            // Syncs automatically with submissions from your public book.html form
             let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [
-                { date: "2026-04-10", name: "Agnieszka Smith", email: "agnieszka@example.com", tour: "Thattekad Multiday (3N/4D)", tourDate: "2026-05-12", status: "Confirmed" },
-                { date: "2026-04-14", name: "David Miller", email: "david.m@example.com", tour: "Early Morning Chorus", tourDate: "2026-05-15", status: "Pending" }
+                { date: "2026-04-10", name: "Agnieszka Smith", email: "agnieszka@example.com", phone: "+44700000000", tour: "Thattekad Multiday (3N/4D)", tourDate: "2026-05-12", status: "Confirmed" }
             ];
+
+            // Update stats counter cards
+            let totalCount = bookings.length;
+            let pendingCount = bookings.filter(b => b.status === 'Pending').length;
+            let confirmedCount = bookings.filter(b => b.status === 'Confirmed' || b.status === 'Completed').length;
+
+            document.getElementById('stat-total').innerText = totalCount;
+            document.getElementById('stat-pending').innerText = pendingCount;
+            document.getElementById('stat-confirmed').innerText = confirmedCount;
 
             let bHtml = '';
             bookings.forEach((b, index) => {
                 let badgeClass = b.status === 'Confirmed' ? 'badge-confirmed' : (b.status === 'Completed' ? 'badge-completed' : 'badge-pending');
+                let cleanPhone = b.phone ? b.phone.replace(/[^0-9]/g, '') : '918921243251';
+                let waText = encodeURIComponent(`Hello ${b.name}, regarding your booking enquiry for ${b.tour} on ${b.tourDate || ' upcoming dates'}: We would love to assist you!`);
+
                 bHtml += `
                     <tr>
-                        <td>${b.date}</td>
-                        <td><strong>${b.name}</strong></td>
-                        <td>${b.email}</td>
+                        <td>${b.date || 'Today'}</td>
+                        <td><strong>${b.name}</strong><br><span style="font-size:0.75rem; color:#666;">${b.email}</span></td>
+                        <td>${b.phone || 'N/A'}</td>
                         <td>${b.tour}</td>
                         <td>${b.tourDate || 'N/A'}</td>
                         <td><span class="badge ${badgeClass}">${b.status}</span></td>
                         <td>
-                            <button class="btn-action" style="padding: 5px 10px; font-size: 0.75rem;" onclick="toggleStatus(${index})">Toggle Status</button>
+                            <div style="display: flex; gap: 6px; align-items: center;">
+                                <button class="btn-action" onclick="toggleStatus(${index})">Status</button>
+                                <a href="https://wa.me/${cleanPhone}?text=${waText}" target="_blank" class="btn-action btn-whatsapp" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
                         </td>
                     </tr>
                 `;
             });
             tbody.innerHTML = bHtml;
 
-            // Load Sightings for Moderation
             loadAdminSightings();
         }
 
         function toggleStatus(index) {
             let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
             if(bookings[index]) {
-                bookings[index].status = bookings[index].status === 'Pending' ? 'Confirmed' : 'Completed';
+                const statuses = ['Pending', 'Confirmed', 'Completed'];
+                let currentIdx = statuses.indexOf(bookings[index].status);
+                bookings[index].status = statuses[(currentIdx + 1) % statuses.length];
                 localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
                 loadAdminData();
             }
@@ -298,7 +369,7 @@
                             <strong>${s.bird}</strong> <span style="font-size:0.8rem; color:#666;">(by ${s.name})</span>
                             <p style="font-size:0.85rem; color:#444; margin-top:2px;">${s.notes}</p>
                         </div>
-                        <button class="btn-action btn-danger" style="padding:6px 12px; font-size:0.8rem;" onclick="deleteSighting(${idx})">Delete</button>
+                        <button class="btn-action btn-danger" onclick="deleteSighting(${idx})">Delete</button>
                     </div>
                 `;
             });
@@ -326,8 +397,7 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Header Background
-            doc.setFillColor(27, 67, 50); // Dark Green
+            doc.setFillColor(27, 67, 50);
             doc.rect(0, 0, 210, 40, 'F');
 
             doc.setTextColor(255, 255, 255);
@@ -339,7 +409,6 @@
             doc.setFontSize(10);
             doc.text("Official Tax & Tour Invoice", 15, 30);
 
-            // Invoice Meta
             doc.setTextColor(33, 33, 33);
             doc.setFont("helvetica", "bold");
             doc.setFontSize(14);
@@ -350,7 +419,6 @@
             doc.text(`Date: ${new Date().toLocaleDateString()}`, 140, 59);
             doc.text(`Status: ${status}`, 140, 66);
 
-            // Client Info
             doc.setFont("helvetica", "bold");
             doc.text("Billed To:", 15, 52);
             doc.setFont("helvetica", "normal");
@@ -358,29 +426,24 @@
             doc.text(`${email}`, 15, 66);
             doc.text(`Location: Salim Ali Bird Sanctuary, Kerala`, 15, 73);
 
-            // Divider
             doc.setDrawColor(200, 200, 200);
             doc.line(15, 82, 195, 82);
 
-            // Table Header
             doc.setFillColor(240, 240, 240);
             doc.rect(15, 90, 180, 10, 'F');
             doc.setFont("helvetica", "bold");
             doc.text("Description of Services", 20, 97);
             doc.text("Total", 165, 97);
 
-            // Table Row
             doc.setFont("helvetica", "normal");
             doc.text(`${tour} - Guided Wildlife Expedition`, 20, 112);
             doc.text(`${amount}`, 165, 112);
 
             doc.line(15, 122, 195, 122);
 
-            // Total Block
             doc.setFont("helvetica", "bold");
             doc.text(`Grand Total: ${amount}`, 135, 135);
 
-            // Payment Instructions / Notes Box
             doc.setFillColor(248, 249, 250);
             doc.roundedRect(15, 150, 180, 40, 3, 3, 'F');
             doc.setDrawColor(212, 163, 115);
@@ -396,17 +459,14 @@
             doc.setFontSize(9);
             doc.text(doc.splitTextToSize(notes, 170), 20, 168);
 
-            // Footer
             doc.setFont("helvetica", "italic");
             doc.setFontSize(8);
             doc.text("Thank you for choosing Thattekad Birding. We look forward to guiding you through Kerala's evergreen forests!", 15, 210);
 
-            // Save PDF
             doc.save(`Invoice_${invNum}_${name.replace(/\s+/g, '_')}.pdf`);
             alert("Invoice PDF generated and downloaded successfully!");
         }
 
-        // Run check on page load
         window.onload = checkAuth;
     </script>
 </body>
