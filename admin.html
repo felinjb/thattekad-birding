@@ -178,8 +178,52 @@
                 <button class="tab-btn" onclick="switchTab('sightings')"><i class="fa-solid fa-binoculars"></i> Moderate Sightings</button>
             </div>
 
-            <!-- TAB 1: BOOKINGS MANAGEMENT (PROFESSIONAL CRM) -->
+            <!-- TAB 1: BOOKINGS MANAGEMENT & MANUAL ENTRY -->
             <div id="tab-bookings" class="tab-content active-content">
+                
+                <!-- MANUAL BOOKING ENTRY FORM -->
+                <div class="admin-card" style="background: #f4f8f5; border: 1px dashed var(--primary);">
+                    <h3 style="border-bottom: none; margin-bottom: 10px;"><i class="fa-solid fa-user-plus" style="color: var(--primary);"></i> Add Manual Booking / Phone Enquiry</h3>
+                    <form id="manual-booking-form" onsubmit="addManualBooking(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Guest Full Name</label>
+                                <input type="text" id="man-name" placeholder="e.g. John Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Guest Email</label>
+                                <input type="email" id="man-email" placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tour Package</label>
+                                <select id="man-tour" required>
+                                    <option value="" disabled selected>Select Tour Package...</option>
+                                    <option value="Thattekad Multiday (3N/4D)">Thattekad Multiday (3N/4D)</option>
+                                    <option value="Thattekad & Munnar (4N/5D)">Thattekad & Munnar (4N/5D)</option>
+                                    <option value="Early Morning Chorus">Early Morning Chorus</option>
+                                    <option value="Guided Sanctuary Trail">Guided Sanctuary Trail</option>
+                                    <option value="Night Birding Tour">Night Birding Tour</option>
+                                    <option value="Target Species Tracking">Target Species Tracking</option>
+                                    <option value="The Photographer's Special">The Photographer's Special</option>
+                                    <option value="Monsoon Herping Expedition">Monsoon Herping Expedition</option>
+                                    <option value="Village & Culture Walk">Village & Culture Walk</option>
+                                    <option value="Spice Plantation Birding">Spice Plantation Birding</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tour Date</label>
+                                <input type="date" id="man-date" required>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label>Special Notes / Phone Details</label>
+                            <input type="text" id="man-notes" placeholder="e.g. Booked via phone call, requested specific guide">
+                        </div>
+                        <button type="submit" class="btn-action"><i class="fa-solid fa-plus"></i> Save Booking to CRM</button>
+                    </form>
+                </div>
+
+                <!-- CRM TABLE -->
                 <div class="admin-card">
                     <div class="crm-controls">
                         <h3>Client Reservations & CRM</h3>
@@ -209,10 +253,19 @@
                 </div>
             </div>
 
-            <!-- TAB 2: INVOICE GENERATOR -->
+            <!-- TAB 2: AUTO-FILLING INVOICE GENERATOR -->
             <div id="tab-invoices" class="tab-content">
                 <div class="admin-card">
                     <h3>Create & Download Professional Invoice (PDF)</h3>
+                    
+                    <!-- Guest Selector to Auto-fill -->
+                    <div class="form-group" style="margin-bottom: 20px; background: #fdfdfd; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
+                        <label><i class="fa-solid fa-magic" style="color: var(--accent);"></i> Quick Select Guest from Bookings (Auto-Fill Details)</label>
+                        <select id="guest-selector" onchange="autoFillInvoice()" style="margin-top: 5px;">
+                            <option value="">-- Choose a guest from active bookings --</option>
+                        </select>
+                    </div>
+
                     <form id="invoice-form" onsubmit="generateInvoicePDF(event)">
                         <div class="form-grid">
                             <div class="form-group">
@@ -320,9 +373,11 @@
             document.getElementById('stat-confirmed').innerText = bookings.filter(b => b.status === 'Confirmed' || b.status === 'Completed').length;
 
             renderTable(bookings);
+            populateGuestSelector(bookings);
             loadAdminSightings();
         }
 
+        // RENDER CRM TABLE
         function renderTable(data) {
             const tbody = document.getElementById('bookings-tbody');
             if(data.length === 0) {
@@ -356,6 +411,59 @@
                 `;
             });
             tbody.innerHTML = bHtml;
+        }
+
+        // ADD MANUAL BOOKING
+        function addManualBooking(event) {
+            event.preventDefault();
+            const name = document.getElementById('man-name').value.trim();
+            const email = document.getElementById('man-email').value.trim();
+            const tour = document.getElementById('man-tour').value;
+            const tourDate = document.getElementById('man-date').value;
+            const notes = document.getElementById('man-notes').value.trim();
+
+            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+            const newBooking = {
+                date: new Date().toISOString().split('T')[0],
+                name: name,
+                email: email,
+                tour: tour,
+                tourDate: tourDate,
+                details: notes !== "" ? notes : "Added manually via admin",
+                status: "Confirmed"
+            };
+
+            bookings.unshift(newBooking);
+            localStorage.setItem('thattekadBookings', JSON.stringify(bookings));
+            
+            alert("Manual booking added successfully!");
+            document.getElementById('manual-booking-form').reset();
+            loadAdminData();
+        }
+
+        // POPULATE GUEST SELECTOR FOR INVOICES
+        function populateGuestSelector(bookings) {
+            const selector = document.getElementById('guest-selector');
+            let options = '<option value="">-- Choose a guest from active bookings --</option>';
+            bookings.forEach((b, idx) => {
+                options += `<option value="${idx}">${b.name} (${b.tour} - ${b.tourDate || 'No Date'})</option>`;
+            });
+            selector.innerHTML = options;
+        }
+
+        // AUTO-FILL INVOICE FORM FROM SELECTED GUEST
+        function autoFillInvoice() {
+            const idx = document.getElementById('guest-selector').value;
+            if(idx === "") return;
+
+            let bookings = JSON.parse(localStorage.getItem('thattekadBookings')) || [];
+            const guest = bookings[idx];
+            if(guest) {
+                document.getElementById('inv-name').value = guest.name;
+                document.getElementById('inv-email').value = guest.email;
+                document.getElementById('inv-tour').value = guest.tour;
+                document.getElementById('inv-num').value = `TB-2026-${Math.floor(100 + Math.random() * 900)}` ;
+            }
         }
 
         // CRM SEARCH FILTER
