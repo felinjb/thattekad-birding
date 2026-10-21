@@ -134,16 +134,24 @@ tr:hover td{background:var(--soft)}
 .cal-nav h3{margin:0;min-width:170px;text-align:center}
 .cal-week,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .cal-week div{text-align:center;font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;padding:6px 0}
-.cal-cell{min-height:96px;background:var(--soft);border:1px solid var(--border);border-radius:8px;padding:5px;cursor:pointer;overflow:hidden;transition:.15s}
+.cal-cell{min-height:96px;background:var(--soft);border:1px solid var(--border);border-radius:8px;padding:5px;cursor:pointer;overflow:visible;transition:.15s;position:relative}
 .cal-cell:hover{border-color:var(--gold)}
 .cal-cell.out{opacity:.35}
 .cal-cell.today{border:2px solid var(--gold)}
 .cal-cell.clash{border-color:var(--danger)}
 .cal-cell .dn{font-size:.76rem;font-weight:700;color:var(--ink);display:flex;justify-content:space-between}
-.cal-chip{display:block;width:100%;text-align:left;border:none;border-radius:5px;font-size:.68rem;padding:2px 5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.cal-chip{display:block;width:100%;position:relative;z-index:1;min-height:19px;text-align:left;border:none;border-radius:5px;font-size:.68rem;padding:2px 5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
 .cal-chip.pending{background:#fff3cd;color:#8a6d00}
 .cal-chip.confirmed{background:#d1e7dd;color:#0f5132}
 .cal-chip.completed{background:#cfe2ff;color:#0a3d91}
+.cal-chip.spacer{visibility:hidden;pointer-events:none}
+.cal-chip.cont-l{margin-left:-11px;width:calc(100% + 11px);border-top-left-radius:0;border-bottom-left-radius:0}
+.cal-chip.cont-r{margin-right:-11px;width:calc(100% + 11px);border-top-right-radius:0;border-bottom-right-radius:0}
+.cal-chip.cont-l.cont-r{width:calc(100% + 22px)}
+.cal-chip.multi{}
+.old-box{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem}
+.old-box input{width:auto}
+.dur{display:block;font-size:.72rem;color:var(--muted)}
 .cal-more{font-size:.66rem;color:var(--muted);margin-top:3px}
 .legend{display:flex;gap:14px;font-size:.78rem;color:var(--muted);margin-top:12px;flex-wrap:wrap}
 .legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;background:var(--c)}
@@ -283,12 +291,15 @@ tr:hover td{background:var(--soft)}
         <form id="manualForm" novalidate>
           <div class="grid-3">
             <div class="field"><label for="mName">Guest Full Name *</label><input id="mName" required></div>
-            <div class="field"><label for="mEmail">Guest Email *</label><input id="mEmail" type="email" required></div>
+            <div class="field"><label for="mEmail">Guest Email <span id="mEmailStar">*</span></label><input id="mEmail" type="email" required></div>
             <div class="field"><label for="mPhone">Phone / WhatsApp</label><input id="mPhone" type="tel" placeholder="+91 98765 43210"></div>
             <div class="field"><label for="mPackage">Tour Package *</label><select id="mPackage" required></select></div>
-            <div class="field"><label for="mDate">Tour Date *</label><input id="mDate" type="date" required></div>
+            <div class="field"><label for="mDate">Start Date *</label><input id="mDate" type="date" required></div>
+            <div class="field"><label for="mEnd">End Date (multi-day tours)</label><input id="mEnd" type="date"></div>
             <div class="field"><label for="mSource">Lead Source</label><select id="mSource"></select></div>
             <div class="field"><label for="mTotal">Quoted Total (₹, optional)</label><input id="mTotal" type="number" min="0" step="0.01"></div>
+            <div class="field"><label for="mPaid">Amount already received (₹)</label><input id="mPaid" type="number" min="0" step="0.01"></div>
+            <div class="field"><label>&nbsp;</label><label class="old-box"><input id="mOld" type="checkbox"> Old / past booking (mark Completed)</label></div>
             <div class="field span-2"><label for="mNotes">Custom Itinerary &amp; Notes</label><textarea id="mNotes" placeholder="Day-by-day schedule, timings, target species…"></textarea></div>
           </div>
           <button class="btn btn-primary" type="submit"><i class="fa-solid fa-plus"></i> Add Booking</button>
@@ -317,7 +328,7 @@ tr:hover td{background:var(--soft)}
         </div>
         <div class="table-wrap">
           <table class="resp">
-            <thead><tr><th>Submitted</th><th>Guest</th><th>Tour Package</th><th>Tour Date</th><th>Custom Itinerary</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Submitted</th><th>Guest</th><th>Tour Package</th><th>Tour Dates</th><th>Custom Itinerary</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead>
             <tbody id="crmBody"></tbody>
           </table>
         </div>
@@ -418,6 +429,9 @@ tr:hover td{background:var(--soft)}
           <button class="btn btn-primary btn-sm" id="backupBtn" type="button"><i class="fa-solid fa-download"></i> Download full backup (JSON)</button>
           <button class="btn btn-gold btn-sm" id="restoreBtn" type="button"><i class="fa-solid fa-upload"></i> Restore backup…</button>
           <input type="file" id="restoreInput" accept="application/json,.json" class="hidden">
+          <button class="btn btn-gold btn-sm" id="importCsvBtn" type="button"><i class="fa-solid fa-file-import"></i> Import old bookings (CSV)…</button>
+          <button class="btn btn-outline btn-sm" id="csvTemplateBtn" type="button"><i class="fa-solid fa-file-arrow-down"></i> Download CSV template</button>
+          <input type="file" id="importCsvInput" accept=".csv,text/csv" class="hidden">
         </div></div>
       </div>
       <div class="two-col">
@@ -477,7 +491,8 @@ tr:hover td{background:var(--soft)}
       <div class="field"><label for="eEmail">Email</label><input id="eEmail" type="email"></div>
       <div class="field"><label for="ePhone">Phone</label><input id="ePhone" type="tel"></div>
       <div class="field"><label for="ePackage">Package</label><select id="ePackage"></select></div>
-      <div class="field"><label for="eDate">Tour Date</label><input id="eDate" type="date"></div>
+      <div class="field"><label for="eDate">Start Date</label><input id="eDate" type="date"></div>
+      <div class="field"><label for="eEnd">End Date (multi-day)</label><input id="eEnd" type="date"></div>
       <div class="field"><label for="eSource">Lead Source</label><select id="eSource"></select></div>
       <div class="field"><label for="eTotal">Quoted Total (₹)</label><input id="eTotal" type="number" min="0" step="0.01"></div>
       <div class="field"><label for="eGuide">Guide</label><select id="eGuide"></select></div>
@@ -640,6 +655,15 @@ tr:hover td{background:var(--soft)}
   }
 
   /* ---------------- normalisers ---------------- */
+  function normEnd(start, end) { return start && end && String(end) > String(start) ? String(end) : ''; }
+  const endOf = (b) => (b.endDate && b.endDate > b.date ? b.endDate : b.date);
+  const overlaps = (a, b) => !!(a.date && b.date && a.date <= endOf(b) && b.date <= endOf(a));
+  function dayCount(b) { const s = parseDate(b.date), e = parseDate(endOf(b)); return s && e ? Math.round((e - s) / 864e5) + 1 : 1; }
+  function fmtRange(b) {
+    if (!b.date) return '—';
+    if (endOf(b) === b.date) return fmtDate(b.date);
+    return fmtDate(b.date) + ' – ' + fmtDate(endOf(b));
+  }
   function normBooking(r) {
     const st = String(pick(r, ['status', 'Status']) || 'Pending');
     return {
@@ -650,6 +674,7 @@ tr:hover td{background:var(--soft)}
       phone: pick(r, ['phone', 'whatsapp', 'mobile', 'tel']),
       package: pick(r, ['package', 'tourPackage', 'tour', 'packageName']),
       date: pick(r, ['date', 'tourDate', 'tour_date', 'preferredDate']),
+      endDate: normEnd(pick(r, ['date', 'tourDate', 'tour_date', 'preferredDate']), pick(r, ['endDate', 'end_date', 'tourEndDate', 'toDate'])),
       itinerary: pick(r, ['itinerary', 'customItinerary', 'message', 'details']) || (typeof r.notes === 'string' ? r.notes : ''),
       status: STATUSES.find((s) => s.toLowerCase() === st.toLowerCase()) || 'Pending',
       invoiceNo: r.invoiceNo || '',
@@ -797,7 +822,7 @@ tr:hover td{background:var(--soft)}
     const out = [];
     [['guide', 'Guide'], ['boat', 'Boat'], ['vehicle', 'Vehicle']].forEach(([k, label]) => {
       if (!d[k]) return;
-      DB.bookings.forEach((o) => { if (o.id !== d.id && o.date === d.date && o[k] === d[k]) out.push(`${label} "${d[k]}" is also assigned to ${o.name || 'another guest'}`); });
+      DB.bookings.forEach((o) => { if (o.id !== d.id && overlaps(d, o) && o[k] === d[k]) out.push(`${label} "${d[k]}" is also assigned to ${o.name || 'another guest'}`); });
     });
     return out;
   }
@@ -924,8 +949,8 @@ tr:hover td{background:var(--soft)}
   }
   const waLink = (b, text) => `https://wa.me/${digits(b.phone)}?text=${encodeURIComponent(text)}`;
   const mailLink = (b, subj, body) => `mailto:${encodeURIComponent(b.email || '')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
-  const defaultWa = (b) => `Hello ${b.name || 'there'}, this is Thattekad Birding. Thank you for your enquiry about "${b.package || 'our birding tour'}"${b.date ? ' on ' + fmtDate(b.date) : ''}. We'd love to help plan your trip. When is a good time to talk?`;
-  const defaultMailBody = (b) => `Dear ${b.name || 'Guest'},\n\nThank you for choosing Thattekad Birding.\n\nTour: ${b.package || '-'}\nDate: ${b.date ? fmtDate(b.date) : 'To be confirmed'}\nStatus: ${b.status}\n\nPlease let us know if you have any questions.\n\nWarm regards,\nThattekad Birding\nhttps://thattekadbirding.com/`;
+  const defaultWa = (b) => `Hello ${b.name || 'there'}, this is Thattekad Birding. Thank you for your enquiry about "${b.package || 'our birding tour'}"${b.date ? ' on ' + fmtRange(b) : ''}. We'd love to help plan your trip. When is a good time to talk?`;
+  const defaultMailBody = (b) => `Dear ${b.name || 'Guest'},\n\nThank you for choosing Thattekad Birding.\n\nTour: ${b.package || '-'}\nDate: ${b.date ? fmtRange(b) : 'To be confirmed'}\nStatus: ${b.status}\n\nPlease let us know if you have any questions.\n\nWarm regards,\nThattekad Birding\nhttps://thattekadbirding.com/`;
 
   function renderCrm() {
     const all = crmList();
@@ -947,7 +972,7 @@ tr:hover td{background:var(--soft)}
         <td data-label="Submitted">${fd(b.submitted)}</td>
         <td data-label="Guest"><div><div class="guest-name">${esc(b.name) || '—'}</div><div class="guest-email">${esc(b.email)}</div>${b.phone ? `<div class="guest-email">${esc(b.phone)}</div>` : ''}${needsFollowUp(b) ? '<span class="fu"><i class="fa-solid fa-bell"></i> Follow up</span>' : ''}</div></td>
         <td data-label="Package"><div>${esc(b.package) || '—'}</div></td>
-        <td data-label="Tour Date"><div>${fd(b.date)}${clash.length ? `<div class="warn" title="${esc(clash.join('; '))}"><i class="fa-solid fa-triangle-exclamation"></i> Clash</div>` : ''}</div></td>
+        <td data-label="Tour Dates"><div>${esc(fmtRange(b))}${dayCount(b) > 1 ? `<span class="dur">${dayCount(b)} days</span>` : ''}${clash.length ? `<div class="warn" title="${esc(clash.join('; '))}"><i class="fa-solid fa-triangle-exclamation"></i> Clash</div>` : ''}</div></td>
         <td data-label="Itinerary"><div class="itin ${b.itinerary ? '' : 'empty'}">${b.itinerary ? esc(b.itinerary) : 'No itinerary yet'}</div></td>
         <td data-label="Payment">${pay}</td>
         <td data-label="Status"><div><button type="button" class="badge ${b.status.toLowerCase()}" data-act="status" title="Click to change status"><i class="fa-solid fa-rotate"></i> ${esc(b.status)}</button></div></td>
@@ -999,17 +1024,24 @@ tr:hover td{background:var(--soft)}
 
   function addManualBooking(e) {
     e.preventDefault();
-    const name = $('mName').value.trim(), email = $('mEmail').value.trim(), pkg = $('mPackage').value, date = $('mDate').value, phone = $('mPhone').value.trim();
-    if (!name || !email || !pkg || !date) return toast('Please fill all required fields', true);
-    if (!validEmail(email)) return toast('Enter a valid email address', true);
+    const old = $('mOld').checked;
+    const name = $('mName').value.trim(), email = $('mEmail').value.trim(), pkg = $('mPackage').value, date = $('mDate').value, end = $('mEnd').value, phone = $('mPhone').value.trim();
+    if (!name || !pkg || !date || (!email && !old)) return toast('Please fill all required fields', true);
+    if (email && !validEmail(email)) return toast('Enter a valid email address', true);
     if (!validPhone(phone)) return toast('Enter a valid phone number (7–15 digits)', true);
-    if (date < isoToday()) return toast('Tour date cannot be in the past', true);
-    Store.save('bookings', normBooking({
-      id: uid(), submitted: new Date().toISOString(), name, email, phone, package: pkg, date,
-      itinerary: $('mNotes').value.trim(), status: 'Pending', source: $('mSource').value || 'Other', total: num($('mTotal').value)
-    }));
-    e.target.reset(); $('mSource').value = 'Website';
-    toast('Booking added');
+    if (end && end < date) return toast('End date cannot be before the start date', true);
+    if (date < isoToday() && !old) return toast('Past date — tick "Old / past booking" to record it', true);
+    const paid = num($('mPaid').value);
+    let total = num($('mTotal').value); if (!total && paid) total = paid;
+    const b = normBooking({
+      id: uid(), submitted: old ? (parseDate(date).toISOString()) : new Date().toISOString(), name, email, phone, package: pkg, date, endDate: end,
+      itinerary: $('mNotes').value.trim(), status: old ? 'Completed' : 'Pending', source: $('mSource').value || 'Other', total,
+      payments: paid ? [{ id: uid(), date: old ? date : isoToday(), amount: paid, method: old ? 'Old record' : 'Cash', note: '' }] : []
+    });
+    if (clashesFor(b).length) toast('Saved, but a guide/boat/vehicle clash exists', true);
+    Store.save('bookings', b);
+    e.target.reset(); $('mSource').value = 'Website'; $('mEmailStar').textContent = '*';
+    toast(old ? 'Old booking added' : 'Booking added');
   }
 
   /* ---------------- itinerary modal ---------------- */
@@ -1059,7 +1091,7 @@ tr:hover td{background:var(--soft)}
     $('manageSub').textContent = `Submitted ${fmtDate(b.submitted)} · Status: ${b.status}`;
     $('eName').value = b.name; $('eEmail').value = b.email; $('ePhone').value = b.phone;
     fillSelect($('ePackage'), allPackages(), 'Select a package…', b.package);
-    $('eDate').value = b.date || '';
+    $('eDate').value = b.date || ''; $('eEnd').value = b.endDate || '';
     fillSelect($('eSource'), CONFIG.SOURCES, null, b.source || 'Website');
     $('eTotal').value = b.total || '';
     fillResSelect($('eGuide'), 'guide', b.guide); fillResSelect($('eBoat'), 'boat', b.boat); fillResSelect($('eVehicle'), 'vehicle', b.vehicle);
@@ -1068,10 +1100,10 @@ tr:hover td{background:var(--soft)}
     openModal('manageModal');
   }
   function updateClashBox() {
-    const msgs = clashesFor({ id: manageId, date: $('eDate').value, guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
+    const msgs = clashesFor({ id: manageId, date: $('eDate').value, endDate: $('eEnd').value, guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
     const el = $('eClash');
     el.classList.toggle('hidden', !msgs.length);
-    el.innerHTML = msgs.map((m) => `<span><i class="fa-solid fa-triangle-exclamation"></i> ${esc(m)} on this date</span>`).join('<br>');
+    el.innerHTML = msgs.map((m) => `<span><i class="fa-solid fa-triangle-exclamation"></i> ${esc(m)} on these dates</span>`).join('<br>');
   }
   function renderManageLists() {
     const b = getBooking(manageId); if (!b) return;
@@ -1086,8 +1118,9 @@ tr:hover td{background:var(--soft)}
     if (!name) return toast('Guest name is required', true);
     if (email && !validEmail(email)) return toast('Enter a valid email address', true);
     if (!validPhone(phone)) return toast('Enter a valid phone number', true);
+    if ($('eEnd').value && $('eEnd').value < $('eDate').value) return toast('End date cannot be before the start date', true);
     const c = JSON.parse(JSON.stringify(b));
-    Object.assign(c, { name, email, phone, package: $('ePackage').value, date: $('eDate').value, source: $('eSource').value, total: num($('eTotal').value), guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
+    Object.assign(c, { name, email, phone, package: $('ePackage').value, date: $('eDate').value, endDate: normEnd($('eDate').value, $('eEnd').value), source: $('eSource').value, total: num($('eTotal').value), guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
     Store.save('bookings', c); toast('Details saved'); $('manageTitle').textContent = name;
   }
   function addPayment(e) {
@@ -1114,7 +1147,7 @@ tr:hover td{background:var(--soft)}
   /* ---------------- message modal ---------------- */
   let msgId = null;
   function fillTpl(body, b) {
-    const map = { name: b.name || 'Guest', package: b.package || 'your tour', date: b.date ? fmtDate(b.date) : 'the scheduled date', total: money(b.total), paid: money(paidOf(b)), balance: money(balanceOf(b)), guide: b.guide || 'to be assigned' };
+    const map = { name: b.name || 'Guest', package: b.package || 'your tour', date: b.date ? fmtRange(b) : 'the scheduled date', total: money(b.total), paid: money(paidOf(b)), balance: money(balanceOf(b)), guide: b.guide || 'to be assigned' };
     return String(body).replace(/\{(\w+)\}/g, (m, k) => (k in map ? map[k] : m));
   }
   function openMsg(id) {
@@ -1145,40 +1178,65 @@ tr:hover td{background:var(--soft)}
   /* ---------------- calendar ---------------- */
   const now0 = new Date();
   let calY = now0.getFullYear(), calM = now0.getMonth(), dayDate = '';
+  const LANES = 3;
+  const isoOf = (d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   function renderCalendar() {
     const first = new Date(calY, calM, 1);
     $('calTitle').textContent = first.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
     const startOffset = first.getDay();
-    const daysInMonth = new Date(calY, calM + 1, 0).getDate();
-    const byDate = {};
-    DB.bookings.forEach((b) => { if (b.date) (byDate[b.date] = byDate[b.date] || []).push(b); });
-    const today = isoToday();
-    let html = '';
+    const cells = [];
     for (let i = 0; i < 42; i++) {
       const d = new Date(calY, calM, 1 - startOffset + i);
       if (i >= 35 && d.getMonth() !== calM) break;
-      const iso = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-      const items = byDate[iso] || [];
+      cells.push(d);
+    }
+    const gStart = isoOf(cells[0]), gEnd = isoOf(cells[cells.length - 1]);
+    // assign each visible booking to a lane so multi-day bars line up across days
+    const vis = DB.bookings.filter((b) => b.date && b.date <= gEnd && endOf(b) >= gStart)
+      .sort((a, b) => a.date.localeCompare(b.date) || endOf(b).localeCompare(endOf(a)) || String(a.name).localeCompare(String(b.name)));
+    const laneEnd = [], lane = {};
+    vis.forEach((b) => {
+      let l = laneEnd.findIndex((e) => e < b.date);
+      if (l < 0) { l = laneEnd.length; laneEnd.push(''); }
+      laneEnd[l] = endOf(b); lane[b.id] = l;
+    });
+    const today = isoToday();
+    let html = '';
+    cells.forEach((d, i) => {
+      const iso = isoOf(d);
+      const items = vis.filter((b) => b.date <= iso && endOf(b) >= iso);
       const clash = items.some((b) => clashesFor(b).length);
       const cls = ['cal-cell', d.getMonth() !== calM ? 'out' : '', iso === today ? 'today' : '', clash ? 'clash' : ''].join(' ');
-      html += `<div class="${cls}" data-date="${iso}"><div class="dn"><span>${d.getDate()}</span>${clash ? '<span class="warn"><i class="fa-solid fa-triangle-exclamation"></i></span>' : ''}</div>` +
-        items.slice(0, 3).map((b) => `<button type="button" class="cal-chip ${b.status.toLowerCase()}" data-id="${esc(b.id)}" title="${esc((b.name || '') + ' · ' + (b.package || ''))}">${esc(b.name || 'Guest')}</button>`).join('') +
-        (items.length > 3 ? `<div class="cal-more">+${items.length - 3} more</div>` : '') + '</div>';
-    }
+      let chips = '';
+      for (let l = 0; l < LANES; l++) {
+        const b = items.find((x) => lane[x.id] === l);
+        if (!b) { chips += '<div class="cal-chip spacer">&nbsp;</div>'; continue; }
+        const multi = endOf(b) > b.date, e = endOf(b);
+        const contL = multi && iso > b.date && d.getDay() !== 0;
+        const contR = multi && iso < e && d.getDay() !== 6;
+        const showName = !contL || i === 0;
+        const label = (showName ? (b.name || 'Guest') : ' ') + (showName && multi && iso === b.date ? ' · ' + dayCount(b) + 'd' : '');
+        chips += `<button type="button" class="cal-chip ${b.status.toLowerCase()} ${multi ? 'multi' : ''} ${contL ? 'cont-l' : ''} ${contR ? 'cont-r' : ''}" data-id="${esc(b.id)}" title="${esc((b.name || '') + ' · ' + (b.package || '') + ' · ' + fmtRange(b))}">${esc(label)}</button>`;
+      }
+      const hidden = items.filter((b) => lane[b.id] >= LANES).length;
+      html += `<div class="${cls}" data-date="${iso}"><div class="dn"><span>${d.getDate()}</span>${clash ? '<span class="warn"><i class="fa-solid fa-triangle-exclamation"></i></span>' : ''}</div>` + chips +
+        (hidden ? `<div class="cal-more">+${hidden} more</div>` : '') + '</div>';
+    });
     $('calGrid').innerHTML = html;
   }
   function onCalClick(e) {
     const chip = e.target.closest('.cal-chip');
-    if (chip) return openManage(chip.getAttribute('data-id'));
+    if (chip && !chip.classList.contains('spacer')) return openManage(chip.getAttribute('data-id'));
     const cell = e.target.closest('.cal-cell'); if (cell) openDay(cell.getAttribute('data-date'));
   }
   function openDay(iso) {
     dayDate = iso;
     $('dayTitle').textContent = fmtDate(iso);
-    const items = DB.bookings.filter((b) => b.date === iso);
+    const items = DB.bookings.filter((b) => b.date && b.date <= iso && endOf(b) >= iso);
     $('dayList').innerHTML = items.length ? items.map((b) => {
       const cl = clashesFor(b);
-      return `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong> <span class="badge ${b.status.toLowerCase()}" style="padding:2px 9px;cursor:default">${esc(b.status)}</span><div class="sub">${esc(b.package)}${b.guide ? ' · Guide: ' + esc(b.guide) : ''}${b.boat ? ' · Boat: ' + esc(b.boat) : ''}${b.vehicle ? ' · ' + esc(b.vehicle) : ''}</div>${cl.length ? `<div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(cl.join('; '))}</div>` : ''}</div><button class="btn btn-outline btn-sm" type="button" data-day-manage="${esc(b.id)}">Manage</button></div>`;
+      const rng = dayCount(b) > 1 ? ` · ${esc(fmtRange(b))} (${dayCount(b)} days)` : '';
+      return `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong> <span class="badge ${b.status.toLowerCase()}" style="padding:2px 9px;cursor:default">${esc(b.status)}</span><div class="sub">${esc(b.package)}${rng}${b.guide ? ' · Guide: ' + esc(b.guide) : ''}${b.boat ? ' · Boat: ' + esc(b.boat) : ''}${b.vehicle ? ' · ' + esc(b.vehicle) : ''}</div>${cl.length ? `<div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(cl.join('; '))}</div>` : ''}</div><button class="btn btn-outline btn-sm" type="button" data-day-manage="${esc(b.id)}">Manage</button></div>`;
     }).join('') : '<div class="info">No tours scheduled.</div>';
     openModal('dayModal');
   }
@@ -1367,7 +1425,7 @@ tr:hover td{background:var(--soft)}
     doc.setTextColor(...green); doc.setFont('helvetica', 'bold'); doc.setFontSize(9); doc.text('PREPARED FOR', M, y);
     doc.setTextColor(30, 30, 30); doc.setFontSize(13); doc.text(pdfSafe(b.name || 'Guest'), M, y + 7);
     y += 18;
-    const rows = [['Tour', b.package || '—'], ['Date', fmtDate(b.date)], ['Guide', b.guide || 'To be assigned'], ['Vehicle', b.vehicle || '—'], ['Boat', b.boat || '—']];
+    const rows = [['Tour', b.package || '—'], ['Date', fmtRange(b)], ['Guide', b.guide || 'To be assigned'], ['Vehicle', b.vehicle || '—'], ['Boat', b.boat || '—']];
     doc.setFontSize(10);
     rows.forEach((r) => {
       doc.setFont('helvetica', 'bold'); doc.setTextColor(...green); doc.text(r[0] + ':', M, y);
@@ -1482,10 +1540,83 @@ tr:hover td{background:var(--soft)}
   function exportCsv() {
     if (!DB.bookings.length) return toast('No bookings to export', true);
     const cell = (v) => { let s = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
-    const head = ['Submitted', 'Name', 'Email', 'Phone', 'Package', 'Tour Date', 'Status', 'Source', 'Total', 'Paid', 'Balance', 'Guide', 'Boat', 'Vehicle', 'Itinerary'];
-    const rows = DB.bookings.map((b) => [fmtDate(b.submitted), b.name, b.email, b.phone, b.package, b.date, b.status, b.source, b.total, paidOf(b), balanceOf(b), b.guide, b.boat, b.vehicle, b.itinerary]);
+    const head = ['Submitted', 'Name', 'Email', 'Phone', 'Package', 'Start Date', 'End Date', 'Status', 'Source', 'Total', 'Paid', 'Balance', 'Guide', 'Boat', 'Vehicle', 'Itinerary'];
+    const rows = DB.bookings.map((b) => [fmtDate(b.submitted), b.name, b.email, b.phone, b.package, b.date, b.endDate || '', b.status, b.source, b.total, paidOf(b), balanceOf(b), b.guide, b.boat, b.vehicle, b.itinerary]);
     download(`thattekad-bookings-${isoToday()}.csv`, 'text/csv;charset=utf-8', '\uFEFF' + [head].concat(rows).map((r) => r.map(cell).join(',')).join('\r\n'));
     toast('CSV downloaded');
+  }
+  /* ---- CSV import of old bookings ---- */
+  function parseCsv(text) {
+    const rows = []; let row = [], f = '', q = false;
+    text = text.replace(/^﻿/, '');
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) { if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true;
+      else if (c === ',') { row.push(f); f = ''; }
+      else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; row.push(f); f = ''; if (row.some((x) => x.trim() !== '')) rows.push(row); row = []; }
+      else f += c;
+    }
+    row.push(f); if (row.some((x) => x.trim() !== '')) rows.push(row);
+    return rows;
+  }
+  function toIsoDate(v) {
+    v = String(v || '').trim(); if (!v) return '';
+    let m = /^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(v);
+    if (!m) { const t = /^(\d{1,2})[\/\-. ](\d{1,2})[\/\-. ](\d{2,4})$/.exec(v); if (t) m = [0, t[3].length === 2 ? '20' + t[3] : t[3], t[2], t[1]]; } // day-first (Indian format)
+    if (m) { const d = new Date(+m[1], +m[2] - 1, +m[3]); return d.getMonth() === +m[2] - 1 ? isoOf(d) : ''; }
+    const d = new Date(v); return isNaN(d) ? '' : isoOf(d);
+  }
+  const CSV_MAP = {
+    name: ['name', 'guest', 'guest name', 'full name'], email: ['email', 'guest email'], phone: ['phone', 'whatsapp', 'mobile'],
+    package: ['package', 'tour', 'tour package'], date: ['start date', 'tour date', 'date', 'start', 'from', 'arrival'],
+    end: ['end date', 'end', 'to', 'departure', 'checkout'], days: ['days', 'no of days', 'duration'], nights: ['nights'],
+    status: ['status'], source: ['source', 'lead source'], total: ['total', 'amount', 'quoted total', 'price'], paid: ['paid', 'received', 'advance', 'amount received'],
+    guide: ['guide'], notes: ['notes', 'itinerary', 'remarks']
+  };
+  function importCsv(file) {
+    if (!file) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      try {
+        const rows = parseCsv(String(rd.result));
+        if (rows.length < 2) throw new Error('No data rows found');
+        const head = rows[0].map((h) => h.trim().toLowerCase());
+        const idx = {}; Object.keys(CSV_MAP).forEach((k) => { idx[k] = head.findIndex((h) => CSV_MAP[k].indexOf(h) >= 0); });
+        if (idx.name < 0 || idx.date < 0) throw new Error('CSV needs at least "Name" and "Start Date" columns');
+        const g = (r, k) => (idx[k] >= 0 ? String(r[idx[k]] || '').trim() : '');
+        const today = isoToday(); const out = []; const bad = []; let dup = 0;
+        const key = (b) => (b.name + '|' + b.date + '|' + (b.package || '')).toLowerCase();
+        const have = new Set(DB.bookings.map(key));
+        rows.slice(1).forEach((r, n) => {
+          const name = g(r, 'name'), date = toIsoDate(g(r, 'date'));
+          if (!name || !date) { bad.push(n + 2); return; }
+          let end = toIsoDate(g(r, 'end'));
+          if (!end) { const span = num(g(r, 'days')) || (num(g(r, 'nights')) ? num(g(r, 'nights')) + 1 : 0); if (span > 1) { const d = parseDate(date); d.setDate(d.getDate() + span - 1); end = isoOf(d); } }
+          const st = STATUSES.find((x) => x.toLowerCase() === g(r, 'status').toLowerCase()) || (date < today ? 'Completed' : 'Pending');
+          const paid = num(g(r, 'paid').replace(/,/g, '')); let total = num(g(r, 'total').replace(/,/g, '')); if (!total && paid) total = paid;
+          const b = normBooking({
+            id: uid(), submitted: parseDate(date).toISOString(), name, email: g(r, 'email'), phone: g(r, 'phone'), package: g(r, 'package') || 'Custom Tour',
+            date, endDate: end, status: st, source: g(r, 'source') || 'Other', total, guide: g(r, 'guide'), itinerary: g(r, 'notes'),
+            payments: paid ? [{ id: uid(), date, amount: paid, method: 'Old record', note: 'Imported' }] : []
+          });
+          if (have.has(key(b))) { dup++; return; }
+          have.add(key(b)); out.push(b);
+        });
+        if (!out.length) throw new Error(`Nothing to import (${dup} duplicates, ${bad.length} invalid rows)`);
+        if (!confirm(`Import ${out.length} booking(s)?${dup ? `\n${dup} duplicate(s) will be skipped.` : ''}${bad.length ? `\n${bad.length} row(s) without a name/valid date will be skipped (rows: ${bad.slice(0, 8).join(', ')}${bad.length > 8 ? '…' : ''}).` : ''}`)) return;
+        Store.saveMany('bookings', out);
+        toast(`${out.length} old booking(s) imported`);
+      } catch (err) { toast('Import failed: ' + err.message, true); }
+    };
+    rd.readAsText(file);
+    $('importCsvInput').value = '';
+  }
+  function csvTemplate() {
+    const t = 'Name,Email,Phone,Package,Start Date,End Date,Status,Source,Total,Paid,Guide,Notes\r\n' +
+      'Rahul Sharma,rahul@example.com,9876543210,Multi-Day Birding Package,2025-12-10,2025-12-13,Completed,Website,24000,24000,Biju,Seen Frogmouth\r\n' +
+      'Anna Smith,,,Full-Day Thattekad Birding Tour,15/01/2026,,Completed,WhatsApp,6500,6500,,Dates can be dd/mm/yyyy\r\n';
+    download('thattekad-import-template.csv', 'text/csv;charset=utf-8', t);
   }
   function backup() {
     const data = {}; COLS.forEach((c) => (data[c] = DB[c]));
@@ -1551,7 +1682,7 @@ tr:hover td{background:var(--soft)}
 
     // CRM
     $('manualForm').addEventListener('submit', addManualBooking);
-    $('mDate').min = isoToday();
+    $('mOld').addEventListener('change', () => { $('mEmailStar').textContent = $('mOld').checked ? '' : '*'; if ($('mOld').checked && !$('mDate').value) $('mDate').focus(); });
     $('crmBody').addEventListener('click', onCrmClick);
     $('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value.trim(); page = 1; renderCrm(); });
     $('statusFilter').addEventListener('change', (e) => { statusFilter = e.target.value; page = 1; renderCrm(); });
@@ -1575,7 +1706,7 @@ tr:hover td{background:var(--soft)}
     $('itinPdf').addEventListener('click', () => { const b = getBooking(itinId); if (b) itineraryPdf(b); });
 
     $('eSave').addEventListener('click', saveManage);
-    ['eDate', 'eGuide', 'eBoat', 'eVehicle'].forEach((id) => $(id).addEventListener('change', updateClashBox));
+    ['eDate', 'eEnd', 'eGuide', 'eBoat', 'eVehicle'].forEach((id) => $(id).addEventListener('change', updateClashBox));
     $('eInvoice').addEventListener('click', () => { if (manageId) openInvoiceFor(manageId); });
     $('payForm').addEventListener('submit', addPayment);
     $('payList').addEventListener('click', (e) => { const d = e.target.closest('[data-pay-del]'); if (d) removePayment(d.getAttribute('data-pay-del')); });
@@ -1592,7 +1723,7 @@ tr:hover td{background:var(--soft)}
     $('calToday').addEventListener('click', () => { const n = new Date(); calY = n.getFullYear(); calM = n.getMonth(); renderCalendar(); });
     $('calGrid').addEventListener('click', onCalClick);
     $('dayList').addEventListener('click', (e) => { const m = e.target.closest('[data-day-manage]'); if (m) { const id = m.getAttribute('data-day-manage'); closeAllModals(); openManage(id); } });
-    $('dayAdd').addEventListener('click', () => { closeAllModals(); switchTab('tabCrm'); $('mDate').value = dayDate >= isoToday() ? dayDate : isoToday(); $('mName').focus(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    $('dayAdd').addEventListener('click', () => { closeAllModals(); switchTab('tabCrm'); $('mDate').value = dayDate; $('mOld').checked = dayDate < isoToday(); $('mEmailStar').textContent = $('mOld').checked ? '' : '*'; $('mName').focus(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
     // Invoices
     $('invGuest').addEventListener('change', onGuestSelect);
@@ -1619,6 +1750,9 @@ tr:hover td{background:var(--soft)}
     $('backupBtn').addEventListener('click', backup);
     $('restoreBtn').addEventListener('click', () => $('restoreInput').click());
     $('restoreInput').addEventListener('change', (e) => restore(e.target.files[0]));
+    $('importCsvBtn').addEventListener('click', () => $('importCsvInput').click());
+    $('importCsvInput').addEventListener('change', (e) => importCsv(e.target.files[0]));
+    $('csvTemplateBtn').addEventListener('click', csvTemplate);
 
     // Live sync for local mode + session expiry + follow-up recompute
     window.addEventListener('storage', () => { if (appActive && Store.pollLocal()) onChange(); });
