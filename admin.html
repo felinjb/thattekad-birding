@@ -117,7 +117,23 @@ tr:hover td{background:var(--soft)}
 .fu{background:#fff3cd;color:#7a5d00;font-size:.68rem;font-weight:700;border-radius:10px;padding:1px 8px;margin-top:3px;display:inline-block}
 .badge{border:none;padding:6px 13px;border-radius:20px;font-size:.76rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:transform .1s}
 .badge:hover{transform:scale(1.06)}
-.badge.pending{background:#fff3cd;color:#8a6d00}
+.badge.pending,.badge.enquiry{background:#fff3cd;color:#8a6d00}
+.badge.quote-sent{background:#ffe8cc;color:#9a5b00}
+.badge.awaiting-payment{background:#ffd9d2;color:#a1361f}
+.badge.lost{background:#e5e7eb;color:#555}
+select.st-sel{appearance:none;-webkit-appearance:none;border:none;cursor:pointer;padding:6px 12px;border-radius:20px;font-size:.76rem;font-weight:700;font-family:inherit;width:auto;min-width:0}
+select.st-sel.confirmed{background:#d1e7dd;color:#0f5132}
+select.st-sel.completed{background:#cfe2ff;color:#0a3d91}
+select.st-sel.enquiry{background:#fff3cd;color:#8a6d00}
+select.st-sel.quote-sent{background:#ffe8cc;color:#9a5b00}
+select.st-sel.awaiting-payment{background:#ffd9d2;color:#a1361f}
+select.st-sel.lost{background:#e5e7eb;color:#555}
+.cal-cell.blocked{background-image:repeating-linear-gradient(45deg,transparent 0 6px,rgba(200,60,60,.16) 6px 12px)}
+.cal-block{font-size:.62rem;color:var(--danger);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profit-box{background:var(--soft);border-radius:8px;padding:9px 12px;font-size:.88rem;margin:4px 0 8px}
+.profit-box b.neg{color:var(--danger)}
+.wk-tag{font-size:.68rem;font-weight:700;border-radius:10px;padding:1px 8px;background:var(--green-3);color:var(--ink);margin-left:6px}
+.wk-tag.red{background:#ffd9d2;color:#a1361f}
 .badge.confirmed{background:#d1e7dd;color:#0f5132}
 .badge.completed{background:#cfe2ff;color:#0a3d91}
 .actions{display:flex;gap:5px;flex-wrap:wrap}
@@ -141,7 +157,9 @@ tr:hover td{background:var(--soft)}
 .cal-cell.clash{border-color:var(--danger)}
 .cal-cell .dn{font-size:.76rem;font-weight:700;color:var(--ink);display:flex;justify-content:space-between}
 .cal-chip{display:block;width:100%;position:relative;z-index:1;min-height:19px;text-align:left;border:none;border-radius:5px;font-size:.68rem;padding:2px 5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
-.cal-chip.pending{background:#fff3cd;color:#8a6d00}
+.cal-chip.pending,.cal-chip.enquiry{background:#fff3cd;color:#8a6d00}
+.cal-chip.quote-sent{background:#ffe8cc;color:#9a5b00}
+.cal-chip.awaiting-payment{background:#ffd9d2;color:#a1361f}
 .cal-chip.confirmed{background:#d1e7dd;color:#0f5132}
 .cal-chip.completed{background:#cfe2ff;color:#0a3d91}
 .cal-chip.spacer{visibility:hidden;pointer-events:none}
@@ -269,7 +287,7 @@ tr:hover td{background:var(--soft)}
   <main>
     <div class="stats">
       <div class="stat"><div class="ico"><i class="fa-solid fa-envelope-open-text"></i></div><div><div class="num" id="statTotal">0</div><div class="lbl">Total Enquiries</div></div></div>
-      <div class="stat"><div class="ico"><i class="fa-solid fa-hourglass-half"></i></div><div><div class="num" id="statPending">0</div><div class="lbl">Pending Bookings</div></div></div>
+      <div class="stat"><div class="ico"><i class="fa-solid fa-hourglass-half"></i></div><div><div class="num" id="statPending">0</div><div class="lbl">Open Enquiries</div></div></div>
       <div class="stat"><div class="ico"><i class="fa-solid fa-circle-check"></i></div><div><div class="num" id="statDone">0</div><div class="lbl">Confirmed / Completed</div></div></div>
       <div class="stat"><div class="ico"><i class="fa-solid fa-bell"></i></div><div><div class="num" id="statFollow">0</div><div class="lbl">Follow-ups Due</div></div></div>
       <div class="stat"><div class="ico"><i class="fa-solid fa-indian-rupee-sign"></i></div><div><div class="num" id="statRevenue">₹0</div><div class="lbl">Payments Received</div></div></div>
@@ -277,6 +295,7 @@ tr:hover td{background:var(--soft)}
 
     <nav class="tabs" role="tablist">
       <button class="tab-btn active" type="button" data-tab="tabCrm"><i class="fa-solid fa-address-book"></i> CRM &amp; Bookings</button>
+      <button class="tab-btn" type="button" data-tab="tabWeek"><i class="fa-solid fa-list-check"></i> This Week</button>
       <button class="tab-btn" type="button" data-tab="tabCal"><i class="fa-solid fa-calendar-days"></i> Calendar</button>
       <button class="tab-btn" type="button" data-tab="tabInvoice"><i class="fa-solid fa-file-invoice"></i> Invoices</button>
       <button class="tab-btn" type="button" data-tab="tabSightings"><i class="fa-solid fa-feather"></i> Sightings <span class="pill" id="sightPill">0</span></button>
@@ -298,6 +317,8 @@ tr:hover td{background:var(--soft)}
             <div class="field"><label for="mEnd">End Date (multi-day tours)</label><input id="mEnd" type="date"></div>
             <div class="field"><label for="mSource">Lead Source</label><select id="mSource"></select></div>
             <div class="field"><label for="mTotal">Quoted Total (₹, optional)</label><input id="mTotal" type="number" min="0" step="0.01"></div>
+            <div class="field"><label for="mPax">Number of guests</label><input id="mPax" type="number" min="1" step="1"></div>
+            <div class="field"><label for="mCountry">Guest country / city</label><input id="mCountry" placeholder="e.g. UK, Bengaluru"></div>
             <div class="field"><label for="mPaid">Amount already received (₹)</label><input id="mPaid" type="number" min="0" step="0.01"></div>
             <div class="field"><label>&nbsp;</label><label class="old-box"><input id="mOld" type="checkbox"> Old / past booking (mark Completed)</label></div>
             <div class="field span-2"><label for="mNotes">Custom Itinerary &amp; Notes</label><textarea id="mNotes" placeholder="Day-by-day schedule, timings, target species…"></textarea></div>
@@ -319,7 +340,7 @@ tr:hover td{background:var(--soft)}
           <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" type="search" placeholder="Search name, email or package…"></div>
           <div class="group">
             <select id="statusFilter" aria-label="Filter by status">
-              <option value="all">All statuses</option><option>Pending</option><option>Confirmed</option><option>Completed</option><option value="followup">Needs follow-up</option>
+              <option value="all">All statuses</option><option>Enquiry</option><option>Quote Sent</option><option>Awaiting Payment</option><option>Confirmed</option><option>Completed</option><option>Lost</option><option value="followup">Needs follow-up</option><option value="overdue">Payment overdue</option>
             </select>
             <select id="sortSelect" aria-label="Sort">
               <option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="tour">Tour date</option><option value="name">Guest name</option>
@@ -337,6 +358,18 @@ tr:hover td{background:var(--soft)}
       </div>
     </section>
 
+    <!-- TAB: THIS WEEK -->
+    <section id="tabWeek" class="tab-panel">
+      <div class="two-col">
+        <div class="card"><h2><i class="fa-solid fa-person-hiking"></i> Tours: today &amp; next 7 days</h2><div class="list" id="wkTours"></div></div>
+        <div class="card"><h2><i class="fa-solid fa-indian-rupee-sign"></i> Payments to chase</h2><div class="list" id="wkPay"></div></div>
+      </div>
+      <div class="two-col">
+        <div class="card"><h2><i class="fa-solid fa-bell"></i> Enquiries needing follow-up</h2><div class="list" id="wkFollow"></div></div>
+        <div class="card"><h2><i class="fa-solid fa-user-check"></i> Guides: next 14 days</h2><div class="list" id="wkGuides"></div></div>
+      </div>
+    </section>
+
     <!-- TAB: CALENDAR -->
     <section id="tabCal" class="tab-panel">
       <div class="card">
@@ -351,7 +384,18 @@ tr:hover td{background:var(--soft)}
         </div>
         <div class="cal-week"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
         <div class="cal-grid" id="calGrid"></div>
-        <div class="legend"><span style="--c:#f1c40f">Pending</span><span style="--c:#2e9e6a">Confirmed</span><span style="--c:#3d7be0">Completed</span><span style="--c:var(--danger)">Resource clash</span></div>
+        <div class="legend"><span style="--c:#f1c40f">Enquiry / Quote</span><span style="--c:#e8734a">Awaiting payment</span><span style="--c:#2e9e6a">Confirmed</span><span style="--c:#3d7be0">Completed</span><span style="--c:var(--danger)">Clash / blocked</span></div>
+      </div>
+      <div class="card">
+        <h2><i class="fa-solid fa-ban"></i> Blocked dates</h2>
+        <p class="info">Mark days you can't take guests (fully booked, monsoon closure, guide unavailable). Shown hatched on the calendar and flagged if a booking overlaps.</p>
+        <form id="blockForm" class="grid-4" novalidate>
+          <div class="field"><label for="bkStart">From *</label><input id="bkStart" type="date" required></div>
+          <div class="field"><label for="bkEnd">To (optional)</label><input id="bkEnd" type="date"></div>
+          <div class="field"><label for="bkReason">Reason</label><input id="bkReason" placeholder="e.g. Fully booked"></div>
+          <div><button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-plus"></i> Block dates</button></div>
+        </form>
+        <div class="list" id="blockList"></div>
       </div>
     </section>
 
@@ -440,6 +484,8 @@ tr:hover td{background:var(--soft)}
           <form id="resForm" class="grid-2" novalidate>
             <div class="field"><label for="resName">Name</label><input id="resName" placeholder="e.g. Rajan (guide)" required></div>
             <div class="field"><label for="resType">Type</label><select id="resType"><option value="guide">Guide</option><option value="boat">Boat</option><option value="vehicle">Vehicle</option></select></div>
+            <div class="field"><label for="resPhone">Phone / WhatsApp</label><input id="resPhone" type="tel" placeholder="optional"></div>
+            <div class="field"><label for="resRate">Rate per day (₹)</label><input id="resRate" type="number" min="0" step="1" placeholder="optional"></div>
             <div class="span-2" style="margin-bottom:12px"><button class="btn btn-primary btn-sm" type="submit"><i class="fa-solid fa-plus"></i> Add</button></div>
           </form>
           <div class="list" id="resList"></div>
@@ -498,7 +544,22 @@ tr:hover td{background:var(--soft)}
       <div class="field"><label for="eGuide">Guide</label><select id="eGuide"></select></div>
       <div class="field"><label for="eBoat">Boat</label><select id="eBoat"></select></div>
       <div class="field"><label for="eVehicle">Vehicle</label><select id="eVehicle"></select></div>
+      <div class="field"><label for="eStatus">Stage</label><select id="eStatus"></select></div>
+      <div class="field"><label for="eDue">Pay full advance by</label><input id="eDue" type="date"></div>
+      <div class="field"><label for="ePax">Guests</label><input id="ePax" type="number" min="1" step="1"></div>
+      <div class="field"><label for="eCountry">Guest country / city</label><input id="eCountry"></div>
+      <div class="field"><label for="eTarget">Target species / interests</label><input id="eTarget" placeholder="e.g. Frogmouth, Malabar Trogon"></div>
+      <div class="field"><label for="eStay">Accommodation (homestay)</label><input id="eStay" placeholder="Name of stay"></div>
+      <div class="field"><label>&nbsp;</label><label class="old-box"><input id="eStayOk" type="checkbox"> Stay confirmed with host</label></div>
     </div>
+    <div class="sec-title">Costs &amp; profit (private)</div>
+    <div class="grid-4">
+      <div class="field"><label for="eCostGuide">Guide cost (₹)</label><input id="eCostGuide" type="number" min="0" step="0.01"></div>
+      <div class="field"><label for="eCostStay">Stay cost (₹)</label><input id="eCostStay" type="number" min="0" step="0.01"></div>
+      <div class="field"><label for="eCostVehicle">Vehicle / boat (₹)</label><input id="eCostVehicle" type="number" min="0" step="0.01"></div>
+      <div class="field"><label for="eCostOther">Permits / other (₹)</label><input id="eCostOther" type="number" min="0" step="0.01"></div>
+    </div>
+    <div class="profit-box" id="profitBox"></div>
     <div id="eClash" class="warn hidden"></div>
     <div class="btns" style="margin-top:6px">
       <button class="btn btn-outline btn-sm" id="eInvoice" type="button"><i class="fa-solid fa-file-invoice"></i> Create invoice</button>
@@ -577,11 +638,16 @@ tr:hover td{background:var(--soft)}
       appId: '1:275449434614:web:4ff14045e5b1c8e5c8f7d7'
     },
     PACKAGES: [
-      'Half-Day Birding Walk (Morning)',
-      'Full-Day Thattekad Birding Tour',
+      'Thattekad Intensive Multiday Birding Tour (3N/4D)',
+      'Thattekad & Munnar Birding Expedition (4N/5D)',
+      'Early Morning Birding Tour',
+      'Full-Day Guided Sanctuary Trail',
+      'Night Birding (Frogmouths, Owls & Nightjars)',
+      'Target Species Birding Tour',
       'Bird Photography Tour',
-      'Boat Safari + Birding',
-      'Multi-Day Birding Package',
+      'Monsoon Herping Expedition',
+      'Village & Culture Walk with Light Birding',
+      'Spice Plantation Birding Walk',
       'Custom Tour'
     ],
     SOURCES: ['Website', 'WhatsApp', 'Phone call', 'Walk-in', 'Instagram', 'Facebook', 'Referral', 'Other'],
@@ -595,13 +661,21 @@ tr:hover td{background:var(--soft)}
       'Account Name: Thattekad Birding\nBank: <Your Bank Name>\nAccount No: <XXXXXXXXXXXX>\nIFSC: <XXXXXXXXXXX>\nUPI: <yourid@bank>\nPlease quote the invoice number as payment reference.'
   };
 
-  const STATUSES = ['Pending', 'Confirmed', 'Completed'];
-  const COLS = ['bookings', 'sightings', 'invoices', 'templates', 'resources'];
-  const KEYS = { bookings: 'tb_bookings', sightings: 'tb_sightings', invoices: 'tb_invoices', templates: 'tb_templates', resources: 'tb_resources' };
+  const STATUSES = ['Enquiry', 'Quote Sent', 'Awaiting Payment', 'Confirmed', 'Completed', 'Lost'];
+  const sc = (st) => String(st || '').toLowerCase().replace(/\s+/g, '-');
+  function normStatus(v) {
+    const t = String(v || '').trim().toLowerCase();
+    const m = STATUSES.find((x) => x.toLowerCase() === t); if (m) return m;
+    return (t === 'cancelled' || t === 'canceled') ? 'Lost' : 'Enquiry';   // legacy "Pending" -> Enquiry
+  }
+  const isOpen = (b) => b.status === 'Enquiry' || b.status === 'Quote Sent' || b.status === 'Awaiting Payment';
+  const isBooked = (b) => b.status === 'Confirmed' || b.status === 'Completed';
+  const COLS = ['bookings', 'sightings', 'invoices', 'templates', 'resources', 'blocks'];
+  const KEYS = { bookings: 'tb_bookings', sightings: 'tb_sightings', invoices: 'tb_invoices', templates: 'tb_templates', resources: 'tb_resources', blocks: 'tb_blocks' };
   const ALIASES = {
     bookings: ['bookings', 'thattekad_bookings', 'tb_enquiries', 'enquiries'],
     sightings: ['sightings', 'thattekad_sightings', 'communitySightings'],
-    invoices: [], templates: [], resources: []
+    invoices: [], templates: [], resources: [], blocks: []
   };
   const KEY_AUTH = 'tb_admin_auth', KEY_LOCK = 'tb_admin_lock', KEY_THEME = 'tb_theme', KEY_SEEDED = 'tb_seeded';
 
@@ -672,7 +746,6 @@ tr:hover td{background:var(--soft)}
     return fmtDate(b.date) + ' – ' + fmtDate(endOf(b));
   }
   function normBooking(r) {
-    const st = String(pick(r, ['status', 'Status']) || 'Pending');
     return {
       id: r.id || uid(),
       submitted: tsIso(pick(r, ['submitted', 'submittedAt', 'createdAt', 'timestamp', 'date_submitted', 'created'])) || new Date().toISOString(),
@@ -683,7 +756,9 @@ tr:hover td{background:var(--soft)}
       date: pick(r, ['date', 'tourDate', 'tour_date', 'preferredDate']),
       endDate: normEnd(pick(r, ['date', 'tourDate', 'tour_date', 'preferredDate']), pick(r, ['endDate', 'end_date', 'tourEndDate', 'toDate'])),
       itinerary: pick(r, ['itinerary', 'customItinerary', 'message', 'details']) || (typeof r.notes === 'string' ? r.notes : ''),
-      status: STATUSES.find((s) => s.toLowerCase() === st.toLowerCase()) || 'Pending',
+      status: normStatus(pick(r, ['status', 'Status'])),
+      dueDate: r.dueDate || '', pax: r.pax || '', country: r.country || '', target: r.target || '', stay: r.stay || '', stayOk: !!r.stayOk,
+      costGuide: num(r.costGuide), costStay: num(r.costStay), costVehicle: num(r.costVehicle), costOther: num(r.costOther),
       invoiceNo: r.invoiceNo || '',
       source: r.source || r.leadSource || 'Website',
       total: num(r.total),
@@ -708,10 +783,10 @@ tr:hover td{background:var(--soft)}
     };
   }
   const normPass = (r) => Object.assign({}, r, { id: r.id || uid() });
-  const NORM = { bookings: normBooking, sightings: normSighting, invoices: normPass, templates: normPass, resources: normPass };
+  const NORM = { bookings: normBooking, sightings: normSighting, invoices: normPass, templates: normPass, resources: normPass, blocks: normPass };
 
   /* ---------------- store (local + Firestore) ---------------- */
-  const DB = { bookings: [], sightings: [], invoices: [], templates: [], resources: [] };
+  const DB = { bookings: [], sightings: [], invoices: [], templates: [], resources: [], blocks: [] };
   let onChange = function () {};
 
   const Store = {
@@ -728,7 +803,7 @@ tr:hover td{background:var(--soft)}
           if (!r || typeof r !== 'object') return;
           if (!r.id || i > 0) dirty = true;
           const n = NORM[col](r);
-          const sig = n.id + '|' + (n.email || n.species || n.name || '') + '|' + (n.submitted || '');
+          const sig = n.id + '|' + (n.email || n.species || n.name || n.start || '') + '|' + (n.submitted || '');
           if (seen.has(sig)) return;
           seen.add(sig); out.push(n);
         });
@@ -819,18 +894,26 @@ tr:hover td{background:var(--soft)}
   const getBooking = (id) => DB.bookings.find((b) => b.id === id);
   const paidOf = (b) => b.payments.reduce((s, p) => s + num(p.amount), 0);
   const balanceOf = (b) => Math.max(num(b.total) - paidOf(b), 0);
+  const addDays = (iso, n) => { const d = parseDate(iso); d.setDate(d.getDate() + n); return isoOf(d); };
+  const costOf = (b) => num(b.costGuide) + num(b.costStay) + num(b.costVehicle) + num(b.costOther);
+  const profitOf = (b) => num(b.total) - costOf(b);
+  function isOverdue(b) {
+    return (b.status === 'Quote Sent' || b.status === 'Awaiting Payment') && !!b.dueDate && b.dueDate < isoToday() && b.total > 0 && balanceOf(b) > 0;
+  }
+  const blockOverlap = (d) => DB.blocks.filter((k) => d.date && k.start <= endOf(d) && (k.end || k.start) >= d.date);
   function needsFollowUp(b) {
-    if (b.status !== 'Pending') return false;
+    if (b.status !== 'Enquiry' && b.status !== 'Quote Sent') return false;
     const ref = new Date(b.lastContact || b.submitted);
     return !isNaN(ref) && Date.now() - ref.getTime() > CONFIG.FOLLOWUP_HOURS * 3600e3;
   }
   function clashesFor(d) {
-    if (!d.date) return [];
+    if (!d.date || d.status === 'Lost') return [];
     const out = [];
     [['guide', 'Guide'], ['boat', 'Boat'], ['vehicle', 'Vehicle']].forEach(([k, label]) => {
       if (!d[k]) return;
-      DB.bookings.forEach((o) => { if (o.id !== d.id && overlaps(d, o) && o[k] === d[k]) out.push(`${label} "${d[k]}" is also assigned to ${o.name || 'another guest'}`); });
+      DB.bookings.forEach((o) => { if (o.id !== d.id && o.status !== 'Lost' && overlaps(d, o) && o[k] === d[k]) out.push(`${label} "${d[k]}" is also assigned to ${o.name || 'another guest'} on overlapping dates`); });
     });
+    if (d.status !== 'Completed') blockOverlap(d).forEach((k) => out.push(`These dates overlap a blocked period${k.reason ? ' (' + k.reason + ')' : ''}`));
     return out;
   }
   const resOptions = (type) => DB.resources.filter((r) => r.type === type).map((r) => r.name);
@@ -903,7 +986,7 @@ tr:hover td{background:var(--soft)}
     if (!appActive) return;
     populateSelects();
     renderStats(); renderCrm(); renderCalendar(); renderInvoiceGuests(); renderInvoiceHistory();
-    renderSightings(); renderAnalytics(); renderSettingsLists();
+    renderSightings(); renderAnalytics(); renderSettingsLists(); renderBlocks(); renderWeek();
   }
 
   function fillSelect(el, options, blank, keep) {
@@ -926,20 +1009,21 @@ tr:hover td{background:var(--soft)}
   function renderStats() {
     const b = DB.bookings;
     $('statTotal').textContent = b.length;
-    $('statPending').textContent = b.filter((x) => x.status === 'Pending').length;
-    $('statDone').textContent = b.filter((x) => x.status !== 'Pending').length;
-    const fu = b.filter(needsFollowUp).length;
+    $('statPending').textContent = b.filter(isOpen).length;
+    $('statDone').textContent = b.filter(isBooked).length;
+    const fu = b.filter((x) => needsFollowUp(x) || isOverdue(x)).length;
     $('statFollow').textContent = fu;
     $('statRevenue').textContent = money0(b.reduce((s, x) => s + paidOf(x), 0));
     const bn = $('followBanner');
     bn.classList.toggle('hidden', !fu);
-    bn.innerHTML = fu ? `<span><i class="fa-solid fa-bell"></i> ${fu} enquir${fu === 1 ? 'y has' : 'ies have'} been pending for over ${CONFIG.FOLLOWUP_HOURS} hours.</span><button class="btn btn-gold btn-sm" type="button" id="showFollowBtn">Show them</button>` : '';
+    bn.innerHTML = fu ? `<span><i class="fa-solid fa-bell"></i> ${fu} booking${fu === 1 ? ' needs' : 's need'} attention: enquiries waiting over ${CONFIG.FOLLOWUP_HOURS} hours or payments past their pay-by date.</span><button class="btn btn-gold btn-sm" type="button" id="showFollowBtn">Show them</button>` : '';
   }
 
   function crmList() {
     const q = searchTerm.toLowerCase();
     let l = DB.bookings.filter((b) => !q || (b.name + ' ' + b.email + ' ' + b.package).toLowerCase().includes(q));
-    if (statusFilter === 'followup') l = l.filter(needsFollowUp);
+    if (statusFilter === 'followup') l = l.filter((b) => needsFollowUp(b) || isOverdue(b));
+    else if (statusFilter === 'overdue') l = l.filter(isOverdue);
     else if (statusFilter !== 'all') l = l.filter((b) => b.status === statusFilter);
     const t = (x) => new Date(x).getTime() || 0;
     if (sortMode === 'oldest') l.sort((a, b) => t(a.submitted) - t(b.submitted));
@@ -972,9 +1056,11 @@ tr:hover td{background:var(--soft)}
     $('crmBody').innerHTML = list.map((b) => {
       const clash = clashesFor(b);
       const paid = paidOf(b), bal = balanceOf(b);
-      const pay = b.total > 0
+      const dueTxt = b.dueDate && isOpen(b) && balanceOf(b) > 0 ? `<br><span class="${isOverdue(b) ? 'bal' : ''}">Pay by ${fd(b.dueDate)}${isOverdue(b) ? ' (overdue)' : ''}</span>` : '';
+      let pay = b.total > 0
         ? `<div class="pay-cell">${money0(paid)} / ${money0(b.total)}<br>${bal > 0 ? `<span class="bal">Due ${money0(bal)}</span>` : '<span class="ok">Paid in full</span>'}</div>`
         : (paid > 0 ? `<div class="pay-cell">${money0(paid)} received</div>` : '<div class="pay-cell">—</div>');
+      if (dueTxt) pay = pay.replace(/<\/div>$/, dueTxt + '</div>');
       return `<tr data-id="${esc(b.id)}">
         <td data-label="Submitted">${fd(b.submitted)}</td>
         <td data-label="Guest"><div><div class="guest-name">${esc(b.name) || '—'}</div><div class="guest-email">${esc(b.email)}</div>${b.phone ? `<div class="guest-email">${esc(b.phone)}</div>` : ''}${needsFollowUp(b) ? '<span class="fu"><i class="fa-solid fa-bell"></i> Follow up</span>' : ''}</div></td>
@@ -982,7 +1068,7 @@ tr:hover td{background:var(--soft)}
         <td data-label="Tour Dates"><div>${esc(fmtRange(b))}${dayCount(b) > 1 ? `<span class="dur">${dayCount(b)} days</span>` : ''}${clash.length ? `<div class="warn" title="${esc(clash.join('; '))}"><i class="fa-solid fa-triangle-exclamation"></i> Clash</div>` : ''}</div></td>
         <td data-label="Itinerary"><div class="itin ${b.itinerary ? '' : 'empty'}">${b.itinerary ? esc(b.itinerary) : 'No itinerary yet'}</div></td>
         <td data-label="Payment">${pay}</td>
-        <td data-label="Status"><div><button type="button" class="badge ${b.status.toLowerCase()}" data-act="status" title="Click to change status"><i class="fa-solid fa-rotate"></i> ${esc(b.status)}</button></div></td>
+        <td data-label="Status"><div><select class="st-sel ${sc(b.status)}" data-act="setstatus" aria-label="Booking stage">${STATUSES.map((x) => `<option${x === b.status ? ' selected' : ''}>${x}</option>`).join('')}</select>${b.pax ? `<span class="dur">${esc(b.pax)} guest${num(b.pax) === 1 ? '' : 's'}${b.country ? ' · ' + esc(b.country) : ''}</span>` : ''}</div></td>
         <td data-label="Actions"><div class="actions">
           <button type="button" class="icon-btn" data-act="manage" title="Manage: details, payments, notes"><i class="fa-solid fa-folder-open"></i></button>
           <button type="button" class="icon-btn" data-act="itin" title="Edit custom itinerary"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -1006,17 +1092,21 @@ tr:hover td{background:var(--soft)}
     const tr = btn.closest('tr'); if (!tr) return;
     const id = tr.getAttribute('data-id'); const b = getBooking(id); if (!b) return;
     const act = btn.getAttribute('data-act');
-    if (act === 'status') {
-      const c = JSON.parse(JSON.stringify(b));
-      c.status = STATUSES[(STATUSES.indexOf(b.status) + 1) % STATUSES.length];
-      addNote(c, `Status changed: ${b.status} → ${c.status}`);
-      Store.save('bookings', c); toast(`${b.name || 'Booking'} → ${c.status}`);
-    } else if (act === 'manage') openManage(id);
+    if (act === 'setstatus') return;
+    else if (act === 'manage') openManage(id);
     else if (act === 'itin') openItin(id);
     else if (act === 'msg') openMsg(id);
     else if (act === 'wa') touchContact(id, 'Contacted via WhatsApp');
     else if (act === 'mail') touchContact(id, 'Contacted via email');
     else if (act === 'del') deleteBooking(id);
+  }
+  function setStatus(id, status) {
+    const b = getBooking(id); if (!b || b.status === status) return;
+    if (status === 'Confirmed' && b.total > 0 && balanceOf(b) > 0 && !confirm(`Full advance not received yet (balance ${money(balanceOf(b))}).\nConfirm this booking anyway?`)) { renderCrm(); return; }
+    const c = JSON.parse(JSON.stringify(b)); c.status = status;
+    if (status === 'Awaiting Payment' && !c.dueDate) c.dueDate = addDays(isoToday(), 3);
+    addNote(c, `Stage changed: ${b.status} → ${status}`);
+    Store.save('bookings', c); toast(`${b.name || 'Booking'} → ${status}`);
   }
   function deleteBooking(id) {
     const b = getBooking(id); if (!b) return;
@@ -1042,7 +1132,7 @@ tr:hover td{background:var(--soft)}
     let total = num($('mTotal').value); if (!total && paid) total = paid;
     const b = normBooking({
       id: uid(), submitted: old ? (parseDate(date).toISOString()) : new Date().toISOString(), name, email, phone, package: pkg, date, endDate: end,
-      itinerary: $('mNotes').value.trim(), status: old ? 'Completed' : 'Pending', source: $('mSource').value || 'Other', total,
+      itinerary: $('mNotes').value.trim(), status: old ? 'Completed' : 'Enquiry', pax: $('mPax').value, country: $('mCountry').value.trim(), source: $('mSource').value || 'Other', total,
       payments: paid ? [{ id: uid(), date: old ? date : isoToday(), amount: paid, method: old ? 'Old record' : 'Cash', note: '' }] : []
     });
     if (clashesFor(b).length) toast('Saved, but a guide/boat/vehicle clash exists', true);
@@ -1101,16 +1191,32 @@ tr:hover td{background:var(--soft)}
     $('eDate').value = b.date || ''; $('eEnd').value = b.endDate || '';
     fillSelect($('eSource'), CONFIG.SOURCES, null, b.source || 'Website');
     $('eTotal').value = b.total || '';
+    $('eStatus').innerHTML = STATUSES.map((x) => `<option>${x}</option>`).join(''); $('eStatus').value = b.status;
+    $('eDue').value = b.dueDate || ''; $('ePax').value = b.pax || ''; $('eCountry').value = b.country || ''; $('eTarget').value = b.target || ''; $('eStay').value = b.stay || ''; $('eStayOk').checked = !!b.stayOk;
+    $('eCostGuide').value = b.costGuide || ''; $('eCostStay').value = b.costStay || ''; $('eCostVehicle').value = b.costVehicle || ''; $('eCostOther').value = b.costOther || '';
     fillResSelect($('eGuide'), 'guide', b.guide); fillResSelect($('eBoat'), 'boat', b.boat); fillResSelect($('eVehicle'), 'vehicle', b.vehicle);
     $('pDate').value = isoToday(); $('pAmount').value = ''; $('pNote').value = ''; $('noteText').value = '';
-    updateClashBox(); renderManageLists();
+    updateClashBox(); updateProfit(); renderManageLists();
     openModal('manageModal');
   }
   function updateClashBox() {
-    const msgs = clashesFor({ id: manageId, date: $('eDate').value, endDate: $('eEnd').value, guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
+    const msgs = clashesFor({ id: manageId, status: $('eStatus').value, date: $('eDate').value, endDate: $('eEnd').value, guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
     const el = $('eClash');
     el.classList.toggle('hidden', !msgs.length);
-    el.innerHTML = msgs.map((m) => `<span><i class="fa-solid fa-triangle-exclamation"></i> ${esc(m)} on these dates</span>`).join('<br>');
+    el.innerHTML = msgs.map((m) => `<span><i class="fa-solid fa-triangle-exclamation"></i> ${esc(m)}</span>`).join('<br>');
+  }
+  function updateProfit() {
+    const total = num($('eTotal').value), cost = num($('eCostGuide').value) + num($('eCostStay').value) + num($('eCostVehicle').value) + num($('eCostOther').value);
+    const pr = total - cost;
+    $('profitBox').innerHTML = `Quote ${money(total)} − Costs ${money(cost)} = <b class="${pr < 0 ? 'neg' : ''}">${pr < 0 ? 'Loss ' : 'Profit '}${money(Math.abs(pr))}</b>${total > 0 ? ` (${Math.round((pr / total) * 100)}% margin)` : ''}`;
+  }
+  function onGuestPick() {
+    const r = DB.resources.find((x) => x.type === 'guide' && x.name === $('eGuide').value);
+    if (r && num(r.rate) && !num($('eCostGuide').value)) {
+      const s = parseDate($('eDate').value), e = parseDate($('eEnd').value || $('eDate').value);
+      const days = s && e ? Math.max(Math.round((e - s) / 864e5) + 1, 1) : 1;
+      $('eCostGuide').value = num(r.rate) * days; updateProfit();
+    }
   }
   function renderManageLists() {
     const b = getBooking(manageId); if (!b) return;
@@ -1126,8 +1232,12 @@ tr:hover td{background:var(--soft)}
     if (email && !validEmail(email)) return toast('Enter a valid email address', true);
     if (!validPhone(phone)) return toast('Enter a valid phone number', true);
     if ($('eEnd').value && $('eEnd').value < $('eDate').value) return toast('End date cannot be before the start date', true);
+    const newStatus = $('eStatus').value;
+    if (newStatus !== b.status && newStatus === 'Confirmed' && num($('eTotal').value) > 0 && paidOf(b) < num($('eTotal').value) && !confirm('Full advance is not recorded yet. Confirm this booking anyway?')) return;
     const c = JSON.parse(JSON.stringify(b));
-    Object.assign(c, { name, email, phone, package: $('ePackage').value, date: $('eDate').value, endDate: normEnd($('eDate').value, $('eEnd').value), source: $('eSource').value, total: num($('eTotal').value), guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
+    if (newStatus !== b.status) addNote(c, `Stage changed: ${b.status} → ${newStatus}`);
+    Object.assign(c, { status: newStatus, dueDate: $('eDue').value, pax: $('ePax').value, country: $('eCountry').value.trim(), target: $('eTarget').value.trim(), stay: $('eStay').value.trim(), stayOk: $('eStayOk').checked,
+      costGuide: num($('eCostGuide').value), costStay: num($('eCostStay').value), costVehicle: num($('eCostVehicle').value), costOther: num($('eCostOther').value), name, email, phone, package: $('ePackage').value, date: $('eDate').value, endDate: normEnd($('eDate').value, $('eEnd').value), source: $('eSource').value, total: num($('eTotal').value), guide: $('eGuide').value, boat: $('eBoat').value, vehicle: $('eVehicle').value });
     Store.save('bookings', c); toast('Details saved'); $('manageTitle').textContent = name;
   }
   function addPayment(e) {
@@ -1199,7 +1309,7 @@ tr:hover td{background:var(--soft)}
     }
     const gStart = isoOf(cells[0]), gEnd = isoOf(cells[cells.length - 1]);
     // assign each visible booking to a lane so multi-day bars line up across days
-    const vis = DB.bookings.filter((b) => b.date && b.date <= gEnd && endOf(b) >= gStart)
+    const vis = DB.bookings.filter((b) => b.status !== 'Lost' && b.date && b.date <= gEnd && endOf(b) >= gStart)
       .sort((a, b) => a.date.localeCompare(b.date) || endOf(b).localeCompare(endOf(a)) || String(a.name).localeCompare(String(b.name)));
     const laneEnd = [], lane = {};
     vis.forEach((b) => {
@@ -1213,7 +1323,8 @@ tr:hover td{background:var(--soft)}
       const iso = isoOf(d);
       const items = vis.filter((b) => b.date <= iso && endOf(b) >= iso);
       const clash = items.some((b) => clashesFor(b).length);
-      const cls = ['cal-cell', d.getMonth() !== calM ? 'out' : '', iso === today ? 'today' : '', clash ? 'clash' : ''].join(' ');
+      const blk = DB.blocks.find((k) => k.start <= iso && (k.end || k.start) >= iso);
+      const cls = ['cal-cell', d.getMonth() !== calM ? 'out' : '', iso === today ? 'today' : '', clash ? 'clash' : '', blk ? 'blocked' : ''].join(' ');
       let chips = '';
       for (let l = 0; l < LANES; l++) {
         const b = items.find((x) => lane[x.id] === l);
@@ -1223,10 +1334,10 @@ tr:hover td{background:var(--soft)}
         const contR = multi && iso < e && d.getDay() !== 6;
         const showName = !contL || i === 0;
         const label = (showName ? (b.name || 'Guest') : ' ') + (showName && multi && iso === b.date ? ' · ' + dayCount(b) + 'd' : '');
-        chips += `<button type="button" class="cal-chip ${b.status.toLowerCase()} ${multi ? 'multi' : ''} ${contL ? 'cont-l' : ''} ${contR ? 'cont-r' : ''}" data-id="${esc(b.id)}" title="${esc((b.name || '') + ' · ' + (b.package || '') + ' · ' + fmtRange(b))}">${esc(label)}</button>`;
+        chips += `<button type="button" class="cal-chip ${sc(b.status)} ${multi ? 'multi' : ''} ${contL ? 'cont-l' : ''} ${contR ? 'cont-r' : ''}" data-id="${esc(b.id)}" title="${esc((b.name || '') + ' · ' + (b.package || '') + ' · ' + fmtRange(b))}">${esc(label)}</button>`;
       }
       const hidden = items.filter((b) => lane[b.id] >= LANES).length;
-      html += `<div class="${cls}" data-date="${iso}"><div class="dn"><span>${d.getDate()}</span>${clash ? '<span class="warn"><i class="fa-solid fa-triangle-exclamation"></i></span>' : ''}</div>` + chips +
+      html += `<div class="${cls}" data-date="${iso}"><div class="dn"><span>${d.getDate()}</span>${clash ? '<span class="warn"><i class="fa-solid fa-triangle-exclamation"></i></span>' : ''}</div>${blk ? `<div class="cal-block" title="${esc(blk.reason || 'Blocked')}">⛔ ${esc(blk.reason || 'Blocked')}</div>` : ''}` + chips +
         (hidden ? `<div class="cal-more">+${hidden} more</div>` : '') + '</div>';
     });
     $('calGrid').innerHTML = html;
@@ -1239,13 +1350,51 @@ tr:hover td{background:var(--soft)}
   function openDay(iso) {
     dayDate = iso;
     $('dayTitle').textContent = fmtDate(iso);
-    const items = DB.bookings.filter((b) => b.date && b.date <= iso && endOf(b) >= iso);
+    const items = DB.bookings.filter((b) => b.status !== 'Lost' && b.date && b.date <= iso && endOf(b) >= iso);
     $('dayList').innerHTML = items.length ? items.map((b) => {
       const cl = clashesFor(b);
       const rng = dayCount(b) > 1 ? ` · ${esc(fmtRange(b))} (${dayCount(b)} days)` : '';
-      return `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong> <span class="badge ${b.status.toLowerCase()}" style="padding:2px 9px;cursor:default">${esc(b.status)}</span><div class="sub">${esc(b.package)}${rng}${b.guide ? ' · Guide: ' + esc(b.guide) : ''}${b.boat ? ' · Boat: ' + esc(b.boat) : ''}${b.vehicle ? ' · ' + esc(b.vehicle) : ''}</div>${cl.length ? `<div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(cl.join('; '))}</div>` : ''}</div><button class="btn btn-outline btn-sm" type="button" data-day-manage="${esc(b.id)}">Manage</button></div>`;
+      return `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong> <span class="badge ${sc(b.status)}" style="padding:2px 9px;cursor:default">${esc(b.status)}</span><div class="sub">${esc(b.package)}${rng}${b.guide ? ' · Guide: ' + esc(b.guide) : ''}${b.boat ? ' · Boat: ' + esc(b.boat) : ''}${b.vehicle ? ' · ' + esc(b.vehicle) : ''}</div>${cl.length ? `<div class="warn"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(cl.join('; '))}</div>` : ''}</div><button class="btn btn-outline btn-sm" type="button" data-day-manage="${esc(b.id)}">Manage</button></div>`;
     }).join('') : '<div class="info">No tours scheduled.</div>';
     openModal('dayModal');
+  }
+
+  /* ---------------- this week ---------------- */
+  function renderWeek() {
+    const today = isoToday(), in7 = addDays(today, 7), in14 = addDays(today, 14);
+    const mg = (b) => `<button class="btn btn-outline btn-sm" type="button" data-week-manage="${esc(b.id)}">Manage</button>`;
+    const empty = (t) => `<div class="info">${t}</div>`;
+    // tours
+    const tours = DB.bookings.filter((b) => (b.status === 'Confirmed' || b.status === 'Awaiting Payment') && b.date && b.date <= in7 && endOf(b) >= today)
+      .sort((a, b) => a.date.localeCompare(b.date));
+    $('wkTours').innerHTML = tours.length ? tours.map((b) => {
+      const when = b.date <= today ? (endOf(b) === today && b.date < today ? 'Last day today' : 'In progress / today') : 'Starts ' + fmtDate(b.date);
+      const flags = [];
+      if (b.status === 'Awaiting Payment') flags.push('<span class="wk-tag red">Not paid yet</span>');
+      else if (balanceOf(b) > 0 && b.total > 0) flags.push(`<span class="wk-tag red">Balance ${money0(balanceOf(b))}</span>`);
+      if (!b.guide) flags.push('<span class="wk-tag red">No guide</span>');
+      if (!b.stay) flags.push('<span class="wk-tag">Stay not set</span>'); else if (!b.stayOk) flags.push('<span class="wk-tag red">Stay not confirmed</span>');
+      return `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong>${b.pax ? ` <span class="sub">(${esc(b.pax)} guests)</span>` : ''}<div class="sub">${esc(when)} · ${esc(fmtRange(b))} · ${esc(b.package)}${b.guide ? ' · Guide: ' + esc(b.guide) : ''}</div><div>${flags.join('')}</div></div>${mg(b)}</div>`;
+    }).join('') : empty('No tours in the next 7 days.');
+    // payments
+    const tpl = DB.templates.find((t) => t.id === 'tpl-msg-advance');
+    const pay = DB.bookings.filter((b) => b.total > 0 && balanceOf(b) > 0 && (
+      ((b.status === 'Quote Sent' || b.status === 'Awaiting Payment') && b.dueDate && b.dueDate <= addDays(today, 3)) ||
+      (b.status === 'Confirmed' && b.date && b.date <= in14 && endOf(b) >= today))).sort((a, b) => (a.dueDate || a.date).localeCompare(b.dueDate || b.date));
+    $('wkPay').innerHTML = pay.length ? pay.map((b) => {
+      const txt = tpl ? fillTpl(tpl.body, b) : defaultWa(b);
+      const od = isOverdue(b);
+      return `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong> <span class="wk-tag ${od ? 'red' : ''}">${money0(balanceOf(b))} due</span><div class="sub">${b.dueDate ? 'Pay by ' + esc(fmtDate(b.dueDate)) + (od ? ' (overdue)' : '') + ' · ' : ''}Tour ${esc(fmtRange(b))}</div></div><div class="actions">${b.phone ? `<a class="icon-btn wa" href="${esc(waLink(b, txt))}" target="_blank" rel="noopener" title="WhatsApp reminder"><i class="fa-brands fa-whatsapp"></i></a>` : ''}${mg(b)}</div></div>`;
+    }).join('') : empty('Nothing to chase right now.');
+    // follow ups
+    const fu = DB.bookings.filter(needsFollowUp);
+    $('wkFollow').innerHTML = fu.length ? fu.map((b) => `<div class="list-item"><div><strong>${esc(b.name || 'Guest')}</strong> <span class="badge ${sc(b.status)}" style="padding:2px 9px;cursor:default">${esc(b.status)}</span><div class="sub">${esc(b.package)} · ${esc(fmtRange(b))}</div></div><div class="actions">${b.phone ? `<a class="icon-btn wa" href="${esc(waLink(b, defaultWa(b)))}" target="_blank" rel="noopener" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>` : ''}${mg(b)}</div></div>`).join('') : empty('All enquiries are up to date.');
+    // guides
+    const guides = DB.resources.filter((r) => r.type === 'guide');
+    $('wkGuides').innerHTML = guides.length ? guides.map((g) => {
+      const bk = DB.bookings.filter((b) => b.guide === g.name && b.status !== 'Lost' && b.date && b.date <= in14 && endOf(b) >= today).sort((a, b) => a.date.localeCompare(b.date));
+      return `<div class="list-item"><div><strong>${esc(g.name)}</strong> ${bk.length ? '' : '<span class="wk-tag">Free</span>'}<div class="sub">${bk.length ? bk.map((b) => esc(fmtRange(b)) + ' (' + esc(b.name || 'Guest') + ')').join('<br>') : 'No bookings in the next 14 days'}</div></div>${g.phone ? `<a class="icon-btn" href="tel:${esc(String(g.phone).replace(/[^\d+]/g, ''))}" title="Call"><i class="fa-solid fa-phone"></i></a>` : ''}</div>`;
+    }).join('') : empty('Add guides in Setup &amp; Data to see their availability here.');
   }
 
   /* ---------------- invoices ---------------- */
@@ -1490,12 +1639,12 @@ tr:hover td{background:var(--soft)}
   function countBy(arr, fn) { const m = {}; arr.forEach((x) => { const k = fn(x) || 'Unknown'; m[k] = (m[k] || 0) + 1; }); return Object.keys(m).map((k) => ({ label: k, value: m[k] })).sort((a, b) => b.value - a.value); }
   function renderAnalytics() {
     const b = DB.bookings, total = b.length;
-    const won = b.filter((x) => x.status !== 'Pending').length;
+    const won = b.filter(isBooked).length;
     const received = b.reduce((s, x) => s + paidOf(x), 0);
-    const outstanding = b.filter((x) => x.status !== 'Pending' && x.total > 0).reduce((s, x) => s + balanceOf(x), 0);
+    const outstanding = b.filter((x) => isBooked(x) && x.total > 0).reduce((s, x) => s + balanceOf(x), 0);
     const quoted = b.filter((x) => x.total > 0);
     const avg = quoted.length ? quoted.reduce((s, x) => s + x.total, 0) / quoted.length : 0;
-    const tiles = [['Conversion rate', total ? Math.round((won / total) * 100) + '%' : '—'], ['Payments received', money0(received)], ['Outstanding balances', money0(outstanding)], ['Avg. booking value', avg ? money0(avg) : '—'], ['Upcoming tours', b.filter((x) => x.date >= isoToday() && x.status === 'Confirmed').length]];
+    const tiles = [['Conversion rate', total ? Math.round((won / total) * 100) + '%' : '—'], ['Payments received', money0(received)], ['Outstanding balances', money0(outstanding)], ['Avg. booking value', avg ? money0(avg) : '—'], ['Upcoming tours', b.filter((x) => x.date >= isoToday() && x.status === 'Confirmed').length], ['Est. profit (booked, costs entered)', money0(b.filter((x) => isBooked(x) && costOf(x) > 0).reduce((s, x) => s + profitOf(x), 0))], ['Lost enquiries', b.filter((x) => x.status === 'Lost').length]];
     $('anTiles').innerHTML = tiles.map((t) => `<div class="tile"><div class="v">${esc(t[1])}</div><div class="l">${esc(t[0])}</div></div>`).join('');
     const months = []; const d = new Date();
     for (let i = 5; i >= 0; i--) { const m = new Date(d.getFullYear(), d.getMonth() - i, 1); months.push({ key: m.getFullYear() + '-' + String(m.getMonth() + 1).padStart(2, '0'), label: m.toLocaleDateString('en-IN', { month: 'short', year: '2-digit' }) }); }
@@ -1514,13 +1663,13 @@ tr:hover td{background:var(--soft)}
   }
   function renderSettingsLists() {
     const labels = { guide: 'Guide', boat: 'Boat', vehicle: 'Vehicle' };
-    $('resList').innerHTML = DB.resources.length ? DB.resources.map((r) => `<div class="list-item"><div><span class="tag">${labels[r.type] || esc(r.type)}</span>${esc(r.name)}</div><button class="icon-btn del" type="button" data-res-del="${esc(r.id)}" title="Delete"><i class="fa-solid fa-trash"></i></button></div>`).join('') : '<div class="info">No guides, boats or vehicles yet.</div>';
+    $('resList').innerHTML = DB.resources.length ? DB.resources.map((r) => `<div class="list-item"><div><span class="tag">${labels[r.type] || esc(r.type)}</span>${esc(r.name)}${r.phone ? ` <span class="sub">· ${esc(r.phone)}</span>` : ''}${num(r.rate) ? ` <span class="sub">· ${money0(r.rate)}/day</span>` : ''}</div><button class="icon-btn del" type="button" data-res-del="${esc(r.id)}" title="Delete"><i class="fa-solid fa-trash"></i></button></div>`).join('') : '<div class="info">No guides, boats or vehicles yet.</div>';
     $('tplList').innerHTML = DB.templates.length ? DB.templates.map((t) => `<div class="list-item"><div><span class="tag">${esc(t.type)}</span>${esc(t.name)}</div><div class="actions"><button class="icon-btn" type="button" data-tpl-edit="${esc(t.id)}" title="Edit"><i class="fa-solid fa-pen"></i></button><button class="icon-btn del" type="button" data-tpl-del="${esc(t.id)}" title="Delete"><i class="fa-solid fa-trash"></i></button></div></div>`).join('') : '<div class="info">No templates yet.</div>';
   }
   function addResource(e) {
     e.preventDefault();
     const name = $('resName').value.trim(); if (!name) return toast('Enter a name', true);
-    Store.save('resources', { id: uid(), name, type: $('resType').value }); $('resName').value = ''; toast('Added');
+    Store.save('resources', { id: uid(), name, type: $('resType').value, phone: $('resPhone').value.trim(), rate: num($('resRate').value) }); $('resName').value = ''; $('resPhone').value = ''; $('resRate').value = ''; toast('Added');
   }
   function saveTemplate(e) {
     e.preventDefault();
@@ -1528,6 +1677,18 @@ tr:hover td{background:var(--soft)}
     if (!name || !body) return toast('Name and content are required', true);
     Store.save('templates', { id: $('tplEditId').value || uid(), type: $('tplType').value, name, body });
     resetTplForm(); toast('Template saved');
+  }
+  function renderBlocks() {
+    const l = DB.blocks.slice().sort((a, b) => a.start.localeCompare(b.start));
+    $('blockList').innerHTML = l.length ? l.map((k) => `<div class="list-item"><div><strong>${esc(fmtDate(k.start))}${k.end && k.end !== k.start ? ' – ' + esc(fmtDate(k.end)) : ''}</strong> <span class="sub">${esc(k.reason || 'Blocked')}</span></div><button class="icon-btn del" type="button" data-block-del="${esc(k.id)}" title="Remove"><i class="fa-solid fa-trash"></i></button></div>`).join('') : '<div class="info">No blocked dates.</div>';
+  }
+  function addBlock(e) {
+    e.preventDefault();
+    const start = $('bkStart').value, end = $('bkEnd').value;
+    if (!start) return toast('Choose the first date', true);
+    if (end && end < start) return toast('End date cannot be before the start', true);
+    Store.save('blocks', { id: uid(), start, end: end && end > start ? end : '', reason: $('bkReason').value.trim() });
+    e.target.reset(); toast('Dates blocked');
   }
   function resetTplForm() { $('tplEditId').value = ''; $('tplName').value = ''; $('tplBody').value = ''; $('tplCancel').classList.add('hidden'); }
   function onSettingsClick(e) {
@@ -1547,8 +1708,8 @@ tr:hover td{background:var(--soft)}
   function exportCsv() {
     if (!DB.bookings.length) return toast('No bookings to export', true);
     const cell = (v) => { let s = String(v == null ? '' : v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; };
-    const head = ['Submitted', 'Name', 'Email', 'Phone', 'Package', 'Start Date', 'End Date', 'Status', 'Source', 'Total', 'Paid', 'Balance', 'Guide', 'Boat', 'Vehicle', 'Itinerary'];
-    const rows = DB.bookings.map((b) => [fmtDate(b.submitted), b.name, b.email, b.phone, b.package, b.date, b.endDate || '', b.status, b.source, b.total, paidOf(b), balanceOf(b), b.guide, b.boat, b.vehicle, b.itinerary]);
+    const head = ['Submitted', 'Name', 'Email', 'Phone', 'Package', 'Start Date', 'End Date', 'Status', 'Source', 'Total', 'Paid', 'Balance', 'Guide', 'Boat', 'Vehicle', 'Itinerary', 'Guests', 'Country', 'Pay By', 'Stay', 'Total Costs', 'Profit'];
+    const rows = DB.bookings.map((b) => [fmtDate(b.submitted), b.name, b.email, b.phone, b.package, b.date, b.endDate || '', b.status, b.source, b.total, paidOf(b), balanceOf(b), b.guide, b.boat, b.vehicle, b.itinerary, b.pax, b.country, b.dueDate, b.stay, costOf(b), costOf(b) ? profitOf(b) : '']);
     download(`thattekad-bookings-${isoToday()}.csv`, 'text/csv;charset=utf-8', '\uFEFF' + [head].concat(rows).map((r) => r.map(cell).join(',')).join('\r\n'));
     toast('CSV downloaded');
   }
@@ -1579,7 +1740,7 @@ tr:hover td{background:var(--soft)}
     package: ['package', 'tour', 'tour package'], date: ['start date', 'tour date', 'date', 'start', 'from', 'arrival'],
     end: ['end date', 'end', 'to', 'departure', 'checkout'], days: ['days', 'no of days', 'duration'], nights: ['nights'],
     status: ['status'], source: ['source', 'lead source'], total: ['total', 'amount', 'quoted total', 'price'], paid: ['paid', 'received', 'advance', 'amount received'],
-    guide: ['guide'], notes: ['notes', 'itinerary', 'remarks']
+    guide: ['guide'], pax: ['guests', 'pax', 'group size'], country: ['country'], notes: ['notes', 'itinerary', 'remarks']
   };
   function importCsv(file) {
     if (!file) return;
@@ -1600,11 +1761,11 @@ tr:hover td{background:var(--soft)}
           if (!name || !date) { bad.push(n + 2); return; }
           let end = toIsoDate(g(r, 'end'));
           if (!end) { const span = num(g(r, 'days')) || (num(g(r, 'nights')) ? num(g(r, 'nights')) + 1 : 0); if (span > 1) { const d = parseDate(date); d.setDate(d.getDate() + span - 1); end = isoOf(d); } }
-          const st = STATUSES.find((x) => x.toLowerCase() === g(r, 'status').toLowerCase()) || (date < today ? 'Completed' : 'Pending');
+          const st = g(r, 'status') ? normStatus(g(r, 'status')) : (date < today ? 'Completed' : 'Enquiry');
           const paid = num(g(r, 'paid').replace(/,/g, '')); let total = num(g(r, 'total').replace(/,/g, '')); if (!total && paid) total = paid;
           const b = normBooking({
             id: uid(), submitted: parseDate(date).toISOString(), name, email: g(r, 'email'), phone: g(r, 'phone'), package: g(r, 'package') || 'Custom Tour',
-            date, endDate: end, status: st, source: g(r, 'source') || 'Other', total, guide: g(r, 'guide'), itinerary: g(r, 'notes'),
+            date, endDate: end, status: st, source: g(r, 'source') || 'Other', total, guide: g(r, 'guide'), pax: g(r, 'pax'), country: g(r, 'country'), itinerary: g(r, 'notes'),
             payments: paid ? [{ id: uid(), date, amount: paid, method: 'Old record', note: 'Imported' }] : []
           });
           if (have.has(key(b))) { dup++; return; }
@@ -1620,9 +1781,9 @@ tr:hover td{background:var(--soft)}
     $('importCsvInput').value = '';
   }
   function csvTemplate() {
-    const t = 'Name,Email,Phone,Package,Start Date,End Date,Status,Source,Total,Paid,Guide,Notes\r\n' +
-      'Rahul Sharma,rahul@example.com,9876543210,Multi-Day Birding Package,2025-12-10,2025-12-13,Completed,Website,24000,24000,Biju,Seen Frogmouth\r\n' +
-      'Anna Smith,,,Full-Day Thattekad Birding Tour,15/01/2026,,Completed,WhatsApp,6500,6500,,Dates can be dd/mm/yyyy\r\n';
+    const t = 'Name,Email,Phone,Package,Start Date,End Date,Status,Source,Total,Paid,Guide,Notes,Guests,Country\r\n' +
+      'Rahul Sharma,rahul@example.com,9876543210,Multi-Day Birding Package,2025-12-10,2025-12-13,Completed,Website,24000,24000,Biju,Seen Frogmouth,2,UK\r\n' +
+      'Anna Smith,,,Full-Day Thattekad Birding Tour,15/01/2026,,Completed,WhatsApp,6500,6500,,Dates can be dd/mm/yyyy,3,Bengaluru\r\n';
     download('thattekad-import-template.csv', 'text/csv;charset=utf-8', t);
   }
   function backup() {
@@ -1691,6 +1852,7 @@ tr:hover td{background:var(--soft)}
     $('manualForm').addEventListener('submit', addManualBooking);
     $('mOld').addEventListener('change', () => { $('mEmailStar').textContent = $('mOld').checked ? '' : '*'; if ($('mOld').checked && !$('mDate').value) $('mDate').focus(); });
     $('crmBody').addEventListener('click', onCrmClick);
+    $('crmBody').addEventListener('change', (e) => { const sel = e.target.closest('[data-act="setstatus"]'); if (sel) setStatus(sel.closest('tr').getAttribute('data-id'), sel.value); });
     $('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value.trim(); page = 1; renderCrm(); });
     $('statusFilter').addEventListener('change', (e) => { statusFilter = e.target.value; page = 1; renderCrm(); });
     $('sortSelect').addEventListener('change', (e) => { sortMode = e.target.value; page = 1; renderCrm(); });
@@ -1713,7 +1875,9 @@ tr:hover td{background:var(--soft)}
     $('itinPdf').addEventListener('click', () => { const b = getBooking(itinId); if (b) itineraryPdf(b); });
 
     $('eSave').addEventListener('click', saveManage);
-    ['eDate', 'eEnd', 'eGuide', 'eBoat', 'eVehicle'].forEach((id) => $(id).addEventListener('change', updateClashBox));
+    ['eDate', 'eEnd', 'eGuide', 'eBoat', 'eVehicle', 'eStatus'].forEach((id) => $(id).addEventListener('change', updateClashBox));
+    $('eGuide').addEventListener('change', onGuestPick);
+    ['eTotal', 'eCostGuide', 'eCostStay', 'eCostVehicle', 'eCostOther'].forEach((id) => $(id).addEventListener('input', updateProfit));
     $('eInvoice').addEventListener('click', () => { if (manageId) openInvoiceFor(manageId); });
     $('payForm').addEventListener('submit', addPayment);
     $('payList').addEventListener('click', (e) => { const d = e.target.closest('[data-pay-del]'); if (d) removePayment(d.getAttribute('data-pay-del')); });
@@ -1750,6 +1914,9 @@ tr:hover td{background:var(--soft)}
 
     // Settings
     $('resForm').addEventListener('submit', addResource);
+    $('blockForm').addEventListener('submit', addBlock);
+    $('blockList').addEventListener('click', (e) => { const d = e.target.closest('[data-block-del]'); if (!d) return; const k = DB.blocks.find((x) => x.id === d.getAttribute('data-block-del')); if (k) { const copy = JSON.parse(JSON.stringify(k)); Store.remove('blocks', k.id); toast('Block removed', false, { label: 'Undo', fn: () => Store.save('blocks', copy) }); } });
+    $('tabWeek').addEventListener('click', (e) => { const m = e.target.closest('[data-week-manage]'); if (m) openManage(m.getAttribute('data-week-manage')); });
     $('tplForm').addEventListener('submit', saveTemplate);
     $('tplCancel').addEventListener('click', resetTplForm);
     $('loadDefaultsBtn').addEventListener('click', () => { DEFAULT_TEMPLATES.forEach((t) => { if (!DB.templates.some((x) => x.id === t.id)) Store.save('templates', t); }); toast('Default templates loaded'); });
