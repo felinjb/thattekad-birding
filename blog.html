@@ -20,8 +20,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap"></noscript>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -104,9 +104,10 @@
         .btn-primary:hover { background-color: #bc8a5f; }
 
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; }
-        .socials { font-size: 1.5rem; margin: 1.5rem 0; }
-        .socials i { margin: 0 10px; color: white; transition: color 0.3s; }
-        .socials a:hover i { color: var(--accent); }
+        
+        .socials { font-size: 1.5rem; margin: 1.5rem 0; display: flex; justify-content: center; gap: 15px; align-items: center; }
+        .socials a { color: white; transition: color 0.3s; text-decoration: none; }
+        .socials a:hover { color: var(--accent); }
 
         .whatsapp-float {
             position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
@@ -247,17 +248,25 @@
                 <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
             </p>
             <div class="socials">
-                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;" aria-label="Message us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#email-modal" style="color: inherit;" aria-label="Send us an email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61595953160474" target="_blank" rel="noopener noreferrer" aria-label="Facebook Page"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/thattekadbirding/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Page"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/918921243251" target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#email-modal" aria-label="Send us an email"><i class="fa-solid fa-envelope"></i></a>
             </div>
+            
+            <!-- Link to legal page -->
+            <p style="margin-top: 25px;">
+                <a href="legal.html" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; border-bottom: 1px dotted rgba(255,255,255,0.4);">Terms, Privacy & Policies</a>
+            </p>
         </div>
-        <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
+        <p class="copyright" style="margin-top: 15px; font-size: 0.85rem;">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
 
     <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
+    <!-- EMAIL MODAL -->
     <div id="email-modal" class="css-modal">
         <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Email Modal Background"></a>
         <div class="modal-inner-box">
@@ -266,15 +275,16 @@
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
             
             <form id="quick-email-form">
-                <input type="text" id="quick-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
-                <input type="email" id="quick-email" placeholder="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
-                <textarea id="quick-message" placeholder="How can we help you?" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
+                <input type="text" id="quick-name" placeholder="Your Name" aria-label="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <input type="email" id="quick-email" placeholder="Your Email Address" aria-label="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
+                <textarea id="quick-message" placeholder="How can we help you?" aria-label="Message" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
                 <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem; padding: 12px; border-radius: 5px; cursor: pointer;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
             </form>
             <div id="quick-form-message" class="hidden" style="text-align: center; margin-top: 1rem;"></div>
         </div>
     </div>
 
+    <!-- POLICIES MODAL -->
     <div id="policies-modal" class="css-modal">
         <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Policies Modal Background"></a>
         <div class="modal-inner-box" style="max-width: 650px; max-height: 85vh; overflow-y: auto;">
