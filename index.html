@@ -60,7 +60,11 @@
             background: rgba(27, 67, 50, 0.98); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             padding: 1rem 5%;
         }
-        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center;}
+        
+        /* FIX: Removed the underline from the logo link */
+        .logo { font-size: 1.8rem; color: var(--white); font-weight: 700; display: flex; align-items: center; text-decoration: none !important;}
+        .logo:hover { text-decoration: none !important; }
+        
         .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; margin: 0;}
         .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent); }
@@ -212,7 +216,7 @@
 
         .css-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 999999; align-items: center; justify-content: center; padding: 20px; }
         .css-modal:target { display: flex; }
-        .modal-inner-box { background: white; max-width: 650px; width: 100%; border-radius: 12px; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .modal-inner-box { background: white; max-width: 600px; width: 100%; border-radius: 12px; padding: 30px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
         .modal-close { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #aaa; text-decoration: none; transition: color 0.3s; z-index: 10; }
         .modal-close:hover { color: #d4a373; }
         
@@ -243,6 +247,15 @@
             .welcome-grid { grid-template-columns: 1fr; gap: 2rem; }
             .hero-buttons { flex-direction: column; width: 100%; }
             
+            form { padding: 1.5rem; width: 100%; box-sizing: border-box; }
+            .input-group { display: block; width: 100%; margin-bottom: 0; }
+            .input-group input, .input-group select, .input-group textarea {
+                width: 100%; max-width: 100%; display: block;
+                margin-bottom: 1rem; box-sizing: border-box;
+                -webkit-appearance: none; appearance: none;
+            }
+            input[type="date"], input[type="text"]#date { min-height: 50px; }
+
             .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 28px; }
         }
         @media (max-width: 600px) {
@@ -269,7 +282,7 @@
             <li><a href="blog.html">Blog</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="checklist.html">Checklist</a></li>
-            <li><a href="book.html" class="nav-btn">Book Now</a></li>
+            <li><a href="book.html" class="nav-btn" style="color: white !important;">Book Now</a></li>
         </ul>
     </nav>
 
@@ -587,9 +600,6 @@
             <p>Ernakulam, Kerala, India</p>
             <p style="margin-top: 10px;">
                 <a href="mailto:info@thattekadbirding.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
-            </p>
-            <p style="margin-top: 8px;">
-                <a href="tel:+918921243251" style="color: rgba(255,255,255,0.85); text-decoration: none;">Call / WhatsApp: +91 89212 43251</a>
             </p>
             <p style="margin-top: 15px;">
                 <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
