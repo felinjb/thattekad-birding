@@ -134,9 +134,9 @@
         .hidden { display: none !important; }
 
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; }
-        .socials { font-size: 1.5rem; margin: 1.5rem 0; }
-        .socials i { margin: 0 10px; color: white;}
-        .socials a:hover i { color: var(--accent); }
+        .socials { font-size: 1.5rem; margin: 1.5rem 0; display: flex; justify-content: center; gap: 15px; align-items: center; }
+        .socials a { color: white; transition: color 0.3s; text-decoration: none; }
+        .socials a:hover { color: var(--accent); }
 
         .whatsapp-float {
             position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
@@ -497,8 +497,6 @@
             </div>
         </div>
 
-        <!-- NEW MODALS FOR MULTIDAY PACKAGES -->
-        
         <div id="modal-9" class="css-modal">
             <a href="#page-top" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Details"></a>
             <div class="modal-inner-box">
@@ -553,27 +551,34 @@
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Ernakulam, Kerala, India</p>
             <p style="margin-top: 10px;">
-                <a href="#email-modal" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
+                <a href="mailto:info@thattekadbirding.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
             </p>
             <p style="margin-top: 15px;">
                 <a href="#policies-modal" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">Know Before You Go (Policies & Gear)</a>
             </p>
+            
             <div class="socials">
-                <a href="https://wa.me/918921243251" target="_blank" style="color: inherit;" aria-label="Message us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#email-modal" style="color: inherit;" aria-label="Send us an email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61595953160474" target="_blank" rel="noopener noreferrer" aria-label="Facebook Page"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/thattekadbirding/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Page"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://wa.me/918921243251" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#email-modal" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
+            
+            <p style="margin-top: 25px;">
+                <a href="legal.html" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; border-bottom: 1px dotted rgba(255,255,255,0.4);">Terms, Privacy, Liability & Policies</a>
+            </p>
         </div>
-        <p class="copyright">&copy; 2026 Thattekad Birding. All rights reserved.</p>
+        <p class="copyright" style="margin-top: 15px; font-size: 0.85rem;">&copy; 2026 Thattekad Birding. All rights reserved.</p>
     </footer>
 
-    <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" aria-label="Chat with us on WhatsApp">
+    <a href="https://wa.me/918921243251" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <div id="email-modal" class="css-modal">
-        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Form Background"></a>
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Email Modal Background"></a>
         <div class="modal-inner-box">
-            <a href="#" class="modal-close" aria-label="Close Form"><i class="fa-solid fa-xmark"></i></a>
+            <a href="#" class="modal-close" aria-label="Close Email Modal"><i class="fa-solid fa-xmark"></i></a>
             <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem;">Have a quick question? Drop us a note and we'll reply to your email shortly.</p>
             
@@ -588,32 +593,53 @@
         </div>
     </div>
 
+    <!-- EXPANDED LEGAL & POLICIES MODAL -->
     <div id="policies-modal" class="css-modal">
-        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Policies Background"></a>
+        <a href="#" style="position: absolute; width: 100%; height: 100%; cursor: default;" aria-label="Close Policies Modal Background"></a>
         <div class="modal-inner-box" style="max-width: 650px; max-height: 85vh; overflow-y: auto;">
-            <a href="#" class="modal-close" aria-label="Close Policies"><i class="fa-solid fa-xmark"></i></a>
-            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 1.5rem;">Know Before You Go</h3>
+            <a href="#" class="modal-close" aria-label="Close Policies Modal"><i class="fa-solid fa-xmark"></i></a>
+            <h3 style="font-family: 'Playfair Display', serif; color: var(--dark); font-size: 1.8rem; margin-bottom: 1.5rem;">Policies & Legal Information</h3>
             
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Cancellation Policy</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Please note that we maintain a strict <strong>No Cancellation Policy</strong> for all confirmed tour bookings due to peak season demand and advance guide allocations.</p>
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Booking, Payment &amp; Cancellation</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Every trip is quoted for your group and confirmed on receipt of <strong>full advance payment</strong>. Because we reserve guides and accommodation well in advance, especially in peak season, <strong>confirmed bookings cannot be cancelled</strong>. Please check your dates and details carefully before you pay.</p>
             
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">What to Wear</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Please wear dull-colored, breathable clothing (greens, browns, greys) to blend into the forest. Bright colors startle the birds. Closed-toe trekking shoes and long trousers are mandatory.</p>
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Liability Waiver &amp; Assumption of Risk</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Wildlife is wild and unpredictable. <strong>We do not guarantee the sighting of any specific species.</strong> Guests accept the inherent physical risks of jungle trekking (uneven terrain, weather hazards, wildlife/leech encounters) and are responsible for their own medical fitness and emergency medications.</p>
             
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Leech Protection</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">During damp months, leeches are a natural part of the ecosystem. We provide organic salt/tobacco powder repellents, but leech socks are highly recommended if you are visiting right after the monsoon.</p>
-            
-            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear & Ethics</h4>
-            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6;">Bring your own binoculars and camera gear. We practice strict ethical birding: no playback calls to stress the birds, and no flash photography for nocturnal species.</p>
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Privacy Policy &amp; Terms</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">We collect your details strictly for tour coordination and invoicing. We do not sell your data. All website content and photography is the intellectual property of Thattekad Birding. By booking, you agree to strict ethical wildlife conduct guidelines.</p>
+
+            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear &amp; Attire</h4>
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Wear dull-colored, breathable clothing and closed-toe trekking shoes. Leech socks are highly recommended post-monsoon. Bring your own binoculars and camera gear. No playback calls or flash photography on nocturnal species.</p>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="legal.html" class="btn btn-outline" style="font-size: 0.95rem; padding: 10px 20px;">Read Full Legal & Policies Page</a>
+            </div>
         </div>
     </div>
-
+    
     <script src="script.js" defer></script>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let trackingLoaded = false;
+            const menuIcon = document.getElementById("menu-icon");
+            const navLinks = document.getElementById("nav-links");
+            
+            if (menuIcon && navLinks) {
+                menuIcon.addEventListener("click", function() {
+                    navLinks.classList.toggle("nav-active");
+                    const icon = menuIcon.querySelector('i');
+                    if (navLinks.classList.contains('nav-active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-xmark');
+                    } else {
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
 
+            let trackingLoaded = false;
             function loadTrackingScripts() {
                 if (trackingLoaded) return;
                 trackingLoaded = true;
@@ -628,22 +654,11 @@
                 gtag('js', new Date());
                 gtag('config', 'G-WXGEJ9RLRT');
                 gtag('config', 'AW-17993783369');
-
-                window._protocol = "https:" == document.location.protocol ? "https://" : "http://";
-                window._site_hash_code = "e67f7ebc5c109baddac8810504c6e449";
-                window._suid = 76336;
-
-                let plerdyScript = document.createElement("script");
-                plerdyScript.setAttribute("defer", "");
-                plerdyScript.dataset.plerdymainscript = "plerdymainscript";
-                plerdyScript.src = "https://a.plerdy.com/public/js/click/main.js?v=" + Math.random();
-                document.head.appendChild(plerdyScript);
             }
 
             ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(event) {
                 window.addEventListener(event, loadTrackingScripts, { once: true, passive: true });
             });
-
             setTimeout(loadTrackingScripts, 4000);
         });
     </script>
