@@ -1,4 +1,7 @@
 User-agent: *
-Allow: /
+Disallow: /admin.html
+Disallow: /legal.html
+Disallow: /404.html
+Disallow: /images/private/
 
 Sitemap: https://thattekadbirding.com/sitemap.xml
