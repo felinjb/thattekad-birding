@@ -698,22 +698,7 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const menuIcon = document.getElementById("menu-icon");
-            const navLinks = document.getElementById("nav-links");
-            
-            if (menuIcon && navLinks) {
-                menuIcon.addEventListener("click", function() {
-                    navLinks.classList.toggle("nav-active");
-                    const icon = menuIcon.querySelector('i');
-                    if (navLinks.classList.contains('nav-active')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    } else {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    }
-                });
-            }
+            // NOTE: Mobile menu toggle is handled by script.js (removed from here to avoid double-toggle bug)
 
             let trackingLoaded = false;
             function loadTrackingScripts() {
