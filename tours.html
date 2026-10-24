@@ -66,6 +66,7 @@
         .nav-links a:hover { color: var(--accent); }
         .nav-btn { background: var(--accent); padding: 8px 20px; border-radius: 30px; font-weight: 600 !important; color: #0b1c15 !important;}
         .menu-icon { display: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
+        .menu-icon i { pointer-events: none; }
 
         .subpage-hero {
             background-size: cover; background-position: center; background-attachment: fixed;
@@ -134,6 +135,8 @@
         .hidden { display: none !important; }
 
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; }
+        /* FIX: Centers the footer logo */
+        footer .logo { justify-content: center; margin-bottom: 15px; }
         .socials { font-size: 1.5rem; margin: 1.5rem 0; display: flex; justify-content: center; gap: 15px; align-items: center; }
         .socials a { color: white; transition: color 0.3s; text-decoration: none; }
         .socials a:hover { color: var(--accent); }
@@ -162,14 +165,15 @@
             .navbar { padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
             .menu-icon { display: flex; align-items: center; justify-content: center; }
             
+            /* FIX: display-based toggle */
             .nav-links {
+                display: none;
                 position: absolute; top: 100%; left: 0; width: 100%;
                 background: rgba(27, 67, 50, 0.98);
                 flex-direction: column; padding: 2rem 0; gap: 1.5rem;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-                opacity: 0; transform: translateY(-20px); pointer-events: none; transition: all 0.3s ease;
             }
-            .nav-links.nav-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+            .nav-links.nav-active { display: flex !important; }
             .nav-links a { font-size: 1.2rem; }
 
             .subpage-hero h1 { font-size: 2.5rem; }
@@ -622,22 +626,7 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const menuIcon = document.getElementById("menu-icon");
-            const navLinks = document.getElementById("nav-links");
-            
-            if (menuIcon && navLinks) {
-                menuIcon.addEventListener("click", function() {
-                    navLinks.classList.toggle("nav-active");
-                    const icon = menuIcon.querySelector('i');
-                    if (navLinks.classList.contains('nav-active')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    } else {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    }
-                });
-            }
+            // NOTE: Mobile menu toggle is handled by script.js (removed from here to avoid double-toggle bug)
 
             let trackingLoaded = false;
             function loadTrackingScripts() {
