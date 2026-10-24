@@ -61,7 +61,6 @@
             padding: 1rem 5%;
         }
         
-        /* FIX: Removed outline and tap highlight so no lines show when clicked */
         .logo { 
             font-size: 1.8rem; color: var(--white); font-weight: 700; 
             display: flex; align-items: center; text-decoration: none !important;
@@ -77,7 +76,22 @@
         .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent); }
         .nav-btn { background: var(--accent); padding: 8px 20px; border-radius: 30px; font-weight: 600 !important; color: #0b1c15 !important; }
-        .menu-icon { display: none; font-size: 1.8rem; color: var(--white); cursor: pointer; }
+        
+        /* FIX: Rebuilt menu icon into a native button for perfect mobile tapping */
+        .menu-icon { 
+            display: none; 
+            background: transparent; 
+            border: none; 
+            font-size: 1.8rem; 
+            color: var(--white); 
+            cursor: pointer; 
+            padding: 5px; 
+            z-index: 1005;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+        /* Prevents the icon inside from stealing the click */
+        .menu-icon i { pointer-events: none; }
 
         .hero, .subpage-hero {
             background-size: cover; background-position: center; background-attachment: fixed;
@@ -151,6 +165,8 @@
         .hidden { display: none !important; }
 
         footer { background: #112a20; color: rgba(255,255,255,0.7); text-align: center; padding: 3rem 5% 1rem; }
+        footer .logo { justify-content: center; margin-bottom: 15px; } 
+        
         .socials { font-size: 1.5rem; margin: 1.5rem 0; display: flex; justify-content: center; gap: 15px; align-items: center; }
         .socials a { color: white; transition: color 0.3s; text-decoration: none; }
         .socials a:hover { color: var(--accent); }
@@ -235,21 +251,23 @@
 
         .blog-preview-section { padding: 5rem 5%; background-color: var(--white); }
 
-        /* FIX: Mobile Menu and Layout Adjustments */
+        /* MOBILE FIXES */
         @media (max-width: 900px) { .tour-carousel-track .tour-card { flex: 0 0 calc(50% - 10px); } }
         @media (max-width: 768px) {
             .navbar { padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
+            
+            /* Displays the menu button correctly */
             .menu-icon { display: flex; align-items: center; justify-content: center; }
             
-            /* FIX: Rebuilt Mobile Menu Toggle - Uses display:none instead of opacity */
             .nav-links {
-                display: none;
+                display: none; /* Changed from opacity: 0 to strict display none */
                 position: absolute; top: 100%; left: 0; width: 100%;
                 background: rgba(27, 67, 50, 0.98);
                 flex-direction: column; padding: 2rem 0; gap: 1.5rem;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             }
             .nav-links.nav-active { display: flex !important; }
+            
             .nav-links a { font-size: 1.2rem; }
 
             .hero-content h1, .subpage-hero h1 { font-size: 2.5rem; }
@@ -277,14 +295,15 @@
 
     </style>
 </head>
-<body>
+<body id="page-top">
     
     <nav class="navbar" id="navbar">
         <a href="index.html" class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</a>
         
-        <div class="menu-icon" id="menu-icon">
+        <!-- Button element fixes tap issues on iOS/Safari -->
+        <button class="menu-icon" id="menu-icon" aria-label="Toggle Menu">
             <i class="fa-solid fa-bars"></i>
-        </div>
+        </button>
 
         <ul class="nav-links" id="nav-links">
             <li><a href="index.html" style="color: var(--accent);">Home</a></li>
@@ -292,7 +311,7 @@
             <li><a href="blog.html">Blog</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="checklist.html">Checklist</a></li>
-            <li><a href="book.html" class="nav-btn" style="color: #0b1c15 !important;">Book Now</a></li>
+            <li><a href="book.html" class="nav-btn" style="color: white !important;">Book Now</a></li>
         </ul>
     </nav>
 
@@ -643,10 +662,9 @@
             <form id="quick-email-form">
                 <input type="text" id="quick-name" placeholder="Your Name" aria-label="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
                 <input type="email" id="quick-email" placeholder="Your Email Address" aria-label="Your Email Address" required style="width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px;">
-                <textarea id="quick-message" placeholder="How can we help you?" aria-label="Message Content" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
-                <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                <textarea id="quick-message" placeholder="How can we help you?" aria-label="Message" required rows="4" style="width: 100%; padding: 12px; margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; font-size: 16px; resize: vertical;"></textarea>
+                <button type="submit" class="btn btn-primary" style="width: 100%; border: none; font-size: 1.1rem; padding: 12px; border-radius: 5px; cursor: pointer;"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
             </form>
-            
             <div id="quick-form-message" class="hidden" style="text-align: center; margin-top: 1rem;"></div>
         </div>
     </div>
