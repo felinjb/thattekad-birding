@@ -51,8 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
         links.forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('nav-active');
-                menuIcon.querySelector('i').classList.remove('fa-xmark');
-                menuIcon.querySelector('i').classList.add('fa-bars');
+                if(menuIcon.querySelector('i')) {
+                    menuIcon.querySelector('i').classList.remove('fa-xmark');
+                    menuIcon.querySelector('i').classList.add('fa-bars');
+                }
             });
         });
     }
@@ -264,4 +266,26 @@ document.addEventListener("DOMContentLoaded", () => {
             revealObserver.observe(el);
         });
     }
+
+    // 9. DYNAMIC COOKIE CONSENT BANNER
+    const cookieConsent = localStorage.getItem('thattekad_cookie_consent');
+    if (!cookieConsent) {
+        const banner = document.createElement('div');
+        banner.id = 'cookie-consent-banner';
+        banner.innerHTML = `
+            <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(27, 67, 50, 0.98); color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 10000; box-shadow: 0 -5px 15px rgba(0,0,0,0.3); backdrop-filter: blur(5px); flex-wrap: wrap; gap: 15px; font-family: 'Poppins', sans-serif;">
+                <p style="margin: 0; font-size: 0.9rem; line-height: 1.5; flex: 1; min-width: 250px;">
+                    We use tracking tools like Google Analytics to understand site usage and improve your experience. By continuing to use our site, you agree to our use of these cookies as outlined in our <a href="legal.html" style="color: #d4a373; text-decoration: underline;">Privacy Policy</a>.
+                </p>
+                <button id="accept-cookies" style="background: #d4a373; color: #0b1c15; border: none; padding: 10px 25px; border-radius: 5px; font-weight: 600; cursor: pointer; transition: 0.3s; white-space: nowrap; font-family: 'Poppins', sans-serif;">Accept & Close</button>
+            </div>
+        `;
+        document.body.appendChild(banner);
+
+        document.getElementById('accept-cookies').addEventListener('click', () => {
+            localStorage.setItem('thattekad_cookie_consent', 'true');
+            banner.style.display = 'none';
+        });
+    }
+
 });
