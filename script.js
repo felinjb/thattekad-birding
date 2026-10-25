@@ -29,10 +29,55 @@ function addHoneypot(form) {
     return hp;
 }
 
+// Report an event, but only if the visitor accepted cookies (consent.js decides; it is a no-op otherwise)
+function track(eventName, params) {
+    if (typeof window.tbTrack === 'function') window.tbTrack(eventName, params);
+}
+
 function fireConversion() {
-    if (typeof gtag === 'function') {
-        gtag('event', 'conversion_event_contact_3');
-    }
+    track('conversion_event_contact_3');
+}
+
+// ---- Where did this visitor come from? (saved once per browser session, first visit wins) ----
+const SOURCE_KEY = 'tb-source';
+
+function describeSource() {
+    const q = new URLSearchParams(window.location.search);
+    const utm = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+        .filter(k => q.get(k)).map(k => `${k.replace('utm_', '')}=${q.get(k)}`);
+    const landing = window.location.pathname.split('/').pop() || 'index.html';
+
+    let ref = '';
+    try {
+        if (document.referrer) {
+            const host = new URL(document.referrer).hostname.replace(/^www\./, '');
+            if (host !== window.location.hostname.replace(/^www\./, '')) ref = host;
+        }
+    } catch (e) { /* bad referrer */ }
+
+    let label;
+    if (q.get('gclid') || /^(cpc|ppc|paid)/i.test(q.get('utm_medium') || '')) label = 'Google Ads / paid';
+    else if (utm.length) label = 'Campaign link';
+    else if (/(google|bing|duckduckgo|yahoo|ecosia|baidu)\./i.test(ref)) label = 'Search (' + ref + ')';
+    else if (/(facebook|instagram|t\.co|twitter|x\.com|youtube|linkedin|pinterest|whatsapp)/i.test(ref)) label = 'Social (' + ref + ')';
+    else if (ref) label = 'Link from ' + ref;
+    else label = 'Direct / unknown';
+
+    return { label: label, details: utm.join(', '), landing: landing };
+}
+
+function getSource() {
+    try {
+        const saved = window.sessionStorage.getItem(SOURCE_KEY);
+        if (saved) return JSON.parse(saved);
+    } catch (e) { /* storage blocked */ }
+    const fresh = describeSource();
+    try { window.sessionStorage.setItem(SOURCE_KEY, JSON.stringify(fresh)); } catch (e) { /* ignore */ }
+    return fresh;
+}
+
+function sourceText(s) {
+    return s.label + (s.details ? ' [' + s.details + ']' : '') + ' -> landed on ' + s.landing;
 }
 
 function sendToWeb3Forms(payload) {
@@ -68,6 +113,26 @@ function toggleDetails(detailsId, btnElement) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    getSource();   // remember how the visitor arrived (first page of the session)
+
+    // Count taps on WhatsApp / email / phone links anywhere on the site (floating button, footer, buttons)
+    document.addEventListener('click', (e) => {
+        const a = e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a) return;
+        const href = a.getAttribute('href') || '';
+        const where = a.classList.contains('whatsapp-float') ? 'floating_button'
+                    : a.closest('footer') ? 'footer'
+                    : 'page';
+        if (href.indexOf('wa.me/') !== -1) {
+            track('whatsapp_click', { link_location: where });
+            fireConversion();
+        } else if (href.indexOf('mailto:') === 0) {
+            track('email_click', { link_location: where });
+        } else if (href.indexOf('tel:') === 0) {
+            track('phone_click', { link_location: where });
+        }
+    });
 
     // 2. Navbar Scroll Effect (also correct on reload part-way down the page)
     const navbar = document.getElementById('navbar');
@@ -181,6 +246,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const messageDiv = document.getElementById('form-message');
 
     if (form && messageDiv) {
+        // Pre-select the tour when arriving from a tour page (book.html?tour=night-birding)
+        const wanted = new URLSearchParams(window.location.search).get('tour');
+        const tourPick = document.getElementById('tour-type');
+        if (wanted && tourPick) {
+            const idx = Array.from(tourPick.options).findIndex(o => o.value === wanted && !o.disabled);
+            if (idx > 0) tourPick.selectedIndex = idx;
+        }
+
+        // No past dates
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            const d = new Date();
+            const pad = (n) => String(n).padStart(2, '0');
+            dateInput.min = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+        }
+
         const honeypot = addHoneypot(form);
         let sending = false;
 
@@ -200,10 +281,16 @@ document.addEventListener("DOMContentLoaded", () => {
             let detailsText = (document.getElementById('additional-details')?.value || '').trim();
             if (!detailsText) detailsText = "None provided.";
 
+            const guests = (document.getElementById('guests')?.value || '').trim();
+            const phone = (document.getElementById('phone')?.value || '').trim();
+            const experience = document.getElementById('experience')?.value || '';
+            const targets = (document.getElementById('target-species')?.value || '').trim();
+            const source = getSource();
+
             if (submitterId === 'btn-whatsapp') {
                 fireConversion();
 
-                const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to send an enquiry for a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n*Additional Details:* ${detailsText}\n\nPlease let me know the availability and pricing.`;
+                const whatsappMessage = `Hello Thattekad Birding!\n\nI would like to send an enquiry for a tour:\n\n*Name:* ${name}\n*Email:* ${email}\n*Date:* ${date}\n*Tour:* ${tourName}\n*Guests:* ${guests || 'Not given'}\n${phone ? `*Phone:* ${phone}\n` : ''}${experience ? `*Experience:* ${experience}\n` : ''}${targets ? `*Target species:* ${targets}\n` : ''}*Additional Details:* ${detailsText}\n\nPlease let me know the availability and pricing.\n\n(Ref: ${source.label})`;
                 window.open(`https://wa.me/918921243251?text=${encodeURIComponent(whatsappMessage)}`, '_blank', 'noopener');
 
                 form.style.display = 'none';
@@ -233,7 +320,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     Email: email,
                     Date: date,
                     Requested_Tour: tourName,
-                    Additional_Details: detailsText
+                    Guests: guests,
+                    Phone: phone || 'Not given',
+                    Birding_Experience: experience || 'Not given',
+                    Target_Species: targets || 'Not given',
+                    Additional_Details: detailsText,
+                    Traffic_Source: sourceText(source)
                 })
                 .then((ok) => {
                     if (ok) {
@@ -297,7 +389,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 replyto: email,
                 Name: name,
                 Email: email,
-                Message: message
+                Message: message,
+                Traffic_Source: sourceText(getSource())
             })
             .then((ok) => {
                 if (!ok) throw new Error('rejected');
