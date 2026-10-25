@@ -155,6 +155,13 @@
         showBanner(true);
     });
 
+    /* ---------- tbTrack(): lets other scripts report events, but only if the visitor accepted ---------- */
+    window.tbTrack = function (eventName, params) {
+        if (getChoice() !== 'granted') return;
+        loadTracking();                       // safe to call repeatedly; defines window.gtag
+        window.gtag('event', eventName, params || {});
+    };
+
     /* ---------- start ---------- */
     function init() {
         var choice = getChoice();
