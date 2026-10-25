@@ -325,6 +325,7 @@
         <div class="footer-content">
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Ernakulam, Kerala, India</p>
+            <p style="margin-top: 8px;"><a href="index.html#getting-here" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">How to reach us</a></p>
             <p style="margin-top: 10px;">
                 <a href="mailto:info@thattekadbirding.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
             </p>
@@ -341,6 +342,8 @@
             
             <p style="margin-top: 25px;">
                 <a href="legal.html" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; border-bottom: 1px dotted rgba(255,255,255,0.4);">Terms, Privacy, Liability & Policies</a>
+                <span style="color: rgba(255,255,255,0.35); margin: 0 8px;">&middot;</span>
+                <a href="#" id="cookie-settings" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; border-bottom: 1px dotted rgba(255,255,255,0.4);">Cookie settings</a>
             </p>
         </div>
         <p class="copyright" style="margin-top: 15px; font-size: 0.85rem;">&copy; 2026 Thattekad Birding. All rights reserved.</p>
@@ -383,6 +386,8 @@
             <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Privacy Policy &amp; Terms</h4>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">We collect your details strictly for tour coordination and invoicing. We do not sell your data. All website content and photography is the intellectual property of Thattekad Birding. By booking, you agree to strict ethical wildlife conduct guidelines.</p>
 
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;"><strong>Cookies &amp; third parties.</strong> Only with your consent, we use Google Analytics and Google Ads (Google) and, on some pages, Plerdy to measure visits and our advertising. Nothing loads until you accept, and you can change your choice at any time using &ldquo;Cookie settings&rdquo; in the footer. Enquiries sent through our forms are delivered via Web3Forms, and WhatsApp enquiries go through WhatsApp (Meta). The map loads from Google Maps only when you click it. To ask what we hold about you, or to have it deleted, email info@thattekadbirding.com.</p>
+
             <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear &amp; Attire</h4>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Wear dull-colored, breathable clothing and closed-toe trekking shoes. Leech socks are highly recommended post-monsoon. Bring your own binoculars and camera gear. No playback calls or flash photography on nocturnal species.</p>
 
@@ -393,33 +398,7 @@
     </div>
     
     <script src="script.js" defer></script>
+    <script src="consent.js" defer></script>
     
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // NOTE: Mobile menu toggle is handled by script.js (removed from here to avoid double-toggle bug)
-
-            let trackingLoaded = false;
-            function loadTrackingScripts() {
-                if (trackingLoaded) return;
-                trackingLoaded = true;
-
-                let gtagScript = document.createElement('script');
-                gtagScript.async = true;
-                gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT";
-                document.head.appendChild(gtagScript);
-                
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-WXGEJ9RLRT');
-                gtag('config', 'AW-17993783369');
-            }
-
-            ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(event) {
-                window.addEventListener(event, loadTrackingScripts, { once: true, passive: true });
-            });
-            setTimeout(loadTrackingScripts, 4000);
-        });
-    </script>
 </body>
 </html>
