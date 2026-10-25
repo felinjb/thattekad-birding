@@ -20,6 +20,46 @@
     <meta property="og:description" content="Expertly guided birding tours in the heart of Kerala's dense evergreen forests. Experience rare endemics and world-class photography.">
     <meta property="og:image" content="https://thattekadbirding.com/images/coverimage.webp">
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "@id": "https://thattekadbirding.com/#business",
+      "name": "Thattekad Birding",
+      "url": "https://thattekadbirding.com/",
+      "description": "Expert-guided birding, herping and wildlife-photography tours in Thattekad (Salim Ali Bird Sanctuary), Kerala, led by local guides.",
+      "image": "https://thattekadbirding.com/images/coverimage.webp",
+      "email": "info@thattekadbirding.com",
+      "telephone": "+918921243251",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ernakulam",
+        "addressRegion": "Kerala",
+        "addressCountry": "IN"
+      },
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "Thattekad (Salim Ali Bird Sanctuary), Kerala"
+        },
+        {
+          "@type": "Place",
+          "name": "Munnar, Kerala"
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": "+918921243251",
+        "email": "info@thattekadbirding.com"
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61595953160474",
+        "https://www.instagram.com/thattekadbirding/"
+      ]
+    }
+    </script>
+
     <link rel="icon" type="image/png" href="favicon.png">
     
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap">
@@ -293,6 +333,72 @@
             .carousel-arrow { display: none; }
         }
 
+
+        /* ===== Through the Year + How to Reach Us ===== */
+        .year-section, .location-section { scroll-margin-top: 80px; }
+
+        .year-section { padding: 5rem 5%; background: var(--white); }
+        .year-container { max-width: 1200px; margin: 0 auto; }
+        .year-intro, .gh-intro { max-width: 720px; margin: 0 auto 2.5rem; text-align: center; color: #555; line-height: 1.8; font-size: 1.05rem; }
+
+        .year-now { max-width: 760px; margin: 0 auto 2.5rem; padding: 1.5rem 1.75rem; border-radius: 12px; background: var(--dark); color: var(--white); border-left: 6px solid var(--accent); }
+        .year-now h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .year-now p { margin: 0 0 1rem; line-height: 1.7; color: rgba(255,255,255,0.9); }
+        .year-now a { color: var(--accent); font-weight: 600; text-decoration: none; }
+        .year-now a:hover { text-decoration: underline; }
+
+        .year-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.25rem; }
+        .year-month { background: var(--light-bg); border: 1px solid #e6e9e7; border-radius: 12px; padding: 1.25rem 1.25rem 1.1rem; position: relative; }
+        .year-month h3 { font-size: 1.2rem; color: var(--dark); margin: 0.6rem 0 0.4rem; }
+        .year-month p { font-size: 0.9rem; color: #555; line-height: 1.6; margin: 0; }
+        .year-month.is-now { background: var(--white); border: 2px solid var(--accent); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .year-month.is-now::after {
+            content: "This month"; position: absolute; top: 1rem; right: 1rem;
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+            color: #0b1c15; background: var(--accent); padding: 3px 9px; border-radius: 20px;
+        }
+        .year-tag { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.02em; }
+        .tag-peak { background: var(--primary); color: #fff; }
+        .tag-shoulder { background: var(--accent); color: #0b1c15; }
+        .tag-hot { background: #a9501e; color: #fff; }
+        .tag-monsoon { background: #2f6f89; color: #fff; }
+
+        .sightings { max-width: 900px; margin: 3.5rem auto 0; }
+        .sightings h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--dark); text-align: center; margin-bottom: 1.25rem; }
+        .sightings ul { list-style: none; display: grid; gap: 0.75rem; }
+        .sightings li { display: flex; gap: 1rem; align-items: baseline; padding: 0.9rem 1.1rem; background: var(--light-bg); border-radius: 10px; border-left: 4px solid var(--primary-light); }
+        .sightings .s-date { flex: 0 0 6.5rem; font-size: 0.8rem; font-weight: 600; color: var(--primary); }
+        .sightings .s-body { flex: 1; font-size: 0.95rem; color: #444; line-height: 1.55; }
+        .sightings .s-body strong { color: var(--dark); }
+
+        .gh-grid { max-width: 1100px; margin: 0 auto 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.25rem; text-align: left; }
+        .gh-card { background: var(--light-bg); border-radius: 12px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .gh-card i { font-size: 1.6rem; color: var(--primary-light); margin-bottom: 0.75rem; display: block; }
+        .gh-card h3 { color: var(--dark); font-size: 1.2rem; margin-bottom: 0.4rem; }
+        .gh-card p { font-size: 0.92rem; color: #555; line-height: 1.65; }
+
+        .location-section .map-container {
+            height: 380px; position: relative;
+            background: linear-gradient(rgba(17, 42, 32, 0.85), rgba(17, 42, 32, 0.9)), url('images/waterviewthattekad.webp') center / cover;
+        }
+        .map-placeholder { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; color: #fff; padding: 1rem; text-align: center; }
+        .map-placeholder i { font-size: 2.5rem; color: var(--accent); }
+        .map-placeholder small { color: rgba(255,255,255,0.7); font-size: 0.8rem; }
+        .map-container iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+        .gh-actions { max-width: 1000px; margin: 1.75rem auto 0; display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; }
+        .gh-actions .btn { display: inline-flex; align-items: center; gap: 0.5rem; }
+        .gh-note { margin-top: 1.25rem; font-size: 0.82rem; color: #777; }
+
+        @media (max-width: 600px) {
+            .year-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+            .year-month { padding: 1rem; }
+            .year-month p { font-size: 0.82rem; }
+            .year-month.is-now::after { position: static; display: inline-block; margin-top: 0.6rem; }
+            .sightings li { flex-direction: column; gap: 0.25rem; }
+            .location-section .map-container { height: 300px; }
+            .gh-actions .btn { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
 <body id="page-top">
@@ -588,6 +694,93 @@
         </section>
         <!-- END LINK -->
 
+        <!-- THROUGH THE YEAR: month-by-month guide (current month is highlighted by JS) + optional sightings log -->
+        <section class="year-section" id="through-the-year">
+            <div class="year-container">
+                <h2 class="section-title reveal" style="text-align: center;">Thattekad Through the Year</h2>
+                <p class="year-intro reveal">What the forest is usually like, month by month. Conditions change from year to year, so message us for the latest before you plan your dates.</p>
+
+                <div class="year-now reveal" id="year-now" hidden></div>
+
+                <div class="year-grid" id="year-grid">
+                    <article class="year-month reveal" data-month="0">
+                        <span class="year-tag tag-peak">Peak season</span>
+                        <h3>January</h3>
+                        <p>Dry trails and comfortable mornings, with winter migrants and resident endemics all in the forest together.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="1">
+                        <span class="year-tag tag-peak">Peak season</span>
+                        <h3>February</h3>
+                        <p>Still dry and pleasant. Clear morning light makes this a favourite month for photographers.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="2">
+                        <span class="year-tag tag-shoulder">Late season</span>
+                        <h3>March</h3>
+                        <p>Good birding early in the month. As the heat builds, winter visitors start to thin out, so start at first light.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="3">
+                        <span class="year-tag tag-hot">Hot and dry</span>
+                        <h3>April</h3>
+                        <p>Activity is concentrated at dawn and dusk and the middle of the day is quiet. Fewer visitors on the trails.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="4">
+                        <span class="year-tag tag-hot">Hot, first storms</span>
+                        <h3>May</h3>
+                        <p>Pre-monsoon heat with the first thunderstorms. Early-morning and night walks work best.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="5">
+                        <span class="year-tag tag-monsoon">Monsoon</span>
+                        <h3>June</h3>
+                        <p>The rains arrive and the forest turns green. Rivers rise, some trails can flood, and the frogs begin to call.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="6">
+                        <span class="year-tag tag-monsoon">Monsoon</span>
+                        <h3>July</h3>
+                        <p>Peak monsoon. Birding is limited, but this is herping season, with frogs, snakes and other night-time life out. Expect leeches.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="7">
+                        <span class="year-tag tag-monsoon">Monsoon</span>
+                        <h3>August</h3>
+                        <p>Rain continues and the forest is at its lushest. Best for our Monsoon Herping Expedition; leeches are active.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="8">
+                        <span class="year-tag tag-monsoon">Monsoon easing</span>
+                        <h3>September</h3>
+                        <p>Showers ease towards the end of the month. The forest is lush and leeches remain on the trails.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="9">
+                        <span class="year-tag tag-shoulder">Season opening</span>
+                        <h3>October</h3>
+                        <p>Trails dry out and the first winter visitors arrive. Showers are still possible, and leeches may linger after the rains.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="10">
+                        <span class="year-tag tag-peak">Peak season</span>
+                        <h3>November</h3>
+                        <p>Peak season begins. Trails are drying, migrants are arriving and the forest is still green.</p>
+                    </article>
+                    <article class="year-month reveal" data-month="11">
+                        <span class="year-tag tag-peak">Peak season</span>
+                        <h3>December</h3>
+                        <p>Cool, dry and full of migrants. Book early for the holiday weeks.</p>
+                    </article>
+                </div>
+
+                <!--
+                    RECENT SIGHTINGS (optional). This block stays hidden until you add entries below.
+                    One entry per line, newest anywhere (the page sorts by date and shows the latest 6):
+                    {"date": "2026-11-02", "species": "Sri Lanka Frogmouth", "note": "Pair on a day roost near the river trail"}
+                    Keep the [ ] and put a comma between entries (no comma after the last one).
+                -->
+                <div class="sightings reveal" id="sightings" hidden>
+                    <h3>Recent Sightings from Our Guides</h3>
+                    <ul></ul>
+                </div>
+                <script type="application/json" id="sightings-data">
+[]
+                </script>
+            </div>
+        </section>
+
         <section class="faq-section">
             <div class="faq-container reveal">
                 <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Frequently Asked Questions</h2>
@@ -621,12 +814,58 @@
                 </div>
             </div>
         </section>
+
+        <!-- HOW TO REACH US -->
+        <section class="location-section" id="getting-here">
+            <h2 class="section-title reveal">How to Reach Us</h2>
+            <p class="gh-intro reveal">We run our tours in Thattekad, the Salim Ali Bird Sanctuary in Ernakulam district, Kerala, about 13&nbsp;km north-east of Kothamangalam town.</p>
+
+            <div class="gh-grid">
+                <div class="gh-card reveal delay-1">
+                    <i class="fa-solid fa-plane-arrival"></i>
+                    <h3>By air</h3>
+                    <p>Cochin International Airport (COK) is the nearest, about 45&nbsp;km away, roughly 1&frac12; hours by road.</p>
+                </div>
+                <div class="gh-card reveal delay-2">
+                    <i class="fa-solid fa-train"></i>
+                    <h3>By train</h3>
+                    <p>Aluva is the nearest railway station, about 48&nbsp;km from Thattekad. Taxis and buses connect onward.</p>
+                </div>
+                <div class="gh-card reveal delay-3">
+                    <i class="fa-solid fa-road"></i>
+                    <h3>By road</h3>
+                    <p>Kochi is about 60&nbsp;km away. Buses run from Ernakulam to Kothamangalam, with local buses and taxis on to Thattekad.</p>
+                </div>
+                <div class="gh-card reveal delay-3">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h3>Meeting point</h3>
+                    <p>We confirm the exact meeting point and start time on WhatsApp once you book. For dawn tours we suggest arriving the evening before.</p>
+                </div>
+            </div>
+
+            <div class="map-container reveal" id="map-holder">
+                <div class="map-placeholder">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <p>See Thattekad on the map</p>
+                    <button type="button" class="btn btn-primary" id="load-map">Load interactive map</button>
+                    <small>Loads Google Maps, which may set cookies.</small>
+                </div>
+            </div>
+
+            <div class="gh-actions reveal">
+                <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&amp;query=Salim+Ali+Bird+Sanctuary+Thattekad" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-route"></i> Open in Google Maps</a>
+                <a class="btn btn-primary" href="https://wa.me/918921243251" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i> Message us on WhatsApp</a>
+                <a class="btn btn-outline" href="mailto:info@thattekadbirding.com"><i class="fa-solid fa-envelope"></i> Email us</a>
+            </div>
+            <p class="gh-note reveal">Distances and times are approximate and vary with traffic and season.</p>
+        </section>
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="logo"><i class="fa-solid fa-leaf"></i> Thattekad Birding</div>
             <p>Ernakulam, Kerala, India</p>
+            <p style="margin-top: 8px;"><a href="index.html#getting-here" style="color: rgba(255,255,255,0.6); text-decoration: underline; font-size: 0.9rem;">How to reach us</a></p>
             <p style="margin-top: 10px;">
                 <a href="mailto:info@thattekadbirding.com" style="color: var(--accent); text-decoration: none; font-weight: 600;">info@thattekadbirding.com</a>
             </p>
@@ -643,6 +882,8 @@
             
             <p style="margin-top: 25px;">
                 <a href="legal.html" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; border-bottom: 1px dotted rgba(255,255,255,0.4);">Terms, Privacy, Liability & Policies</a>
+                <span style="color: rgba(255,255,255,0.35); margin: 0 8px;">&middot;</span>
+                <a href="#" id="cookie-settings" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; border-bottom: 1px dotted rgba(255,255,255,0.4);">Cookie settings</a>
             </p>
         </div>
         <p class="copyright" style="margin-top: 15px; font-size: 0.85rem;">&copy; 2026 Thattekad Birding. All rights reserved.</p>
@@ -685,6 +926,8 @@
             <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Privacy Policy &amp; Terms</h4>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">We collect your details strictly for tour coordination and invoicing. We do not sell your data. All website content and photography is the intellectual property of Thattekad Birding. By booking, you agree to strict ethical wildlife conduct guidelines.</p>
 
+            <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;"><strong>Cookies &amp; third parties.</strong> Only with your consent, we use Google Analytics and Google Ads (Google) and, on some pages, Plerdy to measure visits and our advertising. Nothing loads until you accept, and you can change your choice at any time using &ldquo;Cookie settings&rdquo; in the footer. Enquiries sent through our forms are delivered via Web3Forms, and WhatsApp enquiries go through WhatsApp (Meta). The map loads from Google Maps only when you click it. To ask what we hold about you, or to have it deleted, email info@thattekadbirding.com.</p>
+
             <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif;">Gear &amp; Attire</h4>
             <p style="color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6;">Wear dull-colored, breathable clothing and closed-toe trekking shoes. Leech socks are highly recommended post-monsoon. Bring your own binoculars and camera gear. No playback calls or flash photography on nocturnal species.</p>
 
@@ -695,32 +938,13 @@
     </div>
     
     <script src="script.js" defer></script>
+    <script src="consent.js" defer></script>
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // NOTE: Mobile menu toggle is handled by script.js (removed from here to avoid double-toggle bug)
 
-            let trackingLoaded = false;
-            function loadTrackingScripts() {
-                if (trackingLoaded) return;
-                trackingLoaded = true;
-
-                let gtagScript = document.createElement('script');
-                gtagScript.async = true;
-                gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-WXGEJ9RLRT";
-                document.head.appendChild(gtagScript);
-                
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-WXGEJ9RLRT');
-                gtag('config', 'AW-17993783369');
-            }
-
-            ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(event) {
-                window.addEventListener(event, loadTrackingScripts, { once: true, passive: true });
-            });
-            setTimeout(loadTrackingScripts, 4000);
+            // Analytics / ads tracking is loaded by consent.js, only after the visitor accepts cookies.
             
             // --- TOURS CAROUSEL LOGIC ---
             const tourTrack = document.getElementById("tourTrack");
@@ -840,6 +1064,82 @@
                 });
             }
         });
+    </script>
+
+    <script>
+        (function () {
+            /* --- Through the Year: highlight the current month and echo it in a callout --- */
+            var grid = document.getElementById('year-grid');
+            var callout = document.getElementById('year-now');
+            if (grid && callout) {
+                var card = grid.querySelector('[data-month="' + new Date().getMonth() + '"]');
+                if (card) {
+                    card.classList.add('is-now');
+                    var h = document.createElement('h3');
+                    h.textContent = 'This month in Thattekad: ' + card.querySelector('h3').textContent +
+                                    ' · ' + card.querySelector('.year-tag').textContent;
+                    var p = document.createElement('p');
+                    p.textContent = card.querySelector('p').textContent;
+                    var a = document.createElement('a');
+                    a.href = 'book.html';
+                    a.textContent = 'Check availability →';
+                    callout.appendChild(h);
+                    callout.appendChild(p);
+                    callout.appendChild(a);
+                    callout.hidden = false;
+                }
+            }
+
+            /* --- Recent sightings: renders only when the JSON list has entries --- */
+            var box = document.getElementById('sightings');
+            var dataEl = document.getElementById('sightings-data');
+            if (box && dataEl) {
+                var items = [];
+                try { items = JSON.parse(dataEl.textContent) || []; } catch (e) { items = []; }
+                items = items
+                    .filter(function (s) { return s && s.species && s.date; })
+                    .sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); })
+                    .slice(0, 6);
+                if (items.length) {
+                    var list = box.querySelector('ul');
+                    items.forEach(function (s) {
+                        var li = document.createElement('li');
+                        var d = document.createElement('span');
+                        d.className = 's-date';
+                        var parsed = new Date(s.date + 'T00:00:00');
+                        d.textContent = isNaN(parsed.getTime())
+                            ? s.date
+                            : parsed.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+                        var body = document.createElement('span');
+                        body.className = 's-body';
+                        var st = document.createElement('strong');
+                        st.textContent = s.species;
+                        body.appendChild(st);
+                        if (s.note) body.appendChild(document.createTextNode(' — ' + s.note));
+                        li.appendChild(d);
+                        li.appendChild(body);
+                        list.appendChild(li);
+                    });
+                    box.hidden = false;
+                }
+            }
+
+            /* --- Map: only contact Google after the visitor asks for it --- */
+            var mapBtn = document.getElementById('load-map');
+            var holder = document.getElementById('map-holder');
+            if (mapBtn && holder) {
+                mapBtn.addEventListener('click', function () {
+                    var f = document.createElement('iframe');
+                    f.src = 'https://maps.google.com/maps?q=Salim+Ali+Bird+Sanctuary+Thattekad&z=11&output=embed';
+                    f.title = 'Map of Thattekad (Salim Ali Bird Sanctuary), Kerala';
+                    f.loading = 'lazy';
+                    f.referrerPolicy = 'no-referrer-when-downgrade';
+                    f.allowFullscreen = true;
+                    holder.innerHTML = '';
+                    holder.appendChild(f);
+                });
+            }
+        })();
     </script>
 </body>
 </html>
